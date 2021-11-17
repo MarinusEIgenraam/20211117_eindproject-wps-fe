@@ -1,21 +1,21 @@
 ///////////////////////
-//// Internal
+//// Built-in
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
 ///////////////////////
 //// External
-import PropTypes from 'prop-types';
 
 ///////////////////////
 //// Internal
-import './Inputfield.css';
-import {validateInput} from "src/validator/Validator";
+import './InputField.css';
+import {validateInput} from "../../../validator/Validator";
 
-const Inputfield = ({value, label, placeholder, validators, type, onChange, className}) => {
+const InputField = ({value, label, placeholder, validators, type, onChange, className}) => {
     const [error, setError] = useState(false);
 
     const handleChange = (event) => {
-        const value = event.target;
+        const {value} = event.target;
         setError(validateInput(validators, value));
         onChange(value);
     };
@@ -27,15 +27,16 @@ const Inputfield = ({value, label, placeholder, validators, type, onChange, clas
                 value={value}
                 className={className}
                 placeholder={placeholder}
-                onChange={handleChange}/>
+                onChange={handleChange}
+            />
             {error && <span className="text-danger">{error.message}</span>}
         </>
     )
 };
 
-export default Inputfield;
+export default InputField;
 
-Inputfield.propTypes = {
+InputField.propTypes = {
     value: PropTypes.string,
     label: PropTypes.string,
     placeholder: PropTypes.string,
@@ -45,7 +46,7 @@ Inputfield.propTypes = {
     onChange: PropTypes.func.isRequired,
 };
 
-Inputfield.defaultProps = {
+InputField.defaultProps = {
     value: '',
     label: '',
     placeholder: '',
