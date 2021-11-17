@@ -1,13 +1,30 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,800&family=Press+Start+2P&display=swap');
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --primary: hsl(214, 77%, 65%);
+  --secondary: hsl(214, 100%, 76%);
+  --tertiary: hsl(214, 51%, 41%);
+  --quaternary: hsl(213, 70%, 79%);
+  --quinary: hsl(39, 64%, 38%);
+  --senary: hsl(39, 77%, 65%);
+
+  --warning: hsl(214, 51%, 41%);
+  --succes: hsl(213, 70%, 79%);
+  --danger: hsl(39, 64%, 38%);
+
+  --lighgray: hsl(0, 0%, 69%);
+  --darkgray: hsl(0, 0%, 36%);
+
+  --black: hsl(0, 0%, 14%);
+  --white: hsl(0, 0%, 100%);
+
+  --tittle-font: 'Press Start 2P', cursive;
+  --normal-font: 'Open Sans', sans-serif;
 }
+
