@@ -1,6 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
 
+///////////////////////
+//// Internal
+import RectangleButton from "./components/shared/buttons/RectangleButton";
+
 function App() {
   return (
 <>
@@ -17,6 +21,9 @@ function App() {
 
 
   </header>
+  <RectangleButton buttonSize={'btn--large'} buttonStyle={"btn--special--outline"}>
+    register
+  </RectangleButton>
 </>
   );
 }
