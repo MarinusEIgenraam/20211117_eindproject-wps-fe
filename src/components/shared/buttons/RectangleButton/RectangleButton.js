@@ -4,7 +4,7 @@ import React from 'react';
 
 ///////////////////////
 //// Internal
-import './RectangleButton.css';
+import './RectangleButton.scss';
 
 ///////////////////////
 //// External

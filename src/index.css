@@ -26,5 +26,9 @@
 
   --tittle-font: 'Press Start 2P', cursive;
   --normal-font: 'Open Sans', sans-serif;
+
+  --select-border: var(--lighgray);
+  --select-focus: blue;
+  --select-arrow: var(--select-border);
 }
 
