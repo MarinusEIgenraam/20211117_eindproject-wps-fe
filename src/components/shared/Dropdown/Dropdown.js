@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 ////////////////////
 //// Internal
-import './Dropdown.css'
+import './Dropdown.scss'
 
 ////////////////////
 //// External
@@ -26,7 +26,7 @@ const Dropdown = ({value, data, placeholder, listStyle, onChange}) => {
     };
 
     return (
-        <>
+        <div className='select'>
             <select
                 value={value}
                 className={`drop ${checkListStyle}`}
@@ -39,8 +39,10 @@ const Dropdown = ({value, data, placeholder, listStyle, onChange}) => {
                         {item.label}
                     </option>
                 ))}
+                <span className='focus'></span>
             </select>
-        </>
+
+        </div>
     );
 };
 

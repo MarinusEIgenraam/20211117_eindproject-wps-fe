@@ -1,4 +1,7 @@
 /*Nova spull*/
+body {
+  font-family: var(--normal-font)
+}
 header {
   position: relative;
   width: 100%;

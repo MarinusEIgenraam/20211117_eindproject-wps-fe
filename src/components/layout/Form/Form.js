@@ -40,7 +40,7 @@ export default class Form extends Component {
             </h2>
 
                 <Dropdown onChange={this.handleDropdown} data={[
-                    {value: 'Netherlands', label: 'Netherlands'},
+                    {value: 'Netherlands', label: 'Netherlands', iconClass: 'icon-suitcase'},
                     {value: 'Belgium', label: 'Belgium'},
                     {value: 'India', label: 'India'},
                 ]}
