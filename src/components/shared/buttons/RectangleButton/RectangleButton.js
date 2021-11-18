@@ -1,5 +1,13 @@
+///////////////////////
+//// Built-in
 import React from 'react';
+
+///////////////////////
+//// Internal
 import './RectangleButton.css';
+
+///////////////////////
+//// External
 
 const STYLES = [
     "btn--primary--solid",
