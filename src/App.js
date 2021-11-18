@@ -7,6 +7,7 @@ import React, {useState} from "react";
 import './App.css';
 import RectangleButton from "./components/shared/buttons/RectangleButton/RectangleButton";
 import Form from "./components/layout/Form/Form";
+import Navigation from "./components/layout/nav/Navigation";
 
 function App() {
   const [value, setValue] = useState(``);
@@ -14,6 +15,7 @@ function App() {
 
   return (
       <>
+        <Navigation/>
         <header>
           <h1>
             Fruit perfection

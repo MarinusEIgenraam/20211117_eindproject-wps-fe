@@ -19,12 +19,18 @@ const Dropdown = ({value, data, placeholder, listStyle, onChange}) => {
     const checkListStyle = STYLES.includes(listStyle) ? listStyle : STYLES[0];
 
     const handleChange = (event) => {
-        console.log(event);
+        const {value} = event.target;
+        onChange(value);
+        console.log(value);
+
     };
 
     return (
         <>
-            <select value={value} className={checkListStyle} onChange={handleChange}>
+            <select
+                value={value}
+                className={`drop ${checkListStyle}`}
+                onChange={handleChange}>
                 <option value=''>{placeholder}</option>
                 {data.map((item, key) => (
                     <option

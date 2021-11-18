@@ -8,6 +8,7 @@ import React, {Component} from 'react';
 import './Form.css';
 import InputField from "../../shared/ImputField/InputField";
 import {Validators} from "../../../validator/Validator";
+import Dropdown from "../../shared/Dropdown/Dropdown";
 
 ///////////////////////
 //// External
@@ -18,20 +19,34 @@ export default class Form extends Component {
         userName: '',
         telephone: '',
         email: '',
+        country: '',
     };
 
     handleChange = (key) => (value) => {
         this.setState({[key]: value})
     };
 
+    handleDropdown = (country) => {
+        this.setState({country})
+    };
+
     render() {
-        const {userName, telephone, email} = this.state;
+        const {userName, telephone, email, country} = this.state;
 
         return (
             <>
             <h2>
                 Form with reusable componements
             </h2>
+
+                <Dropdown onChange={this.handleDropdown} data={[
+                    {value: 'Netherlands', label: 'Netherlands'},
+                    {value: 'Belgium', label: 'Belgium'},
+                    {value: 'India', label: 'India'},
+                ]}
+                          value={country}
+
+                          placeholder='Click'/>
 
                 <InputField
                     value={userName}
