@@ -2,6 +2,7 @@ import React from 'react';
 import './Navigation.css';
 
 import { ReactComponent as ShoppingCart } from '../../../assets/images/winkelmandje.svg';
+import Dropdown from "../../shared/Dropdown/Dropdown";
 
 const menuItems = [{
     name: "about",
@@ -15,11 +16,12 @@ const menuItems = [{
 },];
 
 const Navigation = () => {
+
+
+
     return (
         <nav>
-            <ul>
 
-            </ul>
             <ShoppingCart className="shopping-cart-icon"/>
 
         </nav>
