@@ -14,6 +14,13 @@
   --quinary: hsl(39, 64%, 38%);
   --senary: hsl(39, 77%, 65%);
 
+  --pine-tree: hsla(100, 18%, 13%, 1);
+  --blue-sapphire: hsla(195, 67%, 30%, 1);
+  --verdigris: hsla(180, 63%, 42%, 1);
+  --orange-yellow-crayola: hsla(47, 87%, 66%, 1);
+  --sandy-brown: hsla(28, 83%, 61%, 1);
+  /*https://coolors.co/1f271b-19647e-28afb0-f4d35e-ee964b*/
+
   --warning: hsl(214, 51%, 41%);
   --succes: hsl(213, 70%, 79%);
   --danger: hsl(39, 64%, 38%);
