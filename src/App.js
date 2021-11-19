@@ -8,6 +8,7 @@ import './App.css';
 import RectangleButton from "./components/shared/buttons/RectangleButton/RectangleButton";
 import Form from "./components/layout/Form/Form";
 import Navigation from "./components/layout/nav/Navigation";
+import UserTable from "./components/layout/UserTable/UserTable";
 
 function App() {
   const [value, setValue] = useState(``);
@@ -28,6 +29,7 @@ function App() {
           <h1>
             Imput testfield
           </h1>
+            <UserTable/>
 
 
         </header>
