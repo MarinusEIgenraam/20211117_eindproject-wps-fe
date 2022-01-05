@@ -4,7 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useForm } from "react-hook-form"
 import InputField from "../elements/FormElements/InputField";
-import RectangleButton from "../elements/buttons/RectangleButton/RectangleButton";
+import RectangleButton from "../elements/clickables/RectangleButton/RectangleButton";
 
 
 export default function RegisterForm() {
@@ -54,7 +54,7 @@ export default function RegisterForm() {
                 />
                 <RectangleButton
                     buttonStyle="btn--primary--solid"
-                    buttonSize="medium"
+                    buttonSize="btn--medium"
                     type="submit">
                     SIGN UP
                 </RectangleButton>
@@ -67,7 +67,7 @@ export default function RegisterForm() {
 }
 
 const FormWindow = styled.div`
-  background: ${ props => props.theme.background };
+  background: ${ props => props.theme.windowBackground };
   padding: 1rem 3rem;
   display: flex;
   flex-direction: column;

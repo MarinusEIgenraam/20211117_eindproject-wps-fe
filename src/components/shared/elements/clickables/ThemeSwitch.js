@@ -32,12 +32,13 @@ const SwitchWrapper = styled.span`
   position: relative;
 `
 const Switch = styled.button`
+  margin:10px;
   cursor: pointer;
   height: 50px;
   width: 50px;
   border-radius: 50%;
   border: none;
-  background-color: ${props => props.theme.background};
+  background-color: ${props => props.theme.windowBackground};
   color: ${props => props.theme.text};
   &:focus {
     outline: none;
