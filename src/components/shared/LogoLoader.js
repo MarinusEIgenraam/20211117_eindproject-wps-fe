@@ -18,11 +18,9 @@ function LogoLoader() {
 
 
     return (
-        <Container>
-            <Logo data-text="willpowered">
-                willpowered <span>students</span>
-            </Logo>
-        </Container>
+        <Logo data-text="willpowered">
+            willpowered <span>students</span>
+        </Logo>
     )
 }
 
@@ -33,22 +31,13 @@ const type = keyframes`
 
 `
 
-const Container = styled.div`
-  //display: flex;
-  ////position: relative;
-  align-items: center;
-  justify-content: center;
-
-`
-
 const Logo = styled.div`
-  padding: 1rem 0;
+  padding: 1rem 1rem;
   text-decoration: none;
   font-weight: 700;
-  font-size: 1.7rem;
+  font-size: 1.9rem;
   font-family: var(--tittle-font);
   overflow: hidden;
-  width: 30em;
   white-space: nowrap;
   color: ${ isLoading => isLoading ? "var(--secondary)" : "var(--tertiary)"};
 

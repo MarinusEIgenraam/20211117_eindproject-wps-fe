@@ -10,16 +10,17 @@ import styled from 'styled-components';
 import './App.scss';
 import Navbar from "./components/layout/Navigation/Navbar";
 import PrivateRoutes from "./router/PrivateRoutes";
-import MyProfile from "./components/views/MyProfile";
+import Portal from "./components/pages/Portal";
 import Home from "./components/pages/Home";
 import Blogs from "./components/pages/Blogs";
 import Projects from "./components/pages/Projects";
 import Register from "./components/pages/Register";
 import About from "./components/pages/About";
-import ProjectDetails from "./components/views/ProjectDetails";
-import BlogDetails from "./components/views/BlogDetails";
+import ProjectDetails from "./components/shared/views/ProjectDetails";
+import BlogDetails from "./components/shared/views/BlogDetails";
 import Users from "./components/pages/Users";
-import UserProfile from "./components/views/UserProfile";
+import UserProfile from "./components/shared/views/UserProfile";
+import NoComponentFound from "./components/shared/views/NoComponentFound";
 
 function App() {
     const [ value, setValue ] = useState(``);
@@ -27,10 +28,9 @@ function App() {
 
 
     return (
-        <>
-            <Container>
-                <Navbar/>
-            </Container>
+        <Container>
+            <Navbar/>
+
             <Routes>
                 <Route path='/' element={ <Home/> }/>
                 <Route path='/blogs' element={ <Blogs/> }/>
@@ -46,21 +46,22 @@ function App() {
 
                     <Route path='me' element={
                                <PrivateRoutes>
-                                   <MyProfile/>
+                                   <Portal/>
                                </PrivateRoutes>
                            }
                     />
                 </Route>
+                <Route path="*" element={<NoComponentFound/>}/>
             </Routes>
 
 
-        </>
+        </Container>
     );
 }
 
 const Container = styled.div`
-  background: var(--quaternary);
-  height: 100vh;
+  background: var(--quaternary-quarter);
+  height: 120vh;
 `;
 
 export default App;

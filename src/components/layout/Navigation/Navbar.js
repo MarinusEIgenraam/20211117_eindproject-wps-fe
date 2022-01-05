@@ -1,13 +1,17 @@
 ////////////////////
 //// Build
 import styled from 'styled-components';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 
 ////////////////////
 //// Environmental
 import { AuthContext } from "../../../context/AuthProvider";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import LogoLoader from "../../shared/LogoLoader";
+import Tooltip from "../../shared/elements/Tooltip";
+import useMediaQuery from "../../../hooks/useMediaQuery";
 
 ////////////////////
 //// External
@@ -26,37 +30,63 @@ export default function Navbar() {
                 <span/>
             </Hamburger>
             <Menu menuOpen={ menuOpen }>
-                <MenuLink href="">About</MenuLink>
-                <MenuLink href="">Register</MenuLink>
-                <MenuLink href="">Contact</MenuLink>
+                <MenuLink href="/blogs">Blogs</MenuLink>
+                <MenuLink href="/projects">Projects</MenuLink>
+                {/*<MenuLink href="/register">Register</MenuLink>*/ }
+                {/*<MenuLink href="/users">Users</MenuLink>*/ }
+                <MenuLink href="/about">About</MenuLink>
+                { isAuthenticated &&
+                    <MenuLink href="/me">Portal</MenuLink>
+                }
+                { useMediaQuery('(max-width: 768px)') ?
+                    <MenuLink href="/login">Login</MenuLink>
+
+                    :
+                    <MenuLink className="icon-link" href="/register">
+                        <Tooltip text="Login">
+                            <FontAwesomeIcon className="fontAwesome-small" icon={ faSignInAlt }/>
+                        </Tooltip>
+                    </MenuLink>
+
+
+                }
+
+
             </Menu>
         </Nav>
     )
 }
 
+
 const Nav = styled.div`
-  padding: 0 2rem;
+  padding: 0 0.5rem;
+  position: fixed;
+  width: 100%;
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   background: white;
+  border-radius: 2px;
+
 `
 
 const Hamburger = styled.div`
   display: none;
+  position: relative;
   flex-direction: column;
   cursor: pointer;
+
 
   span {
     height: 3px;
     width: 25px;
-    background: var(--primary);
+    background: var(--secondary);
     margin-bottom: 6px;
     border-radius: 1.5px;
   }
-  
+
 
   @media (max-width: 768px) {
     display: flex;
@@ -68,24 +98,27 @@ const MenuLink = styled.a`
   padding: 1rem 2rem;
   cursor: pointer;
   font-weight: 300;
-   text-align: center;
+  text-align: center;
   text-decoration: none;
-  color: var(--primary);
+  color: var(--secondary);
   transition: all 0.3s ease-in;
   font-size: 1.2rem;
+  
+  &.icon-link {
+    padding: 0rem 0.5rem;
+  }
 
   &:hover {
     color: var(--tertiary);
   }
 `
 
-/** Created by ownwindows on 03-01-22 **/
-
 const Menu = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
+  color: var(--secondary);
 
   @media (max-width: 768px) {
     overflow: hidden;
@@ -97,3 +130,5 @@ const Menu = styled.div`
 
   }
 `
+
+/** Created by ownwindows on 03-01-22 **/

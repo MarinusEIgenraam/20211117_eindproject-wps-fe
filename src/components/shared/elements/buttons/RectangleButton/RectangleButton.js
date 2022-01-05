@@ -1,6 +1,7 @@
 ///////////////////////
 //// Built-in
 import React from 'react';
+import styled from 'styled-components'
 
 ///////////////////////
 //// Internal
@@ -21,26 +22,29 @@ const STYLES = [
     "btn--special--outline",
 ];
 
-const SIZES = ["btn--medium", "btn--large"];
+const SIZES = [ "btn--medium", "btn--large" ];
 
 
-const RectangleButton = ({children, type, onClick, buttonStyle, buttonSize, disabled}) => {
+const RectangleButton = ({ children, type, onClick, buttonStyle, buttonSize, disabled }) => {
     const checkButtonStyle = STYLES.includes(buttonStyle) ? buttonStyle : STYLES[0];
     const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize : SIZES[0];
 
     return (
-        <button
-            className={`btn ${checkButtonSize} ${checkButtonStyle}`}
-            onClick={onClick}
-            type={type ? type : "button"}
-            disabled = {disabled ? !disabled : disabled}
+        <Button
+            className={ `btn ${ checkButtonSize } ${ checkButtonStyle }` }
+            onClick={ onClick }
+            type={ type ? type : "button" }
+            disabled={ disabled ? !disabled : disabled }
         >
-            {children}
-        </button>
+            { children }
+        </Button>
     )
 
 };
 
 export default RectangleButton;
 
+const Button = styled.button`
+  margin-top: 20px;
+`
 // thanks to: https://www.youtube.com/watch?v=JfNjGLGaxR4&ab_channel=Skillthrive

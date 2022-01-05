@@ -1,13 +1,15 @@
 .btn {
     font-family: var(--normal-font);
     font-weight: 700;
-    border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    width: max-content;
+    align-self: center;
+    border: solid 0.1vh var(--tertiary);
+    box-shadow: var(--button-shadow)
 }
 
 .btn:hover {
-    transform: translateY(-3px);
+    background: var(--quaternary);
 }
 
 /*Colours*/
@@ -46,13 +48,13 @@
 .btn--primary--outline {
     background-color: transparent;
     color: var(--primary);
-    border: 2px solid var(--primary);
+    border: var(--box-border-medium) solid var(--primary);
 }
 
 .btn--warning--outline {
     background-color: transparent;
     color: var(--warning);
-    border: 2px solid var(--warning);
+    border: var(--box-border-thin) solid var(--warning);
 }
 
 .btn--succes--outline {
@@ -77,11 +79,12 @@
 /*Sizes*/
 
 .btn--medium {
-    padding: 10px 20px;
+    padding: 1vh 2vh;
     font-size: 18px;
 }
 
 .btn--large {
-    padding: 15px 30px;
-    font-size: 20px;
+    padding: 1.5vh 3vh;
+    font-size: 1rem;
+
 }

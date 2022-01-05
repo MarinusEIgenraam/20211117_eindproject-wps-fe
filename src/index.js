@@ -9,6 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 //// Environmental
 import AuthContext from "./context/AuthProvider";
 import UtilityContext from "./context/UtilityProvider";
+import ThemeContext from "./context/ThemeProvider";
 
 ///////////////////////
 //// Components
@@ -17,11 +18,13 @@ import App from './App';
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <UtilityContext>
-                <AuthContext>
-                    <App/>
-                </AuthContext>
-            </UtilityContext>
+            <ThemeContext>
+                <UtilityContext>
+                    <AuthContext>
+                        <App/>
+                    </AuthContext>
+                </UtilityContext>
+            </ThemeContext>
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')

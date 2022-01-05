@@ -9,7 +9,7 @@ import styled from 'styled-components';
 ////////////////////
 //// External
 
-export default function MyProfile() {
+export default function Portal() {
 
     return (
         <>
