@@ -10,17 +10,17 @@ import styled from 'styled-components';
 import './App.scss';
 import Navbar from "./components/layout/Navigation/Navbar";
 import PrivateRoutes from "./router/PrivateRoutes";
-import Portal from "./components/pages/Portal";
-import Home from "./components/pages/Home";
-import Blogs from "./components/pages/Blogs";
-import Projects from "./components/pages/Projects";
-import Register from "./components/pages/Register";
-import About from "./components/pages/About";
-import ProjectDetails from "./components/shared/views/ProjectDetails";
-import BlogDetails from "./components/shared/views/BlogDetails";
-import Users from "./components/pages/Users";
-import UserProfile from "./components/shared/views/UserProfile";
-import NoComponentFound from "./components/shared/views/NoComponentFound";
+import Portal from "./components/pages/Portal/Portal";
+import Home from "./components/pages/Home/Home";
+import Blogs from "./components/pages/Blogs/Blogs";
+import Projects from "./components/pages/Projects/Projects";
+import Register from "./components/pages/Register/Register";
+import About from "./components/pages/About/About";
+import ProjectDetails from "./components/pages/Projects/ProjectDetails";
+import BlogDetails from "./components/pages/Blogs/BlogDetails";
+import Users from "./components/pages/Users/Users";
+import UserProfile from "./components/pages/Users/UserProfile";
+import NoComponentFound from "./components/pages/NoComponentFound";
 
 function App() {
     const [ value, setValue ] = useState(``);
@@ -60,7 +60,7 @@ function App() {
 }
 
 const Container = styled.div`
-  background: var(--quaternary-quarter);
+  background: ${props => props.theme.background};
   height: 120vh;
 `;
 

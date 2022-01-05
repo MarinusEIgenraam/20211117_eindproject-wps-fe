@@ -27,12 +27,13 @@ export default function Tooltip({ children, text }) {
 const Text = styled.span`
       opacity: 0;
       width: 120px;
+  font-size: 0.9rem;
       color: ${props => props.theme.text};
       text-align: center;
       padding: 5px 0;
       border-radius: 6px;
       left: -45px;
-      top: 15px;
+      top: 20px;
 
       position: absolute;
       z-index: 2;

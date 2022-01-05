@@ -56,10 +56,10 @@ select:focus + .focus {
   border-radius: inherit;
 }
 //
-//.drop--primary--solid {
-//  background-color: var(--white);
-//}
-//
-//.drop--primary--transparant {
-//  background-color: transparent;
-//}
+.drop--primary--solid {
+  background-color: var(--white);
+}
+
+.drop--primary--transparant {
+  background-color: transparent;
+}

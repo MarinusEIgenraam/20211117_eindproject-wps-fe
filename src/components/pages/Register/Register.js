@@ -2,7 +2,7 @@
 //// Build
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
-import RegisterForm from "../shared/views/RegisterForm";
+import RegisterForm from "./RegisterForm";
 
 ////////////////////
 //// Environmental

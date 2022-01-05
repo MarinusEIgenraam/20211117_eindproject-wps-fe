@@ -6,14 +6,15 @@ import axios from 'axios';
 
 ////////////////////
 //// Environmental
-import PageHeader from "../layout/containers/PageHeader";
-import PageContainer from "../layout/containers/PageContainer";
-import { UtilityContext } from "../../context/UtilityProvider";
-import RectangleButton from "../shared/elements/clickables/RectangleButton/RectangleButton";
+import PageHeader from "../../layout/containers/PageHeader";
+import PageContainer from "../../layout/containers/PageContainer";
+import { UtilityContext } from "../../../context/UtilityProvider";
+import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
 import * as PropTypes from "prop-types";
-import ButtonContainer from "../layout/containers/ButtonContainer";
-import ListContainer from "../layout/containers/ListContainer";
-import Title from "../shared/elements/text/Title";
+import ButtonContainer from "../../layout/containers/ButtonContainer";
+import ListContainer from "../../layout/containers/ListContainer";
+import Title from "../../shared/elements/text/Title";
+import Dropdown from "../../shared/elements/clickables/Dropdown/Dropdown";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -27,6 +28,7 @@ export default function Projects() {
     const [ pageOffset, setPageOffset ] = useState(0)
     const [ loadedProjects, setLoadedProjects ] = useState([])
     const [ hasError, setHasError ] = useState(false);
+    const [category, setCategory] = useState(false);
 
     const API_URL = `${ REACT_APP_API_URL }projects`;
 
@@ -62,6 +64,8 @@ export default function Projects() {
     }, [ pageOffset ]);
 
 
+
+
     return (
         <PageContainer>
             <PageHeader>
@@ -83,6 +87,15 @@ export default function Projects() {
                     type="submit">
                     Next
                 </RectangleButton>
+                <Dropdown onChange={setCategory}
+                          data={[
+                    {value: 'Netherlands', label: 'Netherlands', iconClass: 'icon-suitcase'},
+                    {value: 'Belgium', label: 'Belgium'},
+                    {value: 'India', label: 'India'},
+                ]}
+                          value={category}
+
+                          placeholder='Click'/>
                 <RectangleButton
                     buttonStyle="btn--primary--solid"
                     buttonSize="btn--large"

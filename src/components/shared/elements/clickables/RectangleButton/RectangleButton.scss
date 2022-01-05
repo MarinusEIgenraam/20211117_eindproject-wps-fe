@@ -4,6 +4,7 @@
     cursor: pointer;
     width: max-content;
     align-self: center;
+    align-self: center;
     border: solid 0.1vh var(--tertiary);
     box-shadow: var(--button-shadow)
 }
@@ -79,12 +80,14 @@
 /*Sizes*/
 
 .btn--medium {
-    padding: 1vh 2vh;
+    min-width: 100px;
+    padding: 0.5rem 2vh;
     font-size: 18px;
 }
 
 .btn--large {
-    padding: 1.5vh 3vh;
+    min-width: 100px;
+    padding: 0.5rem 1rem;
     font-size: 1rem;
 
 }

@@ -45,6 +45,6 @@ const RectangleButton = ({ children, type, onClick, buttonStyle, buttonSize, dis
 export default RectangleButton;
 
 const Button = styled.button`
-  margin-top: 20px;
+  margin: 5px;
 `
 // thanks to: https://www.youtube.com/watch?v=JfNjGLGaxR4&ab_channel=Skillthrive

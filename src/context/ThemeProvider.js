@@ -5,24 +5,26 @@ import { ThemeProvider } from "styled-components";
 
 ///////////////////////
 //// Environmental
-import { UtilityContext} from "./UtilityProvider";
+import { UtilityContext } from "./UtilityProvider";
+
 ///////////////////////
 //// External
 
-const darkTheme = {
+const lightTheme = {
     text: "var(--secondary)",
     sub_text: "var(--primary)",
     border: "var(--secondary-quarter)",
     windowBackground: "var(--white)",
-    background: "var(--white)",
+    background: "var(--quaternary-quarter)",
     shadow: "var(--shadow-thin-light)"
 };
 
-const lightTheme= {
-    text: "var(--secondary)",
+const darkTheme= {
+    text: "var(--white)",
+    sub_text: "var(--secondary-quarter)",
     border: "var(--secondary-quarter)",
-    windowBackground: "var(--white)",
-    background: "var(--white)",
+    windowBackground: "var(--tertiary)",
+    background: "var(--secondary)",
     shadow: "var(--shadow-thin-light)"
 };
 

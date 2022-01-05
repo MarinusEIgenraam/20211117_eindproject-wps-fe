@@ -3,8 +3,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useForm } from "react-hook-form"
-import InputField from "../elements/FormElements/InputField";
-import RectangleButton from "../elements/clickables/RectangleButton/RectangleButton";
+import InputField from "../../shared/elements/FormElements/InputField";
+import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
 
 
 export default function RegisterForm() {

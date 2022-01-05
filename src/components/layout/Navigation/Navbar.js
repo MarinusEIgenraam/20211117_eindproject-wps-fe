@@ -2,17 +2,16 @@
 //// Build
 import styled from 'styled-components';
 import React, { useContext, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { RiLoginCircleFill } from "react-icons/ri";
 
 ////////////////////
 //// Environmental
 import { AuthContext } from "../../../context/AuthProvider";
 import { UtilityContext } from "../../../context/UtilityProvider";
-import LogoLoader from "../../shared/LogoLoader";
+import LogoLoader from "../../shared/elements/LogoLoader";
 import Tooltip from "../../shared/elements/Tooltip";
 import useMediaQuery from "../../../hooks/useMediaQuery";
-import ThemeSwitch from "../../shared/elements/buttons/ThemeSwitch";
+import ThemeSwitch from "../../shared/elements/clickables/ThemeSwitch";
 
 ////////////////////
 //// External
@@ -20,7 +19,6 @@ import ThemeSwitch from "../../shared/elements/buttons/ThemeSwitch";
 export default function Navbar() {
     const [ menuOpen, setMenuOpen ] = useState(false);
     const { isAuthenticated } = useContext(AuthContext);
-    const { isLoading } = useContext(UtilityContext);
 
 
 
@@ -47,7 +45,7 @@ export default function Navbar() {
                     :
                     <MenuLink className="icon-link" href="/register">
                         <Tooltip text="Login">
-                            <FontAwesomeIcon className="fontAwesome-small" icon={ faSignInAlt }/>
+                            <RiLoginCircleFill size={30} />
                         </Tooltip>
                     </MenuLink>
                 }
@@ -61,6 +59,8 @@ export default function Navbar() {
     )
 }
 
+
+
 const Nav = styled.div`
       padding: 0 0.5rem;
       position: fixed;
@@ -70,7 +70,7 @@ const Nav = styled.div`
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      background: white;
+      background: ${props => props.theme.windowBackground};
       border-radius: 2px;
     `
 const Hamburger = styled.div`
@@ -82,7 +82,7 @@ const Hamburger = styled.div`
       span {
         height: 3px;
         width: 25px;
-        background: ${props => props.theme.background};
+        background: ${props => props.theme.text};
         margin-bottom: 6px;
         border-radius: 1.5px;
       }
@@ -107,6 +107,7 @@ const MenuLink = styled.a`
         color: ${props => props.theme.sub_text};
       }
     `
+
 const Menu = styled.div`
       display: flex;
       justify-content: space-between;

@@ -1,65 +1,122 @@
 ////////////////////
 //// Dependencies
 import React from 'react';
-import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 ////////////////////
 //// Internal
-import './Dropdown.scss'
 
 ////////////////////
 //// External
+
 
 const STYLES = [
     "drop--primary--solid",
     "drop--primary--transparant",
 ];
 
-const Dropdown = ({value, data, placeholder, listStyle, onChange}) => {
+export default function Dropdown({ value, data, placeholder, listStyle, onChange }) {
     const checkListStyle = STYLES.includes(listStyle) ? listStyle : STYLES[0];
 
     const handleChange = (event) => {
-        const {value} = event.target;
+        const { value } = event.target;
         onChange(value);
         console.log(value);
 
     };
 
     return (
-        <div className='select'>
-            <select
-                value={value}
-                className={`drop ${checkListStyle}`}
-                onChange={handleChange}>
-                <option value=''>{placeholder}</option>
-                {data.map((item, key) => (
-                    <option
-                        key={key}
-                        value={item.value}>
-                        {item.label}
-                    </option>
-                ))}
-                <span className='focus'></span>
-            </select>
+        <SelectContainer>
+            <Select
+                value={ value }
+                className={ `drop ${ checkListStyle }` }
+                onChange={ handleChange }>
+                <Option value=''>{ placeholder }</Option>
+                { data.map((item, key) => (
+                    <Option
+                        key={ key }
+                        value={ item.value }>
+                        { item.label }
+                    </Option>
+                )) }
+                <Focus className='focus'></Focus>
+            </Select>
 
-        </div>
+        </SelectContainer>
     );
 };
 
-Dropdown.propTypes = {
-    value: PropTypes.string,
-    placeholder: PropTypes.string,
-    data: PropTypes.array.isRequired,
-    className: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
-};
+const Focus = styled.span`
+`
 
-Dropdown.defaultProps = {
-    value: '',
-    placeholder: '',
-    className: '',
-}
+const Option = styled.option`
+  margin: 1rem;
+  padding: 10rem;
+`
+const SelectContainer = styled.div`
+  appearance: none;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  outline: none;
+  min-width: 15ch;
+  max-width: 30ch;
+  border: 1px solid ${ props => props.theme.border };
+  padding: 0.25em 0.5em;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: #fff;
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
 
-export default Dropdown;
+  display: flex;
+  grid-template-areas: "select";
+  align-items: center;
+  position: relative;
+
+  &:after {
+    content: "";
+    width: 0.8em;
+    height: 0.5em;
+    justify-self: end;
+    background-color: ${ props => props.theme.text };
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  }
+`
+
+const Select = styled.select`
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  outline: none;
+
+  &::-ms-expand {
+    display: none;
+  }
+
+  &:focus&&Focus {
+    position: relative;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    border: 2px solid ${ props => props.theme.text };
+    border-radius: inherit;
+  }
+
+  //&SelectContainer:after {
+  //  grid-area: select;
+  //  justify-self: end;
+  //}
+
+`
+
 
 /** Created by ownwindows on 18-11-21 **/
