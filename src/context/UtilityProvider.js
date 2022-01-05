@@ -13,18 +13,25 @@ export const UtilityContext = createContext(null);
 
 
 export default function UtilityProvider({ children }) {
-    const [ nightMode, setNightMode ] = useState(false);
+    const [ theme, setTheme ] = useState("light");
     const [isLoading, setIsLoading] = useState(false);
 
-    function toggleNightMode() {setNightMode(!nightMode)};
     function toggleLoading() {setIsLoading(!isLoading)};
+
+    function toggleTheme() {
+        if (theme === "light") {
+            setTheme("dark");
+        } else {
+            setTheme("light");
+        }
+    }
 
 
     return (
         <UtilityContext.Provider
             value={ {
-                nightMode,
-                toggleNightMode,
+                theme,
+                toggleTheme,
                 isLoading,
                 toggleLoading
             } }>

@@ -11,12 +11,23 @@ import { ThemeContext } from "../../../context/ThemeProvider";
 //// External
 
 export default function Tooltip({ children, text }) {
-    const { theme } = useContext(ThemeContext);
 
-    const Text = styled.span`
+
+    return (
+        <>
+            <Tip>
+                { children }
+                <Text>{ text }</Text>
+            </Tip>
+        </>
+    )
+}
+
+
+const Text = styled.span`
       opacity: 0;
       width: 120px;
-      color: ${theme.text};
+      color: ${props => props.theme.text};
       text-align: center;
       padding: 5px 0;
       border-radius: 6px;
@@ -27,7 +38,7 @@ export default function Tooltip({ children, text }) {
       z-index: 2;
     `
 
-    const Tip = styled.div`
+const Tip = styled.div`
       position: relative;
 
       display: inline-block;
@@ -39,15 +50,6 @@ export default function Tooltip({ children, text }) {
 
     `
 
-    return (
-        <>
-            <Tip>
-                { children }
-                <Text>{ text }</Text>
-            </Tip>
-        </>
-    )
-}
 
 
 /** Created by ownwindows on 04-01-22 **/

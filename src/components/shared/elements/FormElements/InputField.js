@@ -25,18 +25,7 @@ export default function InputField({
                                        maxLength
                                    }) {
     const [ asDate, setAsDate ] = useState(false);
-    const { theme } = useContext(ThemeContext);
 
-    console.log(type)
-
-    const Input = styled.input`
-      margin-bottom: 5px;
-      padding: 5px;
-      //border: solid 0.15vh var(--tertiary-half);
-      color: ${theme.text};
-    `
-
-    console.log(theme);
 
     return (
         <>
@@ -70,3 +59,8 @@ export default function InputField({
     );
 };
 
+const Input = styled.input`
+      margin-bottom: 5px;
+      padding: 5px;
+      color: ${props => props.theme.text};
+    `

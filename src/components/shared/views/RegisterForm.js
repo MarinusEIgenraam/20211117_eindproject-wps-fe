@@ -1,14 +1,13 @@
 ////////////////////
 //// Build
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useForm } from "react-hook-form"
 import InputField from "../elements/FormElements/InputField";
 import RectangleButton from "../elements/buttons/RectangleButton/RectangleButton";
-import { ThemeContext } from "../../../context/ThemeProvider";
+
 
 export default function RegisterForm() {
-    const { theme } = useContext(ThemeContext);
     const { register, handleSubmit, control, formState: { errors } } = useForm({
         mode: 'onChange'
     });
@@ -17,43 +16,6 @@ export default function RegisterForm() {
         console.log("Your data")
         console.log(data)
     }
-
-    const FormWindow = styled.div`
-      background: ${ theme.windowBackground };
-      padding: 1rem 3rem;
-      display: flex;
-      flex-direction: column;
-      border: solid var(--box-border-medium) ${ theme.border };
-      box-shadow: ${ theme.shadow };
-      height: max-content;
-      max-width: 80vw;
-    `
-    const Form = styled.form`
-      display: flex;
-      flex-direction: column;
-      padding: 40.41px 30px;
-
-      input {
-        font-weight: 400;
-        display: block;
-        width: 100%;
-        border: none;
-        min-width: 250px;
-        padding-left: 5px;
-        outline: var(--tertiary-quarter) solid var(--box-border-thin);
-        color: ${ theme.text };
-      }
-    `
-    const SubTitle = styled.small`
-      margin-bottom: 30px;
-      font-size: 1rem;
-      color: ${theme.sub_text};
-    `
-    const Title = styled.h1`
-      margin-bottom: 5px;
-      font-size: 2rem;
-      font-weight: 700;
-    `
 
     return (
         <FormWindow>
@@ -104,5 +66,41 @@ export default function RegisterForm() {
     )
 }
 
+const FormWindow = styled.div`
+  background: ${ props => props.theme.background };
+  padding: 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  border: solid var(--box-border-medium) ${ props => props.theme.border };
+  box-shadow: ${props => props.theme.shadow};
+  height: max-content;
+  max-width: 80vw;
+`
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  padding: 40.41px 30px;
+
+  input {
+    font-weight: 400;
+    display: block;
+    width: 100%;
+    border: none;
+    min-width: 250px;
+    padding-left: 5px;
+    outline: var(--tertiary-quarter) solid var(--box-border-thin);
+    color: ${ props => props.theme.text };
+  }
+`
+const SubTitle = styled.small`
+  margin-bottom: 30px;
+  font-size: 1rem;
+  color: ${props => props.theme.text};
+`
+const Title = styled.h1`
+  margin-bottom: 5px;
+  font-size: 2rem;
+  font-weight: 700;
+`
 
 /** Created by ownwindows on 04-01-22 **/

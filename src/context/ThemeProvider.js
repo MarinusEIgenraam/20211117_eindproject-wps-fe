@@ -1,15 +1,13 @@
 ///////////////////////
 //// Build
-import React, { createContext, useEffect, useState } from "react";
-import { Switch } from "react-router-dom";
+import React, { useContext } from "react";
+import { ThemeProvider } from "styled-components";
 
 ///////////////////////
 //// Environmental
-
+import { UtilityContext} from "./UtilityProvider";
 ///////////////////////
 //// External
-
-export const ThemeContext = createContext(null);
 
 const darkTheme = {
     text: "var(--secondary)",
@@ -28,32 +26,21 @@ const lightTheme= {
     shadow: "var(--shadow-thin-light)"
 };
 
+const themes = {
+    light: lightTheme,
+    dark: darkTheme,
+}
 
-export default function ThemeProvider({ children }) {
-    const [themeState, setThemeState] = useState(true);
-    const [ theme, setTheme ] = useState(lightTheme);
 
-    useEffect(() => {
-        if (themeState) {
-            setTheme(lightTheme);
-        } else {
-            setTheme(darkTheme);
-        }
+export default function Theme({ children }) {
+    const { theme } = useContext(UtilityContext);
 
-    },[themeState]);
 
-    function toggleTheme() {
-        setThemeState(!themeState);
-    }
 
     return (
-        <ThemeContext.Provider
-            value={ {
-                toggleTheme,
-                theme
-            } }>
+        <ThemeProvider theme={themes[theme]}>
             { children }
-        </ThemeContext.Provider>
+        </ThemeProvider>
     );
 };
 
