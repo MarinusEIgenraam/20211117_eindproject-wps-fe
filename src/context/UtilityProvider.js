@@ -15,6 +15,7 @@ export const UtilityContext = createContext(null);
 export default function UtilityProvider({ children }) {
     const [ theme, setTheme ] = useState("light");
     const [isLoading, setIsLoading] = useState(false);
+    const [hasError, setHasError] = useState()
 
     // function toggleLoading() {setIsLoading(!isLoading)};
 
@@ -32,6 +33,8 @@ export default function UtilityProvider({ children }) {
     return (
         <UtilityContext.Provider
             value={ {
+                hasError,
+                setHasError,
                 theme,
                 toggleTheme,
                 isLoading,

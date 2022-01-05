@@ -2,6 +2,7 @@
 //// Build
 import React, { useState } from 'react'
 import styled from 'styled-components';
+import Login from "../Login/Login";
 
 ////////////////////
 //// Environmental
@@ -13,6 +14,7 @@ export default function Home() {
 
     return (
         <>
+            <Login/>
         </>
     )
 }
