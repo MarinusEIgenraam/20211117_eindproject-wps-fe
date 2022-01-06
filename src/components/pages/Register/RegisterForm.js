@@ -68,34 +68,24 @@ export default function RegisterForm() {
 
 const FormWindow = styled.div`
   background: ${ props => props.theme.windowBackground };
-  padding: 1rem 3rem;
+  padding: 1.5rem 3rem;
   display: flex;
   flex-direction: column;
   border: solid var(--box-border-medium) ${ props => props.theme.border };
-  box-shadow: ${props => props.theme.shadow};
+  box-shadow: ${ props => props.theme.shadow };
   height: max-content;
   max-width: 80vw;
 `
 const Form = styled.form`
+  align-items: start;
   display: flex;
   flex-direction: column;
-  padding: 40.41px 30px;
 
-  input {
-    font-weight: 400;
-    display: block;
-    width: 100%;
-    border: none;
-    min-width: 250px;
-    padding-left: 5px;
-    outline: var(--tertiary-quarter) solid var(--box-border-thin);
-    color: ${ props => props.theme.text };
-  }
 `
 const SubTitle = styled.small`
   margin-bottom: 30px;
   font-size: 1rem;
-  color: ${props => props.theme.text};
+  color: ${ props => props.theme.text };
 `
 const Title = styled.h1`
   margin-bottom: 5px;

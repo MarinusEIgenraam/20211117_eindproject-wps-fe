@@ -8,77 +8,78 @@ import axios from "axios";
 //// Environmental
 import InputField from "../../shared/elements/FormElements/InputField";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
-import { AuthContext } from "../../../context/AuthProvider";
 import { UtilityContext } from "../../../context/UtilityProvider";
+import { AuthContext } from "../../../context/AuthProvider";
 
 const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
 ////////////////////
 //// External
 
-export default function Login() {
-    const { hasError, setHasError } = useContext(UtilityContext);
+function LoginWindow() {
+    const { hasError, setHasError, setIsLoading } = useContext(UtilityContext);
     const [ error, toggleError ] = useState(false);
     const { register, handleSubmit, control, formState: { errors } } = useForm({
         mode: 'onChange'
     });
-    const { loginUser } = useContext(AuthContext);
+    const { userLogin, isAuth } = useContext(AuthContext);
 
-    async function onSubmit(e, loginUser) {
-        console.log(`username: ${e.username}, password: ${e.password}`)
+    async function onSubmit(event) {
         toggleError(false);
+        setIsLoading(true);
 
         try {
+
             const result = await axios.post(REACT_APP_AUTH, {
-                username: e.username,
-                password: e.password,
+                username: event.username,
+                password: event.password,
             });
 
-            console.log("result:")
-            console.log(result.data.jwt);
-            // localStorage.setItem('token', result.data.jwt);
 
-            loginUser(result.data.jwt);
+            console.log(result)
+            userLogin(result.data.jwt);
 
         } catch (e) {
-            console.error(e);
+            console.error(error)
+
             toggleError(true);
         }
+
     }
 
 
     return (
         <FormWindow>
             <Form onSubmit={ handleSubmit(onSubmit) }>
-                <Title>
-                    Register
-                </Title>
-                <SubTitle>
-                    And join an amazing comunity of willpowered students!
-                </SubTitle>
-                <InputField
-                    type="text"
-                    name="Username"
-                    inputName="username"
-                    register={ register }
-                    errors={ errors }
-                    required={ true }
+                <InputRow>
 
-                />
-                <InputField
-                    type="password"
-                    name="Password"
-                    inputName="password"
-                    register={ register }
-                    errors={ errors }
-                    required={ true }
+                    <InputField
+                        type="text"
+                        name="Username"
+                        inputName="username"
+                        register={ register }
+                        errors={ errors }
+                        required={ true }
 
-                />
-                <RectangleButton
-                    buttonStyle="btn--primary--solid"
-                    buttonSize="btn--medium"
-                    type="submit">
-                    Login
-                </RectangleButton>
+                    />
+                    <InputField
+                        type="password"
+                        name="Password"
+                        inputName="password"
+                        register={ register }
+                        errors={ errors }
+                        required={ true }
+
+                    />
+                </InputRow>
+                <ButtonRow>
+
+                    <RectangleButton
+                        buttonStyle="btn--primary--solid"
+                        buttonSize="btn--medium"
+                        type="submit">
+                        Login
+                    </RectangleButton>
+                </ButtonRow>
 
 
             </Form>
@@ -86,21 +87,38 @@ export default function Login() {
     )
 }
 
-const FormWindow = styled.div`
+const ButtonRow = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  position: relative;
+  top: -20px;
+
+`
+const InputRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  position: relative;
+  top: -10px;
+`
+
+const FormWindow = styled.div`
+  align-self: start;
+  margin-top: 10vh;
+  align-items: center;
+  padding: 0 1rem;
   background: ${ props => props.theme.windowBackground };
-  padding: 1rem 3rem;
   display: flex;
   flex-direction: column;
   border: solid var(--box-border-medium) ${ props => props.theme.border };
   box-shadow: ${ props => props.theme.shadow };
-  height: max-content;
-  max-width: 80vw;
+  height: 10vh;
 `
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  padding: 40.41px 30px;
+  //padding: 1.5rem 1.5rem;
 
 
   input {
@@ -124,5 +142,6 @@ const Title = styled.h1`
   font-size: 2rem;
   font-weight: 700;
 `
+export default LoginWindow;
 
 /** Created by ownwindows on 05-01-22 **/

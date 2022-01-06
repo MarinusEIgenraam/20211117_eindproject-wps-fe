@@ -38,7 +38,6 @@ function App() {
                 <Route path='/projects' element={ <Projects/> }/>
                 <Route path='/projects/:id' element={ <ProjectDetails/> }/>
                 <Route path='/register' element={ <Register/> }/>
-                <Route path='/register' element={ <Register/> }/>
                 <Route path='/about' element={ <About/> }/>
 
                 <Route path="users" element={<Users/>}>

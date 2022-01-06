@@ -12,14 +12,17 @@ import { UtilityContext } from "../../../context/UtilityProvider";
 
 function LogoLoader() {
     const { isLoading, setIsLoading } = useContext(UtilityContext);
+    const [isTimedOut, setIsTimedOut] = useState(false)
+
 
 
     useEffect(() => {
+        setIsTimedOut(true)
 
         const timer = setTimeout(() => {
-            console.log('This will run after 1 second!')
-            setIsLoading(false);
-            }, 2000);
+            setIsTimedOut(false)
+
+        }, 2000);
 
         return function clearLoader() {
             clearTimeout(timer);
@@ -28,7 +31,7 @@ function LogoLoader() {
     }, [ isLoading ]);
 
     return (
-        <Logo data-text="willpowered" isLoading={ isLoading }>
+        <Logo data-text="willpowered" isLoading={ isLoading } isTimedOut={isTimedOut}>
             willpowered <span>students</span>
         </Logo>
 
@@ -58,7 +61,7 @@ const Logo = styled.div`
   overflow: hidden;
   white-space: nowrap;
   width: 25rem;
-   animation: ${ ({ isLoading, isTimedOut }) => isLoading ? animation : 0};
+   animation: ${ ({ isLoading, isTimedOut }) => isLoading || isTimedOut ? animation : 0};
   
   span {
     font-weight: 300;

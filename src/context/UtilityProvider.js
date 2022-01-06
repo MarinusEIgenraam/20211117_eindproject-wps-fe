@@ -17,14 +17,10 @@ export default function UtilityProvider({ children }) {
     const [isLoading, setIsLoading] = useState(false);
     const [hasError, setHasError] = useState()
 
-    // function toggleLoading() {setIsLoading(!isLoading)};
-
     function toggleTheme() {
         if (theme === "light") {
             setTheme("dark");
-            setIsLoading(true)
         } else {
-            setIsLoading(true)
             setTheme("light");
         }
     }

@@ -35,14 +35,13 @@ export default function AuthProvider({ children }) {
         }
     }, []);
 
-    function loginUser(JWT) {
+    function userLogin(JWT) {
         localStorage.setItem('token', JWT);
         const decoded = jwt_decode(JWT);
-
-        fetchUserData(decoded.sub, JWT, '/profile');
+        fetchUserData(decoded.sub, JWT, '/portal');
     }
 
-    function logout() {
+    function userLogout() {
         localStorage.clear();
         toggleIsAuth({
             isAuth: false,
@@ -51,12 +50,12 @@ export default function AuthProvider({ children }) {
         });
 
         console.log('User is logged out');
-        navigate.push('/');
+        navigate('/');
     }
 
-    async function fetchUserData(id, token, redirectUrl) {
+    async function fetchUserData(username, token, redirectUrl) {
         try {
-            const result = await axios.get(`${ REACT_APP_API_URL }users/${ id }`, {
+            const result = await axios.get(`${ REACT_APP_API_URL }users/${ username }`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${ token }`,
@@ -69,7 +68,6 @@ export default function AuthProvider({ children }) {
                 user: {
                     username: result.data.username,
                     email: result.data.email,
-                    id: result.data.id,
                 },
                 status: 'done',
             });
@@ -91,8 +89,8 @@ export default function AuthProvider({ children }) {
     const contextData = {
         isAuth: isAuth.isAuth,
         user: isAuth.user,
-        loginUser: loginUser,
-        logout: logout,
+        userLogin: userLogin,
+        userLogout: userLogout,
     };
 
 

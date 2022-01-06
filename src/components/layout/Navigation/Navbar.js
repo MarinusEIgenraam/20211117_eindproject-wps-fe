@@ -1,7 +1,7 @@
 ////////////////////
 //// Build
 import styled from 'styled-components';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { RiLoginCircleFill } from "react-icons/ri";
 
 ////////////////////
@@ -18,9 +18,11 @@ import ThemeSwitch from "../../shared/elements/clickables/ThemeSwitch";
 
 export default function Navbar() {
     const [ menuOpen, setMenuOpen ] = useState(false);
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuth, user } = useContext(AuthContext);
 
+    useEffect(() => {
 
+    },[isAuth]);
 
     return (
         <Nav>
@@ -31,12 +33,13 @@ export default function Navbar() {
                 <span/>
             </Hamburger>
             <Menu menuOpen={ menuOpen }>
+                <MenuLink className="hightlight" href="/register">Register</MenuLink>
                 <MenuLink href="/blogs">Blogs</MenuLink>
                 <MenuLink href="/projects">Projects</MenuLink>
-                {/*<MenuLink href="/register">Register</MenuLink>*/ }
-                {/*<MenuLink href="/users">Users</MenuLink>*/ }
                 <MenuLink href="/about">About</MenuLink>
-                { isAuthenticated &&
+                <MenuLink href="/users">Users</MenuLink>
+                <a>{isAuth}</a>
+                { isAuth &&
                     <MenuLink href="/me">Portal</MenuLink>
                 }
                 { useMediaQuery('(max-width: 768px)') ?
@@ -44,14 +47,12 @@ export default function Navbar() {
 
                     :
                     <MenuLink className="icon-link" href="/register">
-                        <Tooltip text="Login">
-                            <RiLoginCircleFill size={30} />
+                        <Tooltip text="Logout">
+                            <RiLoginCircleFill size={ 30 }/>
                         </Tooltip>
                     </MenuLink>
                 }
                 <ThemeSwitch/>
-
-
 
 
             </Menu>
@@ -60,68 +61,74 @@ export default function Navbar() {
 }
 
 
-
 const Nav = styled.div`
-      padding: 0 0.5rem;
-      position: fixed;
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      background: ${props => props.theme.windowBackground};
-      border-radius: 2px;
-    `
+  z-index: 5;
+  padding: 0 0.5rem;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background: ${ props => props.theme.windowBackground };
+  border-radius: 2px;
+`
 const Hamburger = styled.div`
-      display: none;
-      position: relative;
-      flex-direction: column;
-      cursor: pointer;
+  display: none;
+  position: relative;
+  flex-direction: column;
+  cursor: pointer;
 
-      span {
-        height: 3px;
-        width: 25px;
-        background: ${props => props.theme.text};
-        margin-bottom: 6px;
-        border-radius: 1.5px;
-      }
+  span {
+    height: 3px;
+    width: 25px;
+    background: ${ props => props.theme.text };
+    margin-bottom: 6px;
+    border-radius: 1.5px;
+  }
 
-      @media (max-width: 768px) {
-        display: flex;
-      }
-    `
+  @media (max-width: 768px) {
+    display: flex;
+  }
+`
 const MenuLink = styled.a`
-      padding: 1rem 2rem;
-      cursor: pointer;
-      font-weight: 300;
-      text-align: center;
-      text-decoration: none;
-      color: ${props => props.theme.text};
-      transition: all 0.3s ease-in;
-      font-size: 1.2rem;
-      &.icon-link {
-        padding: 0rem 0.5rem;
-      }
-      &:hover {
-        color: ${props => props.theme.sub_text};
-      }
-    `
+  padding: 1rem 2rem;
+  cursor: pointer;
+  font-weight: 300;
+  text-align: center;
+  text-decoration: none;
+  color: ${ props => props.theme.text };
+  transition: all 0.3s ease-in;
+  font-size: 1.2rem;
+
+  &.icon-link {
+    padding: 0rem 0.5rem;
+  }
+
+  &:hover {
+    color: ${ props => props.theme.sub_text };
+  }
+
+  &.hightlight {
+font-weight: 500;
+  }
+`
 
 const Menu = styled.div`
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-      color: ${props => props.theme.text};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  color: ${ props => props.theme.text };
 
-      @media (max-width: 768px) {
-        overflow: hidden;
-        flex-direction: column;
-        width: 100%;
-        max-height: ${ ({ menuOpen }) => ( menuOpen ? "300px" : "0" ) };
-        transition: max-height 0.3s ease-in;
-      }
-    `
+  @media (max-width: 768px) {
+    overflow: hidden;
+    flex-direction: column;
+    width: 100%;
+    max-height: ${ ({ menuOpen }) => ( menuOpen ? "300px" : "0" ) };
+    transition: max-height 0.3s ease-in;
+  }
+`
 
 /** Created by ownwindows on 03-01-22 **/

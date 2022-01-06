@@ -15,6 +15,7 @@ import ButtonContainer from "../../layout/containers/ButtonContainer";
 import ListContainer from "../../layout/containers/ListContainer";
 import Title from "../../shared/elements/text/Title";
 import Dropdown from "../../shared/elements/clickables/Dropdown/Dropdown";
+import ProjectDetails from "./ProjectDetails";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -25,17 +26,16 @@ const { REACT_APP_API_URL } = process.env;
 ButtonContainer.propTypes = { children: PropTypes.node };
 export default function Projects() {
     const { setIsLoading } = useContext(UtilityContext);
-    const [ pageOffset, setPageOffset ] = useState(0)
-    const [ loadedProjects, setLoadedProjects ] = useState([])
+    const [ pageOffset, setPageOffset ] = useState(0);
+    const [ loadedProjects, setLoadedProjects ] = useState();
     const [ hasError, setHasError ] = useState(false);
-    const [category, setCategory] = useState(false);
+    const [ category, setCategory ] = useState(false);
 
-    const API_URL = `${ REACT_APP_API_URL }projects`;
+    const API_URL = `${ REACT_APP_API_URL }projects/all`;
 
 
     useEffect(() => {
         const source = axios.CancelToken.source();
-
 
         async function getData() {
             setHasError(false);
@@ -44,14 +44,16 @@ export default function Projects() {
 
             try {
                 const result = await axios.get(API_URL, { cancelToken: source.token, });
-                setLoadedProjects(result.data.results)
-                console.log(result.data.results);
-                console.log(result)
+                console.log(result.data)
+
+                setLoadedProjects(result.data);
+                console.log(loadedProjects)
 
             } catch (e) {
                 console.error(e);
                 setHasError(true);
             }
+            console.log(loadedProjects)
             setIsLoading(false)
         }
 
@@ -62,8 +64,6 @@ export default function Projects() {
         };
 
     }, [ pageOffset ]);
-
-
 
 
     return (
@@ -87,13 +87,13 @@ export default function Projects() {
                     type="submit">
                     Next
                 </RectangleButton>
-                <Dropdown onChange={setCategory}
-                          data={[
-                    {value: 'Netherlands', label: 'Netherlands', iconClass: 'icon-suitcase'},
-                    {value: 'Belgium', label: 'Belgium'},
-                    {value: 'India', label: 'India'},
-                ]}
-                          value={category}
+                <Dropdown onChange={ setCategory }
+                          data={ [
+                              { value: 'Netherlands', label: 'Netherlands', iconClass: 'icon-suitcase' },
+                              { value: 'Belgium', label: 'Belgium' },
+                              { value: 'India', label: 'India' },
+                          ] }
+                          value={ category }
 
                           placeholder='Click'/>
                 <RectangleButton
@@ -104,12 +104,37 @@ export default function Projects() {
                 </RectangleButton>
             </ButtonContainer>
             <ListContainer>
+                { loadedProjects &&
+                                            loadedProjects.map((project) => {
+                                                return (
+                                                    // <li>
+                                                    //
+                                                    //     <h1>
+                                                    //         { project.category.name }
+                                                    //
+                                                    //         { project.description }
+                                                    //         { project.projectOwner.username }
+                                                    //         { project.commentCount }
+                                                    //         { project.voteCount }
+                                                    //         { project.url }
+                                                    //         { project.projectName }
+                                                    //         { project.projectTaskList.map((task) => <h1>{task}</h1>) }
+                                                    //
+                                                    //     </h1>
+                                                    // </li>
+                                                    <ProjectDetails project={project}/>
+
+                                                );
+
+                        })
+
+                }
 
 
             </ListContainer>
 
         </PageContainer>
-    )
+    );
 }
 
 const Project = styled.div`
