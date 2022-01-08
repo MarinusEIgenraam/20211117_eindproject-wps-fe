@@ -25,6 +25,7 @@ export default function Dropdown({ value, data, placeholder, listStyle, onChange
 
     };
 
+    console.log(data);
     return (
         <SelectContainer>
             <Select
@@ -32,13 +33,16 @@ export default function Dropdown({ value, data, placeholder, listStyle, onChange
                 className={ `drop ${ checkListStyle }` }
                 onChange={ handleChange }>
                 <Option value=''>{ placeholder }</Option>
-                { data.map((item, key) => (
-                    <Option
-                        key={ key }
-                        value={ item.value }>
-                        { item.label }
-                    </Option>
-                )) }
+                {data[0] && data[0].map((item, key) => {
+                    return (
+                        <Option
+                            key={ key }
+                            value={ item.value }>
+                            { item.label }
+                        </Option>
+                    )
+                }) }
+
                 <Focus className='focus'></Focus>
             </Select>
 
@@ -50,12 +54,13 @@ const Focus = styled.span`
 `
 
 const Option = styled.option`
-  margin: 1rem;
-  padding: 10rem;
+  //margin: 1rem;
+  background: ${ props => props.theme.text };
+  //padding: 10rem;
 `
 const SelectContainer = styled.div`
   appearance: none;
-  margin: 0;
+  //margin: 0;
   width: 100%;
   font-family: inherit;
   outline: none;
@@ -65,9 +70,9 @@ const SelectContainer = styled.div`
   padding: 0.25em 0.5em;
   font-size: 1.25rem;
   cursor: pointer;
-  line-height: 1.1;
-  background-color: #fff;
-  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+  //line-height: 1.1;
+  // background-color: ${ props => props.theme.windowBackground }
+  background-image: linear-gradient(to top, ${ props => props.theme.border }, ${ props => props.theme.boxShadow } 33%);
 
   display: flex;
   grid-template-areas: "select";
@@ -96,25 +101,23 @@ const Select = styled.select`
   cursor: inherit;
   line-height: inherit;
   outline: none;
+  
+
 
   &::-ms-expand {
     display: none;
   }
 
-  &:focus&&Focus {
-    position: relative;
-    top: -1px;
-    left: -1px;
-    right: -1px;
-    bottom: -1px;
-    border: 2px solid ${ props => props.theme.text };
-    border-radius: inherit;
-  }
-
-  //&SelectContainer:after {
-  //  grid-area: select;
-  //  justify-self: end;
-  //}
+  // &:focus&:Focus {
+  //   position: relative;
+  //   //top: -1px;
+  //   //left: -1px;
+  //   //right: -1px;
+  //   //bottom: -1px;
+  //   border: 2px solid ${ props => props.theme.text };
+  //   border-radius: inherit;
+  // }
+  
 
 `
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500;700;800&family=Press+Start+2P&family=Roboto+Mono:wght@100;300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500;700;800&family=Press+Start+2P&family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,700;1,300&display=swap');
 
 * {
   margin: 0;
@@ -20,6 +20,10 @@
   --secondary-quarter: hsla(204, 21%, 91%, 1);
   --tertiary-quarter: hsla(83, 9%, 82%, 1);
   --quaternary-quarter: hsla(43, 100%, 91%, 1);
+  --primary-dark: hsl(138, 29%, 23%);
+  --secondary-dark: hsl(90, 8%, 15%);
+  --tertiary-dark: hsl(204, 20%, 31%);
+  --quaternary-dark: hsl(20, 100%, 43%);
 
   --warning: hsla(205, 20%, 62%, 1);
   --succes: hsla(43, 100%, 64%, 1);
@@ -39,25 +43,38 @@
   --select-focus: blue;
   --select-arrow: var(--select-border);
 
-  --box-border-thin: 2px;
-  --box-border-medium: 3px;
-  --box-border-thick: 4px;
+  --box-border-thin: 1px;
+  --box-border-medium: 1px;
+  --box-border-thick: 2px;
 
   --shadow-thin-light: 1.5vh 1.5vh 0.15vh var(--tertiary-quarter), 1.5vh 1.5vh 0.1vh var(--box-border-thin) var(--secondary-half);
   --shadow-thin-dark: 1.5vh 1.5vh 0.15vh var(--tertiary-quarter), 1.5vh 1.5vh 0.1vh var(--box-border-thin) var(--secondary-half);
   --shadow-medium: 1.5vh 1.5vh 0.15vh var(--tertiary-quarter), 1.5vh 1.5vh 0.1vh var(--box-border-medium) var(--secondary);
   --button-shadow: 0.5vh 0.5vh 0.1vh var(--tertiary-quarter), 0.5vh 0.5vh 0.1vh 0.1vh var(--secondary);
 
+  ::-webkit-scrollbar {
+    width: 14px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 4px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    border-radius: 9999px;
+    background-color: var(--secondary);
+  }
 }
 
 h1 {
   font-family: var(--tittle-font);
-  color: var(--secondary-half);
 }
 
 h2,h3,h4,h5 {
   font-family: var(--normal-font);
   font-weight: 700;
+}
+
+footer {
+  font-size: 0.9rem;
 }
 
 body {

@@ -25,32 +25,31 @@ export default function Tooltip({ children, text }) {
 
 
 const Text = styled.span`
-      opacity: 0;
-      width: 120px;
+  opacity: 0;
+  width: 120px;
   font-size: 0.9rem;
-      color: ${props => props.theme.text};
-      text-align: center;
-      padding: 5px 0;
-      border-radius: 6px;
-      left: -45px;
-      top: 20px;
+  color: ${ props => props.theme.text };
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  left: -45px;
+  top: 20px;
 
-      position: absolute;
-      z-index: 2;
-    `
+  position: absolute;
+  z-index: 2;
+`
 
 const Tip = styled.div`
-      position: relative;
+  position: relative;
 
-      display: inline-block;
+  display: inline-block;
 
 
-      &:hover ${ Text } {
-        opacity: 1;
-      }
+  &:hover ${ Text } {
+    opacity: 1;
+  }
 
-    `
-
+`
 
 
 /** Created by ownwindows on 04-01-22 **/

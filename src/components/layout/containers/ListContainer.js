@@ -22,7 +22,8 @@ export default function ListContainer({ children }) {
 }
 
 const Container = styled.div`
-  background: var(--white);
+  background: ${ props => props.theme.background };
+  color: ${ props => props.theme.text };
   align-self: center;
   padding: 1rem 3rem;
   display: flex;

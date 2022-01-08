@@ -1,12 +1,12 @@
 ////////////////////
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
-import { HiMoon } from "react-icons/hi";
-import { CgSun } from "react-icons/cg";
 import styled from 'styled-components';
 
 ////////////////////
 //// Environmental
+import { BsFillSunFill } from "react-icons/bs";
+import { RiMoonClearFill } from "react-icons/ri";
 import { UtilityContext } from "../../../../context/UtilityProvider";
 
 ////////////////////
@@ -14,36 +14,34 @@ import { UtilityContext } from "../../../../context/UtilityProvider";
 
 export default function ThemeSwitch() {
     const { toggleTheme, theme } = useContext(UtilityContext);
-    const icon = theme ===  "dark" ? <HiMoon size={30} /> : <CgSun size={30} />;
 
 
 
     return (
         <SwitchWrapper>
-            <Switch onClick={toggleTheme}>
-                {icon}
-            </Switch>
+            {theme==="dark" ?
+                <BsFillSunFill onClick={toggleTheme} size={ 30 }/>
+:
+                <RiMoonClearFill onClick={toggleTheme} size={ 30 }/>
 
+            }
         </SwitchWrapper>
     )
 }
 
 const SwitchWrapper = styled.span`
-  position: relative;
-`
-const Switch = styled.button`
-  margin:10px;
   cursor: pointer;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
   border: none;
-  background-color: ${props => props.theme.windowBackground};
+  padding: 0 1rem;
   color: ${props => props.theme.text};
   &:focus {
     outline: none;
   }
   transition: all .5s ease;
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `
+
 
 /** Created by ownwindows on 05-01-22 **/

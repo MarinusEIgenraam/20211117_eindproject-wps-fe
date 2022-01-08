@@ -10,10 +10,9 @@ import { UtilityContext } from "../../../context/UtilityProvider";
 ////////////////////
 //// External
 
-function LogoLoader() {
+function LogoLoader({navActive}) {
     const { isLoading, setIsLoading } = useContext(UtilityContext);
-    const [isTimedOut, setIsTimedOut] = useState(false)
-
+    const [ isTimedOut, setIsTimedOut ] = useState(false)
 
 
     useEffect(() => {
@@ -22,7 +21,7 @@ function LogoLoader() {
         const timer = setTimeout(() => {
             setIsTimedOut(false)
 
-        }, 2000);
+        }, 4000);
 
         return function clearLoader() {
             clearTimeout(timer);
@@ -31,41 +30,58 @@ function LogoLoader() {
     }, [ isLoading ]);
 
     return (
-        <Logo data-text="willpowered" isLoading={ isLoading } isTimedOut={isTimedOut}>
-            willpowered <span>students</span>
+        <Logo data-text="willpowered" navActive={navActive} isLoading={ isLoading } isTimedOut={ isTimedOut }>
+            willpowered <span>students</span>{(isLoading || isTimedOut) && <span>...&nbsp;</span>}
         </Logo>
 
 
     )
 }
 
-const type = keyframes`
-  from {
-    width: 0;
+const typeWriter = keyframes`
+  to {
+    left: 100%;
   }
 `
 
+
 const animation = props =>
     css`
-    ${type} 2s steps(20, end ) infinite;
-  `
+      ${ typeWriter } 4s steps(24) infinite;
+    `
 
 
-const Logo = styled.div`
-  padding: 1rem 1rem;
-  color: ${props => props.theme.text};
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1.9rem;
-  font-family: var(--tittle-font);
-  overflow: hidden;
-  white-space: nowrap;
-  width: 25rem;
-   animation: ${ ({ isLoading, isTimedOut }) => isLoading || isTimedOut ? animation : 0};
-  
+const Logo = styled.h1`
+  color: ${ props => props.theme.text };
+  position: relative;
+  width: max-content;
+margin-right: 2rem;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+
+  &::before {
+    background: ${ ({ isLoading, isTimedOut, navActive, theme }) => {
+      if (( isTimedOut || isLoading ) && navActive) {
+        return theme.windowBackground
+      } else if (( isTimedOut || isLoading ) && !navActive) {
+        return theme.background
+      } else {
+        return `transparent`
+      }
+    }};
+    animation: ${ ({ isLoading, isTimedOut }) => isLoading || isTimedOut ? animation : 0 };
+  }
   span {
     font-weight: 300;
   }
 `
 export default LogoLoader;
+
 /** Created by ownwindows on 03-01-22 **/

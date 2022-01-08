@@ -13,9 +13,8 @@ import RectangleButton from "../../shared/elements/clickables/RectangleButton/Re
 import * as PropTypes from "prop-types";
 import ButtonContainer from "../../layout/containers/ButtonContainer";
 import ListContainer from "../../layout/containers/ListContainer";
-import Title from "../../shared/elements/text/Title";
-import Dropdown from "../../shared/elements/clickables/Dropdown/Dropdown";
 import ProjectDetails from "./ProjectDetails";
+import ProjectCategory from "./ProjectCategory";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -44,7 +43,6 @@ export default function Projects() {
 
             try {
                 const result = await axios.get(API_URL, { cancelToken: source.token, });
-                console.log(result.data)
 
                 setLoadedProjects(result.data);
                 console.log(loadedProjects)
@@ -87,15 +85,8 @@ export default function Projects() {
                     type="submit">
                     Next
                 </RectangleButton>
-                <Dropdown onChange={ setCategory }
-                          data={ [
-                              { value: 'Netherlands', label: 'Netherlands', iconClass: 'icon-suitcase' },
-                              { value: 'Belgium', label: 'Belgium' },
-                              { value: 'India', label: 'India' },
-                          ] }
-                          value={ category }
+                <ProjectCategory category={category} setCategory={setCategory}/>
 
-                          placeholder='Click'/>
                 <RectangleButton
                     buttonStyle="btn--primary--solid"
                     buttonSize="btn--large"
@@ -105,28 +96,14 @@ export default function Projects() {
             </ButtonContainer>
             <ListContainer>
                 { loadedProjects &&
-                                            loadedProjects.map((project) => {
-                                                return (
-                                                    // <li>
-                                                    //
-                                                    //     <h1>
-                                                    //         { project.category.name }
-                                                    //
-                                                    //         { project.description }
-                                                    //         { project.projectOwner.username }
-                                                    //         { project.commentCount }
-                                                    //         { project.voteCount }
-                                                    //         { project.url }
-                                                    //         { project.projectName }
-                                                    //         { project.projectTaskList.map((task) => <h1>{task}</h1>) }
-                                                    //
-                                                    //     </h1>
-                                                    // </li>
-                                                    <ProjectDetails project={project}/>
+                    loadedProjects.map((project) => {
+                        return (
 
-                                                );
+                            <ProjectDetails project={ project }/>
 
-                        })
+                        );
+
+                    })
 
                 }
 
