@@ -10,6 +10,7 @@ import InputField from "../../shared/elements/FormElements/InputField";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import { AuthContext } from "../../../context/AuthProvider";
+import jwt_decode from "jwt-decode";
 
 const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
 ////////////////////
@@ -21,8 +22,9 @@ function LoginWindow() {
     const { register, handleSubmit, control, formState: { errors } } = useForm({
         mode: 'onChange'
     });
-    const { userLogin, isAuth } = useContext(AuthContext);
+    const { login } = useContext(AuthContext);
 
+    // console.log(`login = ${login}`)
     async function onSubmit(event) {
         toggleError(false);
         setIsLoading(true);
@@ -34,12 +36,11 @@ function LoginWindow() {
                 password: event.password,
             });
 
-
             console.log(result)
-            userLogin(result.data.jwt);
+            login(result.data.jwt);
 
         } catch (e) {
-            console.error(error)
+            console.error(e)
 
             toggleError(true);
         }

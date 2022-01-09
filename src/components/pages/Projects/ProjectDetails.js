@@ -14,64 +14,85 @@ export default function ProjectDetails({ project }) {
 
     return (
         <ListItem>
-            <ProjectData>
-                <ProjectName>{ project.projectName }</ProjectName>
+            <Project>
+                <ProjectData>
+                    <ProjectName>{ project.projectName }</ProjectName>
 
-                <Details>
-                    <Meta>
-                        <Category>{ project.category.name }</Category>
-                        <Users>
-                            <Owner>{ project.projectOwner.username }</Owner>
-                            <Collaborators>{ project.project?.collaborators }</Collaborators>
-                        </Users>
-                        <Votes>{project.voteCount}Users up-voted this project</Votes>
-                    </Meta>
-                    <Description>{ project.description }</Description>
-                </Details>
-            </ProjectData>
+                    <Details>
+                        <Meta>
+                            <Category>{ project.category.name }</Category>
+                            <Users>
+                                <Owner>{ project.projectOwner.username }</Owner>
+                                <Collaborators>{ project.project?.collaborators } { project.projectOwner.username } </Collaborators>
+                                <Votes>{ project.voteCount } vote{ project.voteCount > 1 && `'s` } on this
+                                    project</Votes>
+                            </Users>
+                        </Meta>
+                        <Description>{ project.description }Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Consequuntur cum, dolorum excepturi iure neque non optio quas rerum voluptatem
+                            voluptates. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Consequuntur cum, dolorum excepturi iure neque non optio quas rerum voluptatem
+                            voluptates.</Description>
+                    </Details>
+                </ProjectData>
+                <ProjectHero>
+                    <img src={ project.url }/>
+                </ProjectHero>
+            </Project>
+            <Tasks>
 
-            <ProjectHero src={ project.url }/>
-            { project.projectTaskList.map((task) => <h1>{ task }</h1>) }
+                <TaskData>
+                    { project.projectTaskList.map((task) => <h1>{ task }</h1>) }
+                </TaskData>
+            </Tasks>
         </ListItem>
     )
 }
 
-const ProjectData = styled.div`
- flex-grow: 3;
+const Tasks = styled.div`
+
+`
+const Project = styled.div`
+  display: flex
+`
+const TaskData = styled.div`
 `
 const ListItem = styled.li`
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-between;
   padding: 1rem 0;
+  align-items: baseline;
+`
+const ProjectData = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `
 const Meta = styled.div`
-  width: max-content;
-  flex-grow: 1;
+  display: flex;
+  flex: 2 0;
+  flex-direction: column;
+  justify-content: space-between;
+
 
 `
-
 const Description = styled.div`
-  width: min-content;
-  text-align: start;
-  flex-grow: 2;
-  text-justify: newspaper;
+  flex: 4;
+  padding: 0 1rem;
 `
 const Details = styled.div`
-  flex-grow: 2;
-  width: 300px;
+  flex: 2;
   display: flex;
 `
-const ProjectHero = styled.img`
-  //flex-grow: 1;
+const ProjectHero = styled.div`
+  flex: 0 4 auto;
   border: solid var(--box-border-medium) ${ props => props.theme.border };
-  width: auto;
-  max-height: 200px;
+  min-width: 100px;
+  background: blue;
   aspect-ratio: 1 / 1;
 `
 const ProjectName = styled.h2`
-  flex-grow: 3;
+  //flex-grow: 3;
   color: ${ props => props.theme.header };
 
 `
@@ -86,6 +107,8 @@ const Category = styled.div`
 `
 
 const Votes = styled.footer`
+  font-size: 0.9rem;
+
 
 `
 

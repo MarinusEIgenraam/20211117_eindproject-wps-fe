@@ -17,7 +17,7 @@ import Projects from "./components/pages/Projects/Projects";
 import Register from "./components/pages/Register/Register";
 import About from "./components/pages/About/About";
 import ProjectDetails from "./components/pages/Projects/ProjectDetails";
-import BlogDetails from "./components/pages/Blogs/BlogDetails";
+import Blog from "./components/pages/Blogs/Blog";
 import Users from "./components/pages/Users/Users";
 import UserProfile from "./components/pages/Users/UserProfile";
 import NoComponentFound from "./components/pages/NoComponentFound";
@@ -34,22 +34,22 @@ function App() {
             <Routes>
                 <Route path='/' element={ <Home/> }/>
                 <Route path='/blogs' element={ <Blogs/> }/>
-                <Route path='/blogs/:id' element={ <BlogDetails/> }/>
+                <Route path='/blogs/:id' element={ <Blog/> }/>
                 <Route path='/projects' element={ <Projects/> }/>
                 <Route path='/projects/:id' element={ <ProjectDetails/> }/>
                 <Route path='/register' element={ <Register/> }/>
+                {/*<Route path='/Login' element={ <Login/> }/>*/}
                 <Route path='/about' element={ <About/> }/>
 
-                <Route path="users" element={<Users/>}>
+                <Route path="/users" element={<Users/>}>
                     <Route path=':id' element={<UserProfile/>}/>
-
-                    <Route path='me' element={
-                               <PrivateRoutes>
-                                   <Portal/>
-                               </PrivateRoutes>
-                           }
-                    />
                 </Route>
+                <Route path='/me' element={
+                    <PrivateRoutes>
+                        <Portal/>
+                    </PrivateRoutes>
+                }
+                />
                 <Route path="*" element={<NoComponentFound/>}/>
             </Routes>
 

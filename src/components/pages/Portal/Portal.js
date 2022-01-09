@@ -1,7 +1,10 @@
 ////////////////////
 //// Build
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
+import PageContainer from "../../layout/containers/PageContainer";
+import { AuthContext } from "../../../context/AuthProvider";
+import PageHeader from "../../layout/containers/PageHeader";
 
 ////////////////////
 //// Environmental
@@ -10,10 +13,17 @@ import styled from 'styled-components';
 //// External
 
 export default function Portal() {
+    const { isAuth, user } = useContext(AuthContext);
+    console.log(user)
 
     return (
-        <>
-        </>
+        <PageContainer>
+            <PageHeader>
+                <h1>
+                    How are you doing {user.username}
+                </h1>
+            </PageHeader>
+        </PageContainer>
     )
 }
 

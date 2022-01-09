@@ -12,10 +12,10 @@ import { AuthContext } from "../context/AuthProvider";
 //// External
 
 export default function PrivateRoutes({ children, ...rest }) {
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuth } = useContext(AuthContext);
 
 
-    return isAuthenticated ? children : <Navigate to='/'/>;
+    return isAuth ? children : <Navigate to='/'/>;
 
 }
 

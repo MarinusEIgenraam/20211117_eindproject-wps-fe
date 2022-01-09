@@ -9,7 +9,7 @@ import styled from 'styled-components';
 ////////////////////
 //// External
 
-export default function BlogDetails() {
+export default function UserListItem() {
 
     return (
         <>
@@ -17,8 +17,8 @@ export default function BlogDetails() {
     )
 }
 
-const Details = styled.div`
+const NewUserListItem = styled.div`
 
 `
 
-/** Created by ownwindows on 04-01-22 **/
+/** Created by ownwindows on 09-01-22 **/

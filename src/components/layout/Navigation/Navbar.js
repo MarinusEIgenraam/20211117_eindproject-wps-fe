@@ -18,7 +18,7 @@ import LogoLoaderV2 from "../../shared/elements/LogoLoader";
 //// External
 
 export default function Navbar() {
-    const { isAuth, user } = useContext(AuthContext);
+    const { isAuth, user, logout } = useContext(AuthContext);
     const [ menuOpen, setMenuOpen ] = useState(false);
     const [ navActive, setNavActive ] = useState(false);
 
@@ -58,14 +58,31 @@ export default function Navbar() {
                 }
 
                 { useMediaQuery('(max-width: 768px)') ?
-                    <MenuLink activeClassName="active" to="/login">Login</MenuLink>
+                    ( isAuth
+                            ?
+                            <MenuLink activeClassName="active" to="/" onClick={ logout }>Logout</MenuLink>
+
+                            :
+                            <MenuLink activeClassName="active" to="/">Login</MenuLink>
+
+                    )
 
                     :
-                    <MenuLink activeClassName="active" className="icon-link" to="/login">
-                        <Tooltip text="Login">
-                            <RiLoginCircleFill size={ 30 }/>
-                        </Tooltip>
-                    </MenuLink>
+                    ( isAuth
+                            ?
+                            <MenuLink activeClassName="active" className="icon-link" to="/" onClick={ logout}>
+                                <Tooltip text="Logout">
+                                    <RiLoginCircleFill size={ 30 }/>
+                                </Tooltip>
+                            </MenuLink>
+                            :
+                            <MenuLink activeClassName="active" className="icon-link" to="/login">
+                                <Tooltip text="Login">
+                                    <RiLoginCircleFill size={ 30 }/>
+                                </Tooltip>
+                            </MenuLink>
+                    )
+
                 }
 
                 <ThemeSwitch/>
@@ -138,20 +155,23 @@ const MenuLink = styled(NavLink)`
   &:nth-child(1) {
     padding-left: 0;
   }
+
   &.active {
     font-weight: 500;
     color: ${ props => props.theme.boxShadow };
 
   }
+
   &.highlight {
     font-weight: 500;
   }
+
   &:hover {
     color: ${ props => props.theme.sub_text };
   }
 
   @media (max-width: 768px) {
-padding: 1rem;
+    padding: 1rem;
   }
 `
 

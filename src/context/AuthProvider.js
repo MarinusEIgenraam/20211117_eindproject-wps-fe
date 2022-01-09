@@ -35,13 +35,14 @@ export default function AuthProvider({ children }) {
         }
     }, []);
 
-    function userLogin(JWT) {
+    function login(JWT) {
         localStorage.setItem('token', JWT);
         const decoded = jwt_decode(JWT);
-        fetchUserData(decoded.sub, JWT, '/portal');
+        console.log("jo")
+        fetchUserData(decoded.sub, JWT, '/me');
     }
 
-    function userLogout() {
+    function logout() {
         localStorage.clear();
         toggleIsAuth({
             isAuth: false,
@@ -89,14 +90,14 @@ export default function AuthProvider({ children }) {
     const contextData = {
         isAuth: isAuth.isAuth,
         user: isAuth.user,
-        userLogin: userLogin,
-        userLogout: userLogout,
+        login: login,
+        logout: logout,
     };
 
 
     return (
         <AuthContext.Provider
-            value={ { contextData } }>
+            value={ contextData  }>
             { children }
         </AuthContext.Provider>
     );

@@ -2,7 +2,7 @@
 //// Build
 import React, { useContext } from 'react'
 import styled from 'styled-components';
-import LoginWindow from "../Login/LoginWindow";
+import LoginWindow from "../../layout/forms/LoginWindow";
 import { AuthContext } from "../../../context/AuthProvider";
 
 ////////////////////

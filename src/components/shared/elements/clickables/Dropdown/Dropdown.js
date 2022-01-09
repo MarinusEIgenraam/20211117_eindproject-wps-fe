@@ -54,13 +54,10 @@ const Focus = styled.span`
 `
 
 const Option = styled.option`
-  //margin: 1rem;
-  background: ${ props => props.theme.text };
-  //padding: 10rem;
+  background: ${ props => props.theme.windowBackground };
 `
 const SelectContainer = styled.div`
   appearance: none;
-  //margin: 0;
   width: 100%;
   font-family: inherit;
   outline: none;
@@ -70,9 +67,7 @@ const SelectContainer = styled.div`
   padding: 0.25em 0.5em;
   font-size: 1.25rem;
   cursor: pointer;
-  //line-height: 1.1;
-  // background-color: ${ props => props.theme.windowBackground }
-  background-image: linear-gradient(to top, ${ props => props.theme.border }, ${ props => props.theme.boxShadow } 33%);
+  background-image: linear-gradient(to top, ${ props => props.theme.border }, ${ props => props.theme.background } 33%);
 
   display: flex;
   grid-template-areas: "select";
@@ -93,7 +88,6 @@ const Select = styled.select`
   appearance: none;
   background-color: transparent;
   border: none;
-  padding: 0 1em 0 0;
   margin: 0;
   width: 100%;
   font-family: inherit;
@@ -107,16 +101,6 @@ const Select = styled.select`
   &::-ms-expand {
     display: none;
   }
-
-  // &:focus&:Focus {
-  //   position: relative;
-  //   //top: -1px;
-  //   //left: -1px;
-  //   //right: -1px;
-  //   //bottom: -1px;
-  //   border: 2px solid ${ props => props.theme.text };
-  //   border-radius: inherit;
-  // }
   
 
 `
