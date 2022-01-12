@@ -20,10 +20,10 @@ export default function ProjectDetails({ project }) {
 
                     <Details>
                         <Meta>
-                            <Category>{ project.category.name }</Category>
+                            {/*<Category>{ project.category.name }</Category>*/}
                             <Users>
-                                <Owner>{ project.projectOwner.username }</Owner>
-                                <Collaborators>{ project.project?.collaborators } { project.projectOwner.username } </Collaborators>
+                                <Owner>{ project.projectOwner?.username }</Owner>
+                                <Collaborators>{ project.project?.collaborators } { project.projectOwner?.username } </Collaborators>
                                 <Votes>{ project.voteCount } vote{ project.voteCount > 1 && `'s` } on this
                                     project</Votes>
                             </Users>
@@ -42,7 +42,7 @@ export default function ProjectDetails({ project }) {
             <Tasks>
 
                 <TaskData>
-                    { project.projectTaskList.map((task) => <h1>{ task }</h1>) }
+                    { project.projectTaskList?.map((task) => <h1>{ task }</h1>) }
                 </TaskData>
             </Tasks>
         </ListItem>

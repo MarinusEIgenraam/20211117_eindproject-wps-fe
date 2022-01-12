@@ -6,14 +6,15 @@ import styled from 'styled-components';
 ////////////////////
 //// Environmental
 import NestedArray from "./taskSubtaskList";
-import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
-import ButtonContainer from "../../layout/containers/ButtonContainer";
-import Tooltip from "../../shared/elements/Tooltip";
+import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
+import ButtonContainer from "../../containers/ButtonContainer";
+import Tooltip from "../../../shared/elements/Tooltip";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
+import InputField from "../../../shared/elements/FormElements/InputField";
 
 let renderCount = 0;
 
-export default function Fields({ control, register, setValue, getValues }) {
+export default function Fields({ control, register, setValue, getValues, errors }) {
     const { fields, append, remove, prepend } = useFieldArray({
         control,
         name: "projectTaskList"
@@ -28,37 +29,30 @@ export default function Fields({ control, register, setValue, getValues }) {
                         <ListItem key={ item.id }>
                             <Row>
 
-                                <Label>
-                                    <p>
-                                        Task name
-
-                                    </p>
-                                    <Input
-                                        { ...register(`projectTaskList[${ index }].taskName`) }
-                                        placeholder="Task name"
-                                    />
-                                </Label>
-                                <Label>
-                                    <p>
-
-                                        Description
-                                    </p>
-                                    <Input
-                                        type="text-area"
-                                        { ...register(`projectTaskList[${ index }].description`) }
-                                        placeholder="Description"
-                                    />
-                                </Label>
-                                <Label>
-                                    <p>
-
-                                        Deadline
-                                    </p>
-                                    <InputDate
-                                        type="date"
-                                        { ...register(`projectTaskList[${ index }].endTime`) }
-                                    />
-                                </Label>
+                                <InputField
+                                    type="text"
+                                    name="Name"
+                                    inputName={`projectTaskList[${ index }].taskName`}
+                                    register={ register }
+                                    errors={ errors }
+                                    placeholder="https://www.willpoweredstudents.com"
+                                />
+                                <InputField
+                                    type="text"
+                                    name="Description"
+                                    inputName={`projectTaskList[${ index }].description`}
+                                    register={ register }
+                                    errors={ errors }
+                                    placeholder="https://www.willpoweredstudents.com"
+                                />
+                                <InputField
+                                    type="date"
+                                    name="Deadline"
+                                    inputName={`projectTaskList[${ index }].endTime`}
+                                    register={ register }
+                                    errors={ errors }
+                                    placeholder="https://www.willpoweredstudents.com"
+                                />
                                 <Icon>
 
                                     <Tooltip text="Delete">
@@ -72,7 +66,6 @@ export default function Fields({ control, register, setValue, getValues }) {
                             </Row>
                             <Row>
 
-                                <NestedArray nestIndex={ index } { ...{ control, register } } />
                             </Row>
                         </ListItem>
                     );
@@ -119,11 +112,12 @@ const TaskList = styled.ul`
   width: 100%;
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
 
   li:nth-child(1) {
-    div label {
-      p {
+    div div {
+      label {
         visibility: visible;
       }
     }

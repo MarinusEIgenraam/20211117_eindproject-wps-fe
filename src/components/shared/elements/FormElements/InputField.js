@@ -23,6 +23,7 @@ export default function InputField({
                                        minLength,
                                        placeholder,
                                        maxLength,
+                                       onChange
                                    }) {
     const [ asDate, setAsDate ] = useState(false);
 
@@ -53,6 +54,7 @@ export default function InputField({
                     disabled: disabled,
                     deps: dependencies
                 }) }
+                onChange={onChange}
 
             />
             <ErrorMessage className="error-message">{ errors[inputName] && errors[inputName].message }</ErrorMessage>
@@ -63,6 +65,9 @@ export default function InputField({
 const Label = styled.label`
   margin-bottom: 1.25rem;
   padding: 0.25rem;
+  visibility: hidden;
+
+
 
 `
 const Input = styled.input`

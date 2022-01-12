@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { useFieldArray } from "react-hook-form";
 ////////////////////
 //// Environmental
-import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
-import Tooltip from "../../shared/elements/Tooltip";
+import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
+import Tooltip from "../../../shared/elements/Tooltip";
 import { IoIosRemoveCircleOutline, IoIosAddCircle } from "react-icons/io";
 import { TiDelete } from "react-icons/ti";
 

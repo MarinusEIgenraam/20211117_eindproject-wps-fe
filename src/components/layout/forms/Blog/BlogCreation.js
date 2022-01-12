@@ -2,14 +2,14 @@
 //// Build
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
-import { useForm } from "react-hook-form";
-import { UtilityContext } from "../../../context/UtilityProvider";
-import FormWindow from "../../layout/containers/FormWindow";
-import FieldArray from "./projectTaskList";
-import InputField from "../../shared/elements/FormElements/InputField";
-import InputArea from "../../shared/elements/FormElements/InputArea";
-import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
-import ButtonContainer from "../../layout/containers/ButtonContainer";
+import { useFieldArray, useForm } from "react-hook-form";
+import { UtilityContext } from "../../../../context/UtilityProvider";
+import FormWindow from "../../containers/FormWindow";
+import InputField from "../../../shared/elements/FormElements/InputField";
+import InputArea from "../../../shared/elements/FormElements/InputArea";
+import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
+import { AuthContext } from "../../../../context/AuthProvider";
+import { postBlog } from "../../../../services/controllers/requests";
 
 ////////////////////
 //// Environmental
@@ -20,20 +20,8 @@ const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
 //// External
 
 
-const defaultValues = {
-    projectTaskList: [
-        {
-            taskName: "",
-            subTaskList: [{ taskName: "", description: "" }]
-        },
-        {
-            taskName: "",
-            subTaskList: [{ taskName: "", description: "" }]
-        }
-    ]
-};
-
-export default function ProjectCreation() {
+export default function BlogCreation() {
+    const { isAuth, user } = useContext(AuthContext);
     const { hasError, setHasError, setIsLoading } = useContext(UtilityContext);
     const [ error, toggleError ] = useState(false);
     const [ picture, setPicture ] = useState('')
@@ -46,10 +34,11 @@ export default function ProjectCreation() {
         formState: { errors },
         reset,
         setValue
-    } = useForm({
-        defaultValues
+    } = useForm();
+    const { fields, append, remove, prepend } = useFieldArray({
+        control,
+        name: "projectTaskList"
     });
-
 
     const handleImageChange = (event) => {
         if (!event || !event.target.files) {
@@ -63,44 +52,28 @@ export default function ProjectCreation() {
     }
 
 
-    // const onSubmit = async (values) => {
-    //     setIsLoading(true)
-    //
-    //     if (values.image[0]) {
-    //         if (values.image[0].type === 'image/jpeg' || values.image[0].type === 'image/png') {
-    //             console.log(values.image)
-    //             const imgur = await uploadImage(values.image[0])
-    //             const request = {
-    //                 ...values,
-    //                 imageUrl: imgur
-    //             }
-    //             const response = await postProject(request)
-    //             const project = { ...response }
-    //             console.log(project)
-    //
-    //         } else (
-    //             console.log('incorrect input')
-    //         )
-    //     } else {
-    //         console.log("second")
-    //         const imgur = ''
-    //         const request = { ...values, image: imgur }
-    //         const response = await postProject(request)
-    //         const project = { ...response }
-    //         console.log(project)
-    //
-    //     }
-    //     setIsLoading(false)
-    // }
+    const onSubmit = async (values) => {
+        setIsLoading(true)
 
-    function onSubmit(data) {
-        console.log("data", data)
+        const request = {
+            ...values,
+            blogOwnerId: user.username,
+        }
+        const response = await postBlog(request)
+        const project = { ...response }
+        console.log(project)
+
+        setIsLoading(false)
     }
+    //
+    // function onSubmit(data) {
+    //     console.log("data", data)
+    // }
 
     return (
         <FormWindow>
             <Header>
-                <h1>Create a project</h1>
+                <h1>Write a blog</h1>
             </Header>
             <CreationForm onSubmit={ handleSubmit(onSubmit) }>
                 <Row>
@@ -109,7 +82,7 @@ export default function ProjectCreation() {
                         <InputField
                             type="text"
                             name="Name"
-                            inputName="projectName"
+                            inputName="blogName"
                             register={ register }
                             errors={ errors }
                             required={ true }
@@ -135,14 +108,17 @@ export default function ProjectCreation() {
                         />
                     </Column>
                     <Column>
-                        <label>Project visual</label>
+                        <InputField
+                            type="file"
+                            name="Website"
+                            inputName="imageUrl"
+                            register={ register }
+                            errors={ errors }
+                            required={ false }
+                            placeholder="https://www.willpoweredstudents.com"
+                            onChange={ handleImageChange }
+                        />
 
-                        <input
-                            type='file'
-                            id='imageUrl'
-                            accept='image/*'
-                            { ...register('image') }
-                            onChange={ handleImageChange }/>
 
                         <label htmlFor='file'>
 
@@ -151,26 +127,12 @@ export default function ProjectCreation() {
                         </label>
                     </Column>
                 </Row>
-                <Row>
-                    <h3>Tasks</h3>
-
-                </Row>
-                <Row>
-                    <FieldArray
-                        {...{ control, register, defaultValues, getValues, setValue, errors }}
-                    />
-
-
-
-
-
-                </Row>
-                <ButtonRow>
+                <ButtonBox>
 
 
                     <RectangleButton
                         type="button"
-                        onClick={() => reset(defaultValues)}
+                        onClick={ () => reset() }
                         buttonSize="btn--large"
                         buttonStyle="btn--danger--solid"
                     >
@@ -180,12 +142,14 @@ export default function ProjectCreation() {
                         type="submit"
                         buttonSize="btn--large"
                         buttonStyle="btn--succes--solid"
-                        disabled={ !!error.projectName || !!error.description }
+                        disabled={ error.name || error.description  }
 
                     >
                         Submit
                     </RectangleButton>
-                </ButtonRow>
+
+                </ButtonBox>
+
 
 
             </CreationForm>
@@ -203,10 +167,11 @@ const Image = styled.img`
   aspect-ratio: 1/1;
 
 `
-const ButtonRow = styled.div`
+const ButtonBox = styled.section`
   display: flex;
   width: 100%;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
   position: relative;
   top: -20px;
@@ -232,8 +197,11 @@ const CreationForm = styled.form`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  //align-items: center;
+  
   justify-content: center;
   flex-direction: column;
+  div div div label {
+    visibility: visible;
+  }
 `
 /** Created by ownwindows on 10-01-22 **/

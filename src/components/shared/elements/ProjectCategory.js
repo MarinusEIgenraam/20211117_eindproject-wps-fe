@@ -6,7 +6,7 @@ import { UtilityContext } from "../../../context/UtilityProvider";
 import axios from "axios";
 ////////////////////
 //// Environmental
-import Dropdown from "../../shared/elements/clickables/Dropdown/Dropdown";
+import Dropdown from "./clickables/Dropdown/Dropdown";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -59,7 +59,7 @@ export default function ProjectCategory({ setCategory, category }) {
                               loadedCategories.map((categoryEntity) => {
                                   return (
                                       ( {
-                                          value: categoryEntity.name,
+                                          value: categoryEntity.id,
                                           label: categoryEntity.name,
                                           iconClass: categoryEntity.name
                                       } )

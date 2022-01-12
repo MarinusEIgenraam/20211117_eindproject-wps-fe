@@ -14,7 +14,7 @@ import * as PropTypes from "prop-types";
 import ButtonContainer from "../../layout/containers/ButtonContainer";
 import ListContainer from "../../layout/containers/ListContainer";
 import ProjectDetails from "./ProjectDetails";
-import ProjectCategory from "./ProjectCategory";
+import ProjectCategory from "../../shared/elements/ProjectCategory";
 import InputField from "../../shared/elements/FormElements/InputField";
 import { useForm } from "react-hook-form";
 import SearchField from "../../shared/elements/SearchFIeld";
@@ -89,7 +89,7 @@ export default function Projects() {
 
             <ButtonContainer>
                 <ProjectCategory category={ projectCategory } setCategory={ setProjectCategory }/>
-                <SearchField setSearchParam={setSearchParam}/>
+                {/*<SearchField setSearchParam={setSearchParam}/>*/}
 
             </ButtonContainer>
             <ListContainer>

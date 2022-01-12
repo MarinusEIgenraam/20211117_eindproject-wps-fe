@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import PageContainer from "../../layout/containers/PageContainer";
 import { AuthContext } from "../../../context/AuthProvider";
 import PageHeader from "../../layout/containers/PageHeader";
-import ProjectCreation from "../Projects/ProjectCreation";
+import ProjectCreation from "../../layout/forms/Project/ProjectCreation";
+import BlogCreation from "../../layout/forms/Blog/BlogCreation";
 
 ////////////////////
 //// Environmental
@@ -15,7 +16,7 @@ import ProjectCreation from "../Projects/ProjectCreation";
 
 export default function Portal() {
     const { isAuth, user } = useContext(AuthContext);
-    console.log(user)
+    console.log(user.authorities)
 
     return (
         <PageContainer>
@@ -24,7 +25,12 @@ export default function Portal() {
                     How are you doing {user.username}
                 </h1>
             </PageHeader>
-            <ProjectCreation/>
+            {(user.authorities === "Project lord") &&
+                <BlogCreation/>
+            }
+            {(user.authorities === "Project manager" || "Project lord") &&
+                <ProjectCreation/>
+            }
         </PageContainer>
     )
 }
