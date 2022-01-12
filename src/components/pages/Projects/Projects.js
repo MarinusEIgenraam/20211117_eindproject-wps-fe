@@ -15,20 +15,26 @@ import ButtonContainer from "../../layout/containers/ButtonContainer";
 import ListContainer from "../../layout/containers/ListContainer";
 import ProjectDetails from "./ProjectDetails";
 import ProjectCategory from "./ProjectCategory";
+import InputField from "../../shared/elements/FormElements/InputField";
+import { useForm } from "react-hook-form";
+import SearchField from "../../shared/elements/SearchFIeld";
 
 const { REACT_APP_API_URL } = process.env;
 
-////////////////////
-//// External
 
 
 ButtonContainer.propTypes = { children: PropTypes.node };
 export default function Projects() {
-    const { setIsLoading } = useContext(UtilityContext);
     const [ pageOffset, setPageOffset ] = useState(0);
-    const [ loadedProjects, setLoadedProjects ] = useState();
+    const { setIsLoading } = useContext(UtilityContext);
     const [ hasError, setHasError ] = useState(false);
-    const [ category, setCategory ] = useState(false);
+
+    const [ loadedProjects, setLoadedProjects ] = useState();
+    const [ filteredProjects, setFilteredProjects ] = useState(loadedProjects);
+    const [searchParam , setSearchParam] = useState(["owner", "name"])
+
+    const [isSelected, setIsSelected] = useState({});
+    const [ projectCategory, setProjectCategory ] = useState('');
 
     const API_URL = `${ REACT_APP_API_URL }projects/all`;
 
@@ -45,6 +51,7 @@ export default function Projects() {
                 const result = await axios.get(API_URL, { cancelToken: source.token, });
 
                 setLoadedProjects(result.data);
+                setFilteredProjects(result.data);
                 console.log(loadedProjects)
 
             } catch (e) {
@@ -63,6 +70,8 @@ export default function Projects() {
 
     }, [ pageOffset ]);
 
+    const handleSearch = (event) => {
+    }
 
     return (
         <PageContainer>
@@ -79,24 +88,13 @@ export default function Projects() {
             </PageHeader>
 
             <ButtonContainer>
-                <RectangleButton
-                    buttonStyle="btn--primary--solid"
-                    buttonSize="btn--large"
-                    type="submit">
-                    Next
-                </RectangleButton>
-                <ProjectCategory category={category} setCategory={setCategory}/>
+                <ProjectCategory category={ projectCategory } setCategory={ setProjectCategory }/>
+                <SearchField setSearchParam={setSearchParam}/>
 
-                <RectangleButton
-                    buttonStyle="btn--primary--solid"
-                    buttonSize="btn--large"
-                    type="submit">
-                    Previous
-                </RectangleButton>
             </ButtonContainer>
             <ListContainer>
-                { loadedProjects &&
-                    loadedProjects.map((project) => {
+                { filteredProjects &&
+                    filteredProjects.map((project) => {
                         return (
 
                             <ProjectDetails project={ project }/>
@@ -109,6 +107,22 @@ export default function Projects() {
 
 
             </ListContainer>
+            <ButtonContainer>
+                <RectangleButton
+                    buttonStyle="btn--primary--solid"
+                    buttonSize="btn--large"
+                    type="submit">
+                    Next
+                </RectangleButton>
+
+
+                <RectangleButton
+                    buttonStyle="btn--primary--solid"
+                    buttonSize="btn--large"
+                    type="submit">
+                    Previous
+                </RectangleButton>
+            </ButtonContainer>
 
         </PageContainer>
     );

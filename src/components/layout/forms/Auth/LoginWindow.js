@@ -6,11 +6,10 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 ////////////////////
 //// Environmental
-import InputField from "../../shared/elements/FormElements/InputField";
-import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
-import { UtilityContext } from "../../../context/UtilityProvider";
-import { AuthContext } from "../../../context/AuthProvider";
-import jwt_decode from "jwt-decode";
+import InputField from "../../../shared/elements/FormElements/InputField";
+import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
+import { UtilityContext } from "../../../../context/UtilityProvider";
+import { AuthContext } from "../../../../context/AuthProvider";
 
 const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
 ////////////////////

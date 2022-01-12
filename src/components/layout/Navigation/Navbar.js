@@ -7,12 +7,10 @@ import { NavLink } from 'react-router-dom';
 //// Environmental
 import { RiLoginCircleFill } from "react-icons/ri";
 import { AuthContext } from "../../../context/AuthProvider";
-import { UtilityContext } from "../../../context/UtilityProvider";
 import LogoLoader from "../../shared/elements/LogoLoader";
 import Tooltip from "../../shared/elements/Tooltip";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 import ThemeSwitch from "../../shared/elements/clickables/ThemeSwitch";
-import LogoLoaderV2 from "../../shared/elements/LogoLoader";
 
 ////////////////////
 //// External

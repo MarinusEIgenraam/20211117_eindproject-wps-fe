@@ -1,10 +1,11 @@
 ////////////////////
 //// Build
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
 import PageContainer from "../../layout/containers/PageContainer";
 import { AuthContext } from "../../../context/AuthProvider";
 import PageHeader from "../../layout/containers/PageHeader";
+import ProjectCreation from "../Projects/ProjectCreation";
 
 ////////////////////
 //// Environmental
@@ -23,6 +24,7 @@ export default function Portal() {
                     How are you doing {user.username}
                 </h1>
             </PageHeader>
+            <ProjectCreation/>
         </PageContainer>
     )
 }

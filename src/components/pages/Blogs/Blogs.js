@@ -8,7 +8,6 @@ import { UtilityContext } from "../../../context/UtilityProvider";
 //// Environmental
 import PageContainer from "../../layout/containers/PageContainer";
 import PageHeader from "../../layout/containers/PageHeader";
-import ProjectDetails from "../Projects/ProjectDetails";
 
 const { REACT_APP_API_URL } = process.env;
 ////////////////////
@@ -79,5 +78,8 @@ const Blog = styled.div`
 
 `
 const BlogsContainer = styled.div`
+    display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 `
 /** Created by ownwindows on 04-01-22 **/

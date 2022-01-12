@@ -58,17 +58,17 @@ const Option = styled.option`
 `
 const SelectContainer = styled.div`
   appearance: none;
-  width: 100%;
   font-family: inherit;
   outline: none;
-  min-width: 15ch;
-  max-width: 30ch;
+  width: 25rem;
+  min-width: 10rem;
+  max-width: 20rem;
+  height: max-content;
   border: 1px solid ${ props => props.theme.border };
   padding: 0.25em 0.5em;
   font-size: 1.25rem;
   cursor: pointer;
   background-image: linear-gradient(to top, ${ props => props.theme.border }, ${ props => props.theme.background } 33%);
-
   display: flex;
   grid-template-areas: "select";
   align-items: center;

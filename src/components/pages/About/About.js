@@ -7,7 +7,6 @@ import PageHeader from "../../layout/containers/PageHeader";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import axios from "axios";
 import ListContainer from "../../layout/containers/ListContainer";
-import ProjectDetails from "../Projects/ProjectDetails";
 import AboutAdmin from "./AboutAdmin";
 
 ////////////////////

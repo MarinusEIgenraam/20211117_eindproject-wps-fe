@@ -1,8 +1,7 @@
 ////////////////////
 //// Build
-import React, { useState } from 'react'
-import { Route, Navigate } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import React, { useContext } from 'react'
+import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 
 ////////////////////

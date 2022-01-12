@@ -1,6 +1,6 @@
 ////////////////////
 //// Build
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
 
 ////////////////////
@@ -9,19 +9,20 @@ import styled from 'styled-components';
 ////////////////////
 //// External
 
-export default function PageHeader({ children }) {
+export default function FormWindow({children}) {
 
     return (
-        <HeaderContainer>
-            { children }
-        </HeaderContainer>
+        <Window>
+            {children}
+        </Window>
     )
 }
 
-const HeaderContainer = styled.div`
+const Window = styled.div`
   background: ${ props => props.theme.background };
   color: ${ props => props.theme.text };
   align-self: center;
+align-items: center;
   margin-top: 10vh;
   padding: 2rem 3rem;
   display: flex;
@@ -39,4 +40,4 @@ const HeaderContainer = styled.div`
   }
 `
 
-/** Created by ownwindows on 05-01-22 **/
+/** Created by ownwindows on 10-01-22 **/

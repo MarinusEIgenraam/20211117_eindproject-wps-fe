@@ -38,7 +38,6 @@ export default function AuthProvider({ children }) {
     function login(JWT) {
         localStorage.setItem('token', JWT);
         const decoded = jwt_decode(JWT);
-        console.log("jo")
         fetchUserData(decoded.sub, JWT, '/me');
     }
 
@@ -50,8 +49,19 @@ export default function AuthProvider({ children }) {
             status: 'done',
         });
 
-        console.log('User is logged out');
         navigate('/');
+    }
+
+    function setRole(roles) {
+        if (roles.some(e => e.authority === 'ROLE_USER')) {
+            return 'Project lord'
+        } else if (roles.some(e => e.authority === 'ROLE_SUPER_USER')){
+            return 'Project manager'
+        } else if (roles.some(e => e.authority === 'ROLE_ADMIN')) {
+            return 'Project fanatic';
+        } else {
+            return 'whatwhat?'
+        }
     }
 
     async function fetchUserData(username, token, redirectUrl) {
@@ -69,6 +79,8 @@ export default function AuthProvider({ children }) {
                 user: {
                     username: result.data.username,
                     email: result.data.email,
+                    authorities: setRole(result.data.authorities),
+                    enabled: result.data.enabled
                 },
                 status: 'done',
             });
@@ -86,6 +98,7 @@ export default function AuthProvider({ children }) {
             });
         }
     }
+
 
     const contextData = {
         isAuth: isAuth.isAuth,

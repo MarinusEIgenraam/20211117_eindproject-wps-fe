@@ -10,21 +10,23 @@ import styled from 'styled-components'
 //// Internal
 
 
-export default function InputField({
-                                       dependencies,
-                                       disabled,
-                                       labelId,
-                                       register,
-                                       required,
-                                       errors,
-                                       type,
-                                       name,
-                                       inputName,
-                                       minLength,
-                                       placeholder,
-                                       maxLength,
-                                   }) {
-    const [ asDate, setAsDate ] = useState(false);
+export default function InputArea({
+                                      dependencies,
+                                      disabled,
+                                      labelId,
+                                      register,
+                                      required,
+                                      errors,
+                                      type,
+                                      name,
+                                      inputName,
+                                      minLength,
+                                      placeholder,
+                                      maxLength,
+    height,
+    width
+
+                                  }) {
 
 
     return (
@@ -65,24 +67,22 @@ const Label = styled.label`
   padding: 0.25rem;
 
 `
-const Input = styled.input`
+const Input = styled.textarea`
   padding: 0.5rem;
   margin-top: 0.25rem;
   color: ${ props => props.theme.text };
   font-weight: 400;
   display: block;
   border: none;
-  text-align: start;
-  justify-content: start;
+  resize: vertical;
   width: ${ ({ width }) => width ? width : "100%" };
   height: ${ ({ height }) => height ? height : "" };
+  &::placeholder{
+    color: ${ props => props.theme.sub_text };
+  }
 
   outline: var(--tertiary-quarter) solid var(--box-border-thin);
   color: ${ props => props.theme.text };
-
-  &::placeholder {
-    color: ${ props => props.theme.sub_text };
-  }
 `
 
 const InputContainer = styled.div`

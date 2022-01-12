@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import PageContainer from "../../layout/containers/PageContainer";
 import PageHeader from "../../layout/containers/PageHeader";
 import ListContainer from "../../layout/containers/ListContainer";
-import ProjectDetails from "../Projects/ProjectDetails";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import axios from "axios";
 import UserListItem from "./UserListItem";

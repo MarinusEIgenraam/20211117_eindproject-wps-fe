@@ -78,10 +78,14 @@
 }
 
 /*Sizes*/
-
+.btn--small {
+    min-width: 70px;
+    padding: 0.25rem 0.25rem;
+    font-size: 12px;
+}
 .btn--medium {
     min-width: 100px;
-    padding: 0.5rem 2vh;
+    padding: 0.5rem 1rem;
     font-size: 18px;
 }
 

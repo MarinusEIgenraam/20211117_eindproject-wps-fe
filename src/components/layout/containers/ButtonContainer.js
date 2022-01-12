@@ -1,6 +1,6 @@
 ////////////////////
 //// Build
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components';
 
 ////////////////////
@@ -24,7 +24,7 @@ const Container = styled.div`
   justify-content:space-around;
   padding: 1rem 1rem;
   align-self: center;
-  //align-content:center;
+  align-items:center;
   width: 80vw;
 `
 

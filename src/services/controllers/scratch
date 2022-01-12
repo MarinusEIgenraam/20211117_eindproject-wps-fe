@@ -1,0 +1,30 @@
+    const onSubmit = async (values) => {
+        setIsLoading(true)
+
+        try {
+            const response = await postProject(data);
+            console.log(response);
+
+        } catch (e){
+            console.error(e)
+        }
+        if (data.image[0]) {
+            if (data.image[0]) {
+                const imgur = await uploadImage(data.image[0])
+                const request = {...data ,imgur}
+                const response = await postProject(data)
+                const project = {...response}
+                console.log(imgur)
+            } else (
+                console.log('incorrect input')
+            )
+        } else {
+            console.log("second")
+            const imgur = ''
+            const request = { ...data, imgur }
+            const response = await postProject(request)
+            const project = { ...response }
+
+        }
+        setIsLoading(false)
+    }

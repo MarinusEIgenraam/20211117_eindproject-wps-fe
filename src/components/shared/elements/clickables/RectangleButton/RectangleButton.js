@@ -22,7 +22,7 @@ const STYLES = [
     "btn--special--outline",
 ];
 
-const SIZES = [ "btn--medium", "btn--large" ];
+const SIZES = [ "btn--medium", "btn--large", "btn--small" ];
 
 
 const RectangleButton = ({ children, type, onClick, buttonStyle, buttonSize, disabled }) => {
