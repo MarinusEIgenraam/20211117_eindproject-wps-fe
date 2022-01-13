@@ -77,46 +77,46 @@ export default function ProjectCreation() {
     }
 
 
-    // const onSubmit = async (values) => {
-    //     setIsLoading(true)
-    //
-    //     if (values.image[0]) {
-    //         if (values.image[0].type === 'image/jpeg' || values.image[0].type === 'image/png') {
-    //             const imgur = await uploadImage(values.image[0])
-    //             console.log(imgur)
-    //             const request = {
-    //                 ...values,
-    //                 categoryId: projectCategory,
-    //                 imageUrl: imgur
-    //             }
-    //             const response = await postProject(request)
-    //             const project = { ...response }
-    //             console.log(project)
-    //
-    //         } else (
-    //             console.log('incorrect input')
-    //         )
-    //     } else {
-    //         console.log(projectCategory)
-    //
-    //         const imgur = ''
-    //         const request = {
-    //             ...values,
-    //             categoryId: projectCategory,
-    //             imageUrl: imgur
-    //         }
-    //         const response = await postProject(request)
-    //         const project = { ...response }
-    //         console.log(project)
-    //
-    //     }
-    //     setIsLoading(false)
-    // }
+    const onSubmit = async (values) => {
+        setIsLoading(true)
 
-    function onSubmit(data) {
-        console.log("data", data)
-        console.log(projectCategory)
+        if (values.imageUrl[0]) {
+            if (values.imageUrl[0].type === 'image/jpeg' || values.imageUrl[0].type === 'image/png') {
+                const imgur = await uploadImage(values.imageUrl[0])
+                console.log(imgur)
+                const request = {
+                    ...values,
+                    categoryId: projectCategory,
+                    imageUrl: imgur
+                }
+                const response = await postProject(request)
+                const project = { ...response }
+                console.log(project)
+
+            } else (
+                console.log('incorrect input')
+            )
+        } else {
+            console.log(projectCategory)
+
+            const imgur = ''
+            const request = {
+                ...values,
+                categoryId: projectCategory,
+                imageUrl: imgur
+            }
+            const response = await postProject(request)
+            const project = { ...response }
+            console.log(project)
+
+        }
+        setIsLoading(false)
     }
+
+    // function onSubmit(data) {
+    //     console.log("data", data)
+    //     console.log(projectCategory)
+    // }
 
     return (
         <FormWindow>
@@ -155,17 +155,26 @@ export default function ProjectCreation() {
 
                         />
                         <ProjectCategory category={ projectCategory } setCategory={ setProjectCategory }/>
+                        <InputField
+                            type="checkbox"
+                            name="Publicly visible"
+                            inputName="publiclyVisible"
+                            register={ register }
+                            errors={ errors }
+                            required={ true }
+
+                        />
                     </Column>
                     <Column>
                         <label>Project visual</label>
-
-                        <input
-                            type='file'
-                            id='imageUrl'
-                            accept='image/*'
-                            { ...register('image') }
+                        <InputField
+                            type="file"
+                            name="Image"
+                            inputName="imageUrl"
+                            register={ register }
+                            errors={ errors }
+                            required={ false }
                             onChange={ handleImageChange }/>
-
                         <label htmlFor='file'>
 
                             <Image src={ picture }/>
