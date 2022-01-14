@@ -35,7 +35,6 @@ export default function Fields({ control, register, setValue, getValues, errors 
                                     inputName={`projectTaskList[${ index }].taskName`}
                                     register={ register }
                                     errors={ errors }
-                                    placeholder="https://www.willpoweredstudents.com"
                                 />
                                 <InputField
                                     type="text"
@@ -43,7 +42,6 @@ export default function Fields({ control, register, setValue, getValues, errors 
                                     inputName={`projectTaskList[${ index }].description`}
                                     register={ register }
                                     errors={ errors }
-                                    placeholder="https://www.willpoweredstudents.com"
                                 />
                                 <InputField
                                     type="date"
@@ -51,7 +49,6 @@ export default function Fields({ control, register, setValue, getValues, errors 
                                     inputName={`projectTaskList[${ index }].endTime`}
                                     register={ register }
                                     errors={ errors }
-                                    placeholder="https://www.willpoweredstudents.com"
                                 />
                                 <Icon>
 

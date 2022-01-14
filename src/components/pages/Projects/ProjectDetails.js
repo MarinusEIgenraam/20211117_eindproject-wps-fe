@@ -2,6 +2,8 @@
 //// Build
 import React from 'react'
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+
 
 ////////////////////
 //// Environmental
@@ -13,26 +15,22 @@ export default function ProjectDetails({ project }) {
     console.log(project);
 
     return (
-        <ListItem>
+        <ListItem key={project.projectId}>
             <Project>
                 <ProjectData>
-                    <ProjectName>{ project.projectName }</ProjectName>
+                    <ProjectName to={ `/projects/${project.projectId}` }>{ project.projectName }</ProjectName>
 
                     <Details>
                         <Meta>
-                            {/*<Category>{ project.category.name }</Category>*/}
+                            <Category>{ project.category.name }</Category>
                             <Users>
-                                <Owner>{ project.projectOwner?.username }</Owner>
-                                <Collaborators>{ project.project?.collaborators } { project.projectOwner?.username } </Collaborators>
+                                <Owner>{ project.projectOwner.username }</Owner>
+                                <Collaborators>{ project.collaborators.map((user)=> <span>{ user.username }</span>) }</Collaborators>
                                 <Votes>{ project.voteCount } vote{ project.voteCount > 1 && `'s` } on this
                                     project</Votes>
                             </Users>
                         </Meta>
-                        <Description>{ project.description }Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            Consequuntur cum, dolorum excepturi iure neque non optio quas rerum voluptatem
-                            voluptates. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            Consequuntur cum, dolorum excepturi iure neque non optio quas rerum voluptatem
-                            voluptates.</Description>
+                        <Description>{ project.description }</Description>
                     </Details>
                 </ProjectData>
                 <ProjectHero>
@@ -42,7 +40,8 @@ export default function ProjectDetails({ project }) {
             <Tasks>
 
                 <TaskData>
-                    { project.projectTaskList?.map((task) => <h1>{ task }</h1>) }
+                    {project.projectTaskList &&
+                    project.projectTaskList.map((task)=> console.log(task))}
                 </TaskData>
             </Tasks>
         </ListItem>
@@ -91,7 +90,7 @@ const ProjectHero = styled.div`
   background: blue;
   aspect-ratio: 1 / 1;
 `
-const ProjectName = styled.h2`
+const ProjectName = styled(NavLink)`
   //flex-grow: 3;
   color: ${ props => props.theme.header };
 

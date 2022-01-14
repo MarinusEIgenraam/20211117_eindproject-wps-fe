@@ -8,6 +8,7 @@ import { UtilityContext } from "../../../context/UtilityProvider";
 //// Environmental
 import PageContainer from "../../layout/containers/PageContainer";
 import PageHeader from "../../layout/containers/PageHeader";
+import Blog from "./Blog";
 
 const { REACT_APP_API_URL } = process.env;
 ////////////////////
@@ -17,7 +18,7 @@ export default function Blogs() {
     const { setIsLoading } = useContext(UtilityContext);
     const [ loadedBlogs, setLoadedBlogs ] = useState();
     const [ hasError, setHasError ] = useState(false);
-    const API_URL = `${ REACT_APP_API_URL }blogs`;
+    const API_URL = `${ REACT_APP_API_URL }blogs/all`;
 
     useEffect(() => {
         const source = axios.CancelToken.source();
@@ -31,7 +32,7 @@ export default function Blogs() {
                 const result = await axios.get(API_URL, { cancelToken: source.token, });
 
                 setLoadedBlogs(result.data);
-                console.log(loadedBlogs)
+                console.log(result)
 
             } catch (e) {
                 console.error(e);
@@ -74,9 +75,6 @@ export default function Blogs() {
     )
 }
 
-const Blog = styled.div`
-
-`
 const BlogsContainer = styled.div`
     display: flex;
   flex-direction: column;

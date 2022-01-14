@@ -9,7 +9,7 @@ import InputField from "../../../shared/elements/FormElements/InputField";
 import InputArea from "../../../shared/elements/FormElements/InputArea";
 import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
 import { AuthContext } from "../../../../context/AuthProvider";
-import { postBlog } from "../../../../services/controllers/requests";
+import { postBlog, uploadImage } from "../../../../services/controllers/requests";
 
 ////////////////////
 //// Environmental
@@ -54,10 +54,12 @@ export default function BlogCreation() {
 
     const onSubmit = async (values) => {
         setIsLoading(true)
+        const imgur = await uploadImage(values.imageUrl[0])
+
 
         const request = {
             ...values,
-            blogOwnerId: user.username,
+            imageUrl: imgur
         }
         const response = await postBlog(request)
         const project = { ...response }

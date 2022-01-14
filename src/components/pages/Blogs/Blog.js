@@ -17,7 +17,7 @@ export default function Blog({blog:{blogName, blogOwner, url, description, start
                 {blogName}
             </Header>
             <Owner>
-                {blogOwner}
+                {blogOwner.username}
             </Owner>
             <CreationDate>
                 {startTime}

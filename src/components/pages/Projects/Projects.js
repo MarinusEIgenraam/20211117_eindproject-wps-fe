@@ -3,27 +3,21 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
-
 ////////////////////
 //// Environmental
 import PageHeader from "../../layout/containers/PageHeader";
 import PageContainer from "../../layout/containers/PageContainer";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
-import * as PropTypes from "prop-types";
 import ButtonContainer from "../../layout/containers/ButtonContainer";
 import ListContainer from "../../layout/containers/ListContainer";
 import ProjectDetails from "./ProjectDetails";
 import ProjectCategory from "../../shared/elements/ProjectCategory";
-import InputField from "../../shared/elements/FormElements/InputField";
-import { useForm } from "react-hook-form";
-import SearchField from "../../shared/elements/SearchFIeld";
 
 const { REACT_APP_API_URL } = process.env;
 
 
 
-ButtonContainer.propTypes = { children: PropTypes.node };
 export default function Projects() {
     const [ pageOffset, setPageOffset ] = useState(0);
     const { setIsLoading } = useContext(UtilityContext);
@@ -51,8 +45,7 @@ export default function Projects() {
                 const result = await axios.get(API_URL, { cancelToken: source.token, });
 
                 setLoadedProjects(result.data);
-                setFilteredProjects(result.data);
-                console.log(loadedProjects)
+                console.log(result)
 
             } catch (e) {
                 console.error(e);
@@ -93,8 +86,8 @@ export default function Projects() {
 
             </ButtonContainer>
             <ListContainer>
-                { filteredProjects &&
-                    filteredProjects.map((project) => {
+                { loadedProjects &&
+                    loadedProjects.map((project) => {
                         return (
 
                             <ProjectDetails project={ project }/>

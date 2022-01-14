@@ -9,7 +9,6 @@ import FieldArray from "./projectTaskList";
 import InputField from "../../../shared/elements/FormElements/InputField";
 import InputArea from "../../../shared/elements/FormElements/InputArea";
 import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
-import ButtonContainer from "../../containers/ButtonContainer";
 import { postProject, uploadImage } from "../../../../services/controllers/requests";
 import ProjectCategory from "../../../shared/elements/ProjectCategory";
 
@@ -44,7 +43,6 @@ const defaultValues = {
 
 export default function ProjectCreation() {
     const [ projectCategory, setProjectCategory ] = useState('');
-
     const { hasError, setHasError, setIsLoading } = useContext(UtilityContext);
     const [ error, toggleError ] = useState(false);
     const [ picture, setPicture ] = useState('')
@@ -59,10 +57,6 @@ export default function ProjectCreation() {
         setValue
     } = useForm({
         defaultValues
-    });
-    const { fields, append, remove, prepend } = useFieldArray({
-        control,
-        name: "projectTaskList"
     });
 
     const handleImageChange = (event) => {
@@ -79,6 +73,8 @@ export default function ProjectCreation() {
 
     const onSubmit = async (values) => {
         setIsLoading(true)
+        console.log("jo")
+        console.log(values);
 
         if (values.imageUrl[0]) {
             if (values.imageUrl[0].type === 'image/jpeg' || values.imageUrl[0].type === 'image/png') {
@@ -112,7 +108,7 @@ export default function ProjectCreation() {
         }
         setIsLoading(false)
     }
-
+    //
     // function onSubmit(data) {
     //     console.log("data", data)
     //     console.log(projectCategory)
@@ -144,6 +140,7 @@ export default function ProjectCreation() {
                             required={ true }
                             placeholder="What do you want to achieve with this project..."
                         />
+
                         <InputField
                             type="url"
                             name="Website"
@@ -154,6 +151,14 @@ export default function ProjectCreation() {
                             placeholder="https://www.willpoweredstudents.com"
 
                         />
+                        <InputField
+                            type="date"
+                            name="Deadline"
+                            inputName="endTime"
+                            register={ register }
+                            errors={ errors }
+                            required={ false }
+                        />
                         <ProjectCategory category={ projectCategory } setCategory={ setProjectCategory }/>
                         <InputField
                             type="checkbox"
@@ -161,8 +166,7 @@ export default function ProjectCreation() {
                             inputName="publiclyVisible"
                             register={ register }
                             errors={ errors }
-                            required={ true }
-
+                            value={ true }
                         />
                     </Column>
                     <Column>

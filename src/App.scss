@@ -85,3 +85,9 @@ body {
 .fontAwesome-small {
   font-size: 1.5rem;
 }
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
