@@ -1,18 +1,18 @@
 ////////////////////
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components';
 import axios from 'axios';
 ////////////////////
 //// Environmental
-import PageHeader from "../../layout/containers/PageHeader";
-import PageContainer from "../../layout/containers/PageContainer";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
-import ButtonContainer from "../../layout/containers/ButtonContainer";
-import ListContainer from "../../layout/containers/ListContainer";
-import ProjectDetails from "./ProjectDetails";
-import ProjectCategory from "../../shared/elements/ProjectCategory";
+import ProjectDetails from "../../layout/content/ProjectDetails";
+import ProjectCategory from "../../shared/elements/FormElements/ProjectCategory";
+import { HeaderContainer } from "../../shared/elements/TextLayout";
+import { H1 } from "../../shared/elements/Text";
+import { ButtonBox } from "../../shared/elements/Form";
+import { ListWrapper } from "../../shared/elements/List";
+import { AppWrapper } from "../../shared/elements/Layout";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -22,6 +22,7 @@ export default function Projects() {
     const [ pageOffset, setPageOffset ] = useState(0);
     const { setIsLoading } = useContext(UtilityContext);
     const [ hasError, setHasError ] = useState(false);
+    const [ categoryUri, setCategoryUri ] = useState('');
 
     const [ loadedProjects, setLoadedProjects ] = useState();
     const [ filteredProjects, setFilteredProjects ] = useState(loadedProjects);
@@ -30,28 +31,33 @@ export default function Projects() {
     const [isSelected, setIsSelected] = useState({});
     const [ projectCategory, setProjectCategory ] = useState('');
 
-    const API_URL = `${ REACT_APP_API_URL }projects/all`;
+    const API_URL = `${ REACT_APP_API_URL }projects`;
 
 
     useEffect(() => {
         const source = axios.CancelToken.source();
-
+        const token = localStorage.getItem('token');
+        if (projectCategory) {
+            setCategoryUri(`?categoryId=${projectCategory}`)
+        }
         async function getData() {
             setHasError(false);
             setIsLoading(true)
 
 
             try {
-                const result = await axios.get(API_URL, { cancelToken: source.token, });
+                const result = await axios.get(`${API_URL}${categoryUri}`, {
+                    cancelToken: source.token,
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }});
 
-                setLoadedProjects(result.data);
-                console.log(result)
+                setLoadedProjects(result.data.content);
 
             } catch (e) {
                 console.error(e);
                 setHasError(true);
             }
-            console.log(loadedProjects)
             setIsLoading(false)
         }
 
@@ -61,31 +67,31 @@ export default function Projects() {
             source.cancel();
         };
 
-    }, [ pageOffset ]);
+    }, [ pageOffset, projectCategory ]);
 
     const handleSearch = (event) => {
     }
 
     return (
-        <PageContainer>
-            <PageHeader>
-                <h1>
+        <AppWrapper>
+            <HeaderContainer>
+                <H1>
                     Projects
-                </h1>
+                </H1>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam delectus incidunt mollitia
                     quisquam veritatis? Ducimus eum, ipsam laboriosam minima sit vero voluptates. Ab consequatur cum
                     cumque delectus ducimus eveniet hic ipsum libero maxime molestias nam natus nobis numquam omnis,
                     quia quis sint sit unde, veniam vitae? Dolore impedit molestiae quo!
                 </p>
-            </PageHeader>
+            </HeaderContainer>
 
-            <ButtonContainer>
+            <ButtonBox>
                 <ProjectCategory category={ projectCategory } setCategory={ setProjectCategory }/>
                 {/*<SearchField setSearchParam={setSearchParam}/>*/}
 
-            </ButtonContainer>
-            <ListContainer>
+            </ButtonBox>
+            <ListWrapper>
                 { loadedProjects &&
                     loadedProjects.map((project) => {
                         return (
@@ -99,8 +105,8 @@ export default function Projects() {
                 }
 
 
-            </ListContainer>
-            <ButtonContainer>
+            </ListWrapper>
+            <ButtonBox>
                 <RectangleButton
                     buttonStyle="btn--primary--solid"
                     buttonSize="btn--large"
@@ -115,14 +121,10 @@ export default function Projects() {
                     type="submit">
                     Previous
                 </RectangleButton>
-            </ButtonContainer>
+            </ButtonBox>
 
-        </PageContainer>
+        </AppWrapper>
     );
 }
-
-const Project = styled.div`
-
-`
 
 /** Created by ownwindows on 04-01-22 **/

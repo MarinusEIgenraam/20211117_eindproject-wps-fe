@@ -1,20 +1,20 @@
 ////////////////////
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components';
 import axios from "axios";
 import { UtilityContext } from "../../../context/UtilityProvider";
 ////////////////////
 //// Environmental
-import PageContainer from "../../layout/containers/PageContainer";
-import PageHeader from "../../layout/containers/PageHeader";
 import Blog from "./Blog";
+import { HeaderContainer } from "../../shared/elements/TextLayout";
+import { H1 } from "../../shared/elements/Text";
+import { AppWrapper, BlogsContainer } from "../../shared/elements/Layout";
 
 const { REACT_APP_API_URL } = process.env;
 ////////////////////
 //// External
 
-export default function Blogs() {
+export default function BlowOverview() {
     const { setIsLoading } = useContext(UtilityContext);
     const [ loadedBlogs, setLoadedBlogs ] = useState();
     const [ hasError, setHasError ] = useState(false);
@@ -51,16 +51,16 @@ export default function Blogs() {
     }, []);
 
     return (
-        <PageContainer>
-            <PageHeader>
-                <h1>Blogs</h1>
+        <AppWrapper>
+            <HeaderContainer>
+                <H1>Blogs</H1>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam delectus incidunt mollitia
                     quisquam veritatis? Ducimus eum, ipsam laboriosam minima sit vero voluptates. Ab consequatur cum
                     cumque delectus ducimus eveniet hic ipsum libero maxime molestias nam natus nobis numquam omnis,
                     quia quis sint sit unde, veniam vitae? Dolore impedit molestiae quo!
                 </p>
-            </PageHeader>
+            </HeaderContainer>
             <BlogsContainer>
                 { loadedBlogs &&
                     loadedBlogs.map((blog) => {
@@ -70,14 +70,9 @@ export default function Blogs() {
                     })
                 }
             </BlogsContainer>
-        </PageContainer>
+        </AppWrapper>
 
     )
 }
 
-const BlogsContainer = styled.div`
-    display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-`
 /** Created by ownwindows on 04-01-22 **/

@@ -2,12 +2,12 @@
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
-import PageContainer from "../../layout/containers/PageContainer";
-import PageHeader from "../../layout/containers/PageHeader";
-import ListContainer from "../../layout/containers/ListContainer";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import axios from "axios";
 import UserListItem from "./UserListItem";
+import { AppWrapper } from "../../shared/elements/Layout";
+import { HeaderContainer } from "../../shared/elements/TextLayout";
+import { ListWrapper } from "../../shared/elements/List";
 
 ////////////////////
 //// Environmental
@@ -53,25 +53,25 @@ export default function Users() {
     }, []);
 
     return (
-        <PageContainer>
-            <PageHeader>
+        <AppWrapper>
+            <HeaderContainer>
                 <h1>Users</h1>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam delectus incidunt mollitia
                 quisquam veritatis? Ducimus eum, ipsam laboriosam minima sit vero voluptates. Ab consequatur cum
                 cumque delectus ducimus eveniet hic ipsum libero maxime molestias nam natus nobis numquam omnis,
                 quia quis sint sit unde, veniam vitae? Dolore impedit molestiae quo!
-            </PageHeader>
+            </HeaderContainer>
             { loadedUsers &&
-                <ListContainer>
+                <ListWrapper>
                     { loadedUsers.map((admin) => {
                         return (
                             <UserListItem admin={ admin }/>
                         );
                     })
                     }
-                </ListContainer>
+                </ListWrapper>
             }
-        </PageContainer>
+        </AppWrapper>
     )
 }
 

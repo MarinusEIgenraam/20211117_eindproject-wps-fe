@@ -1,13 +1,13 @@
 ////////////////////
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components';
-import PageContainer from "../../layout/containers/PageContainer";
-import PageHeader from "../../layout/containers/PageHeader";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import axios from "axios";
-import ListContainer from "../../layout/containers/ListContainer";
 import AboutAdmin from "./AboutAdmin";
+import { HeaderContainer } from "../../shared/elements/TextLayout";
+import { H1 } from "../../shared/elements/Text";
+import { ListWrapper } from "../../shared/elements/List";
+import { AppWrapper } from "../../shared/elements/Layout";
 
 ////////////////////
 //// Environmental
@@ -52,30 +52,26 @@ export default function About() {
 
     }, []);
     return (
-        <PageContainer>
-            <PageHeader>
-                <h1>About</h1>
+        <AppWrapper>
+            <HeaderContainer>
+                <H1>About</H1>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam delectus incidunt mollitia
                 quisquam veritatis? Ducimus eum, ipsam laboriosam minima sit vero voluptates. Ab consequatur cum
                 cumque delectus ducimus eveniet hic ipsum libero maxime molestias nam natus nobis numquam omnis,
                 quia quis sint sit unde, veniam vitae? Dolore impedit molestiae quo!
-            </PageHeader>
+            </HeaderContainer>
             { loadedAdmins &&
-                <ListContainer>
+                <ListWrapper>
                     { loadedAdmins.map((admin) => {
                         return (
                             <AboutAdmin admin={ admin }/>
                         );
                     })
                     }
-                </ListContainer>
+                </ListWrapper>
             }
-        </PageContainer>
+        </AppWrapper>
     )
 }
-
-const NewAbout = styled.div`
-
-`
 
 /** Created by ownwindows on 04-01-22 **/

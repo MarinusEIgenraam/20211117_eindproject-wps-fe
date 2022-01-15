@@ -1,9 +1,8 @@
 ////////////////////
 //// Build
-import React, { useState } from 'react'
-import styled from 'styled-components';
+import React from 'react'
 import { useForm } from "react-hook-form";
-import InputField from "./FormElements/InputField";
+import { Search } from "../Input";
 
 ////////////////////
 //// Environmental
@@ -40,9 +39,7 @@ export default function SearchField({ setSearchParam }) {
     )
 }
 
-const Search = styled(InputField)`
-  width: 25rem !important;
-`
+
 
 
 /** Created by ownwindows on 09-01-22 **/

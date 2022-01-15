@@ -1,9 +1,7 @@
 ////////////////////
 //// Build
 import React, { useState } from 'react'
-import styled from 'styled-components';
-import InputField from "./InputField";
-import { useForm } from "react-hook-form";
+import { Input } from "../Input";
 
 ////////////////////
 //// Environmental
@@ -27,7 +25,7 @@ export default function ImageUpload({register}) {
     }
 
     return (
-        <input
+        <Input
             type="file"
             name="Image"
             inputName="file"
@@ -38,9 +36,5 @@ export default function ImageUpload({register}) {
 
     )
 }
-
-const NewImageUpload = styled.div`
-
-`
 
 /** Created by ownwindows on 10-01-22 **/

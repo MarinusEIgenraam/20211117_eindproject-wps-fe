@@ -2,11 +2,11 @@
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
-import { UtilityContext } from "../../../context/UtilityProvider";
+import { UtilityContext } from "../../../../context/UtilityProvider";
 import axios from "axios";
 ////////////////////
 //// Environmental
-import Dropdown from "./clickables/Dropdown/Dropdown";
+import Dropdown from "../clickables/Dropdown/Dropdown";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -31,15 +31,12 @@ export default function ProjectCategory({ setCategory, category }) {
 
             try {
                 const result = await axios.get(API_URL, { cancelToken: source.token, });
-                console.log(result.data)
                 setLoadedCategories(result.data);
-                console.log(loadedCategories)
 
             } catch (e) {
                 console.error(e);
                 setHasError(true);
             }
-            console.log(loadedCategories)
             setIsLoading(false)
         }
 

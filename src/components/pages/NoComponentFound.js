@@ -1,7 +1,8 @@
 ////////////////////
 //// Build
 import React from 'react'
-import styled from 'styled-components';
+import { H1 } from "../shared/elements/Text";
+import { AppWrapper } from "../shared/elements/Layout";
 
 ////////////////////
 //// Environmental
@@ -12,24 +13,12 @@ import styled from 'styled-components';
 export default function NoComponentFound() {
 
     return (
-        <Container>
+        <AppWrapper>
 
-            <Title>This is not the page you are looking for....</Title>
+            <H1>This is not the page you are looking for....</H1>
 
-        </Container>
+        </AppWrapper>
     )
 }
-
-const Container = styled.h1`
-  display: flex;
-  padding: 2rem;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`
-
-const Title = styled.div`
-color: var(--tertiary);
-`
 
 /** Created by ownwindows on 04-01-22 **/

@@ -2,15 +2,15 @@
 //// Build
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { UtilityContext } from "../../../../context/UtilityProvider";
-import FormWindow from "../../containers/FormWindow";
 import FieldArray from "./projectTaskList";
 import InputField from "../../../shared/elements/FormElements/InputField";
 import InputArea from "../../../shared/elements/FormElements/InputArea";
 import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
 import { postProject, uploadImage } from "../../../../services/controllers/requests";
-import ProjectCategory from "../../../shared/elements/ProjectCategory";
+import ProjectCategory from "../../../shared/elements/FormElements/ProjectCategory";
+import { FormWindow } from "../../../shared/elements/Form";
 
 ////////////////////
 //// Environmental

@@ -2,7 +2,7 @@
 //// Build
 import React, { useContext, useEffect, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import { UtilityContext } from "../../../context/UtilityProvider";
+import { UtilityContext } from "../../../../context/UtilityProvider";
 
 ////////////////////
 //// Environmental
@@ -10,7 +10,7 @@ import { UtilityContext } from "../../../context/UtilityProvider";
 ////////////////////
 //// External
 
-function LogoLoader({navActive}) {
+function LogoLoader({ navActive }) {
     const { isLoading, setIsLoading } = useContext(UtilityContext);
     const [ isTimedOut, setIsTimedOut ] = useState(false)
 
@@ -30,8 +30,8 @@ function LogoLoader({navActive}) {
     }, [ isLoading ]);
 
     return (
-        <Logo data-text="willpowered" navActive={navActive} isLoading={ isLoading } isTimedOut={ isTimedOut }>
-            willpowered <span>students</span>{(isLoading || isTimedOut) && <span>...&nbsp;</span>}
+        <Logo data-text="willpowered" navActive={ navActive } isLoading={ isLoading } isTimedOut={ isTimedOut }>
+            willpowered <span>students</span>{ ( isLoading || isTimedOut ) && <span>...&nbsp;</span> }
         </Logo>
 
 
@@ -55,7 +55,8 @@ const Logo = styled.h1`
   color: ${ props => props.theme.text };
   position: relative;
   width: max-content;
-margin-right: 2rem;
+  margin-right: 2rem;
+
   &::before,
   &::after {
     content: "";
@@ -75,9 +76,10 @@ margin-right: 2rem;
       } else {
         return `transparent`
       }
-    }};
+    } };
     animation: ${ ({ isLoading, isTimedOut }) => isLoading || isTimedOut ? animation : 0 };
   }
+
   span {
     font-weight: 300;
   }

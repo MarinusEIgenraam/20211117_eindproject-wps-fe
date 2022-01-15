@@ -1,10 +1,11 @@
 ////////////////////
 //// Build
 import React from 'react'
-import styled from 'styled-components'
 import { useForm } from "react-hook-form"
 import InputField from "../../../shared/elements/FormElements/InputField";
 import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
+import { H1, SubTitle } from "../../../shared/elements/Text";
+import { Form, FormWindow } from "../../../shared/elements/Form";
 
 
 export default function RegisterForm() {
@@ -20,9 +21,9 @@ export default function RegisterForm() {
     return (
         <FormWindow>
             <Form onSubmit={ handleSubmit(onSubmit) }>
-                <Title>
+                <H1>
                     Register
-                </Title>
+                </H1>
                 <SubTitle>
                     And join an amazing comunity of willpowered students!
                 </SubTitle>
@@ -66,31 +67,7 @@ export default function RegisterForm() {
     )
 }
 
-const FormWindow = styled.div`
-  background: ${ props => props.theme.windowBackground };
-  padding: 1.5rem 3rem;
-  display: flex;
-  flex-direction: column;
-  border: solid var(--box-border-medium) ${ props => props.theme.border };
-  box-shadow: ${ props => props.theme.shadow };
-  height: max-content;
-  max-width: 80vw;
-`
-const Form = styled.form`
-  align-items: start;
-  display: flex;
-  flex-direction: column;
 
-`
-const SubTitle = styled.small`
-  margin-bottom: 30px;
-  font-size: 1rem;
-  color: ${ props => props.theme.text };
-`
-const Title = styled.h1`
-  margin-bottom: 5px;
-  font-size: 2rem;
-  font-weight: 700;
-`
+
 
 /** Created by ownwindows on 04-01-22 **/

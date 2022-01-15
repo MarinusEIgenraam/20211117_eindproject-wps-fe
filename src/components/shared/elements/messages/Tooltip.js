@@ -47,7 +47,6 @@ const Tip = styled.div`
   &:hover ${ Text } {
     opacity: 1;
   }
-
 `
 
 

@@ -1,15 +1,17 @@
 ////////////////////
 //// Build
 import React, { useContext, useState } from 'react'
-import styled from 'styled-components';
 import { useFieldArray, useForm } from "react-hook-form";
 import { UtilityContext } from "../../../../context/UtilityProvider";
-import FormWindow from "../../containers/FormWindow";
 import InputField from "../../../shared/elements/FormElements/InputField";
 import InputArea from "../../../shared/elements/FormElements/InputArea";
 import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
 import { AuthContext } from "../../../../context/AuthProvider";
 import { postBlog, uploadImage } from "../../../../services/controllers/requests";
+import { H1 } from "../../../shared/elements/Text";
+import { Column, Row } from "../../../shared/elements/Layout";
+import { Image } from "../../../shared/elements/Images";
+import { ButtonBox, Form, FormWindow } from "../../../shared/elements/Form";
 
 ////////////////////
 //// Environmental
@@ -74,10 +76,10 @@ export default function BlogCreation() {
 
     return (
         <FormWindow>
-            <Header>
-                <h1>Write a blog</h1>
-            </Header>
-            <CreationForm onSubmit={ handleSubmit(onSubmit) }>
+            <H1>
+                Write a blog
+            </H1>
+            <Form onSubmit={ handleSubmit(onSubmit) }>
                 <Row>
 
                     <Column>
@@ -154,56 +156,13 @@ export default function BlogCreation() {
 
 
 
-            </CreationForm>
+            </Form>
 
         </FormWindow>
     );
 }
 
-const Header = styled.div`
 
-`
-const Image = styled.img`
-  width: 100%;
-  height: 200px;
-  aspect-ratio: 1/1;
 
-`
-const ButtonBox = styled.section`
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  top: -20px;
-`
 
-const Column = styled.div`
-  display: flex;
-  height: max-content;
-  flex-direction: column;
-  margin: 1rem;
-  width: 100%;
-`
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: 1rem;
-  //flex: 1 5;
-  width: 100%;
-`
-
-const CreationForm = styled.form`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  
-  justify-content: center;
-  flex-direction: column;
-  div div div label {
-    visibility: visible;
-  }
-`
 /** Created by ownwindows on 10-01-22 **/

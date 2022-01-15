@@ -65,10 +65,15 @@
 }
 
 h1 {
+  font-size: 2em;
+  margin-bottom: 0.25em;
   font-family: var(--tittle-font);
 }
 
-h2,h3,h4,h5 {
+h2 {
+  font-size: 1.5em;
+}
+h3,h4,h5 {
   font-family: var(--normal-font);
   font-weight: 700;
 }

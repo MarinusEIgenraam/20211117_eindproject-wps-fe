@@ -1,12 +1,12 @@
 ////////////////////
 //// Build
 import React, { useContext } from 'react'
-import styled from 'styled-components';
-import PageContainer from "../../layout/containers/PageContainer";
 import { AuthContext } from "../../../context/AuthProvider";
-import PageHeader from "../../layout/containers/PageHeader";
 import ProjectCreation from "../../layout/forms/Project/ProjectCreation";
 import BlogCreation from "../../layout/forms/Blog/BlogCreation";
+import { HeaderContainer } from "../../shared/elements/TextLayout";
+import { H1 } from "../../shared/elements/Text";
+import { AppWrapper } from "../../shared/elements/Layout";
 
 ////////////////////
 //// Environmental
@@ -19,24 +19,20 @@ export default function Portal() {
     console.log(user.authorities)
 
     return (
-        <PageContainer>
-            <PageHeader>
-                <h1>
-                    How are you doing {user.username}
-                </h1>
-            </PageHeader>
-            {(user.authorities === "Project lord") &&
+        <AppWrapper>
+            <HeaderContainer> <H1>
+                How are you doing { user.username }
+            </H1>
+            </HeaderContainer>
+            { ( user.authorities === "Project lord" ) &&
                 <BlogCreation/>
             }
-            {(user.authorities === "Project manager" || "Project lord") &&
+            { ( user.authorities === "Project manager" || "Project lord" ) &&
                 <ProjectCreation/>
             }
-        </PageContainer>
+        </AppWrapper>
     )
 }
 
-const Details = styled.div`
-
-`
 
 /** Created by ownwindows on 04-01-22 **/

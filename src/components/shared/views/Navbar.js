@@ -7,10 +7,10 @@ import { NavLink } from 'react-router-dom';
 //// Environmental
 import { RiLoginCircleFill } from "react-icons/ri";
 import { AuthContext } from "../../../context/AuthProvider";
-import LogoLoader from "../../shared/elements/LogoLoader";
-import Tooltip from "../../shared/elements/Tooltip";
+import LogoLoader from "../elements/messages/LogoLoader";
+import Tooltip from "../elements/messages/Tooltip";
 import useMediaQuery from "../../../hooks/useMediaQuery";
-import ThemeSwitch from "../../shared/elements/clickables/ThemeSwitch";
+import ThemeSwitch from "../elements/clickables/ThemeSwitch";
 
 ////////////////////
 //// External

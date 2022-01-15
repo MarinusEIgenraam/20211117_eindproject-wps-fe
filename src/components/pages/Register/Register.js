@@ -3,7 +3,7 @@
 import React from 'react'
 import RegisterForm from "../../layout/forms/Auth/RegisterForm";
 import LoginWindow from "../../layout/forms/Auth/LoginWindow";
-import PageContainer from "../../layout/containers/PageContainer";
+import { AppWrapper } from "../../shared/elements/Layout";
 
 ////////////////////
 //// Environmental
@@ -16,10 +16,10 @@ export default function Register() {
 
 
     return (
-        <PageContainer>
+        <AppWrapper>
             <LoginWindow/>
             <RegisterForm/>
-        </PageContainer>
+        </AppWrapper>
     )
 }
 

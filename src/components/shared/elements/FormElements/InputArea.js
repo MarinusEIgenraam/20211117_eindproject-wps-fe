@@ -1,7 +1,8 @@
 ///////////////////////
 //// Built-in
-import React, { useState } from 'react';
-import styled from 'styled-components'
+import React from 'react';
+import { Input, InputContainer, InputLabel } from "../Input";
+import { ErrorMessage } from "../Text";
 
 ///////////////////////
 //// External
@@ -31,9 +32,9 @@ export default function InputArea({
 
     return (
         <InputContainer>
-            <Label htmlFor={ labelId }>
+            <InputLabel htmlFor={ labelId }>
                 { name }
-            </Label>
+            </InputLabel>
             <Input
                 id={ labelId }
                 type={ type }
@@ -62,40 +63,3 @@ export default function InputArea({
     );
 };
 
-const Label = styled.label`
-  margin-bottom: 1.25rem;
-  padding: 0.25rem;
-
-`
-const Input = styled.textarea`
-  padding: 0.5rem;
-  margin-top: 0.25rem;
-  color: ${ props => props.theme.text };
-  font-weight: 400;
-  display: block;
-  border: none;
-  resize: vertical;
-  width: ${ ({ width }) => width ? width : "100%" };
-  height: ${ ({ height }) => height ? height : "" };
-  &::placeholder{
-    color: ${ props => props.theme.sub_text };
-  }
-
-  outline: var(--tertiary-quarter) solid var(--box-border-thin);
-  color: ${ props => props.theme.text };
-`
-
-const InputContainer = styled.div`
-  color: ${ props => props.theme.text };
-  flex-grow: 1;
-  width: 100%;
-`
-
-const ErrorMessage = styled.p`
-  margin-top: 0.25rem;
-  margin-left: 0.25rem;
-  font-size: 0.8rem;
-  min-height: 18px;
-  color: ${ props => props.theme.sub_text };
-
-`

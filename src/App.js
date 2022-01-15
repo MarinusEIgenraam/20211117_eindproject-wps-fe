@@ -8,15 +8,15 @@ import styled from 'styled-components';
 ///////////////////////
 //// Internal
 import './App.scss';
-import Navbar from "./components/layout/Navigation/Navbar";
+import Navbar from "./components/shared/views/Navbar";
 import PrivateRoutes from "./router/PrivateRoutes";
 import Portal from "./components/pages/Portal/Portal";
 import Home from "./components/pages/Home/Home";
-import Blogs from "./components/pages/Blogs/Blogs";
+import BlowOverview from "./components/pages/Blogs/BlowOverview";
 import Projects from "./components/pages/Projects/Projects";
 import Register from "./components/pages/Register/Register";
 import About from "./components/pages/About/About";
-import ProjectDetails from "./components/pages/Projects/ProjectDetails";
+import ProjectDetails from "./components/layout/content/ProjectDetails";
 import Blog from "./components/pages/Blogs/Blog";
 import Users from "./components/pages/Users/Users";
 import UserProfile from "./components/pages/Users/UserProfile";
@@ -33,7 +33,7 @@ function App() {
 
             <Routes>
                 <Route path='/' element={ <Home/> }/>
-                <Route path='/blogs' element={ <Blogs/> }/>
+                <Route path='/blogs' element={ <BlowOverview/> }/>
                 <Route path='/blogs/:id' element={ <Blog/> }/>
                 <Route path='/projects' element={ <Projects/> }/>
                 <Route path='/projects/:id' element={ <ProjectDetails/> }/>
