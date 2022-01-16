@@ -9,6 +9,11 @@ import styled from 'styled-components';
 ////////////////////
 //// External
 
+export const PageHeader= styled.div`
+  font-size: 1em;
+  color: ${ props => props.theme.header };
+  display: inline-block;
+`
 export const Section = styled.section`
   margin: 3em auto;
 
@@ -76,14 +81,15 @@ export const Collaborators = styled.span`
 export const HeaderContainer = styled.div`
   background: ${ props => props.theme.background };
   color: ${ props => props.theme.text };
-  align-self: center;
+  //align-self: center;
+  //position: relative;
   margin-top: 10vh;
   padding: 2rem 3rem;
   display: flex;
   flex-direction: column;
   border: solid var(--box-border-medium) ${ props => props.theme.border };
   height: max-content;
-  width: 80vw;
+  width: 80%;
   
   h1 {
     margin-bottom: 1rem;

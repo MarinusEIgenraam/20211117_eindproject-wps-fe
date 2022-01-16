@@ -12,6 +12,7 @@ import styled from 'styled-components';
 export const H1 = styled.h1`
   font-size: 2em;
   margin-bottom: 0.25em;
+  ${props => props.theme.text};
 `;
 
 export const H2 = styled.h2`
@@ -21,8 +22,19 @@ export const H2 = styled.h2`
 export const SubTitle = styled.small`
   margin-bottom: 30px;
   font-size: 1rem;
-  color: ${ props => props.theme.text };
+  color: ${ props => props.theme.sub_text };
 `
+export const DetailContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  justify-items: start;
+  align-content: start;
+  overflow: hidden;
+  
+
+`
+
 
 export const ErrorMessage = styled.p`
   margin-top: 0.25rem;

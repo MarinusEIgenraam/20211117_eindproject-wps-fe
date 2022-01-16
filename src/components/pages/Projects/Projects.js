@@ -1,6 +1,7 @@
 ////////////////////
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
+import styled from 'styled-components';
 import axios from 'axios';
 ////////////////////
 //// Environmental
@@ -9,10 +10,11 @@ import RectangleButton from "../../shared/elements/clickables/RectangleButton/Re
 import ProjectDetails from "../../layout/content/ProjectDetails";
 import ProjectCategory from "../../shared/elements/FormElements/ProjectCategory";
 import { HeaderContainer } from "../../shared/elements/TextLayout";
-import { H1 } from "../../shared/elements/Text";
+import { H1, H2 } from "../../shared/elements/Text";
 import { ButtonBox } from "../../shared/elements/Form";
-import { ListWrapper } from "../../shared/elements/List";
-import { AppWrapper } from "../../shared/elements/Layout";
+import { ListWrapper, ProjectList } from "../../shared/elements/List";
+import { PageContainer} from "../../shared/elements/Layout";
+import { Link } from "react-router-dom";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -73,11 +75,11 @@ export default function Projects() {
     }
 
     return (
-        <AppWrapper>
+        <PageContainer>
             <HeaderContainer>
-                <H1>
+                <H2>
                     Projects
-                </H1>
+                </H2>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam delectus incidunt mollitia
                     quisquam veritatis? Ducimus eum, ipsam laboriosam minima sit vero voluptates. Ab consequatur cum
@@ -91,21 +93,33 @@ export default function Projects() {
                 {/*<SearchField setSearchParam={setSearchParam}/>*/}
 
             </ButtonBox>
-            <ListWrapper>
-                { loadedProjects &&
-                    loadedProjects.map((project) => {
-                        return (
+            <ProjectList>
+                { loadedProjects && loadedProjects.map(project => (
+                    <Link to={ `/project/${project.id}` } key={ project.id }>
+                        <h4>
+                            { project.name }
+                        </h4>
+                        {/*<p>Due by : {project.endTime.toDate().toDateString()}</p>*/}
+                        <div className="assigned-to">
+                            <ul>
+                                {project.collaborators.map(user=>(
+                                    <li className='avatar' key={user.imageUrl}  title={user.username}>
+                                        <div className="avatar">
+                                            <img src={user.imageUrl} alt="user avatar" />
+                                        </div>
+                                    </li>
+                                ))}
+                                <li className='avatar' key={project.projectOwner.imageUrl}  title={project.projectOwner.username}>
+                                    <div className="avatar">
+                                        <img src={project.projectOwner.imageUrl} alt="user avatar" />
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </Link>
+                )) }
+            </ProjectList>
 
-                            <ProjectDetails project={ project }/>
-
-                        );
-
-                    })
-
-                }
-
-
-            </ListWrapper>
             <ButtonBox>
                 <RectangleButton
                     buttonStyle="btn--primary--solid"
@@ -123,8 +137,20 @@ export default function Projects() {
                 </RectangleButton>
             </ButtonBox>
 
-        </AppWrapper>
+        </PageContainer>
     );
 }
+
+const Avatar = styled.div`
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  img{
+    width: 100%;
+    height: 100%;
+  }
+`
 
 /** Created by ownwindows on 04-01-22 **/

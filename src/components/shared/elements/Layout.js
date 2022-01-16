@@ -9,13 +9,31 @@ import styled from 'styled-components';
 ////////////////////
 //// External
 
-export const AppWrapper = styled.div`
-  max-width: calc(768px + 16px * 2);
-  margin: 0 auto;
+export const  PageContainer = styled.div`
   display: flex;
-  min-height: 100%;
-  padding: 0 16px;
+  margin-top: 15vh;
+  align-items: center;
+  position: relative;
   flex-direction: column;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  width: 100%;
+
+  @media screen and (min-width: 769px) {
+    margin-top: 15vh;
+  }
+`
+
+export const PageHeader = styled.div`
+width: 70vw;
+  padding: 1rem;
+`
+
+export const Container = styled.div`
+  background: ${props => props.theme.background};
+  height: 120vh;
+  display: flex;
+  flex-gro: 1;
 `;
 
 export const Row = styled.div`

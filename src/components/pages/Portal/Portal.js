@@ -6,7 +6,7 @@ import ProjectCreation from "../../layout/forms/Project/ProjectCreation";
 import BlogCreation from "../../layout/forms/Blog/BlogCreation";
 import { HeaderContainer } from "../../shared/elements/TextLayout";
 import { H1 } from "../../shared/elements/Text";
-import { AppWrapper } from "../../shared/elements/Layout";
+import { PageContainer } from "../../shared/elements/Layout";
 
 ////////////////////
 //// Environmental
@@ -19,7 +19,7 @@ export default function Portal() {
     console.log(user.authorities)
 
     return (
-        <AppWrapper>
+        <PageContainer>
             <HeaderContainer> <H1>
                 How are you doing { user.username }
             </H1>
@@ -30,7 +30,7 @@ export default function Portal() {
             { ( user.authorities === "Project manager" || "Project lord" ) &&
                 <ProjectCreation/>
             }
-        </AppWrapper>
+        </PageContainer>
     )
 }
 

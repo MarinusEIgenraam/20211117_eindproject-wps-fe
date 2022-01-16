@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { UtilityContext } from "../../../context/UtilityProvider";
 import axios from "axios";
 import UserListItem from "./UserListItem";
-import { AppWrapper } from "../../shared/elements/Layout";
+import { PageContainer } from "../../shared/elements/Layout";
 import { HeaderContainer } from "../../shared/elements/TextLayout";
 import { ListWrapper } from "../../shared/elements/List";
 
@@ -53,7 +53,7 @@ export default function Users() {
     }, []);
 
     return (
-        <AppWrapper>
+        <PageContainer>
             <HeaderContainer>
                 <h1>Users</h1>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam delectus incidunt mollitia
@@ -71,7 +71,7 @@ export default function Users() {
                     }
                 </ListWrapper>
             }
-        </AppWrapper>
+        </PageContainer>
     )
 }
 

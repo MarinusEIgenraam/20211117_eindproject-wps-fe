@@ -2,7 +2,7 @@
 //// Build
 import React from 'react'
 import { H1 } from "../shared/elements/Text";
-import { AppWrapper } from "../shared/elements/Layout";
+import { PageContainer } from "../shared/elements/Layout";
 
 ////////////////////
 //// Environmental
@@ -13,11 +13,11 @@ import { AppWrapper } from "../shared/elements/Layout";
 export default function NoComponentFound() {
 
     return (
-        <AppWrapper>
+        <PageContainer>
 
             <H1>This is not the page you are looking for....</H1>
 
-        </AppWrapper>
+        </PageContainer>
     )
 }
 

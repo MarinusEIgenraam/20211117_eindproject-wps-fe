@@ -4,9 +4,12 @@ import React, { useContext } from 'react'
 import styled from 'styled-components';
 import LoginWindow from "../../layout/forms/Auth/LoginWindow";
 import { AuthContext } from "../../../context/AuthProvider";
+import { PageContainer} from "../../shared/elements/Layout";
+import { BackgroundImage, Img } from "../../shared/elements/Images";
 
 ////////////////////
 //// Environmental
+import homeBackground from '../../../assets/images/home_background.png'
 
 ////////////////////
 //// External
@@ -20,16 +23,12 @@ export default function Home() {
         <PageContainer>
             {!isAuth && <LoginWindow/> }
 
+            <BackgroundImage alt="home" src={homeBackground}/>
 
         </PageContainer>
     )
 }
 
-const PageContainer = styled.div`
-  display: flex;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-`
+
 
 /** Created by ownwindows on 04-01-22 **/

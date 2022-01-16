@@ -10,6 +10,7 @@ import { BrowserRouter } from 'react-router-dom';
 import AuthContext from "./context/AuthProvider";
 import UtilityContext from "./context/UtilityProvider";
 import ThemeContext from "./context/ThemeProvider";
+import './Index.scss';
 
 ///////////////////////
 //// Components

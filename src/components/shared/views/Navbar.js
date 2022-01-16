@@ -25,7 +25,7 @@ export default function Navbar() {
     }, [ isAuth ]);
 
     const changeBackground = () => {
-        if (window.scrollY >= 80) {
+        if (window.scrollY >= 30) {
             setNavActive(true);
         } else {
             setNavActive(false)
@@ -45,14 +45,14 @@ export default function Navbar() {
             </Hamburger>
             <Menu menuOpen={ menuOpen } navActive={ navActive }>
                 { !isAuth &&
-                    <MenuLink activeClassName="active" className="highlight" to="/register">Register</MenuLink> }
-                <MenuLink activeClassName="active" to="/blogs">Blogs</MenuLink>
-                <MenuLink activeClassName="active" to="/projects">Projects</MenuLink>
-                <MenuLink activeClassName="active" to="/about">About</MenuLink>
-                <MenuLink activeClassName="active" to="/users">Users</MenuLink>
+                    <MenuLink activeClassName="active" className="highlight" onClick={()=> setMenuOpen(false)} to="/register">Register</MenuLink> }
+                <MenuLink activeClassName="active" onClick={()=> setMenuOpen(false)} to="/blogs">Blogs</MenuLink>
+                <MenuLink activeClassName="active" onClick={()=> setMenuOpen(false)}to="/projects">Projects</MenuLink>
+                <MenuLink activeClassName="active" onClick={()=> setMenuOpen(false)}to="/about">About</MenuLink>
+                <MenuLink activeClassName="active" onClick={()=> setMenuOpen(false)}to="/users">Users</MenuLink>
                 <a>{ isAuth }</a>
                 { isAuth &&
-                    <MenuLink to="/me">Portal</MenuLink>
+                    <MenuLink onClick={()=> setMenuOpen(false)} to="/me">Portal</MenuLink>
                 }
 
                 { useMediaQuery('(max-width: 768px)') ?
@@ -68,7 +68,7 @@ export default function Navbar() {
                     :
                     ( isAuth
                             ?
-                            <MenuLink activeClassName="active" className="icon-link" to="/" onClick={ logout}>
+                            <MenuLink activeClassName="active" className="icon-link" to="/" onClick={ logout }>
                                 <Tooltip text="Logout">
                                     <RiLoginCircleFill size={ 30 }/>
                                 </Tooltip>
@@ -96,7 +96,7 @@ export default function Navbar() {
 const Nav = styled.div`
   z-index: 5;
   display: flex;
-  padding: 1rem 1rem;
+  //padding: 1rem 1rem;
   position: fixed;
   width: 100%;
   flex-direction: row;
@@ -118,7 +118,7 @@ const Nav = styled.div`
     align-items: center;
 
   }
-`;
+`
 
 
 const Menu = styled.div`
@@ -135,24 +135,24 @@ const Menu = styled.div`
     flex-direction: column;
     background: ${ props => props.theme.background };
 
-    height: ${ ({ menuOpen }) => ( menuOpen ? "92vh" : "0" ) };
-    transition: height 1s ease-in;
+    height: ${ ({ menuOpen }) => ( menuOpen ? "100vh" : "0" ) };
+    transition: height 0.5s ease-in;
     width: 100%;
   }
 `
 const MenuLink = styled(NavLink)`
 
   cursor: pointer;
-  padding: 0rem 1rem;
+  padding: 1rem;
   font-weight: 300;
   text-decoration: none;
   color: ${ props => props.theme.text };
   transition: all 0.3s ease-in;
   font-size: 1.2rem;
-
-  &:nth-child(1) {
-    padding-left: 0;
-  }
+  //
+  //&:nth-child(1) {
+  //  padding-left: 0;
+  //}
 
   &.active {
     font-weight: 500;
@@ -175,7 +175,7 @@ const MenuLink = styled(NavLink)`
 
 const Hamburger = styled.div`
   display: none;
-  margin-top: 5px;
+  margin: 1rem;
   flex-direction: column;
   align-self: center;
   cursor: pointer;

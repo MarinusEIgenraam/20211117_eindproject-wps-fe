@@ -56,6 +56,7 @@ const Logo = styled.h1`
   position: relative;
   width: max-content;
   margin-right: 2rem;
+  padding: 1rem;
 
   &::before,
   &::after {

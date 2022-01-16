@@ -19,6 +19,7 @@ export const Form = styled.form`
 export const FormWindow = styled.div`
   background: ${ props => props.theme.windowBackground };
   padding: 1.5rem 3rem;
+  margin: 20px;
   display: flex;
   flex-direction: column;
   border: solid var(--box-border-medium) ${ props => props.theme.border };
@@ -35,7 +36,6 @@ export const ButtonBox = styled.section`
   justify-content: center;
   align-items: center;
   position: relative;
-  top: -20px;
 `
 
 export const InputRow = styled.div`
