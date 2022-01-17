@@ -48,6 +48,7 @@
   --box-border-thick: 2px;
 
   --shadow-thin-light: 1.5vh 1.5vh 0.15vh var(--tertiary-quarter), 1.5vh 1.5vh 0.1vh var(--box-border-thin) var(--secondary-half);
+  --shadow-thin-create: 1.5vh 1.5vh 0.15vh var(--quaternary-quarter), 1.5vh 1.5vh 0.1vh var(--box-border-thin) var(--quaternary-quarter);
   --shadow-thin-dark: 1.5vh 1.5vh 0.15vh var(--tertiary-quarter), 1.5vh 1.5vh 0.1vh var(--box-border-thin) var(--secondary-half);
   --shadow-medium: 1.5vh 1.5vh 0.15vh var(--tertiary-quarter), 1.5vh 1.5vh 0.1vh var(--box-border-medium) var(--secondary);
   --button-shadow: 0.5vh 0.5vh 0.1vh var(--tertiary-quarter), 0.5vh 0.5vh 0.1vh 0.1vh var(--secondary);
@@ -87,39 +88,17 @@ h3,h4,h5 {
 footer {
   font-size: 0.9rem;
 }
-//
-//
-//ul, li, p, h1, h2, h3, h4 {
-//  margin: 0;
-//  padding: 0;
-//}
 
 ul {
   list-style-type: none;
 }
-label {
-  display: block;
-  margin: 24px auto;
-  span {
-    display: block;
-    margin-bottom: 6px;
-  }
-}
 
-input, textarea {
-  padding: 8px 6px;
-  font-size: 1em;
-  color: var(--secondary);
-  width: 100%;
-  box-sizing: border-box;
-  border: 1px solid var(--secondary);
-  border-radius: 4px;
-}
-textarea {
-  min-height: 160px;
-}
 
 .fontAwesome-small {
   font-size: 1.5rem;
 }
 
+.centered {
+text-align: center;
+  width: 100%;
+}

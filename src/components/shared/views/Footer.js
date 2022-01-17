@@ -41,7 +41,6 @@ const Wrapper = styled.footer`
   display: flex;
   justify-content: space-between;
   padding: 1rem 1rem;
-  border: solid var(--box-border-medium) ${ props => props.theme.border };
   background: ${ props => props.theme.windowBackground };
   margin-top: 250px;
   width: 100%;
@@ -49,11 +48,12 @@ const Wrapper = styled.footer`
   //z-index: 10;
 
 
-  ${ ({ fixed }) => ( fixed )
+  ${ ({ fixed, theme }) => ( fixed )
           ?
           {
             "position": "fixed;",
-            "bottom": 0
+            "bottom": 0,
+            "box-shadow": `0 5px 15px ${ theme.boxShadow }`
           }
           :
           {

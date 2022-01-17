@@ -65,23 +65,34 @@ export const Select = styled.select`
 `
 
 
-
-
 export const Input = styled.input`
   padding: 0.5rem;
   margin-top: 0.25rem;
   color: ${ props => props.theme.text };
   font-weight: 400;
-  display: block;
   border: none;
   background-color: transparent;
-  text-align: start;
-  justify-content: start;
-  border-bottom: 1px dotted #999;
-  width: ${ ({ width }) => width ? width : "100%" };
-  height: ${ ({ height }) => height ? height : "" };
 
-  outline: var(--tertiary-quarter) solid var(--box-border-thin);
+
+  outline: ${ props => props.theme.createBorder } solid var(--box-border-thin);
+  color: ${ props => props.theme.text };
+
+  &::placeholder {
+    color: ${ props => props.theme.sub_text };
+  }
+`
+
+export const InputMultiLine = styled.textarea`
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  
+  color: ${ props => props.theme.text };
+  font-weight: 400;
+  border: none;
+  width: 100%;
+  background-color: transparent;
+  min-height: 50px;
+  outline: ${ props => props.theme.createBorder }  solid var(--box-border-thin);
   color: ${ props => props.theme.text };
 
   &::placeholder {
@@ -93,16 +104,20 @@ export const InputDate = styled(Input)`
   height: 34px;
 `
 
-export const InputContainer = styled.div`
+export const InputContainer = styled.li`
+  list-style-type: none;
+
   color: ${ props => props.theme.text };
-  flex-grow: 1;
-  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  //&:not(:last-child) {
+  //  margin-bottom: 20px;
+  //}
 `
 
 export const InputLabel = styled.label`
-  margin-bottom: 1.25rem;
   padding: 0.25rem;
-  visibility: hidden;
 `
 
 export const Search = styled(InputField)`

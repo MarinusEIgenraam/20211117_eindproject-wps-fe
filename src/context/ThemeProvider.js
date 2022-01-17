@@ -18,7 +18,12 @@ const lightTheme = {
     windowBackground: "var(--quaternary-quarter)",
     boxShadow:"var(--quaternary-dark)",
     background: "var(--white)",
-    shadow: "var(--shadow-thin-light)"
+    shadow: "var(--shadow-thin-light)",
+    createBorder: "var(--quaternary-half)",
+    createBackground: "var(--tertiary-quarter)",
+    createBoxShadow:"var(--quaternary-quarter)",
+    createSubText: "var(--primary)",
+    createShadow: "var(--shadow-thin-create)"
 };
 
 const darkTheme= {
@@ -27,6 +32,8 @@ const darkTheme= {
     sub_text: "var(--secondary)",
     border: "var(--secondary-quarter)",
     windowBackground: "var(--tertiary)",
+    createBackground: "var(--tertiary)",
+    createBoxShadow:"var(--tertiary-quarter)",
     boxShadow:"var(--tertiary-quarter)",
     background: "var(--secondary)",
     shadow: "var(--shadow-thin-light)"

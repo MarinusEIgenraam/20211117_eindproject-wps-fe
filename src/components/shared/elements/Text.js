@@ -22,7 +22,7 @@ export const H2 = styled.h2`
 export const SubTitle = styled.small`
   margin-bottom: 30px;
   font-size: 1rem;
-  color: ${ props => props.theme.sub_text };
+  color: ${ props => props.theme.text };
 `
 export const DetailContainer = styled.div`
   display: flex;
@@ -41,7 +41,8 @@ export const ErrorMessage = styled.p`
   margin-left: 0.25rem;
   font-size: 0.8rem;
   min-height: 18px;
-  color: ${ props => props.theme.sub_text };
+  width: 100%;
+  color: ${ props => props.theme.text };
 
 `
 /** Created by ownwindows on 15-01-22 **/

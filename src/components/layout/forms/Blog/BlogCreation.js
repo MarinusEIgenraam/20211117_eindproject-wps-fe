@@ -8,10 +8,10 @@ import InputArea from "../../../shared/elements/FormElements/InputArea";
 import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
 import { AuthContext } from "../../../../context/AuthProvider";
 import { postBlog, uploadImage } from "../../../../services/controllers/requests";
-import { H1 } from "../../../shared/elements/Text";
-import { Column, Row } from "../../../shared/elements/Layout";
-import { Image } from "../../../shared/elements/Images";
+import styled from 'styled-components'
+import { H1, H2 } from "../../../shared/elements/Text";
 import { ButtonBox, Form, FormWindow } from "../../../shared/elements/Form";
+import { Image, Img } from "../../../shared/elements/Images";
 
 ////////////////////
 //// Environmental
@@ -69,68 +69,58 @@ export default function BlogCreation() {
 
         setIsLoading(false)
     }
-    //
-    // function onSubmit(data) {
-    //     console.log("data", data)
-    // }
+
 
     return (
         <FormWindow>
-            <H1>
-                Write a blog
-            </H1>
             <Form onSubmit={ handleSubmit(onSubmit) }>
-                <Row>
+                <H2 className="centered">
+                    Create a blog
+                </H2>
+                <OrderedList>
 
-                    <Column>
-                        <InputField
-                            type="text"
-                            name="Name"
-                            inputName="blogName"
-                            register={ register }
-                            errors={ errors }
-                            required={ true }
-                        />
-                        <InputArea
-                            type="text-area"
-                            name="Description"
-                            inputName="description"
-                            register={ register }
-                            errors={ errors }
-                            required={ true }
-                            placeholder="What do you want to achieve with this project..."
-                        />
-                        <InputField
-                            type="url"
-                            name="Website"
-                            inputName="url"
-                            register={ register }
-                            errors={ errors }
-                            required={ false }
-                            placeholder="https://www.willpoweredstudents.com"
+                    <InputField
+                        type="text"
+                        name="Name"
+                        inputName="blogName"
+                        register={ register }
+                        errors={ errors }
+                        required={ true }
+                    />
+                    <InputArea
+                        type="text"
+                        name="Description"
+                        inputName="description"
+                        register={ register }
+                        errors={ errors }
+                        required={ true }
+                        placeholder="What do you want to achieve with this project..."
+                    />
+                    <InputField
+                        type="url"
+                        name="Website"
+                        inputName="url"
+                        register={ register }
+                        errors={ errors }
+                        required={ false }
+                        placeholder="https://www.willpoweredstudents.com"
 
-                        />
-                    </Column>
-                    <Column>
-                        <InputField
-                            type="file"
-                            name="Website"
-                            inputName="imageUrl"
-                            register={ register }
-                            errors={ errors }
-                            required={ false }
-                            placeholder="https://www.willpoweredstudents.com"
-                            onChange={ handleImageChange }
-                        />
-
-
-                        <label htmlFor='file'>
-
-                            <Image src={ picture }/>
-                            Preview
-                        </label>
-                    </Column>
-                </Row>
+                    />
+                    <InputField
+                        className="centered"
+                        type="file"
+                        name="Image"
+                        inputName="imageUrl"
+                        register={ register }
+                        errors={ errors }
+                        required={ false }
+                        placeholder="https://www.willpoweredstudents.com"
+                        onChange={ handleImageChange }
+                    />
+                    {/*<ImageItem>*/}
+                    {/*    <Image src={ picture }/>*/}
+                    {/*</ImageItem>*/}
+                </OrderedList>
                 <ButtonBox>
 
 
@@ -146,23 +136,60 @@ export default function BlogCreation() {
                         type="submit"
                         buttonSize="btn--large"
                         buttonStyle="btn--succes--solid"
-                        disabled={ error.name || error.description  }
+                        disabled={ error.name || error.description }
+
 
                     >
                         Submit
                     </RectangleButton>
 
+
                 </ButtonBox>
 
 
-
             </Form>
+
 
         </FormWindow>
     );
 }
 
+const OrderedList = styled.ul`
+  margin-top: 4em;
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
 
+  li {
+    padding: 0 1rem;
+    margin: 0;
+    flex: 1 0 100%;
+    align-items: start;
+    @media (min-width: 768px) {
+      flex: 1 0 45%;
+    }
+
+  }
+
+
+  li > div {
+    flex: 1 0 100%;
+    display: flex;
+    flex-wrap: wrap;
+    @media (min-width: 552px) {
+      flex: 1 0 70%;
+    }
+  }
+
+
+  li > label {
+    flex: 1 0 30%;
+
+  }
+
+`
 
 
 /** Created by ownwindows on 10-01-22 **/

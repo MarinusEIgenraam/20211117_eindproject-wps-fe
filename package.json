@@ -26,7 +26,7 @@
   },
   "scripts": {
     "go": "open http://localhost:3000; npm run server",
-    "start": "HOST=127.0.0.1 react-scripts start",
+    "start": "HOST=127.0.0.2 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

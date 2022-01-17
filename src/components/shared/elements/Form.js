@@ -10,22 +10,26 @@ import styled from 'styled-components';
 //// External
 
 export const Form = styled.form`
-  align-items: start;
+  justify-content: space-between;
   display: flex;
-  flex-direction: column;
-  margin-bottom: 1em;
+  flex-wrap: wrap;
 `
 
 export const FormWindow = styled.div`
-  background: ${ props => props.theme.windowBackground };
-  padding: 1.5rem 3rem;
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-  border: solid var(--box-border-medium) ${ props => props.theme.border };
-  box-shadow: ${ props => props.theme.shadow };
+  width: 70vw;
   height: max-content;
-  max-width: 80vw;
+  max-width: 1200px;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 2rem 0;
+  margin-top: 3em;
+
+  background: ${ props => props.theme.createBackground };
+  border: solid var(--box-border-medium) ${ props => props.theme.createBorder };
+  box-shadow: ${ props => props.theme.createShadow };
+
 `
 
 export const ButtonBox = styled.section`

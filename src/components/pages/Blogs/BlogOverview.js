@@ -9,7 +9,7 @@ import styled from 'styled-components';
 //// Environmental
 import { HeaderContainer } from "../../shared/elements/TextLayout";
 import { H1, H2, SubTitle } from "../../shared/elements/Text";
-import { BlogsContainer, PageContainer, PageHeader } from "../../shared/elements/Layout";
+import { PageContainer, PageHeader } from "../../shared/elements/Layout";
 import Blog from "./Blog";
 import BlogCreation from "../../layout/forms/Blog/BlogCreation";
 import { AuthContext } from "../../../context/AuthProvider";
@@ -22,7 +22,7 @@ const { REACT_APP_API_URL } = process.env;
 //// External
 
 export default function BlogOverview() {
-    const { setIsLoading } = useContext(UtilityContext);
+    const { setIsLoading, isLoading } = useContext(UtilityContext);
     const { isAuth, user } = useContext(AuthContext);
     const [ loadedBlogs, setLoadedBlogs ] = useState();
     const [ hasError, setHasError ] = useState(false);
@@ -59,6 +59,14 @@ export default function BlogOverview() {
 
     }, []);
 
+    function closeWindow(is) {
+        if (isLoading) {
+            return;
+        } else {
+            setWriteBlog(false)
+        }
+    }
+
     return (
         <PageContainer>
             <H1>
@@ -74,7 +82,9 @@ export default function BlogOverview() {
                 velit. Adipisci amet animi debitis dolor dolores eaque iusto laboriosam magni omnis pariatur possimus
                 reprehenderit, sed soluta, tempore voluptatibus.
             </PageHeader>
-            { ( user?.authorities === "Project lord" && !writeBlog ) ?
+
+
+            { (user?.authorities === "Project lord" && !writeBlog ) ?
                 <RectangleButton
                     type="button"
                     onClick={ () => setWriteBlog(true) }
@@ -85,14 +95,13 @@ export default function BlogOverview() {
                 </RectangleButton>
                 :
                 <AiOutlineClose onClick={ () => setWriteBlog(false) } size={ 30 }/>
+
             }
-
-
             { writeBlog &&
                 <BlogCreation/>
-
             }
-            <BlogsContainer>
+
+            <BlogsList className="clearfix">
                 { loadedBlogs &&
                     loadedBlogs.map((blog) => {
                         return (
@@ -101,13 +110,29 @@ export default function BlogOverview() {
                         );
                     })
                 }
-                {/*<Blog blog={ true}/>*/}
 
-            </BlogsContainer>
+            </BlogsList>
         </PageContainer>
 
     )
 }
+
+const BlogsList = styled.div`
+  width: 70vw;
+  margin-top: 2rem;
+  padding: 1rem;
+  column-count: 1;
+  column-gap: 1em;
+
+  @media (min-width: 768px) {
+    column-count: 2;
+    column-gap: 1em;
+  }
+  @media (min-width: 1000px) {
+    column-count: 3;
+    column-gap: 1em;
+  }
+`
 
 
 /** Created by ownwindows on 04-01-22 **/

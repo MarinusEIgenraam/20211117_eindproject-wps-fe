@@ -9,7 +9,7 @@ import styled from 'styled-components';
 ////////////////////
 //// External
 
-export const  PageContainer = styled.div`
+export const PageContainer = styled.div`
   display: flex;
   margin-top: 15vh;
   align-items: center;
@@ -25,12 +25,12 @@ export const  PageContainer = styled.div`
 `
 
 export const PageHeader = styled.div`
-width: 70vw;
+  width: 70vw;
   padding: 1rem;
 `
 
 export const Container = styled.div`
-  background: ${props => props.theme.background};
+  background: ${ props => props.theme.background };
   height: 120vh;
   display: flex;
   flex-gro: 1;
@@ -40,7 +40,6 @@ export const Row = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  //flex: 1 5;
 `
 export const Column = styled.div`
   display: flex;
@@ -64,7 +63,7 @@ export const SubRowList = styled.div`
 `
 
 export const BlogsContainer = styled.div`
-    display: flex;
+  display: flex;
   flex-direction: column;
   flex-wrap: wrap;
 `

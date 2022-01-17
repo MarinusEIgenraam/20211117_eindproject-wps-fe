@@ -62,7 +62,7 @@ function App() {
 const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  flex: 1;
   color: ${ props => props.theme.text };
   background: ${ props => props.theme.background };
   

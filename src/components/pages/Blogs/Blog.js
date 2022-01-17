@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components';
 import { PageContainer } from "../../shared/elements/Layout";
 import { SubTitle } from "../../shared/elements/Text";
+import { BackgroundImage } from "../../shared/elements/Images";
 
 ////////////////////
 //// Environmental
@@ -17,23 +18,24 @@ export default function Blog({ blog: { blogName, blogOwner, imageUrl, descriptio
 
     return (
 
-        <BlogContainer showMore={ showMore } onClick={ () => setShowMore(!showMore) }>
+        <BlogContainer className="card" showMore={ showMore } onClick={ () => setShowMore(!showMore) }>
             <Header>
                 <h3>
                     { blogName }
                 </h3>
                 <SubTitle>
                     { blogOwner?.username }
-                    { imageUrl }
-
                 </SubTitle>
             </Header>
+            <Image src={ imageUrl } alt={ blogName }/>
             <p>
                 { description }
             </p>
+
+
             <small>{ startTime }</small>
 
-            {!showMore &&
+            { !showMore &&
                 <Gradient>
                     <SeeMore>
                         Show more
@@ -47,9 +49,18 @@ export default function Blog({ blog: { blogName, blogOwner, imageUrl, descriptio
 
 const SeeMore = styled.p`
   color: ${ props => props.theme.text };
-
 `
 
+
+const Header = styled.div`
+  margin-bottom: 20px;
+`
+
+const Image = styled.img`
+  width: 100%;
+  aspect-ratio: 1/1;
+  border: solid var(--box-border-medium) ${ props => props.theme.border };
+`
 const Gradient = styled.div`
   display: flex;
   justify-content: center;
@@ -62,45 +73,28 @@ const Gradient = styled.div`
   background: linear-gradient(hsla(0, 0%, 100%, 0), hsl(0, 0%, 100%));
 `
 
-const Header = styled.div`
-  margin-bottom: 20px;
-`
-
-const Owner = styled.div`
-
-`
-
 
 const BlogContainer = styled.div`
-  position: relative;
   padding: 1rem;
-  width: 70vw;
-  margin-top: 10px;
-  background: ${ props => props.theme.background };
+  position: relative;
+  width: 100%;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
   border: solid var(--box-border-medium) ${ props => props.theme.border };
-  box-shadow: ${ props => props.theme.shadow };
+  float: left;
+  margin-bottom: 12px;
   overflow: hidden;
+  margin-top: 10px;
+
+
   height: ${ ({ showMore, theme }) =>
-    ( showMore )
-        ?
-        "max-content"
-        :
-         "120px"
-    };
-  animation: height 15s ease-in;
-
-
-`
-const CreationDate = styled.div`
+          ( showMore )
+                  ?
+                  "min-content"
+                  :
+                  "500px"
+  };
 
 `
 
-const Image = styled.div`
-
-`
-
-const Content = styled.div`
-
-`
 
 /** Created by ownwindows on 04-01-22 **/
