@@ -19,6 +19,7 @@ export const PageContainer = styled.div`
   min-height: 100vh;
   width: 100%;
 
+
   @media screen and (min-width: 769px) {
     margin-top: 15vh;
   }
@@ -68,5 +69,37 @@ export const BlogsContainer = styled.div`
   flex-wrap: wrap;
 `
 
+export const UserItem = styled.div`
+  width: 70vw;
+  height: min-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-direction: row;
+  transition: all 500ms;
+  margin: 25px 25px -180px 25px;
+  padding: 1rem;
+  background: ${ props => props.theme.background };
+  border: solid var(--box-border-medium) ${ props => props.theme.border };
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px -20px 20px -20px;
+
+
+  :hover {
+    border: solid var(--box-border-medium) ${ props => props.theme.border };
+    box-shadow: ${ props => props.theme.shadow };
+    margin: 25px 25px 50px 25px;
+    background: ${ props => props.theme.windowBackground };
+  }
+
+  @media (min-width: 769px) {
+
+  }
+
+  @media (max-width: 660px) {
+    flex-direction: column;
+  }
+
+`
 
 /** Created by ownwindows on 15-01-22 **/

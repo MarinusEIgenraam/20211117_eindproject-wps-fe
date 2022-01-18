@@ -20,6 +20,14 @@ export const Image = styled.img`
   aspect-ratio: 1/1;
 `
 
+export const ProfileImage = styled.img`
+  height: calc(1rem * 2 + 12rem);
+  aspect-ratio: 1/1;
+  border: solid var(--box-border-medium) ${ props => props.theme.border };
+
+
+`
+
 export const BackgroundImage = styled.img`
   width: 100vw;
   overflow: hidden;

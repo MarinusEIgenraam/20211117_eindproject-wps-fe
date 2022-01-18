@@ -6,6 +6,8 @@ import styled from 'styled-components'
 ///////////////////////
 //// Internal
 import './RectangleButton.scss';
+import { IoIosRemoveCircleOutline } from "react-icons/io";
+import { AiFillCloseCircle, CgDanger } from "react-icons/all";
 
 ///////////////////////
 //// External
@@ -34,9 +36,17 @@ const RectangleButton = ({ children, type, onClick, buttonStyle, buttonSize, dis
             className={ `btn ${ checkButtonSize } ${ checkButtonStyle }` }
             onClick={ onClick }
             type={ type ? type : "button" }
-            disabled={ disabled ? !disabled : disabled }
+            disabled={ disabled }
         >
-            { children }
+
+            { disabled
+                ?
+                <AiFillCloseCircle
+                    size={ 15 }
+                />
+                :
+                children
+            }
         </Button>
     )
 
@@ -45,7 +55,12 @@ const RectangleButton = ({ children, type, onClick, buttonStyle, buttonSize, dis
 export default RectangleButton;
 
 const Button = styled.button`
-  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
   margin: 5px;
 `
+
 // thanks to: https://www.youtube.com/watch?v=JfNjGLGaxR4&ab_channel=Skillthrive

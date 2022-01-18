@@ -14,18 +14,17 @@ export const SelectContainer = styled.div`
   appearance: none;
   font-family: inherit;
   outline: none;
-  width: 70%;
+  width: 100%;
   font-size:1.1rem;
   font-weight: 500;
-  margin-bottom: 1rem;
 
   @media (min-width: 768px) {
     width: 70%;
   }
   
-  height: max-content;
+  height: 3rem;
   border: 1px solid ${ props => props.theme.border };
-  padding: 0.25em 0.5em;
+  padding: 0.5rem 0.5rem;
   cursor: pointer;
   background-image: linear-gradient(to top, ${ props => props.theme.border }, ${ props => props.theme.background } 33%);
   display: flex;

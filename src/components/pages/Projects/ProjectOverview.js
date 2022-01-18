@@ -11,9 +11,9 @@ import { Ul, UnorderedList } from "../../shared/elements/List";
 import { Image } from "../../shared/elements/Images";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
 import { AiOutlineClose } from "react-icons/all";
-import BlogCreation from "../../layout/forms/Blog/BlogCreation";
+import CreateBlog from "../../layout/forms/Blog/CreateBlog";
 import { AuthContext } from "../../../context/AuthProvider";
-import ProjectCreation from "../../layout/forms/Project/ProjectCreation";
+import CreateProject from "../../layout/forms/Project/CreateProject";
 
 ////////////////////
 //// Environmental
@@ -110,7 +110,7 @@ export default function ProjectOverview() {
 
             }
             { writeProject &&
-                <ProjectCreation/>
+                <CreateProject/>
             }
             <UnorderedList>
                 { loadedProjects && loadedProjects.map(project => (

@@ -25,7 +25,6 @@ export default function Footer() {
 
     window.addEventListener('scroll', changeBackground);
 
-    console.log(fixed)
     return (
         <Wrapper fixed={fixed}>
             <DetailContainer>
@@ -45,7 +44,6 @@ const Wrapper = styled.footer`
   margin-top: 250px;
   width: 100%;
   transition: all 500ms;
-  //z-index: 10;
 
 
   ${ ({ fixed, theme }) => ( fixed )

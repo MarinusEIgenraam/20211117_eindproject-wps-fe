@@ -11,7 +11,7 @@ import { HeaderContainer } from "../../shared/elements/TextLayout";
 import { H1, H2, SubTitle } from "../../shared/elements/Text";
 import { PageContainer, PageHeader } from "../../shared/elements/Layout";
 import Blog from "./Blog";
-import BlogCreation from "../../layout/forms/Blog/BlogCreation";
+import CreateBlog from "../../layout/forms/Blog/CreateBlog";
 import { AuthContext } from "../../../context/AuthProvider";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
 import { BsFillSunFill } from "react-icons/bs";
@@ -98,7 +98,7 @@ export default function BlogOverview() {
 
             }
             { writeBlog &&
-                <BlogCreation/>
+                <CreateBlog/>
             }
 
             <BlogsList className="clearfix">

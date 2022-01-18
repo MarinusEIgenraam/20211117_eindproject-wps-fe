@@ -1,117 +1,144 @@
 ////////////////////
 //// Build
 import React from "react";
-import { useFieldArray } from "react-hook-form";
 import styled from 'styled-components';
+import { useFieldArray } from "react-hook-form";
 ////////////////////
 //// Environmental
-import NestedArray from "./taskSubtaskList";
-import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
 import Tooltip from "../../../shared/elements/messages/Tooltip";
-import { IoIosRemoveCircleOutline } from "react-icons/io";
+import { IoIosAddCircle, IoIosRemoveCircleOutline } from "react-icons/io";
+import { Input, InputDate, InputLabel } from "../../../shared/elements/Input";
+import { Row, SubRow, SubRowList } from "../../../shared/elements/Layout";
+import { ListItem } from "../../../shared/elements/List";
 
-let renderCount = 0;
-
-export default function Fields({ control, register, setValue, getValues }) {
-    const { fields, append, remove, prepend } = useFieldArray({
+export default ({ nestIndex, control, register }) => {
+    const { fields, remove, append } = useFieldArray({
         control,
-        name: "projectTaskList"
+        name: `projectTaskList[${ nestIndex }].subTaskList`
     });
-
-
+    console.log()
     return (
-        <ProjectTasks>
-            <TaskList>
-                { fields.map((item, index) => {
-                    return (
-                        <ListItem key={ item.id }>
-                            <Row>
+        <SubRowList>
+            { fields.map((item, k) => {
+                return (
+                    <ListItem key={ item.id } style={ { marginLeft: 20 } }>
 
-                                <Label>
-                                    <p>
-                                        Task name
+                        <OrderedList>
 
-                                    </p>
-                                    <Input
-                                        { ...register(`projectTaskList[${ index }].taskName`) }
-                                        placeholder="Task name"
+                            <InputLabel>
+
+                                <p>
+                                    Task name
+
+                                </p>                                <Input
+                                { ...register(`projectTaskList[${ nestIndex }].subTaskList[${ k }].taskName`) }
+                                placeholder="..."
+                            />
+                            </InputLabel>
+                            <InputLabel>
+                                <p>
+
+                                    Description
+                                </p>                                <Input
+                                { ...register(`projectTaskList[${ nestIndex }].subTaskList[${ k }].description`) }
+                                placeholder="Description"
+                            />
+                            </InputLabel>
+                            <InputLabel>
+                                <p>
+
+                                    Deadline
+                                </p>
+                                <InputDate
+                                    type="date"
+                                    { ...register(`projectTaskList[${ nestIndex }].subTaskList[${ k }].endTime`) }
+                                />
+                            </InputLabel>
+                            <Icon>
+
+                                <Tooltip text="Delete">
+                                    <IoIosRemoveCircleOutline
+                                        size={ 25 }
+                                        type="button"
+                                        onClick={ () => remove(k) }
                                     />
-                                </Label>
-                                <Label>
-                                    <p>
+                                </Tooltip>
+                            </Icon>
+                            <Icon>
 
-                                        Description
-                                    </p>
-                                    <Input
-                                        type="text-area"
-                                        { ...register(`projectTaskList[${ index }].description`) }
-                                        placeholder="Description"
-                                    />
-                                </Label>
-                                <Label>
-                                    <p>
+                                <Tooltip text="Add">
+                                    <IoIosAddCircle
+                                        size={ 25 }
+                                        type="button"
+                                        onClick={ () =>
+                                            append({
+                                                taskName: "",
+                                                description: ""
+                                            })
+                                        }/>
+                                </Tooltip>
+                            </Icon>
+                        </OrderedList>
 
-                                        Deadline
-                                    </p>
-                                    <InputDate
-                                        type="date"
-                                        { ...register(`projectTaskList[${ index }].endTime`) }
-                                    />
-                                </Label>
-                                <Icon>
-
-                                    <Tooltip text="Delete">
-                                        <IoIosRemoveCircleOutline
-                                            size={ 25 }
-                                            type="button"
-                                            onClick={ () => remove(index) }
-                                        />
-                                    </Tooltip>
-                                </Icon>
-                            </Row>
-                            <Row>
-
-                                <NestedArray nestIndex={ index } { ...{ control, register } } />
-                            </Row>
-                        </ListItem>
-                    );
-                }) }
-            </TaskList>
+                    </ListItem>
+                );
+            }) }
 
 
-            <ButtonContainer>
-                <RectangleButton
-                    type="button"
-                    onClick={ () => {
-                        append({ taskName: "New task" });
-                    } }
-                >
-                    New task
-                </RectangleButton>
-
-
-                <RectangleButton
-                    type="button"
-                    onClick={ () => {
-                        setValue("projectTaskList", [
-                            ...getValues().projectTaskList,
-                            {
-                                taskName: "Task name",
-                                subTaskList: [ { taskName: "Subtask name", description: "Description" } ]
-                            }
-                        ]);
-                    } }
-
-                >
-                    New subtask
-                </RectangleButton>
-
-            </ButtonContainer>
-
-        </ProjectTasks>
+        </SubRowList>
     );
-}
+};
+
+
+
+
 const Icon = styled.div`
   align-self: center;
 `
 
+
+
+const OrderedList = styled.ul`
+  margin-top: 4em;
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+
+  li {
+    padding: 0 1rem;
+    margin: 0;
+    flex: 1 0 100%;
+    list-style: none;
+    border: none;
+    align-items: start;
+    @media (min-width: 768px) {
+      flex: 1 0 50%;
+    }
+
+  }
+
+  li label{
+    flex: 1 0 30%;
+    @media (min-width: 768px) {
+      flex: 1 0 100%;
+    }
+  }
+
+  li > div {
+    flex: 1 0 70%;
+    display: flex;
+    flex-wrap: wrap;
+    @media (min-width: 768px) {
+      flex: 1 0 70%;
+    }
+  }
+
+
+  li > label {
+    flex: 1 0 30%;
+
+  }
+
+`

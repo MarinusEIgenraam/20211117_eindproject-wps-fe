@@ -5,8 +5,18 @@
     width: max-content;
     align-self: center;
     align-self: center;
+    min-height: 2.5rem;
     border: solid 0.1vh var(--tertiary);
-    box-shadow: var(--button-shadow)
+    box-shadow: var(--button-shadow);
+
+
+}
+
+button:disabled,
+button[disabled]{
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
 }
 
 .btn:hover {

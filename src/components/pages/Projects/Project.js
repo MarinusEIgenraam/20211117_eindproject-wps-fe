@@ -23,7 +23,7 @@ import { Column, Row } from "../../shared/elements/Layout";
 ////////////////////
 //// External
 
-export default function ProjectDetailPage({ project }) {
+export default function Project({ project }) {
     console.log(project);
 
     return (

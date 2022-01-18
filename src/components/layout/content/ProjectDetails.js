@@ -3,7 +3,7 @@
 import React from 'react'
 import { Column, Row } from "../../shared/elements/Layout";
 import { ProjectName } from "../../shared/elements/Navigation";
-import Users from "../../pages/Users/Users";
+import UserOverview from "../../pages/Users/UserOverview";
 import {
     Category,
     Collaborators,
@@ -34,12 +34,12 @@ export default function ProjectDetails({ project }) {
                     <Details>
                         <ListMetaData>
                             <Category>{ project.category.name }</Category>
-                            <Users>
+                            <UserOverview>
                                 <Owner>{ project.projectOwner.username }</Owner>
                                 <Collaborators>{ project.collaborators.map((user)=> <span>{ user.username }</span>) }</Collaborators>
                                 <Votes>{ project.voteCount } vote{ project.voteCount > 1 && `'s` } on this
                                     project</Votes>
-                            </Users>
+                            </UserOverview>
                         </ListMetaData>
                         <Description>{ project.description }</Description>
                     </Details>

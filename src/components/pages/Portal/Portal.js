@@ -2,8 +2,8 @@
 //// Build
 import React, { useContext } from 'react'
 import { AuthContext } from "../../../context/AuthProvider";
-import ProjectCreation from "../../layout/forms/Project/ProjectCreation";
-import BlogCreation from "../../layout/forms/Blog/BlogCreation";
+import CreateProject from "../../layout/forms/Project/CreateProject";
+import CreateBlog from "../../layout/forms/Blog/CreateBlog";
 import { HeaderContainer } from "../../shared/elements/TextLayout";
 import { H1 } from "../../shared/elements/Text";
 import { PageContainer } from "../../shared/elements/Layout";
@@ -25,10 +25,10 @@ export default function Portal() {
             </H1>
             </HeaderContainer>
             { ( user.authorities === "Project lord" ) &&
-                <BlogCreation/>
+                <CreateBlog/>
             }
             { ( user.authorities === "Project manager" || "Project lord" ) &&
-                <ProjectCreation/>
+                <CreateProject/>
             }
         </PageContainer>
     )

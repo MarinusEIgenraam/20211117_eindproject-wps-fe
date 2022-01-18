@@ -12,15 +12,13 @@ import PrivateRoutes from "./router/PrivateRoutes";
 import Portal from "./components/pages/Portal/Portal";
 import Home from "./components/pages/Home/Home";
 import BlogOverview from "./components/pages/Blogs/BlogOverview";
-import Projects from "./components/pages/Projects/Projects";
 import Register from "./components/pages/Register/Register";
 import About from "./components/pages/About/About";
 import ProjectDetails from "./components/layout/content/ProjectDetails";
 import Blog from "./components/pages/Blogs/Blog";
-import Users from "./components/pages/Users/Users";
+import UserOverview from "./components/pages/Users/UserOverview";
 import UserProfile from "./components/pages/Users/UserProfile";
 import NoComponentFound from "./components/pages/NoComponentFound";
-import { DetailContainer, H2 } from "./components/shared/elements/Text";
 import Footer from "./components/shared/views/Footer";
 import ProjectOverview from "./components/pages/Projects/ProjectOverview";
 
@@ -42,7 +40,7 @@ function App() {
                 {/*<Route path='/Login' element={ <Login/> }/>*/ }
                 <Route path='/about' element={ <About/> }/>
 
-                <Route path="/users" element={ <Users/> }>
+                <Route path="/users" element={ <UserOverview/> }>
                     <Route path=':id' element={ <UserProfile/> }/>
                 </Route>
                 <Route path='/me' element={

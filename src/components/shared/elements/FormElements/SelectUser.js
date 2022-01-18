@@ -13,12 +13,12 @@ const { REACT_APP_API_URL } = process.env;
 ////////////////////
 //// External
 
-export default function ProjectCategory({ setCategory, category }) {
+export default function SelectUser({ setUser, user, location }) {
     const { setIsLoading } = useContext(UtilityContext);
-    const [ loadedCategories, setLoadedCategories ] = useState(false);
+    const [ loadedUsers, setLoadedUsers ] = useState(false);
     const [ hasError, setHasError ] = useState(false);
 
-    const API_URL = `${ REACT_APP_API_URL }categories/all`;
+    const API_URL = `${ REACT_APP_API_URL }users`;
 
 
     useEffect(() => {
@@ -27,16 +27,17 @@ export default function ProjectCategory({ setCategory, category }) {
         async function getData() {
             setHasError(false);
             setIsLoading(true)
-
-
             try {
                 const result = await axios.get(API_URL, { cancelToken: source.token, });
-                setLoadedCategories(result.data);
+
+                setLoadedUsers(result.data.content);
+                console.log(loadedUsers)
 
             } catch (e) {
                 console.error(e);
                 setHasError(true);
             }
+            console.log(loadedUsers)
             setIsLoading(false)
         }
 
@@ -45,42 +46,49 @@ export default function ProjectCategory({ setCategory, category }) {
         return function clearData() {
             source.cancel();
         };
+
     }, []);
 
 
     return (
         <Row>
-            { loadedCategories &&
-                <Dropdown onChange={ setCategory }
+            { loadedUsers &&
+                <Dropdown onChange={ setUser }
                           data={ [
-                              loadedCategories.map((categoryEntity) => {
+                              loadedUsers.map((user) => {
                                   return (
                                       ( {
-                                          value: categoryEntity.id,
-                                          label: categoryEntity.name,
-                                          iconClass: categoryEntity.name
+                                          value: user.username,
+                                          label: user.username,
+                                          iconClass: user.username
                                       } )
                                   )
                               })
                           ] }
-                          value={ category }
+                          value={ location.user }
 
-                          placeholder='Category'/>
+                          placeholder='Task owner'/>
             }
 
         </Row>
     );
 }
 
-const Row = styled.div`
+export const Row = styled.div`
+  background-color: ${ props => props.theme.background };
   width: 100%;
-  padding:0 1rem;
-  display: flex;
-  justify-content: end;
+  flex-direction: column;
+  gap: 1rem;
 
-  @media (min-width: 768px) {
-    width: 50%;
+  @media screen and (min-width: 650px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
-`
 
+  & > * {
+    flex: 1;
+    margin: 1.375rem auto 0rem auto;
+  }
+`;
 /** Created by ownwindows on 08-01-22 **/
