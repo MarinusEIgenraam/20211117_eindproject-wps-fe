@@ -120,6 +120,7 @@ const UserItem = styled.div`
   background: ${ props => props.theme.background };
   border: solid var(--box-border-medium) ${ props => props.theme.border };
   overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px -20px 20px -20px;
 
 
   :hover {

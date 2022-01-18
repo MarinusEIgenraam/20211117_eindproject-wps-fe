@@ -49,7 +49,7 @@ export default function ProjectCategory({ setCategory, category }) {
 
 
     return (
-        <>
+        <Row>
             { loadedCategories &&
                 <Dropdown onChange={ setCategory }
                           data={ [
@@ -68,12 +68,19 @@ export default function ProjectCategory({ setCategory, category }) {
                           placeholder='Category'/>
             }
 
-        </>
+        </Row>
     );
 }
 
-const NewProjectCategory = styled.div`
+const Row = styled.div`
+  width: 100%;
+  padding:0 1rem;
+  display: flex;
+  justify-content: end;
 
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 `
 
 /** Created by ownwindows on 08-01-22 **/

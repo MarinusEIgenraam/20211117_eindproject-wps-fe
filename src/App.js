@@ -22,6 +22,7 @@ import UserProfile from "./components/pages/Users/UserProfile";
 import NoComponentFound from "./components/pages/NoComponentFound";
 import { DetailContainer, H2 } from "./components/shared/elements/Text";
 import Footer from "./components/shared/views/Footer";
+import ProjectOverview from "./components/pages/Projects/ProjectOverview";
 
 function App() {
     const [ value, setValue ] = useState(``);
@@ -35,7 +36,7 @@ function App() {
                 <Route path='/' element={ <Home/> }/>
                 <Route path='/blogs' element={ <BlogOverview/> }/>
                 <Route path='/blogs/:id' element={ <Blog/> }/>
-                <Route path='/projects' element={ <Projects/> }/>
+                <Route path='/projects' element={ <ProjectOverview/> }/>
                 <Route path='/projects/:id' element={ <ProjectDetails/> }/>
                 <Route path='/register' element={ <Register/> }/>
                 {/*<Route path='/Login' element={ <Login/> }/>*/ }

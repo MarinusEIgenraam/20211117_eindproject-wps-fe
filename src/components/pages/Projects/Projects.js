@@ -55,7 +55,7 @@ export default function Projects() {
                     }});
 
                 setLoadedProjects(result.data.content);
-
+                console.log(loadedProjects)
             } catch (e) {
                 console.error(e);
                 setHasError(true);
@@ -95,28 +95,23 @@ export default function Projects() {
             </ButtonBox>
             <ProjectList>
                 { loadedProjects && loadedProjects.map(project => (
-                    <Link to={ `/project/${project.id}` } key={ project.id }>
+                    <Item to={ `/project/${project.id}` } key={ project.id }>
                         <h4>
                             { project.name }
                         </h4>
-                        {/*<p>Due by : {project.endTime.toDate().toDateString()}</p>*/}
                         <div className="assigned-to">
                             <ul>
                                 {project.collaborators.map(user=>(
-                                    <li className='avatar' key={user.imageUrl}  title={user.username}>
-                                        <div className="avatar">
-                                            <img src={user.imageUrl} alt="user avatar" />
+                                    <li key={user.imageUrl}  title={user.username}>
+                                        <div >
+                                            <img src={user.imageUrl}/>
                                         </div>
                                     </li>
                                 ))}
-                                <li className='avatar' key={project.projectOwner.imageUrl}  title={project.projectOwner.username}>
-                                    <div className="avatar">
-                                        <img src={project.projectOwner.imageUrl} alt="user avatar" />
-                                    </div>
-                                </li>
+
                             </ul>
                         </div>
-                    </Link>
+                    </Item>
                 )) }
             </ProjectList>
 
@@ -153,4 +148,43 @@ const Avatar = styled.div`
   }
 `
 
+const Image = styled.img`
+  height: calc(1rem * 2 + 12rem);
+  aspect-ratio: 1/1;
+  border: solid var(--box-border-medium) ${ props => props.theme.border };
+
+
+`
+
+
+const Item = styled.li`
+  width: 70vw;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-direction: row;
+  transition: all 500ms;
+  padding: 1rem;
+  background: ${ props => props.theme.background };
+  border: solid var(--box-border-medium) ${ props => props.theme.border };
+  overflow: hidden;
+
+
+  :hover {
+    border: solid var(--box-border-medium) ${ props => props.theme.border };
+    box-shadow: ${ props => props.theme.shadow };
+    margin: 25px 25px 50px 25px;
+    background: ${ props => props.theme.windowBackground };
+  }
+
+  @media (min-width: 769px) {
+
+  }
+
+  @media (max-width: 660px) {
+    flex-direction: column;
+  }
+
+`
 /** Created by ownwindows on 04-01-22 **/

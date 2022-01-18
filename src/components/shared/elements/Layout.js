@@ -38,6 +38,7 @@ export const Container = styled.div`
 
 export const Row = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
 `
@@ -55,11 +56,10 @@ export const SubRow = styled.div`
 `
 
 export const SubRowList = styled.div`
-  div:nth-child(1) {
-    div label p {
-      visibility: visible;
-    }
-  }
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  flex-direction: column;
 `
 
 export const BlogsContainer = styled.div`

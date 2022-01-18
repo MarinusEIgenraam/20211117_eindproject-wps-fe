@@ -114,7 +114,6 @@ export default function BlogCreation() {
                         register={ register }
                         errors={ errors }
                         required={ false }
-                        placeholder="https://www.willpoweredstudents.com"
                         onChange={ handleImageChange }
                     />
                     {/*<ImageItem>*/}
@@ -173,6 +172,9 @@ const OrderedList = styled.ul`
 
   }
 
+  li > span{
+    flex: 1 0 70%;
+  }
 
   li > div {
     flex: 1 0 100%;

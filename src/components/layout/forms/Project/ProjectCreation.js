@@ -10,7 +10,7 @@ import InputArea from "../../../shared/elements/FormElements/InputArea";
 import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
 import { postProject, uploadImage } from "../../../../services/controllers/requests";
 import ProjectCategory from "../../../shared/elements/FormElements/ProjectCategory";
-import { FormWindow } from "../../../shared/elements/Form";
+import { ButtonBox, Form, FormWindow } from "../../../shared/elements/Form";
 
 ////////////////////
 //// Environmental
@@ -119,55 +119,55 @@ export default function ProjectCreation() {
             <Header>
                 <h1>Create a project</h1>
             </Header>
-            <CreationForm onSubmit={ handleSubmit(onSubmit) }>
-                <Row>
+            <Form onSubmit={ handleSubmit(onSubmit) }>
+                <OrderedList>
+                    <InputField
+                        type="text"
+                        name="Name"
+                        inputName="projectName"
+                        register={ register }
+                        errors={ errors }
+                        required={ true }
+                    />
+                    <InputArea
+                        type="text-area"
+                        name="Description"
+                        inputName="description"
+                        register={ register }
+                        errors={ errors }
+                        required={ true }
+                        placeholder="What do you want to achieve with this project..."
+                    />
 
+                    <InputField
+                        type="url"
+                        name="Website"
+                        inputName="url"
+                        register={ register }
+                        errors={ errors }
+                        required={ false }
+                        placeholder="https://www.willpoweredstudents.com"
+
+                    />
+                    <InputField
+                        type="date"
+                        name="Deadline"
+                        inputName="endTime"
+                        register={ register }
+                        errors={ errors }
+                        required={ false }
+                    />
+                    <ProjectCategory category={ projectCategory } setCategory={ setProjectCategory }/>
+                    <InputField
+                        type="checkbox"
+                        name="Publicly visible"
+                        inputName="publiclyVisible"
+                        register={ register }
+                        errors={ errors }
+                        value={ true }
+                    />
                     <Column>
-                        <InputField
-                            type="text"
-                            name="Name"
-                            inputName="projectName"
-                            register={ register }
-                            errors={ errors }
-                            required={ true }
-                        />
-                        <InputArea
-                            type="text-area"
-                            name="Description"
-                            inputName="description"
-                            register={ register }
-                            errors={ errors }
-                            required={ true }
-                            placeholder="What do you want to achieve with this project..."
-                        />
 
-                        <InputField
-                            type="url"
-                            name="Website"
-                            inputName="url"
-                            register={ register }
-                            errors={ errors }
-                            required={ false }
-                            placeholder="https://www.willpoweredstudents.com"
-
-                        />
-                        <InputField
-                            type="date"
-                            name="Deadline"
-                            inputName="endTime"
-                            register={ register }
-                            errors={ errors }
-                            required={ false }
-                        />
-                        <ProjectCategory category={ projectCategory } setCategory={ setProjectCategory }/>
-                        <InputField
-                            type="checkbox"
-                            name="Publicly visible"
-                            inputName="publiclyVisible"
-                            register={ register }
-                            errors={ errors }
-                            value={ true }
-                        />
                     </Column>
                     <Column>
                         <label>Project visual</label>
@@ -185,7 +185,7 @@ export default function ProjectCreation() {
                             Preview
                         </label>
                     </Column>
-                </Row>
+                </OrderedList>
                 <Row>
                     <h3>Tasks</h3>
 
@@ -197,7 +197,7 @@ export default function ProjectCreation() {
 
 
                 </Row>
-                <ButtonRow>
+                <ButtonBox>
 
 
                     <RectangleButton
@@ -218,14 +218,51 @@ export default function ProjectCreation() {
                         Submit
                     </RectangleButton>
 
-                </ButtonRow>
+                </ButtonBox>
 
 
-            </CreationForm>
+            </Form>
 
         </FormWindow>
     );
 }
+
+const OrderedList = styled.ul`
+  margin-top: 4em;
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+
+  li {
+    padding: 0 1rem;
+    margin: 0;
+    flex: 1 0 100%;
+    align-items: start;
+    @media (min-width: 768px) {
+      flex: 1 0 45%;
+    }
+
+  }
+
+
+  li > div {
+    flex: 1 0 100%;
+    display: flex;
+    flex-wrap: wrap;
+    @media (min-width: 552px) {
+      flex: 1 0 70%;
+    }
+  }
+
+
+  li > label {
+    flex: 1 0 30%;
+
+  }
+
+`
 
 const Header = styled.div`
 

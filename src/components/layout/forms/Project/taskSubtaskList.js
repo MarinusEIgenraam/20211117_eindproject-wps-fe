@@ -9,6 +9,7 @@ import Tooltip from "../../../shared/elements/messages/Tooltip";
 import { IoIosAddCircle, IoIosRemoveCircleOutline } from "react-icons/io";
 import { Input, InputDate, InputLabel } from "../../../shared/elements/Input";
 import { Row, SubRow, SubRowList } from "../../../shared/elements/Layout";
+import { ListItem } from "../../../shared/elements/List";
 
 export default ({ nestIndex, control, register }) => {
     const { fields, remove, append } = useFieldArray({
@@ -20,9 +21,9 @@ export default ({ nestIndex, control, register }) => {
         <SubRowList>
             { fields.map((item, k) => {
                 return (
-                    <SubRow key={ item.id } style={ { marginLeft: 20 } }>
+                    <ListItem key={ item.id } style={ { marginLeft: 20 } }>
 
-                        <Row>
+                        <OrderedList>
 
                             <InputLabel>
 
@@ -77,9 +78,9 @@ export default ({ nestIndex, control, register }) => {
                                         }/>
                                 </Tooltip>
                             </Icon>
-                        </Row>
+                        </OrderedList>
 
-                    </SubRow>
+                    </ListItem>
                 );
             }) }
 
@@ -97,5 +98,47 @@ const Icon = styled.div`
 
 
 
+const OrderedList = styled.ul`
+  margin-top: 4em;
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+
+  li {
+    padding: 0 1rem;
+    margin: 0;
+    flex: 1 0 100%;
+    list-style: none;
+    border: none;
+    align-items: start;
+    @media (min-width: 768px) {
+      flex: 1 0 50%;
+    }
+
+  }
+
+  li label{
+    flex: 1 0 30%;
+    @media (min-width: 768px) {
+      flex: 1 0 100%;
+    }
+  }
+
+  li > div {
+    flex: 1 0 70%;
+    display: flex;
+    flex-wrap: wrap;
+    @media (min-width: 768px) {
+      flex: 1 0 70%;
+    }
+  }
 
 
+  li > label {
+    flex: 1 0 30%;
+
+  }
+
+`

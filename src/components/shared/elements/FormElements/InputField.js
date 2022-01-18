@@ -84,11 +84,13 @@ export const InputContainer = styled.li`
 
 const InputLabel = styled.label`
   padding: 0.25rem;
+  
 `
 
 const Input = styled.input`
   padding: 0.5rem;
   width: 100%;
+  min-height: 31px;
 
   margin-top: 0.25rem;
   color: ${ props => props.theme.text };

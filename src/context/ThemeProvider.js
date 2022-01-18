@@ -20,7 +20,7 @@ const lightTheme = {
     background: "var(--white)",
     shadow: "var(--shadow-thin-light)",
     createBorder: "var(--quaternary-half)",
-    createBackground: "var(--tertiary-quarter)",
+    createBackground: "var(--white)",
     createBoxShadow:"var(--quaternary-quarter)",
     createSubText: "var(--primary)",
     createShadow: "var(--shadow-thin-create)"
