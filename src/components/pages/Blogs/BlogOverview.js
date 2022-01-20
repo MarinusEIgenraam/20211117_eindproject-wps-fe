@@ -41,13 +41,11 @@ export default function BlogOverview() {
                 const result = await axios.get(API_URL, { cancelToken: source.token, });
 
                 setLoadedBlogs(result.data);
-                console.log(result)
 
             } catch (e) {
                 console.error(e);
                 setHasError(true);
             }
-            console.log(loadedBlogs)
             setIsLoading(false)
         }
 
@@ -67,6 +65,8 @@ export default function BlogOverview() {
         }
     }
 
+    console.log(writeBlog)
+
     return (
         <PageContainer>
             <H1>
@@ -84,7 +84,7 @@ export default function BlogOverview() {
             </PageHeader>
 
 
-            { (user?.authorities === "Project lord" && !writeBlog ) ?
+            {(user?.authorities === "Project lord" && !writeBlog) &&
                 <RectangleButton
                     type="button"
                     onClick={ () => setWriteBlog(true) }
@@ -93,13 +93,14 @@ export default function BlogOverview() {
                 >
                     NEW
                 </RectangleButton>
-                :
-                <AiOutlineClose onClick={ () => setWriteBlog(false) } size={ 30 }/>
+            }
+            {writeBlog &&
+                <>
+                    <AiOutlineClose onClick={ () => setWriteBlog(false) } size={ 30 }/>
+                    <CreateBlog/>
+                </>
+                }
 
-            }
-            { writeBlog &&
-                <CreateBlog/>
-            }
 
             <BlogsList className="clearfix">
                 { loadedBlogs &&

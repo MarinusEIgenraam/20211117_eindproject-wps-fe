@@ -1,6 +1,7 @@
 ////////////////////
 //// Build
 import React, { useContext, useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
 import { UtilityContext } from "../../../../context/UtilityProvider";
 
@@ -30,8 +31,10 @@ function LogoLoader({ navActive }) {
     }, [ isLoading ]);
 
     return (
-        <Logo data-text="willpowered" navActive={ navActive } isLoading={ isLoading } isTimedOut={ isTimedOut }>
-            willpowered <span>students</span>{ ( isLoading || isTimedOut ) && <span>...&nbsp;</span> }
+        <Logo to="/" data-text="willpowered" navActive={ navActive } isLoading={ isLoading } isTimedOut={ isTimedOut }>
+            <h1>
+                willpowered <span>students</span>{ ( isLoading || isTimedOut ) && <span>...&nbsp;</span> }
+            </h1>
         </Logo>
 
 
@@ -51,7 +54,8 @@ const animation = props =>
     `
 
 
-const Logo = styled.h1`
+const Logo = styled(NavLink)`
+  text-decoration: none;
   color: ${ props => props.theme.text };
   position: relative;
   width: max-content;

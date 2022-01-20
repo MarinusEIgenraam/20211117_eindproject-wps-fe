@@ -10,7 +10,7 @@ import { IoIosAddCircle, IoIosRemoveCircleOutline } from "react-icons/io";
 import { Input, InputDate, InputLabel } from "../../../shared/elements/Input";
 import { Row, SubRow, SubRowList } from "../../../shared/elements/Layout";
 import { ListItem } from "../../../shared/elements/List";
-import { FormBreak, FormError, FormInput, FormInputWrap, FormLabel, FormSection, SubFormHeading } from "./FormStyles";
+import { FormBreak, FormError, FormInput, FormInputWrap, FormLabel, FormSection, SubFormHeading } from "../../../shared/elements/FormStyles";
 
 export default ({ nestIndex, control, register, errors }) => {
     const { fields, remove, append } = useFieldArray({

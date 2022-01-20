@@ -9,7 +9,7 @@ import { postBlog, uploadImage } from "../../../../services/controllers/requests
 import styled from 'styled-components'
 import { H2 } from "../../../shared/elements/Text";
 import { ButtonBox } from "../../../shared/elements/Form";
-import { Form, FormBreak, FormError, FormInput, FormInputWrap, FormLabel, Heading } from "../Project/FormStyles";
+import { Form, FormBreak, FormError, FormInput, FormInputWrap, FormLabel, Heading } from "../../../shared/elements/FormStyles";
 
 ////////////////////
 //// Environmental
@@ -172,46 +172,6 @@ export default function CreateBlog() {
 
     );
 }
-
-const OrderedList = styled.ul`
-  margin-top: 4em;
-  justify-content: space-between;
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  padding: 0;
-
-  li {
-    padding: 0 1rem;
-    margin: 0;
-    flex: 1 0 100%;
-    align-items: start;
-    @media (min-width: 768px) {
-      flex: 1 0 45%;
-    }
-
-  }
-
-  li > span{
-    flex: 1 0 70%;
-  }
-
-  li > div {
-    flex: 1 0 100%;
-    display: flex;
-    flex-wrap: wrap;
-    @media (min-width: 552px) {
-      flex: 1 0 70%;
-    }
-  }
-
-
-  li > label {
-    flex: 1 0 30%;
-
-  }
-
-`
 
 
 /** Created by ownwindows on 10-01-22 **/

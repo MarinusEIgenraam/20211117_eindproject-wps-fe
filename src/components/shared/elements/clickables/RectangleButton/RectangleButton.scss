@@ -91,12 +91,15 @@ button[disabled]{
 .btn--small {
     min-width: 70px;
     padding: 0.25rem 0.25rem;
-    font-size: 12px;
-}
-.btn--medium {
-    min-width: 100px;
-    padding: 0.5rem 1rem;
     font-size: 18px;
+    box-shadow: none;
+    border: 2px solid var(--danger);
+}
+
+.btn--medium {
+    min-width: 60px;
+    //padding: 0.25rem 0.25rem;
+    font-size: 14px;
 }
 
 .btn--large {

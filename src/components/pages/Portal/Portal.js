@@ -7,6 +7,11 @@ import CreateBlog from "../../layout/forms/Blog/CreateBlog";
 import { HeaderContainer } from "../../shared/elements/TextLayout";
 import { H1 } from "../../shared/elements/Text";
 import { PageContainer } from "../../shared/elements/Layout";
+import ListProject from "./ListProject";
+import styled from 'styled-components';
+import ListTask from "./ListTask";
+import ListBlog from "./ListBlog";
+
 
 ////////////////////
 //// Environmental
@@ -20,19 +25,43 @@ export default function Portal() {
 
     return (
         <PageContainer>
-            <HeaderContainer> <H1>
-                How are you doing { user.username }
+            <H1>
+                Welcome back { user.username }
+                <Divider className="small"/>
             </H1>
-            </HeaderContainer>
+
             { ( user.authorities === "Project lord" ) &&
-                <CreateBlog/>
+                <>
+                    <ListBlog/>
+                    <Divider className="rounded"/>
+                </>
             }
-            { ( user.authorities === "Project manager" || "Project lord" ) &&
-                <CreateProject/>
-            }
+            <ListProject/>
+            <Divider className="rounded"/>
+            <ListTask/>
+            <Divider className="rounded"/>
+            {/*{ ( user.authorities === "Project lord" ) &&*/}
+            {/*    <CreateBlog/>*/}
+            {/*}*/}
+            {/*{ ( user.authorities === "Project manager" || "Project lord" ) &&*/}
+            {/*    <CreateProject/>*/}
+            {/*}*/}
         </PageContainer>
     )
 }
 
+const Divider = styled.hr`
+  margin: 1rem 0 1rem 0;
+  border: 1px solid ${ props => props.theme.text };
+  border-radius: 5px;
+  &.small{
+    width: 100%
+  }
+  &.rounded {
+    width: 80vw;
+
+  }
+`
 
 /** Created by ownwindows on 04-01-22 **/
+

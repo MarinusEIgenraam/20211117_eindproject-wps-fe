@@ -18,7 +18,7 @@ import {
     FormInput,
     FormInputWrap,
     FormLabel, FormSection, FormSectionHeading, Heading
-} from "./FormStyles";
+} from "../../../shared/elements/FormStyles";
 import { H2 } from "../../../shared/elements/Text";
 import InputField from "../../../shared/elements/FormElements/InputField";
 import { ButtonBox } from "../../../shared/elements/Form";
@@ -244,29 +244,29 @@ export default function CreateProject() {
                         </FormInput>
                     </FormBreak>
                 </FormInputWrap>
-            </FormSection>
-            <FieldArray
-                { ...{ control, register, defaultValues, getValues, setValue, errors } }
-            />
-            <ButtonBox>
+                <FieldArray
+                    { ...{ control, register, defaultValues, getValues, setValue, errors } }
+                />
+                <ButtonBox>
 
-                <RectangleButton
-                    type="button"
-                    onClick={ () => reset(defaultValues) }
-                    buttonSize="btn--large"
-                    buttonStyle="btn--danger--solid"
-                >
-                    Reset
-                </RectangleButton>
-                <RectangleButton
-                    type="submit"
-                    buttonSize="btn--large"
-                    buttonStyle="btn--succes--solid"
-                    disabled={ errors }
-                >
-                    Submit
-                </RectangleButton>
-            </ButtonBox>
+                    <RectangleButton
+                        type="button"
+                        onClick={ () => reset(defaultValues) }
+                        buttonSize="btn--large"
+                        buttonStyle="btn--danger--solid"
+                    >
+                        Reset
+                    </RectangleButton>
+                    <RectangleButton
+                        type="submit"
+                        buttonSize="btn--large"
+                        buttonStyle="btn--succes--solid"
+                        // disabled={ errors }
+                    >
+                        Submit
+                    </RectangleButton>
+                </ButtonBox>
+            </FormSection>
         </Form>
     );
 }

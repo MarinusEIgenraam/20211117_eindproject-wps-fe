@@ -22,7 +22,7 @@ import {
     FormLabel,
     FormSection,
     FormSectionHeading, SubFormHeading
-} from "./FormStyles";
+} from "../../../shared/elements/FormStyles";
 import SelectUser from "../../../shared/elements/FormElements/SelectUser";
 import SelectCategory from "../../../shared/elements/FormElements/SelectCategory";
 

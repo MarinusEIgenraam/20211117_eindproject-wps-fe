@@ -1,144 +1,98 @@
 ////////////////////
 //// Build
-import React from "react";
-import styled from 'styled-components';
-import { useFieldArray } from "react-hook-form";
+import React, { useContext, useState } from 'react'
+import { useForm } from "react-hook-form";
+import axios from "axios";
 ////////////////////
 //// Environmental
-import Tooltip from "../../../shared/elements/messages/Tooltip";
-import { IoIosAddCircle, IoIosRemoveCircleOutline } from "react-icons/io";
-import { Input, InputDate, InputLabel } from "../../../shared/elements/Input";
-import { Row, SubRow, SubRowList } from "../../../shared/elements/Layout";
-import { ListItem } from "../../../shared/elements/List";
+import InputField from "../../../shared/elements/FormElements/InputField";
+import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
+import { UtilityContext } from "../../../../context/UtilityProvider";
+import { AuthContext } from "../../../../context/AuthProvider";
+import { ButtonBox, Form, FormWindow, InputRow } from "../../../shared/elements/Form";
+import { Heading } from "../../../shared/elements/FormStyles";
 
-export default ({ nestIndex, control, register }) => {
-    const { fields, remove, append } = useFieldArray({
-        control,
-        name: `projectTaskList[${ nestIndex }].subTaskList`
+const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
+////////////////////
+//// External
+
+function LoginWindow() {
+    const { hasError, setHasError, setIsLoading } = useContext(UtilityContext);
+    const [ error, toggleError ] = useState(false);
+    const { register, handleSubmit, control, formState: { errors } } = useForm({
+        mode: 'onChange'
     });
-    console.log()
+    const { login } = useContext(AuthContext);
+
+    // console.log(`login = ${login}`)
+    async function onSubmit(event) {
+        toggleError(false);
+        setIsLoading(true);
+
+        try {
+
+            const result = await axios.post(REACT_APP_AUTH, {
+                username: event.username,
+                password: event.password,
+            });
+
+            console.log(result)
+            login(result.data.jwt);
+
+        } catch (e) {
+            console.error(e)
+
+            toggleError(true);
+        }
+
+    }
+
+
     return (
-        <SubRowList>
-            { fields.map((item, k) => {
-                return (
-                    <ListItem key={ item.id } style={ { marginLeft: 20 } }>
+        <FormWindow>
+            <Form id="accountCreation" onSubmit={handleSubmit(onSubmit)}>
+                <Heading className="centered">Create your account</Heading>
 
-                        <OrderedList>
+                <InputRow>
 
-                            <InputLabel>
+                    <InputField
+                        type="text"
+                        name="Username"
+                        inputName="username"
+                        register={ register }
+                        errors={ errors }
+                        required={ true }
 
-                                <p>
-                                    Task name
+                    />
+                    <InputField
+                        type="password"
+                        name="Password"
+                        inputName="password"
+                        register={ register }
+                        errors={ errors }
+                        required={ true }
 
-                                </p>                                <Input
-                                { ...register(`projectTaskList[${ nestIndex }].subTaskList[${ k }].taskName`) }
-                                placeholder="..."
-                            />
-                            </InputLabel>
-                            <InputLabel>
-                                <p>
+                    />
+                </InputRow>
+                <ButtonBox>
 
-                                    Description
-                                </p>                                <Input
-                                { ...register(`projectTaskList[${ nestIndex }].subTaskList[${ k }].description`) }
-                                placeholder="Description"
-                            />
-                            </InputLabel>
-                            <InputLabel>
-                                <p>
-
-                                    Deadline
-                                </p>
-                                <InputDate
-                                    type="date"
-                                    { ...register(`projectTaskList[${ nestIndex }].subTaskList[${ k }].endTime`) }
-                                />
-                            </InputLabel>
-                            <Icon>
-
-                                <Tooltip text="Delete">
-                                    <IoIosRemoveCircleOutline
-                                        size={ 25 }
-                                        type="button"
-                                        onClick={ () => remove(k) }
-                                    />
-                                </Tooltip>
-                            </Icon>
-                            <Icon>
-
-                                <Tooltip text="Add">
-                                    <IoIosAddCircle
-                                        size={ 25 }
-                                        type="button"
-                                        onClick={ () =>
-                                            append({
-                                                taskName: "",
-                                                description: ""
-                                            })
-                                        }/>
-                                </Tooltip>
-                            </Icon>
-                        </OrderedList>
-
-                    </ListItem>
-                );
-            }) }
+                    <RectangleButton
+                        buttonStyle="btn--primary--solid"
+                        buttonSize="btn--medium"
+                        type="submit">
+                        Login
+                    </RectangleButton>
+                </ButtonBox>
 
 
-        </SubRowList>
-    );
-};
+            </Form>
+        </FormWindow>
+    )
+}
 
 
 
 
-const Icon = styled.div`
-  align-self: center;
-`
+export default LoginWindow;
 
-
-
-const OrderedList = styled.ul`
-  margin-top: 4em;
-  justify-content: space-between;
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  padding: 0;
-
-  li {
-    padding: 0 1rem;
-    margin: 0;
-    flex: 1 0 100%;
-    list-style: none;
-    border: none;
-    align-items: start;
-    @media (min-width: 768px) {
-      flex: 1 0 50%;
-    }
-
-  }
-
-  li label{
-    flex: 1 0 30%;
-    @media (min-width: 768px) {
-      flex: 1 0 100%;
-    }
-  }
-
-  li > div {
-    flex: 1 0 70%;
-    display: flex;
-    flex-wrap: wrap;
-    @media (min-width: 768px) {
-      flex: 1 0 70%;
-    }
-  }
-
-
-  li > label {
-    flex: 1 0 30%;
-
-  }
-
-`
+/** Created by ownwindows on 05-01-22 **/

@@ -1,14 +1,29 @@
 import styled, { css } from "styled-components";
-import { QUERIES } from "../../../../services/helpers/mediaQueries";
+import { QUERIES } from "../../../services/helpers/mediaQueries";
 
 export const Form = styled.form`
-  max-width: 70vw;
+  width: 70vw;
   padding: 2rem 1rem;
   z-index: auto;
-  margin-top: 2rem;
-      background: ${ props => props.theme.createBackground };
+  //position: relative;
+  margin-top: 1rem;
+  background: ${ props => props.theme.createBackground };
   border: solid var(--box-border-medium) ${ props => props.theme.createBorder };
   box-shadow: ${ props => props.theme.createShadow };
+
+  &#footerForm {
+    background: transparent;
+    border: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    justify-content: space-between;
+    width: 100%;
+    input {
+      padding: 0.5rem;
+    }
+
+  }
 
   @media ${ QUERIES.tabletMini } {
     padding: 1rem 2.9rem;
@@ -18,7 +33,7 @@ export const Form = styled.form`
 export const Heading = styled.h2`
   font-size: 1.75rem;
   margin-bottom: 2rem;
-  padding:0;
+  padding: 0;
   color: ${ props => props.theme.text };
 
   @media ${ QUERIES.tabletMini } {
@@ -42,14 +57,15 @@ export const SubFormHeading = styled.h4`
 export const FormSection = styled.div`
 `;
 
+
 export const FormInputWrap = styled.div`
 
-  
+
   @media ${ QUERIES.mobile } {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    
+
 
     & > * {
       flex: 1 100% 100%;
@@ -67,13 +83,13 @@ export const FormInput = styled.div`
     font-size: 0.8rem;
     margin-bottom: 0.25rem;
   }
-  
-  &.radio{
+
+  &.radio {
     flex-direction: row;
     justify-content: space-between;
-    
+
     input {
-height: 1rem;
+      height: 1rem;
     }
   }
 
@@ -84,6 +100,10 @@ height: 1rem;
     font-size: 1rem;
     background-color: ${ props => props.theme.background };
     height: 3rem;
+
+    &::placeholder {
+      color: ${ props => props.theme.sub_text };
+    }
 
     &:focus,
     &:hover {

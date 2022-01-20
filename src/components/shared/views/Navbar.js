@@ -11,6 +11,7 @@ import LogoLoader from "../elements/messages/LogoLoader";
 import Tooltip from "../elements/messages/Tooltip";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 import ThemeSwitch from "../elements/clickables/ThemeSwitch";
+import { QUERIES } from "../../../services/helpers/mediaQueries";
 
 ////////////////////
 //// External
@@ -58,23 +59,23 @@ export default function Navbar() {
                 { useMediaQuery('(max-width: 768px)') ?
                     ( isAuth
                             ?
-                            <MenuLink activeClassName="active" to="/" onClick={ logout }>Logout</MenuLink>
+                            <MenuLink activeClassName="active" to="/" onClick={ (logout, ()=> setMenuOpen(false)) }>Logout</MenuLink>
 
                             :
-                            <MenuLink activeClassName="active" to="/">Login</MenuLink>
+                            <MenuLink activeClassName="active"  onClick={()=> setMenuOpen(false)} to="/">Login</MenuLink>
 
                     )
 
                     :
                     ( isAuth
                             ?
-                            <MenuLink activeClassName="active" className="icon-link" to="/" onClick={ logout }>
+                            <MenuLink activeClassName="active" onClick={()=> setMenuOpen(false)} className="icon-link" to="/" onClick={ logout }>
                                 <Tooltip text="Logout">
                                     <RiLoginCircleFill size={ 30 }/>
                                 </Tooltip>
                             </MenuLink>
                             :
-                            <MenuLink activeClassName="active" className="icon-link" to="/login">
+                            <MenuLink activeClassName="active" onClick={()=> setMenuOpen(false)} className="icon-link" to="/login">
                                 <Tooltip text="Login">
                                     <RiLoginCircleFill size={ 30 }/>
                                 </Tooltip>
@@ -96,11 +97,10 @@ export default function Navbar() {
 const Nav = styled.div`
   z-index: 5;
   display: flex;
-  //padding: 1rem 1rem;
   position: fixed;
   width: 100%;
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   ${ ({ navActive, theme }) =>
@@ -114,8 +114,8 @@ const Nav = styled.div`
                   "background: transparent"
   };
   border-radius: 2px;
-  @media (max-width: 888px) {
-    align-items: center;
+  @media ${ QUERIES.tabletMini} {
+    align-items: baseline;
 
   }
 `
@@ -127,8 +127,10 @@ const Menu = styled.div`
   align-items: center;
   color: ${ props => props.theme.text };
   position: relative;
+  
 
-
+ //TODO Set to min width
+  
   @media (max-width: 768px) {
     justify-content: center;
     overflow: hidden;
@@ -149,10 +151,6 @@ const MenuLink = styled(NavLink)`
   color: ${ props => props.theme.text };
   transition: all 0.3s ease-in;
   font-size: 1.2rem;
-  //
-  //&:nth-child(1) {
-  //  padding-left: 0;
-  //}
 
   &.active {
     font-weight: 500;
@@ -167,14 +165,11 @@ const MenuLink = styled(NavLink)`
   &:hover {
     color: ${ props => props.theme.sub_text };
   }
-
-  @media (max-width: 768px) {
-    padding: 1rem;
-  }
+  
 `
 
 const Hamburger = styled.div`
-  display: none;
+  display: flex;
   margin: 1rem;
   flex-direction: column;
   align-self: center;
@@ -188,8 +183,9 @@ const Hamburger = styled.div`
     border-radius: 5.5px;
   }
 
-  @media (max-width: 768px) {
-    display: flex;
+  @media ${ QUERIES.tabletMini} {
+    display: none;
+
   }
 `
 /** Created by ownwindows on 03-01-22 **/
