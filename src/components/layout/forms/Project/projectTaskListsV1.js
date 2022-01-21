@@ -9,8 +9,8 @@ import InputField from "../../../shared/elements/FormElements/InputField";
 import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
 import { UtilityContext } from "../../../../context/UtilityProvider";
 import { AuthContext } from "../../../../context/AuthProvider";
-import { ButtonBox, Form, FormWindow, InputRow } from "../../../shared/elements/Form";
-import { Heading } from "../../../shared/elements/FormStyles";
+import { ButtonBox, Form, FormWindow, InputRow } from "../../../shared/styling/Form";
+import { Heading } from "../../../shared/styling/FormStyles";
 
 const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
 ////////////////////

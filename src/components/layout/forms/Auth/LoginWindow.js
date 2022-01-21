@@ -10,7 +10,7 @@ import styled from "styled-components";
 import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
 import { UtilityContext } from "../../../../context/UtilityProvider";
 import { AuthContext } from "../../../../context/AuthProvider";
-import { ButtonBox,  FormWindow } from "../../../shared/elements/Form";
+import { ButtonBox,  FormWindow } from "../../../shared/styling/Form";
 import {
     Form,
     FormBreak,
@@ -19,7 +19,7 @@ import {
     FormInputWrap,
     FormLabel,
     Heading
-} from "../../../shared/elements/FormStyles";
+} from "../../../shared/styling/FormStyles";
 
 const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
 ////////////////////

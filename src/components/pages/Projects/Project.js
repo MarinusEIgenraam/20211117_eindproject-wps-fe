@@ -1,8 +1,8 @@
 ////////////////////
 //// Build
 import React from 'react'
-import { ListItem } from "../../shared/elements/List";
-import { ProjectName } from "../../shared/elements/Navigation";
+import { ListItem } from "../../shared/styling/List";
+import { ProjectName } from "../../shared/styling/Navigation";
 import {
     Category,
     Collaborators,
@@ -12,9 +12,9 @@ import {
     Owner,
     Users,
     Votes
-} from "../../shared/elements/TextLayout";
-import { Img, ProjectHero } from "../../shared/elements/Images";
-import { Column, Row } from "../../shared/elements/Layout";
+} from "../../shared/styling/TextLayout";
+import { Img, ProjectHero } from "../../shared/styling/Images";
+import { Column, Row } from "../../shared/styling/Layout";
 
 
 ////////////////////

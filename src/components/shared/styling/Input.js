@@ -2,7 +2,7 @@
 //// Build
 import React from 'react'
 import styled from 'styled-components';
-import InputField from "./FormElements/InputField";
+import InputField from "../elements/FormElements/InputField";
 
 ////////////////////
 //// Environmental

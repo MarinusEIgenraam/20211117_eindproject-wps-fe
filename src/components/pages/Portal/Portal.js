@@ -4,13 +4,14 @@ import React, { useContext } from 'react'
 import { AuthContext } from "../../../context/AuthProvider";
 import CreateProject from "../../layout/forms/Project/CreateProject";
 import CreateBlog from "../../layout/forms/Blog/CreateBlog";
-import { HeaderContainer } from "../../shared/elements/TextLayout";
-import { H1 } from "../../shared/elements/Text";
-import { PageContainer } from "../../shared/elements/Layout";
+import { HeaderContainer } from "../../shared/styling/TextLayout";
+import { H1 } from "../../shared/styling/Text";
+import { PageContainer } from "../../shared/styling/Layout";
 import ListProject from "./ListProject";
 import styled from 'styled-components';
 import ListTask from "./ListTask";
 import ListBlog from "./ListBlog";
+import UserDetails from "./UserDetails";
 
 
 ////////////////////
@@ -29,6 +30,8 @@ export default function Portal() {
                 Welcome back { user.username }
                 <Divider className="small"/>
             </H1>
+
+            <UserDetails/>
 
             { ( user.authorities === "Project lord" ) &&
                 <>

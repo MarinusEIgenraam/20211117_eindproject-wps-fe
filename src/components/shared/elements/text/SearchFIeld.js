@@ -2,7 +2,7 @@
 //// Build
 import React from 'react'
 import { useForm } from "react-hook-form";
-import { Search } from "../Input";
+import { Search } from "../../styling/Input";
 
 ////////////////////
 //// Environmental

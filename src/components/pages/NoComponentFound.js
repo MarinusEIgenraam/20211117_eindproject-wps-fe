@@ -1,8 +1,8 @@
 ////////////////////
 //// Build
 import React from 'react'
-import { H1 } from "../shared/elements/Text";
-import { PageContainer } from "../shared/elements/Layout";
+import { H1 } from "../shared/styling/Text";
+import { PageContainer } from "../shared/styling/Layout";
 
 ////////////////////
 //// Environmental

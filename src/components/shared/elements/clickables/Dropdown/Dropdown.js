@@ -1,7 +1,7 @@
 ////////////////////
 //// Dependencies
 import React from 'react';
-import { Focus, Option, Select, SelectContainer } from "../../Input";
+import { Focus, Option, Select, SelectContainer } from "../../../styling/Input";
 
 ////////////////////
 //// Internal

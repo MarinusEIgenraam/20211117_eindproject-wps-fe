@@ -146,7 +146,6 @@ const MenuLink = styled(NavLink)`
 
   cursor: pointer;
   padding: 1rem;
-  font-weight: 300;
   text-decoration: none;
   color: ${ props => props.theme.text };
   transition: all 0.3s ease-in;

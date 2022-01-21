@@ -9,6 +9,46 @@ import styled from 'styled-components';
 ////////////////////
 //// External
 
+export const Container = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+
+
+  @media screen and (min-width: 769px) {
+    margin-top: 15vh;
+  }
+`
+export const TaskFirstRow = styled.div`
+  display: flex;
+  position: relative;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`
+
+
+
+
+export const TaskDescription = styled.div`
+  p {
+    font-size: 0.8rem;
+  }
+
+  > h6 {
+    color: ${ props => props.theme.text };
+
+    span {
+      max-width: 40%;
+      overflow: hidden;
+      color: ${ props => props.theme.sub_text };
+    }
+  }
+`
+
 export const PageContainer = styled.div`
   display: flex;
   margin-top: 15vh;
@@ -30,12 +70,7 @@ export const PageHeader = styled.div`
   padding: 1rem;
 `
 
-export const Container = styled.div`
-  background: ${ props => props.theme.background };
-  height: 120vh;
-  display: flex;
-  flex-gro: 1;
-`;
+
 
 export const Row = styled.div`
   display: flex;

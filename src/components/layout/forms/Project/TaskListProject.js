@@ -9,11 +9,11 @@ import RectangleButton from "../../../shared/elements/clickables/RectangleButton
 import Tooltip from "../../../shared/elements/messages/Tooltip";
 import { IoIosAddCircle, IoIosRemoveCircleOutline } from "react-icons/io";
 import InputField from "../../../shared/elements/FormElements/InputField";
-import { ListItem, TaskList } from "../../../shared/elements/List";
-import { Row } from "../../../shared/elements/Layout";
-import { ButtonBox } from "../../../shared/elements/Form";
+import { ListItem, TaskList } from "../../../shared/styling/List";
+import { Row } from "../../../shared/styling/Layout";
+import { ButtonBox } from "../../../shared/styling/Form";
 import NestedArray from "./TaskListTask";
-import { ErrorMessage } from "../../../shared/elements/Text";
+import { ErrorMessage } from "../../../shared/styling/Text";
 import {
     FormBreak,
     FormError,
@@ -22,7 +22,7 @@ import {
     FormLabel,
     FormSection,
     FormSectionHeading, SubFormHeading
-} from "../../../shared/elements/FormStyles";
+} from "../../../shared/styling/FormStyles";
 import SelectUser from "../../../shared/elements/FormElements/SelectUser";
 import SelectCategory from "../../../shared/elements/FormElements/SelectCategory";
 
@@ -74,7 +74,7 @@ export default function Fields({ control, register, setValue, getValues, errors,
                                 </FormLabel>
                                 <input
                                     type="date"
-                                    name="endTIme"
+                                    name="endTime"
                                     id="endTime"
                                     {...register(`projectTaskList[${ index }].endTime`, {
                                         required: true})}

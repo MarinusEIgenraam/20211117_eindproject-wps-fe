@@ -1,7 +1,7 @@
 ///////////////////////
 //// Built-in
 import React, { useState } from 'react';
-import { ErrorMessage } from "../Text";
+import { ErrorMessage } from "../../styling/Text";
 import styled from "styled-components";
 
 ///////////////////////

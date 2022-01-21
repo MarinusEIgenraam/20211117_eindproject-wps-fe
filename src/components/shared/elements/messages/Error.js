@@ -1,7 +1,7 @@
 ////////////////////
 //// Build
 import React from 'react'
-import { ErrorMessage } from "../Text";
+import { ErrorMessage } from "../../styling/Text";
 
 ////////////////////
 //// Environmental

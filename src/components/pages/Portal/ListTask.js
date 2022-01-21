@@ -4,12 +4,16 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { UtilityContext } from "../../../context/UtilityProvider";
 import axios from "axios";
-import { H2 } from "../../shared/elements/Text";
-import { UnorderedList } from "../../shared/elements/List";
-import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
-import { AiOutlineClose } from "react-icons/all";
+import { H2 } from "../../shared/styling/Text";
+import { UnorderedList } from "../../shared/styling/List";
+import { IoCheckmarkDoneCircleSharp, IoCheckmarkSharp, TiArrowBack, TiThumbsOk } from "react-icons/all";
 import { AuthContext } from "../../../context/AuthProvider";
-import CreateProject from "../../layout/forms/Project/CreateProject";
+import { NavLink } from "react-router-dom";
+import Tooltip from "../../shared/elements/messages/Tooltip";
+import TaskItem from "./TaskItem";
+import { FinishedBox, IconBox } from "../../shared/styling/Icons";
+import { putTask } from "../../../services/controllers/requests";
+import TaskListTaskItem from "./TaskListTaskItem";
 
 ////////////////////
 //// Environmental
@@ -22,7 +26,7 @@ export default function ListTask() {
     const [ pageOffset, setPageOffset ] = useState(0);
     const { setIsLoading } = useContext(UtilityContext);
     const { isAuth, user } = useContext(AuthContext);
-    const [ writeProject, setWriteProject ] = useState(false);
+    const [ editCount, setEditCount ] = useState(0);
     const [ hasError, setHasError ] = useState(false);
     const [ categoryUri, setCategoryUri ] = useState('');
 
@@ -46,7 +50,7 @@ export default function ListTask() {
         async function getData() {
             setHasError(false);
             setIsLoading(true)
-
+            console.log("reload")
 
             try {
                 const result = await axios.get(`${ API_URL }?taskOwner=${ user.username }`, {
@@ -57,7 +61,7 @@ export default function ListTask() {
                 });
 
                 setLoadedTasks(result.data);
-                console.log(result)
+                console.log(result.data)
             } catch (e) {
                 console.error(e);
                 setHasError(true);
@@ -71,10 +75,7 @@ export default function ListTask() {
             source.cancel();
         };
 
-    }, [ pageOffset, projectCategory ]);
-
-    const handleSearch = (event) => {
-    }
+    }, [ editCount ]);
 
 
     return (
@@ -85,27 +86,62 @@ export default function ListTask() {
 
 
             <UnorderedList>
-                { loadedTasks && loadedTasks.map(task => (
-                    <TaskListItem key={ task.id }>
-                        <TaskFirstRow>
-                            <TaskDescription>
-                                <h6> { task.taskName } <span>{ task.parentProject.projectName } </span></h6>
-                                <p> { task.description } </p>
-                            </TaskDescription>
-<button>finished</button>
-                        </TaskFirstRow>
-                        <DetailRow>
-                            <h6>{ task.startTime } <span className="light">| { task.taskOwner.username } </span>
-                            </h6>
-                        </DetailRow>
+                { loadedTasks && loadedTasks.map(task => {
+                    return (
+                        <TaskListItem key={ task.id }>
+                            <TaskListTaskItem editCount={editCount} setEditCount={setEditCount} task={ task }/>
+                            <h6>Sub tasks</h6>
+                            { task.taskTaskList &&
+                                task.taskTaskList.map(subTask => {
+                                    return (
+                                        <TaskItem editCount={editCount} setEditCount={setEditCount} task={ subTask }/>
 
+                                    )
+                                })
+                            }
 
-                    </TaskListItem>
-                )) }
+                        </TaskListItem>
+                    )
+                }) }
             </UnorderedList>
         </Container>
     )
 }
+
+const TaskListItem = styled.li`
+  width: 70vw;
+  margin-top: 1rem;
+
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-direction: column;
+  background: ${ props => props.theme.background };
+
+
+  @media (min-width: 769px) {
+
+  }
+
+  @media (max-width: 660px) {
+    flex-direction: column;
+  }
+
+`
+
+const ProjectLink = styled(NavLink)`
+  display: inline-block;
+  margin-left: 1ch;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+  color: ${ props => props.theme.sub_text };
+
+  max-width: 20ch;
+`
 
 const TaskFirstRow = styled.div`
   display: flex;
@@ -158,24 +194,10 @@ const TaskDescription = styled.div`
     }
   }
 `
-const TaskListItem = styled.li`
-  width: 70vw;
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  flex-direction: column;
-  background: ${ props => props.theme.background };
 
-
-  @media (min-width: 769px) {
-
-  }
-
-  @media (max-width: 660px) {
-    flex-direction: column;
-  }
+const SubTaskListItem = styled(TaskListItem)`
+  margin-top: 0.2rem;
+  margin-left: 0.5rem;
 
 `
-
 /** Created by ownwindows on 18-01-22 **/

@@ -1,8 +1,8 @@
 ///////////////////////
 //// Built-in
 import React from 'react';
-import { Input, InputContainer, InputLabel, InputMultiLine } from "../Input";
-import { ErrorMessage } from "../Text";
+import { Input, InputContainer, InputLabel, InputMultiLine } from "../../styling/Input";
+import { ErrorMessage } from "../../styling/Text";
 
 ///////////////////////
 //// External

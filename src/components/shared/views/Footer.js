@@ -2,15 +2,15 @@
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
-import { DetailContainer, H2 } from "../elements/Text";
-import { Form, FormBreak, FormError, FormInput, FormLabel } from "../elements/FormStyles";
+import { DetailContainer, H2 } from "../styling/Text";
+import { Form, FormBreak, FormError, FormInput, FormLabel } from "../styling/FormStyles";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import { AuthContext } from "../../../context/AuthProvider";
 import RectangleButton from "../elements/clickables/RectangleButton/RectangleButton";
 import { QUERIES } from "../../../services/helpers/mediaQueries";
-import { FooterContainer } from "../elements/FooterStyles";
+import { FooterContainer } from "../styling/FooterStyles";
 
 ////////////////////
 //// Environmental
@@ -63,6 +63,7 @@ export default function Footer() {
     const enterSubmit = (e) => {
         if (e.key === "Enter" && e.shiftKey == false) {
             const data = { content: e.target.value };
+
             return handleSubmit(onSubmit(data));
         }
     };
@@ -101,7 +102,7 @@ export default function Footer() {
                                 type="password"
                                 name="password"
                                 id="password"
-                                onKeyPress={enterSubmit}
+
                                 placeholder="Password"
                                 { ...register("password") }
                             />

@@ -24,6 +24,28 @@ export const ProjectList = styled.ul`
 
   
 `
+
+export const TaskListItem = styled.li`
+  width: 70vw;
+  margin-top: 1rem;
+
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-direction: column;
+  background: ${ props => props.theme.background };
+
+
+  @media (min-width: 769px) {
+
+  }
+
+  @media (max-width: 660px) {
+    flex-direction: column;
+  }
+
+`
 export const UnorderedList = styled.ul`
   margin-top: 3rem;
   list-style: none;

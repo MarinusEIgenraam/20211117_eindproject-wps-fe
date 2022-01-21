@@ -18,10 +18,10 @@ import {
     FormInput,
     FormInputWrap,
     FormLabel, FormSection, FormSectionHeading, Heading
-} from "../../../shared/elements/FormStyles";
-import { H2 } from "../../../shared/elements/Text";
+} from "../../../shared/styling/FormStyles";
+import { H2 } from "../../../shared/styling/Text";
 import InputField from "../../../shared/elements/FormElements/InputField";
-import { ButtonBox } from "../../../shared/elements/Form";
+import { ButtonBox } from "../../../shared/styling/Form";
 
 ////////////////////
 //// Environmental

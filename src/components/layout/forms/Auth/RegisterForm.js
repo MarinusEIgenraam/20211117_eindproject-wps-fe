@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import InputField from "../../../shared/elements/FormElements/InputField";
 import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
-import { H1, SubTitle } from "../../../shared/elements/Text";
-import { Form, FormBreak, FormError, FormInput, FormInputWrap, FormLabel } from "../../../shared/elements/FormStyles";
+import { H1, SubTitle } from "../../../shared/styling/Text";
+import { Form, FormBreak, FormError, FormInput, FormInputWrap, FormLabel } from "../../../shared/styling/FormStyles";
 import styled from "styled-components";
-import { ButtonBox } from "../../../shared/elements/Form";
+import { ButtonBox } from "../../../shared/styling/Form";
 import { AuthContext } from "../../../../context/AuthProvider";
 import axios from "axios";
 import { UtilityContext } from "../../../../context/UtilityProvider";

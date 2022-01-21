@@ -2,14 +2,21 @@ import styled, { css } from "styled-components";
 import { QUERIES } from "../../../services/helpers/mediaQueries";
 
 export const Form = styled.form`
-  width: 70vw;
+  max-width: 70vw;
   padding: 2rem 1rem;
   z-index: auto;
   //position: relative;
-  margin-top: 1rem;
   background: ${ props => props.theme.createBackground };
   border: solid var(--box-border-medium) ${ props => props.theme.createBorder };
   box-shadow: ${ props => props.theme.createShadow };
+
+  &.editform {
+    background: ${ props => props.theme.createBackground };
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+  }
 
   &#footerForm {
     background: transparent;
@@ -19,6 +26,7 @@ export const Form = styled.form`
     margin: 0;
     justify-content: space-between;
     width: 100%;
+
     input {
       padding: 0.5rem;
     }
@@ -69,6 +77,61 @@ export const FormInputWrap = styled.div`
 
     & > * {
       flex: 1 100% 100%;
+    }
+  }
+`;
+export const FormEdit = styled.div`
+  display: flex;
+  flex-direction: column;
+  //margin-bottom: 0.75rem;
+  //width: 100%;
+
+  label {
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+  }
+
+  &.radio {
+    flex-direction: row;
+    justify-content: space-between;
+
+    input {
+      height: 1rem;
+    }
+  }
+
+  input,
+  #SelectContainer {
+    border: ${ props => props.theme.createBorder } solid var(--box-border-thin);
+    padding: 0.25rem 0.25rem;
+    height: 1.5rem;
+    color: ${ props => props.theme.text };
+    font-size: 0.8rem;
+    background-color: ${ props => props.theme.background };
+    //flex: 0 1;
+
+    &::placeholder {
+      color: ${ props => props.theme.sub_text };
+    }
+
+    &:focus,
+    &:hover {
+      outline: ${ props => props.theme.createBorder } solid var(--box-border-medium);
+    }
+  }
+
+  textarea {
+    min-height: 7rem;
+    border: ${ props => props.theme.createBorder } solid var(--box-border-thin);
+    padding: 0.75rem 1rem;
+    color: ${ props => props.theme.text };
+    font-size: 1rem;
+    text-transform: capitalize;
+    background-color: ${ props => props.theme.background };
+
+    &:focus,
+    &:hover {
+      outline: ${ props => props.theme.createBorder } solid var(--box-border-medium);
     }
   }
 `;
@@ -143,10 +206,42 @@ export const FormError = styled.div`
   }
 `;
 
-export const FormBreak = styled.div`
+export const FormEditBreak = styled.div`
+  flex: 1 100%;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 0.25rem;
+  justify-content: space-between;
+
+
+
   @media ${ QUERIES.mobile } {
     flex: 1 50% 100%;
+  }
+`;
+
+export const FormBreak = styled.div`
+
+  @media ${ QUERIES.mobile } {
     gap: 1rem;
+
+    flex: 1 50% 100%;
     width: 49%;
   }
 `;
+
+export const DetailRow = styled.footer`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.25rem 0;
+  border-top: solid var(--box-border-medium) ${ props => props.theme.border };
+
+
+  .light {
+    font-weight: 300;
+  }
+`

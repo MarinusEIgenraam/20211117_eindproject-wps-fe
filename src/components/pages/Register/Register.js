@@ -3,8 +3,8 @@
 import React from 'react'
 import RegisterForm from "../../layout/forms/Auth/RegisterForm";
 import LoginWindow from "../../layout/forms/Auth/LoginWindow";
-import { PageContainer, PageHeader } from "../../shared/elements/Layout";
-import { H1, SubTitle } from "../../shared/elements/Text";
+import { PageContainer, PageHeader } from "../../shared/styling/Layout";
+import { H1, SubTitle } from "../../shared/styling/Text";
 
 ////////////////////
 //// Environmental

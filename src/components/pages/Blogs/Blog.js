@@ -2,9 +2,9 @@
 //// Build
 import React, { useState } from 'react'
 import styled from 'styled-components';
-import { PageContainer } from "../../shared/elements/Layout";
-import { SubTitle } from "../../shared/elements/Text";
-import { BackgroundImage } from "../../shared/elements/Images";
+import { PageContainer } from "../../shared/styling/Layout";
+import { SubTitle } from "../../shared/styling/Text";
+import { BackgroundImage } from "../../shared/styling/Images";
 
 ////////////////////
 //// Environmental

@@ -7,9 +7,9 @@ import RectangleButton from "../../../shared/elements/clickables/RectangleButton
 import { AuthContext } from "../../../../context/AuthProvider";
 import { postBlog, uploadImage } from "../../../../services/controllers/requests";
 import styled from 'styled-components'
-import { H2 } from "../../../shared/elements/Text";
-import { ButtonBox } from "../../../shared/elements/Form";
-import { Form, FormBreak, FormError, FormInput, FormInputWrap, FormLabel, Heading } from "../../../shared/elements/FormStyles";
+import { H2 } from "../../../shared/styling/Text";
+import { ButtonBox } from "../../../shared/styling/Form";
+import { Form, FormBreak, FormError, FormInput, FormInputWrap, FormLabel, Heading } from "../../../shared/styling/FormStyles";
 
 ////////////////////
 //// Environmental

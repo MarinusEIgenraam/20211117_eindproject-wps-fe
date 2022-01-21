@@ -7,10 +7,10 @@ import { useFieldArray } from "react-hook-form";
 //// Environmental
 import Tooltip from "../../../shared/elements/messages/Tooltip";
 import { IoIosAddCircle, IoIosRemoveCircleOutline } from "react-icons/io";
-import { Input, InputDate, InputLabel } from "../../../shared/elements/Input";
-import { Row, SubRow, SubRowList } from "../../../shared/elements/Layout";
-import { ListItem } from "../../../shared/elements/List";
-import { FormBreak, FormError, FormInput, FormInputWrap, FormLabel, FormSection, SubFormHeading } from "../../../shared/elements/FormStyles";
+import { Input, InputDate, InputLabel } from "../../../shared/styling/Input";
+import { Row, SubRow, SubRowList } from "../../../shared/styling/Layout";
+import { ListItem } from "../../../shared/styling/List";
+import { FormBreak, FormError, FormInput, FormInputWrap, FormLabel, FormSection, SubFormHeading } from "../../../shared/styling/FormStyles";
 
 export default ({ nestIndex, control, register, errors }) => {
     const { fields, remove, append } = useFieldArray({

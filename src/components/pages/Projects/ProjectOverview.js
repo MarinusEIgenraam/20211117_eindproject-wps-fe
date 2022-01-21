@@ -4,11 +4,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { UtilityContext } from "../../../context/UtilityProvider";
 import axios from "axios";
-import { DetailContainer, H1, H2, SubTitle } from "../../shared/elements/Text";
-import { PageContainer, PageHeader } from "../../shared/elements/Layout";
+import { DetailContainer, H1, H2, SubTitle } from "../../shared/styling/Text";
+import { PageContainer, PageHeader } from "../../shared/styling/Layout";
 import Logo from "../../../assets/images/home_background.png";
-import { Ul, UnorderedList } from "../../shared/elements/List";
-import { Image } from "../../shared/elements/Images";
+import { Ul, UnorderedList } from "../../shared/styling/List";
+import { Image } from "../../shared/styling/Images";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
 import { AiOutlineClose } from "react-icons/all";
 import CreateBlog from "../../layout/forms/Blog/CreateBlog";
@@ -62,6 +62,7 @@ export default function ProjectOverview() {
 
                 setLoadedProjects(result.data.content);
                 console.log(loadedProjects)
+                console.log(result.data)
             } catch (e) {
                 console.error(e);
                 setHasError(true);

@@ -4,12 +4,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { UtilityContext } from "../../../context/UtilityProvider";
 import axios from "axios";
-import { H2 } from "../../shared/elements/Text";
-import { UnorderedList } from "../../shared/elements/List";
+import { H2 } from "../../shared/styling/Text";
+import { UnorderedList } from "../../shared/styling/List";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
 import { AiOutlineClose } from "react-icons/all";
 import { AuthContext } from "../../../context/AuthProvider";
 import CreateProject from "../../layout/forms/Project/CreateProject";
+import { Container } from "../../shared/styling/Layout";
 
 ////////////////////
 //// Environmental
@@ -115,20 +116,6 @@ export default function ListBlog() {
         </Container>
     )
 }
-
-export const Container = styled.div`
-  display: flex;
-  align-items: center;
-  position: relative;
-  flex-direction: column;
-  flex-wrap: wrap;
-  width: 100%;
-
-
-  @media screen and (min-width: 769px) {
-    margin-top: 15vh;
-  }
-`
 
 
 export const DetailRow = styled.footer`

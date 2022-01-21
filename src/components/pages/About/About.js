@@ -4,10 +4,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import { UtilityContext } from "../../../context/UtilityProvider";
 import axios from "axios";
 import styled from 'styled-components';
-import { Column, PageContainer, PageHeader } from "../../shared/elements/Layout";
+import { Column, PageContainer, PageHeader } from "../../shared/styling/Layout";
 import Logo from '../../../assets/images/home_background.png'
-import { HeaderContainer } from "../../shared/elements/TextLayout";
-import { DetailContainer, H1, H2, SubTitle } from "../../shared/elements/Text";
+import { HeaderContainer } from "../../shared/styling/TextLayout";
+import { DetailContainer, H1, H2, SubTitle } from "../../shared/styling/Text";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
 ////////////////////
 //// Environmental
