@@ -34,9 +34,10 @@ export const BackgroundImage = styled.img`
 `
 
 export const ProjectHero = styled.div`
-  flex: 0 4 auto;
+  flex: 1 1 auto;
   border: solid var(--box-border-medium) ${ props => props.theme.border };
   min-width: 100px;
+  max-height: 200px;
   background: blue;
   aspect-ratio: 1 / 1;
 `

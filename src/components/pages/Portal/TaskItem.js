@@ -5,14 +5,7 @@ import styled from 'styled-components';
 import { UtilityContext } from "../../../context/UtilityProvider";
 import { AuthContext } from "../../../context/AuthProvider";
 import Tooltip from "../../shared/elements/messages/Tooltip";
-import {
-    IoBanOutline,
-    IoCheckmarkCircleOutline,
-    IoCheckmarkSharp,
-    IoCreateOutline,
-    IoIosSend, TiArrowBack,
-    TiThumbsOk
-} from "react-icons/all";
+import { IoBanOutline, IoCheckmarkSharp, IoCreateOutline, IoIosSend, TiArrowBack, TiThumbsOk } from "react-icons/all";
 import { FinishedBox, IconBox } from "../../shared/styling/Icons";
 import {
     Form,
@@ -25,12 +18,10 @@ import {
 } from "../../shared/styling/FormStyles";
 import { useForm } from "react-hook-form";
 import SelectUsers from "../../shared/elements/select/SelectUsers";
-import { postProject, putTask, uploadImage } from "../../../services/controllers/requests";
 import TaskSubList from "./TaskSubList";
-import FieldArray from "../../layout/forms/Project/TaskListProject";
 import AddTask from "./AddTask";
 import { IoIosAddCircle, IoIosRemoveCircleOutline } from "react-icons/io";
-import axios from "axios";
+import { putTask } from "../../../services/controllers/putRequests";
 
 ////////////////////
 //// Environmental

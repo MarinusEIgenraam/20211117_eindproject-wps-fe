@@ -6,7 +6,7 @@ import CreateProject from "../../layout/forms/Project/CreateProject";
 import CreateBlog from "../../layout/forms/Blog/CreateBlog";
 import { HeaderContainer } from "../../shared/styling/TextLayout";
 import { H1 } from "../../shared/styling/Text";
-import { PageContainer } from "../../shared/styling/Layout";
+import { Divider, PageContainer } from "../../shared/styling/Layout";
 import ListProject from "./ListProject";
 import styled from 'styled-components';
 import TaskList from "./TaskList";
@@ -51,18 +51,6 @@ export default function Portal() {
     )
 }
 
-const Divider = styled.hr`
-  margin: 1rem 0 1rem 0;
-  border: 1px solid ${ props => props.theme.text };
-  border-radius: 5px;
-  &.small{
-    width: 100%
-  }
-  &.rounded {
-    width: 80vw;
-
-  }
-`
 
 /** Created by ownwindows on 04-01-22 **/
 

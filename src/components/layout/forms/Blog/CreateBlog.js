@@ -5,7 +5,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { UtilityContext } from "../../../../context/UtilityProvider";
 import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
 import { AuthContext } from "../../../../context/AuthProvider";
-import { postBlog, uploadImage } from "../../../../services/controllers/requests";
+import { postBlog, uploadImage } from "../../../../services/controllers/postRequests";
 import styled from 'styled-components'
 import { H2 } from "../../../shared/styling/Text";
 import { ButtonBox } from "../../../shared/styling/Form";

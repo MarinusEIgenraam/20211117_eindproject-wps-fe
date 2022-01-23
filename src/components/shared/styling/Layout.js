@@ -137,4 +137,18 @@ export const UserItem = styled.div`
 
 `
 
+export const Divider = styled.hr`
+  margin: 1rem 0 1rem 0;
+  border: 1px solid ${ props => props.theme.text };
+  border-radius: 5px;
+  &.small{
+    width: 100%
+  }
+  &.rounded {
+    width: 80vw;
+
+  }
+`
+
+
 /** Created by ownwindows on 15-01-22 **/

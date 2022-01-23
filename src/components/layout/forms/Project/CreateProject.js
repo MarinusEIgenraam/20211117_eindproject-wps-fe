@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { UtilityContext } from "../../../../context/UtilityProvider";
 import FieldArray from "./TaskListProject";
 import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
-import { postProject, uploadImage } from "../../../../services/controllers/requests";
+import { postProject, uploadImage } from "../../../../services/controllers/postRequests";
 import SelectCategory from "../../../shared/elements/FormElements/SelectCategory";
 import {
     CashOnContent,

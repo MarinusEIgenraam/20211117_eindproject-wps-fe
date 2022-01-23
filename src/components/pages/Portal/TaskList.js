@@ -12,7 +12,7 @@ import { NavLink } from "react-router-dom";
 import Tooltip from "../../shared/elements/messages/Tooltip";
 import TaskItem from "./TaskItem";
 import { FinishedBox, IconBox } from "../../shared/styling/Icons";
-import { putTask } from "../../../services/controllers/requests";
+import { putTask } from "../../../services/controllers/postRequests";
 import TaskParentItem from "./TaskParentItem";
 
 ////////////////////

@@ -14,6 +14,7 @@ import { AiOutlineClose } from "react-icons/all";
 import CreateBlog from "../../layout/forms/Blog/CreateBlog";
 import { AuthContext } from "../../../context/AuthProvider";
 import CreateProject from "../../layout/forms/Project/CreateProject";
+import { getOneProject, getProjectsFor } from "../../../services/controllers/getRequests";
 
 ////////////////////
 //// Environmental
@@ -28,6 +29,7 @@ export default function ProjectOverview() {
     const { isAuth, user } = useContext(AuthContext);
     const [ writeProject, setWriteProject ] = useState(false);
     const [ hasError, setHasError ] = useState(false);
+    const [ requestUri, setRequestUri ] = useState('');
     const [ categoryUri, setCategoryUri ] = useState('');
 
     const [ loadedProjects, setLoadedProjects ] = useState();
@@ -38,47 +40,51 @@ export default function ProjectOverview() {
     const [ projectCategory, setProjectCategory ] = useState('');
 
     const API_URL = `${ REACT_APP_API_URL }projects`;
+    const source = axios.CancelToken.source();
+    const token = localStorage.getItem('token');
 
 
     useEffect(() => {
-        const source = axios.CancelToken.source();
-        const token = localStorage.getItem('token');
         if (projectCategory) {
-            setCategoryUri(`?categoryId=${ projectCategory }`)
+            setRequestUri(`?categoryId=${ projectCategory }`)
         }
 
-        async function getData() {
+        const getData = async()=>{
             setHasError(false);
             setIsLoading(true)
-
-
-            try {
-                const result = await axios.get(`${ API_URL }${ categoryUri }`, {
-                    cancelToken: source.token,
-                    headers: {
-                        Authorization: `Bearer ${ token }`
-                    }
-                });
-
-                setLoadedProjects(result.data.content);
-                console.log(loadedProjects)
-                console.log(result.data)
-            } catch (e) {
-                console.error(e);
-                setHasError(true);
-            }
+            const response = await getProjectsFor(requestUri)
+            setLoadedProjects(response.content);
             setIsLoading(false)
         }
 
         getData()
+        console.log(loadedProjects)
 
         return function clearData() {
             source.cancel();
         };
 
-    }, [ pageOffset, projectCategory ]);
+    }, [projectCategory]);
 
-    const handleSearch = (event) => {
+    const renderButton = () => {
+        if (user?.authorities === "Project lord" | "Project manager" && !writeProject) {
+            return (
+                <RectangleButton
+                    type="button"
+                    onClick={ () => setWriteProject(true) }
+                    buttonSize="btn--large"
+                    buttonStyle="btn--danger--solid"
+                >
+                    NEW
+                </RectangleButton>
+            );
+        } else if (user?.authorities === "Project lord" | "Project manager" && writeProject) {
+            return (
+                <AiOutlineClose onClick={ () => setWriteProject(false) } size={ 30 }/>
+            );
+        } else {
+            return;
+        }
     }
 
 
@@ -97,19 +103,7 @@ export default function ProjectOverview() {
                 velit. Adipisci amet animi debitis dolor dolores eaque iusto laboriosam magni omnis pariatur possimus
                 reprehenderit, sed soluta, tempore voluptatibus.
             </PageHeader>
-            { ( user?.authorities === "Project lord" | "Project manager" && !writeProject ) ?
-                <RectangleButton
-                    type="button"
-                    onClick={ () => setWriteProject(true) }
-                    buttonSize="btn--large"
-                    buttonStyle="btn--danger--solid"
-                >
-                    NEW
-                </RectangleButton>
-                :
-                <AiOutlineClose onClick={ () => setWriteProject(false) } size={ 30 }/>
-
-            }
+            {renderButton() }
             { writeProject &&
                 <CreateProject/>
             }

@@ -19,7 +19,7 @@ import { IconBox } from "../../shared/styling/Icons";
 import { AuthContext } from "../../../context/AuthProvider";
 import SelectUsers from "../../shared/elements/select/SelectUsers";
 import { IoBanOutline, IoIosSend } from "react-icons/all";
-import { postProject, postTask, uploadImage } from "../../../services/controllers/requests";
+import { postProject, postTask, uploadImage } from "../../../services/controllers/postRequests";
 
 ////////////////////
 //// Environmental

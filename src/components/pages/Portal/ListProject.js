@@ -11,6 +11,8 @@ import { AiOutlineClose } from "react-icons/all";
 import { AuthContext } from "../../../context/AuthProvider";
 import CreateProject from "../../layout/forms/Project/CreateProject";
 import { Container } from "../../shared/styling/Layout";
+import { ProjectLink } from "../../shared/styling/Navigation";
+import { NavLink } from "react-router-dom";
 
 ////////////////////
 //// Environmental
@@ -87,8 +89,9 @@ export default function ListProject() {
 
                 <UnorderedList>
                 { loadedProjects && loadedProjects.map(project => (
-                    <ProjectListItem to={ `/project/${ project.id }` } key={ project.id }>
-                        <h6> { project.projectName } </h6>
+                    <ProjectListItem key={ project.id }>
+                        <NavLink to={ `/project/${ project.id }` } ><h6> { project.projectName } </h6></NavLink>
+
                         <DetailRow>
                             <h6>{ project.startTime } <span className="light">| { project.category.name } | { project.projectOwner.username } </span>
                             </h6>

@@ -14,7 +14,7 @@ import Home from "./components/pages/Home/Home";
 import BlogOverview from "./components/pages/Blogs/BlogOverview";
 import Register from "./components/pages/Register/Register";
 import About from "./components/pages/About/About";
-import ProjectDetails from "./components/layout/content/ProjectDetails";
+import ProjectDetails from "./components/pages/Projects/ProjectDetails";
 import Blog from "./components/pages/Blogs/Blog";
 import UserOverview from "./components/pages/Users/UserOverview";
 import UserProfile from "./components/pages/Users/UserProfile";

@@ -25,12 +25,12 @@ import {
 } from "../../shared/styling/FormStyles";
 import { useForm } from "react-hook-form";
 import SelectUsers from "../../shared/elements/select/SelectUsers";
-import { postProject, putTask, uploadImage } from "../../../services/controllers/requests";
 import TaskSubList from "./TaskSubList";
 import { DetailRow } from "./ListBlog";
 import { TaskDescription, TaskFirstRow } from "../../shared/styling/Layout";
 import { ProjectLink } from "../../shared/styling/Navigation";
 import { TaskListItem } from "../../shared/styling/List";
+import { putTask } from "../../../services/controllers/putRequests";
 
 ////////////////////
 //// Environmental
