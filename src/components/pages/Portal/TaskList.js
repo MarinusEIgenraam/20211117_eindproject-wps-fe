@@ -13,7 +13,7 @@ import Tooltip from "../../shared/elements/messages/Tooltip";
 import TaskItem from "./TaskItem";
 import { FinishedBox, IconBox } from "../../shared/styling/Icons";
 import { putTask } from "../../../services/controllers/requests";
-import TaskListTaskItem from "./TaskListTaskItem";
+import TaskParentItem from "./TaskParentItem";
 
 ////////////////////
 //// Environmental
@@ -22,19 +22,13 @@ const { REACT_APP_API_URL } = process.env;
 ////////////////////
 //// External
 
-export default function ListTask() {
-    const [ pageOffset, setPageOffset ] = useState(0);
+export default function TaskList({editCount, setEditCount}) {
     const { setIsLoading } = useContext(UtilityContext);
     const { isAuth, user } = useContext(AuthContext);
-    const [ editCount, setEditCount ] = useState(0);
     const [ hasError, setHasError ] = useState(false);
     const [ categoryUri, setCategoryUri ] = useState('');
 
     const [ loadedTasks, setLoadedTasks ] = useState();
-    const [ filteredProjects, setFilteredProjects ] = useState(loadedTasks);
-    const [ searchParam, setSearchParam ] = useState([ "owner", "name" ])
-
-    const [ isSelected, setIsSelected ] = useState({});
     const [ projectCategory, setProjectCategory ] = useState('');
 
     const API_URL = `${ REACT_APP_API_URL }tasks`;
@@ -69,12 +63,13 @@ export default function ListTask() {
             setIsLoading(false)
         }
 
+
         getData()
 
         return function clearData() {
             source.cancel();
         };
-
+        console.log(editCount)
     }, [ editCount ]);
 
 
@@ -89,7 +84,7 @@ export default function ListTask() {
                 { loadedTasks && loadedTasks.map(task => {
                     return (
                         <TaskListItem key={ task.id }>
-                            <TaskListTaskItem editCount={editCount} setEditCount={setEditCount} task={ task }/>
+                            <TaskParentItem editCount={editCount} setEditCount={setEditCount} task={ task }/>
                             <h6>Sub tasks</h6>
                             { task.taskTaskList &&
                                 task.taskTaskList.map(subTask => {

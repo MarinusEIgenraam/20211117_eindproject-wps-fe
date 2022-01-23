@@ -1,6 +1,6 @@
 ////////////////////
 //// Build
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { UtilityContext } from "../../../context/UtilityProvider";
 import { AuthContext } from "../../../context/AuthProvider";
@@ -26,7 +26,11 @@ import {
 import { useForm } from "react-hook-form";
 import SelectUsers from "../../shared/elements/select/SelectUsers";
 import { postProject, putTask, uploadImage } from "../../../services/controllers/requests";
-import ListSubTask from "./ListSubTask";
+import TaskSubList from "./TaskSubList";
+import FieldArray from "../../layout/forms/Project/TaskListProject";
+import AddTask from "./AddTask";
+import { IoIosAddCircle, IoIosRemoveCircleOutline } from "react-icons/io";
+import axios from "axios";
 
 ////////////////////
 //// Environmental
@@ -38,6 +42,7 @@ const { REACT_APP_API_URL } = process.env;
 export default function TaskItem({ task, editCount, setEditCount }) {
     const { setIsLoading } = useContext(UtilityContext);
     const { isAuth, user } = useContext(AuthContext);
+    const [addTask ,setAddTask] = useState(false)
     const [ isEditing, setIsEditing ] = useState(false);
     const [ isFinished, setIsFinished ] = useState(false);
     const [ editedTask, setEditedTask ] = useState(task);
@@ -80,11 +85,17 @@ export default function TaskItem({ task, editCount, setEditCount }) {
         setEditCount(editCount +1)
     }
 
+    useEffect(() => {
+        console.log(task)
+
+    }, [ task ]);
+
+
     return (
         <ListItem key={ task.taskId }>
             <TaskFirstRow>
                 { isEditing ?
-                    <Form className="editform" onSubmit={ handleSubmit(onSubmit) }>
+                    <Form className="editForm" onSubmit={ handleSubmit(onSubmit) }>
                         <FormSection>
                             <FormInputWrap>
 
@@ -171,6 +182,7 @@ export default function TaskItem({ task, editCount, setEditCount }) {
                                         </Tooltip>
                                     </IconBox>
                                 </FormEditBreak>
+
                             </FormInputWrap>
                         </FormSection>
                     </Form>
@@ -195,6 +207,29 @@ export default function TaskItem({ task, editCount, setEditCount }) {
                             <p> { editedTask.description } </p>
                         </TaskDescription>
                         <IconBox className="small">
+                            <IconBox>
+                                { addTask &&
+
+                                    <Tooltip text="Delete">
+                                        <IoIosRemoveCircleOutline
+                                            size={ 25 }
+                                            type="button"
+                                            onClick={ () => setAddTask(false)}
+                                        />
+                                    </Tooltip>
+                                }
+                                { !addTask &&
+                                    <Tooltip text="Add">
+                                        <IoIosAddCircle
+                                            size={ 25 }
+                                            type="button"
+                                            onClick={ () => setAddTask(true) }
+
+                                        />
+                                    </Tooltip>
+                                }
+
+                            </IconBox>
                             { editedTask.isRunning &&
                                 <Tooltip text="Edit">
                                     <IoCreateOutline
@@ -222,7 +257,11 @@ export default function TaskItem({ task, editCount, setEditCount }) {
                                 </Tooltip>
                             }
                         </IconBox>
-                        <ListSubTask editCount={editCount} setEditCount={setEditCount} subTaskList={ editedTask.taskTaskList }/>
+                        {addTask &&
+                            <AddTask setAddTask={setAddTask} editCount={editCount} setEditCount={setEditCount} parentTask={task.taskId}/>
+                        }
+
+                        <TaskSubList editCount={editCount} setEditCount={setEditCount} subTaskList={ editedTask.taskTaskList }/>
                     </>
                 }
             </TaskFirstRow>

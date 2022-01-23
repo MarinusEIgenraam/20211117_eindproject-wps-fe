@@ -34,6 +34,20 @@ export const postProject = async (project) => {
     }
 }
 
+export const postTask = async (task) => {
+    const token = localStorage.getItem('token');
+    try {
+        const response = await axios.post(REACT_APP_API_URL + 'tasks', task, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response.data
+    } catch (err) {
+        return err.response.data
+    }
+}
+
 export const postBlog = async (blog) => {
     const token = localStorage.getItem('token');
     try {

@@ -3,6 +3,7 @@ import { QUERIES } from "../../../services/helpers/mediaQueries";
 
 export const Form = styled.form`
   max-width: 70vw;
+  width: 100%;
   padding: 2rem 1rem;
   z-index: auto;
   //position: relative;
@@ -10,7 +11,8 @@ export const Form = styled.form`
   border: solid var(--box-border-medium) ${ props => props.theme.createBorder };
   box-shadow: ${ props => props.theme.createShadow };
 
-  &.editform {
+  &.editForm {
+    display: flex;
     background: ${ props => props.theme.createBackground };
     border: none;
     box-shadow: none;
@@ -67,6 +69,7 @@ export const FormSection = styled.div`
 
 
 export const FormInputWrap = styled.div`
+  width: 100%;
 
 
   @media ${ QUERIES.mobile } {
@@ -222,7 +225,7 @@ export const FormEditBreak = styled.div`
 `;
 
 export const FormBreak = styled.div`
-
+width: 100%;
   @media ${ QUERIES.mobile } {
     gap: 1rem;
 

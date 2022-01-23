@@ -20,18 +20,21 @@ const { REACT_APP_API_URL } = process.env;
 ////////////////////
 //// External
 
-export default function ListSubTask({ subTaskList, editCount, setEditCount }) {
+export default function TaskSubList({ subTaskList, editCount, setEditCount }) {
     const { setIsLoading } = useContext(UtilityContext);
     const { isAuth, user } = useContext(AuthContext);
 
     const API_URL = `${ REACT_APP_API_URL }tasks`;
 
+    useEffect(() => {
+
+    }, [ subTaskList ]);
 
     return (
         <TaskListItem>
             { subTaskList.map(subTask => {
                     return (
-                        <TaskItem task={ subTask }/>
+                        <TaskItem editCount={editCount} setEditCount={setEditCount} task={ subTask }/>
 
                     )
                 })

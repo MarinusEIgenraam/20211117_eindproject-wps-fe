@@ -1,6 +1,6 @@
 ////////////////////
 //// Build
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { UtilityContext } from "../../../context/UtilityProvider";
 import { AuthContext } from "../../../context/AuthProvider";
@@ -26,7 +26,7 @@ import {
 import { useForm } from "react-hook-form";
 import SelectUsers from "../../shared/elements/select/SelectUsers";
 import { postProject, putTask, uploadImage } from "../../../services/controllers/requests";
-import ListSubTask from "./ListSubTask";
+import TaskSubList from "./TaskSubList";
 import { DetailRow } from "./ListBlog";
 import { TaskDescription, TaskFirstRow } from "../../shared/styling/Layout";
 import { ProjectLink } from "../../shared/styling/Navigation";
@@ -39,7 +39,7 @@ const { REACT_APP_API_URL } = process.env;
 ////////////////////
 //// External
 
-export default function TaskListTaskItem({ task, editCount ,setEditCount }) {
+export default function TaskParentItem({ task, editCount ,setEditCount }) {
     const { setIsLoading } = useContext(UtilityContext);
     const [ isEditing, setIsEditing ] = useState(false);
     const [ editedTask, setEditedTask ] = useState(task);
@@ -70,7 +70,7 @@ export default function TaskListTaskItem({ task, editCount ,setEditCount }) {
         setEditedTask(newTask)
         console.log(response)
         setIsLoading(false)
-        setEditCount(editCount -1)
+        setEditCount(editCount +1)
     }
 
     const toggleTaskFinished = async () => {
@@ -83,15 +83,21 @@ export default function TaskListTaskItem({ task, editCount ,setEditCount }) {
         const response = await putTask(newTask, task.taskId)
         setEditedTask(newTask)
         setIsLoading(false)
-        setEditCount(editCount -1)
+        setEditCount(editCount +1)
         console.log(editedTask)
     }
+
+
+    useEffect(() => {
+
+    }, [ task ]);
+
 
     return (
         <TaskListItem key={ editedTask.taskId }>
             <TaskFirstRow>
                 { isEditing ?
-                    <Form className="editform" onSubmit={ handleSubmit(onSubmit) }>
+                    <Form className="editForm" onSubmit={ handleSubmit(onSubmit) }>
                         <FormSection>
                             <FormInputWrap>
 

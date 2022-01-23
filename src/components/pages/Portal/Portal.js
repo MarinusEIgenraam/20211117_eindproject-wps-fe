@@ -1,6 +1,6 @@
 ////////////////////
 //// Build
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from "../../../context/AuthProvider";
 import CreateProject from "../../layout/forms/Project/CreateProject";
 import CreateBlog from "../../layout/forms/Blog/CreateBlog";
@@ -9,7 +9,7 @@ import { H1 } from "../../shared/styling/Text";
 import { PageContainer } from "../../shared/styling/Layout";
 import ListProject from "./ListProject";
 import styled from 'styled-components';
-import ListTask from "./ListTask";
+import TaskList from "./TaskList";
 import ListBlog from "./ListBlog";
 import UserDetails from "./UserDetails";
 
@@ -21,9 +21,13 @@ import UserDetails from "./UserDetails";
 //// External
 
 export default function Portal() {
+    const [ editCount, setEditCount ] = useState(0);
     const { isAuth, user } = useContext(AuthContext);
-    console.log(user.authorities)
+    console.log(editCount)
+    useEffect(() => {
 
+
+    }, [ editCount ]);
     return (
         <PageContainer>
             <H1>
@@ -39,16 +43,10 @@ export default function Portal() {
                     <Divider className="rounded"/>
                 </>
             }
+            <TaskList editCount={editCount} setEditCount={setEditCount}/>
+            <Divider className="rounded"/>
             <ListProject/>
             <Divider className="rounded"/>
-            <ListTask/>
-            <Divider className="rounded"/>
-            {/*{ ( user.authorities === "Project lord" ) &&*/}
-            {/*    <CreateBlog/>*/}
-            {/*}*/}
-            {/*{ ( user.authorities === "Project manager" || "Project lord" ) &&*/}
-            {/*    <CreateProject/>*/}
-            {/*}*/}
         </PageContainer>
     )
 }
