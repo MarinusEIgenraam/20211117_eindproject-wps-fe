@@ -1,14 +1,10 @@
 ////////////////////
 //// Build
 import React from 'react'
-import { H1 } from "../shared/styling/Text";
-import { PageContainer } from "../shared/styling/Layout";
-
 ////////////////////
 //// Environmental
-
-////////////////////
-//// External
+import { H1 } from "../../styles/Typography";
+import { PageContainer } from "../../styles/Layout";
 
 export default function NoComponentFound() {
 

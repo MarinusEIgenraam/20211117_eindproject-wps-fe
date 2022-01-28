@@ -1,18 +1,21 @@
 ///////////////////////
 //// Build
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
+import { UtilityContext } from "./UtilityProvider";
 ///////////////////////
 //// Environmental
-export const AuthContext = createContext({} );
+export const AuthContext = createContext({});
 const { REACT_APP_API_URL } = process.env;
 ///////////////////////
 //// External
 
 
 export default function AuthProvider({ children }) {
+    const { setHasError, setIsLoading } = useContext(UtilityContext);
+
     const [ isAuth, toggleIsAuth ] = useState({
         isAuth: false,
         user: null,
@@ -55,7 +58,7 @@ export default function AuthProvider({ children }) {
     function setRole(roles) {
         if (roles.some(e => e.authority === 'ROLE_ADMIN')) {
             return 'Project lord'
-        } else if (roles.some(e => e.authority === 'ROLE_SUPER_USER')){
+        } else if (roles.some(e => e.authority === 'ROLE_SUPER_USER')) {
             return 'Project manager'
         } else if (roles.some(e => e.authority === 'ROLE_USER')) {
             return 'Project fanatic';
@@ -65,6 +68,9 @@ export default function AuthProvider({ children }) {
     }
 
     async function fetchUserData(username, token, redirectUrl) {
+        setHasError(false);
+        setIsLoading(true);
+
         try {
             const result = await axios.get(`${ REACT_APP_API_URL }users/${ username }`, {
                 headers: {
@@ -88,9 +94,11 @@ export default function AuthProvider({ children }) {
             if (redirectUrl) {
                 navigate(redirectUrl);
             }
+            setIsLoading(false);
 
         } catch (e) {
             console.error(e);
+            setHasError(true);
             toggleIsAuth({
                 isAuth: false,
                 user: null,
@@ -111,7 +119,7 @@ export default function AuthProvider({ children }) {
 
     return (
         <AuthContext.Provider
-            value={ contextData  }>
+            value={ contextData }>
             { children }
         </AuthContext.Provider>
     );

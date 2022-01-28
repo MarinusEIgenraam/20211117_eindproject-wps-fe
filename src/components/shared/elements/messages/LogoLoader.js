@@ -12,7 +12,7 @@ import { UtilityContext } from "../../../../context/UtilityProvider";
 //// External
 
 function LogoLoader({ navActive }) {
-    const { isLoading, setIsLoading } = useContext(UtilityContext);
+    const { isLoading } = useContext(UtilityContext);
     const [ isTimedOut, setIsTimedOut ] = useState(false)
 
 

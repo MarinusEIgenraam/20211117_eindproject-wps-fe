@@ -1,18 +1,13 @@
 ////////////////////
 //// Build
 import React, { useContext } from 'react'
-import styled from 'styled-components';
-import LoginWindow from "../layout/forms/Auth/LoginWindow";
-import { AuthContext } from "../../context/AuthProvider";
-import { PageContainer} from "../shared/styling/Layout";
-import { BackgroundImage, Img } from "../shared/styling/Images";
-
 ////////////////////
 //// Environmental
+import AuthLogin from "../feature/Auth/AuthLogin";
+import { AuthContext } from "../../context/AuthProvider";
+import { PageContainer } from "../../styles/Layout";
+import { BackgroundImage } from "../../styles/Images";
 import homeBackground from '../../assets/images/home_background.png'
-
-////////////////////
-//// External
 
 export default function Home() {
     const { isAuth } = useContext(AuthContext);
@@ -21,14 +16,12 @@ export default function Home() {
     console.log(isAuth)
     return (
         <PageContainer>
-            {!isAuth && <LoginWindow/> }
+            { !isAuth && <AuthLogin/> }
 
-            <BackgroundImage alt="home" src={homeBackground}/>
+            <BackgroundImage alt="home" src={ homeBackground }/>
 
         </PageContainer>
     )
 }
-
-
 
 /** Created by ownwindows on 04-01-22 **/

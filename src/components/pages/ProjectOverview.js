@@ -1,19 +1,18 @@
 ////////////////////
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components';
 import axios from "axios";
 import { AiOutlineClose } from "react-icons/all";
 ////////////////////
 //// Environmental
 import { UtilityContext } from "../../context/UtilityProvider";
-import { DetailContainer, H1, SubTitle } from "../shared/styling/Text";
-import { PageContainer, PageHeader } from "../shared/styling/Layout";
-import { UnorderedList } from "../shared/styling/List";
-import { Image } from "../shared/styling/Images";
-import RectangleButton from "../shared/elements/clickables/RectangleButton/RectangleButton";
+import { DetailContainer, H1, SubTitle } from "../../styles/Typography";
+import { PageContainer, PageHeader } from "../../styles/Layout";
+import { ProjectListItem, UnsortedList } from "../../styles/List";
+import { Image } from "../../styles/Images";
+import RectangleButton from "../shared/elements/clickables/RectangleButton";
 import { AuthContext } from "../../context/AuthProvider";
-import CreateProject from "../layout/forms/Project/CreateProject";
+import ProjectCreate from "../feature/Projects/ProjectCreate";
 import { getProjectsFor } from "../../services/controllers/Projects";
 
 export default function ProjectOverview() {
@@ -21,9 +20,7 @@ export default function ProjectOverview() {
     const { user } = useContext(AuthContext);
     const [ writeProject, setWriteProject ] = useState(false);
     const [ requestUri, setRequestUri ] = useState('');
-
     const [ loadedProjects, setLoadedProjects ] = useState();
-
     const [ projectCategory, setProjectCategory ] = useState('');
 
     const source = axios.CancelToken.source();
@@ -36,8 +33,9 @@ export default function ProjectOverview() {
 
         const getData = async () => {
             const response = await getProjectsFor(setHasError, setIsLoading, requestUri)
-            console.log(response)
-            setLoadedProjects(response.data.content);
+            {
+                response && setLoadedProjects(response.data.content)
+            }
         }
 
         getData()
@@ -65,8 +63,6 @@ export default function ProjectOverview() {
             return (
                 <AiOutlineClose onClick={ () => setWriteProject(false) } size={ 30 }/>
             );
-        } else {
-            return;
         }
     }
 
@@ -88,11 +84,11 @@ export default function ProjectOverview() {
             </PageHeader>
             { renderButton() }
             { writeProject &&
-                <CreateProject/>
+                <ProjectCreate/>
             }
-            <UnorderedList>
+            <UnsortedList>
                 { loadedProjects && loadedProjects.map(project => (
-                    <ProjectItem to={ `/project/${ project.id }` } key={ project.id }>
+                    <ProjectListItem to={ `/project/${ project.id }` } key={ project.id }>
                         <DetailContainer>
                             <h4> { project.projectName } </h4>
 
@@ -113,51 +109,13 @@ export default function ProjectOverview() {
                             </li>
                         )) }
 
-                    </ProjectItem>
+                    </ProjectListItem>
                 )) }
-            </UnorderedList>
+            </UnsortedList>
 
         </PageContainer>
     )
 }
 
-const ProjectItem = styled.li`
-  width: 70vw;
-  height: 100%;
-  margin-top: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  flex-direction: row;
-  transition: all 500ms;
-  padding: 1rem;
-  background: ${ props => props.theme.background };
-  border: solid var(--box-border-medium) ${ props => props.theme.border };
-  //overflow: hidden;
-
-  :not(:nth-child(1)) {
-    margin-top: -130px;
-    box-shadow: rgba(0, 0, 0, 0.45) 0px -20px 20px -20px;
-
-  }
-
-  :hover {
-    border: solid var(--box-border-medium) ${ props => props.theme.border };
-    box-shadow: ${ props => props.theme.shadow };
-    //margin: 25px 25px 50px 25px;
-    background: ${ props => props.theme.windowBackground };
-    margin-bottom: 150px;
-
-  }
-
-  @media (min-width: 769px) {
-
-  }
-
-  @media (max-width: 660px) {
-    flex-direction: column;
-  }
-
-`
 
 /** Created by ownwindows on 18-01-22 **/

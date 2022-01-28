@@ -14,8 +14,8 @@ export const UtilityContext = createContext(null);
 
 export default function UtilityProvider({ children }) {
     const [ theme, setTheme ] = useState("light");
-    const [isLoading, setIsLoading] = useState(false);
-    const [hasError, setHasError] = useState()
+    const [ isLoading, setIsLoading ] = useState(false);
+    const [ hasError, setHasError ] = useState(false)
 
     function toggleTheme() {
         if (theme === "light") {

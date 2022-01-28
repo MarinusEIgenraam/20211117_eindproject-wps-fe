@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const { REACT_APP_API_URL} = process.env;
+const { REACT_APP_API_URL } = process.env;
 const source = axios.CancelToken.source();
 
 export const postProject = async (setHasError, setIsLoading, project) => {
@@ -42,7 +42,7 @@ export const getProjectsFor = async (setHasError, setIsLoading, what) => {
     setHasError(false);
     setIsLoading(true)
     try {
-        const results =  await axios.get(`${ REACT_APP_API_URL }projects/${ what }`, {
+        const results = await axios.get(`${ REACT_APP_API_URL }projects/${ what }`, {
             cancelToken: source.token
         });
         setIsLoading(false)

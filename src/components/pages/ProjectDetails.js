@@ -1,54 +1,39 @@
 ////////////////////
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
-import { Column, Divider, PageContainer } from "../shared/styling/Layout";
 import axios from "axios";
-import { UtilityContext } from "../../context/UtilityProvider";
-import { AuthContext } from "../../context/AuthProvider";
-import { useParams } from "react-router-dom";
-import { FormWindow } from "../shared/styling/Form";
 import styled from 'styled-components';
-import { Category, Collaborators, Description, ListMetaData, Owner, Users, Votes } from "../shared/styling/TextLayout";
-import { Img, ProjectHero } from "../shared/styling/Images";
-import { getProjectComments } from "../../services/controllers/Comments";
-import { getOneProject } from "../../services/controllers/Projects";
-import Comment from "./Projects/Comment";
-
-
 ////////////////////
 //// Environmental
-const { REACT_APP_API_URL } = process.env;
-////////////////////
-//// External
+import { Column, Divider, PageContainer } from "../../styles/Layout";
+import { UtilityContext } from "../../context/UtilityProvider";
+import { useParams } from "react-router-dom";
+import { FormWindow } from "../../styles/Form";
+import { Category, Collaborators, ListMetaData, ProjectHeader, } from "../../styles/TextLayout";
+import { Img, ProjectHero } from "../../styles/Images";
+import { getProjectComments } from "../../services/controllers/Comments";
+import { getOneProject } from "../../services/controllers/Projects";
+import Comment from "../shared/elements/Comments/Comment";
+import { Description, Owner, Users, Votes } from "../../styles/Typography";
+
 
 
 export default function Project({}) {
     const source = axios.CancelToken.source();
-    const { setIsLoading } = useContext(UtilityContext);
-    const { isAuth, user } = useContext(AuthContext);
-    const [ hasError, setHasError ] = useState(false);
+    const { setIsLoading, setHasError } = useContext(UtilityContext);
     const [ loadedProject, setLoadedProject ] = useState();
     const [ loadedComments, setLoadedComments ] = useState();
 
-    const token = localStorage.getItem('token');
-    const API_URL = `${ REACT_APP_API_URL }projects/`;
     const { id } = useParams();
 
     useEffect(() => {
 
         const getData = async () => {
-            setHasError(false);
-            setIsLoading(true)
-            const project = await getOneProject(id)
-            const comments = await getProjectComments(id)
-            setLoadedComments(comments)
-            setLoadedProject(project);
-            setIsLoading(false)
+            setLoadedComments(await getOneProject(setIsLoading, setHasError, id))
+            setLoadedProject(await getProjectComments(setIsLoading, setHasError, id));
         }
 
-        console.log(loadedComments)
         getData()
-        console.log(loadedProject)
 
         return function clearData() {
             source.cancel();
@@ -148,14 +133,6 @@ export default function Project({}) {
     )
 }
 
-const ProjectHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-  max-height: 200px;
-
-`
 
 const Title = styled.h3`
 
@@ -163,7 +140,6 @@ const Title = styled.h3`
 
 const Text = styled.div`
   width: 50%;
-
 `
 
 /** Created by ownwindows on 04-01-22 **/

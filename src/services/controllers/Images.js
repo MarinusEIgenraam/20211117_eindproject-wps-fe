@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
+const { REACT_APP_API_URL } = process.env;
 const source = axios.CancelToken.source();
 
 export const uploadImage = async (setHasError, setIsLoading, image) => {
@@ -20,7 +20,8 @@ export const uploadImage = async (setHasError, setIsLoading, image) => {
         return response.data.data.link
     } catch (err) {
         setHasError(true);
-        console.error(err);       }
+        console.error(err);
+    }
 }
 
 export const getProfileImage = async (setHasError, setIsLoading, username) => {
@@ -28,15 +29,16 @@ export const getProfileImage = async (setHasError, setIsLoading, username) => {
     setIsLoading(true)
 
     try {
-        const result = await axios.get(`${ REACT_APP_API_URL }files/profiles/${ username }`, {
+        const result = await axios.get(`${ REACT_APP_API_URL }files/profile/${ username }`, {
             cancelToken: source.token
         }).then(() => {
             setIsLoading(false)
         });
-        return result.data
+        return result
     } catch (err) {
         setHasError(true);
-        console.error(err);       }
+        console.error(err);
+    }
 }
 
 export const uploadProfileImage = async (setHasError, setIsLoading, file) => {
@@ -44,8 +46,7 @@ export const uploadProfileImage = async (setHasError, setIsLoading, file) => {
     setIsLoading(true)
 
     const formData = new FormData();
-    formData.append('document',file)
-    formData.append('title',"title")
+    formData.append('document', file)
 
     try {
         console.log(file)
@@ -54,9 +55,9 @@ export const uploadProfileImage = async (setHasError, setIsLoading, file) => {
         }).then(() => {
             setIsLoading(false)
         });
-        console.log(response.data);
-        return response.data.data.link
+        return response
     } catch (err) {
         setHasError(true);
-        console.error(err);       }
+        console.error(err);
+    }
 }

@@ -11,7 +11,7 @@ import { AuthContext } from "../../../context/AuthProvider";
 import { RiLoginCircleFill } from "react-icons/ri";
 import ThemeSwitch from "../elements/clickables/ThemeSwitch";
 import LogoLoader from "../elements/messages/LogoLoader";
-import Tooltip from "../elements/old/Tooltip";
+import Tooltip from "../elements/messages/Tooltip";
 
 ////////////////////
 //// External
@@ -46,36 +46,42 @@ export default function Navbar() {
             </Hamburger>
             <Menu menuOpen={ menuOpen } navActive={ navActive }>
                 { !isAuth &&
-                    <MenuLink activeClassName="active" className="highlight" onClick={()=> setMenuOpen(false)} to="/register">Register</MenuLink> }
-                <MenuLink activeClassName="active" onClick={()=> setMenuOpen(false)} to="/blogs">Blogs</MenuLink>
-                <MenuLink activeClassName="active" onClick={()=> setMenuOpen(false)}to="/projects">Projects</MenuLink>
-                <MenuLink activeClassName="active" onClick={()=> setMenuOpen(false)}to="/about">About</MenuLink>
-                <MenuLink activeClassName="active" onClick={()=> setMenuOpen(false)}to="/users">Users</MenuLink>
+                    <MenuLink activeClassName="active" className="highlight" onClick={ () => setMenuOpen(false) }
+                              to="/register">Register</MenuLink> }
+                <MenuLink activeClassName="active" onClick={ () => setMenuOpen(false) } to="/blogs">Blogs</MenuLink>
+                <MenuLink activeClassName="active" onClick={ () => setMenuOpen(false) }
+                          to="/projects">Projects</MenuLink>
+                <MenuLink activeClassName="active" onClick={ () => setMenuOpen(false) } to="/about">About</MenuLink>
+                <MenuLink activeClassName="active" onClick={ () => setMenuOpen(false) } to="/users">Users</MenuLink>
                 <a>{ isAuth }</a>
                 { isAuth &&
-                    <MenuLink onClick={()=> setMenuOpen(false)} to="/me">Portal</MenuLink>
+                    <MenuLink onClick={ () => setMenuOpen(false) } to="/me">Portal</MenuLink>
                 }
 
                 { useMediaQuery('(max-width: 768px)') ?
                     ( isAuth
                             ?
-                            <MenuLink activeClassName="active" to="/" onClick={ (logout, ()=> setMenuOpen(false)) }>Logout</MenuLink>
+                            <MenuLink activeClassName="active" to="/"
+                                      onClick={ ( logout, () => setMenuOpen(false) ) }>Logout</MenuLink>
 
                             :
-                            <MenuLink activeClassName="active"  onClick={()=> setMenuOpen(false)} to="/">Login</MenuLink>
+                            <MenuLink activeClassName="active" onClick={ () => setMenuOpen(false) }
+                                      to="/">Login</MenuLink>
 
                     )
 
                     :
                     ( isAuth
                             ?
-                            <MenuLink activeClassName="active" onClick={()=> setMenuOpen(false)} className="icon-link" to="/" onClick={ logout }>
+                            <MenuLink activeClassName="active" onClick={ () => setMenuOpen(false) }
+                                      className="icon-link" to="/" onClick={ logout }>
                                 <Tooltip text="Logout">
                                     <RiLoginCircleFill size={ 30 }/>
                                 </Tooltip>
                             </MenuLink>
                             :
-                            <MenuLink activeClassName="active" onClick={()=> setMenuOpen(false)} className="icon-link" to="/login">
+                            <MenuLink activeClassName="active" onClick={ () => setMenuOpen(false) }
+                                      className="icon-link" to="/login">
                                 <Tooltip text="Login">
                                     <RiLoginCircleFill size={ 30 }/>
                                 </Tooltip>
@@ -114,7 +120,7 @@ const Nav = styled.div`
                   "background: transparent"
   };
   border-radius: 2px;
-  @media ${ QUERIES.tabletMini} {
+  @media ${ QUERIES.tabletMini } {
     align-items: baseline;
 
   }
@@ -126,7 +132,7 @@ const Menu = styled.div`
   align-items: center;
   color: ${ props => props.theme.text };
   position: relative;
-  
+
   @media (max-width: 768px) {
     justify-content: center;
     overflow: hidden;
@@ -161,7 +167,7 @@ const MenuLink = styled(NavLink)`
   &:hover {
     color: ${ props => props.theme.sub_text };
   }
-  
+
 `
 
 const Hamburger = styled.div`
@@ -179,7 +185,7 @@ const Hamburger = styled.div`
     border-radius: 5.5px;
   }
 
-  @media ${ QUERIES.tabletMini} {
+  @media ${ QUERIES.tabletMini } {
     display: none;
 
   }

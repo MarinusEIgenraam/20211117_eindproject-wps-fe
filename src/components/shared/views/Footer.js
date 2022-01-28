@@ -1,16 +1,13 @@
 ////////////////////
 //// Build
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
-import { DetailContainer, H2 } from "../styling/Text";
-import { Form, FormBreak, FormError, FormInput, FormLabel } from "../styling/FormStyles";
+import { Form, FormError, FormInput, FormLabel } from "../../../styles/FormStyles";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import { AuthContext } from "../../../context/AuthProvider";
-import RectangleButton from "../elements/clickables/RectangleButton/RectangleButton";
 import { QUERIES } from "../../../services/helpers/mediaQueries";
-import { FooterContainer } from "../styling/FooterStyles";
 
 ////////////////////
 //// Environmental
@@ -21,7 +18,7 @@ const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
 
 export default function Footer() {
     const [ fixed, setFixed ] = useState(true);
-    const { setIsLoading } = useContext(UtilityContext);
+    const { setIsLoading, hasError } = useContext(UtilityContext);
     const [ error, toggleError ] = useState(false);
     const [ succes, toggleSucces ] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -70,7 +67,7 @@ export default function Footer() {
     window.addEventListener('scroll', changeBackground);
 
     return (
-        <FooterContainer fixed={ fixed }>
+        <FooterContainer hasError={ hasError } fixed={ fixed }>
             <LoginContainer>
                 { isAuth ?
                     <span>Welcome back { user.username }</span>
@@ -125,7 +122,7 @@ export default function Footer() {
 }
 
 const SocialsContainer = styled.div`
-    justify-content: space-between;
+  justify-content: space-between;
   min-height: 5rem;
   z-index: auto;
   position: relative;
@@ -136,7 +133,7 @@ const ContactContainer = styled.div`
 `
 
 const LoginContainer = styled.div`
-  
+
   form {
 
     display: flex;
@@ -154,7 +151,7 @@ const LoginContainer = styled.div`
 
 export const FooterWrap = styled.div`
   display: flex;
-  
+
   max-width: 100%;
 
 
@@ -163,11 +160,40 @@ export const FooterWrap = styled.div`
     display: flex;
     flex-direction: column;
 
-    @media ${QUERIES.tabletMini} {
+    @media ${ QUERIES.tabletMini } {
       align-items: flex-start;
     }
   }
 `;
+
+const FooterContainer = styled.footer`
+  max-width: 100%;
+  padding: 0.5rem 1rem;
+  background: ${ props => props.theme.windowBackground };
+  margin-top: 250px;
+  width: 100%;
+  transition: all 500ms;
+
+  @media ${ QUERIES.tabletMini } {
+    padding: 0rem 2rem;
+  }
+
+  ${ ({ hasError, fixed, theme }) => ( !hasError && fixed )
+          ?
+          {
+            "position": "fixed;",
+            "bottom": 0,
+            "box-shadow": `0 5px 15px ${ theme.boxShadow }`
+          }
+          :
+          {
+            "position": "relative;",
+
+          }
+  }
+  transition: 0;
+`;
+
 
 /** Created by ownwindows on 15-01-22 **/
 

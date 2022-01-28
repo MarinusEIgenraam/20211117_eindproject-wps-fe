@@ -1,6 +1,6 @@
 ///////////////////////
 //// Build
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Route, Routes } from 'react-router-dom'
 import styled from 'styled-components';
 
@@ -11,8 +11,8 @@ import Navbar from "./components/shared/views/Navbar";
 import PrivateRoutes from "./router/PrivateRoutes";
 import Portal from "./components/pages/Portal";
 import Home from "./components/pages/Home";
-import BlogOverview from "./components/pages/Blogs/BlogOverview";
-import Register from "./components/pages/Register/Register";
+import BlogOverview from "./components/pages/BlogOverview";
+import Register from "./components/pages/Register";
 import About from "./components/pages/About";
 import ProjectDetails from "./components/pages/ProjectDetails";
 import Blog from "./components/pages/Blog";
@@ -21,10 +21,11 @@ import UserProfile from "./components/pages/UserProfile";
 import NoComponentFound from "./components/pages/NoComponentFound";
 import Footer from "./components/shared/views/Footer";
 import ProjectOverview from "./components/pages/ProjectOverview";
+import { UtilityContext } from "./context/UtilityProvider";
+import Error from "./components/shared/elements/messages/Error";
 
 function App() {
-    const [ value, setValue ] = useState(``);
-    const [ formState, setFormState ] = useState({})
+    const { hasError } = useContext(UtilityContext);
 
 
     return (
@@ -51,6 +52,10 @@ function App() {
                 <Route path="*" element={ <NoComponentFound/> }/>
             </Routes>
 
+
+            { hasError &&
+                <Error/>
+            }
             <Footer/>
 
         </AppContainer>

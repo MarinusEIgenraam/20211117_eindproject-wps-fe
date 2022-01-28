@@ -5,14 +5,14 @@ import axios from "axios";
 ////////////////////
 //// Environmental
 import { UtilityContext } from "../../../../context/UtilityProvider";
-import { Select, SelectContainer } from "../../styling/Input";
+import { Select, SelectContainer } from "../../../../styles/Input";
 import { getCategories } from "../../../../services/controllers/Category";
 
 export default function SelectCategory({ register, parent, defaultValue }) {
     const { setIsLoading, setHasError } = useContext(UtilityContext);
     const [ loadedCategories, setLoadedCategories ] = useState(false);
 
-    useEffect( () => {
+    useEffect(() => {
         const source = axios.CancelToken.source();
 
         const getData = async () => {
@@ -29,12 +29,12 @@ export default function SelectCategory({ register, parent, defaultValue }) {
 
     return (
         <SelectContainer id="SelectContainer">
-            <Select { ...register(`${parent}`) }>
-                <option key={defaultValue} value={ defaultValue }>{defaultValue}</option>
+            <Select { ...register(`${ parent }`) }>
+                <option key={ defaultValue } value={ defaultValue }>{ defaultValue }</option>
                 { loadedCategories &&
                     loadedCategories.map((category, key) => {
                             return (
-                                <option key={key} value={ category.id }>{category.name}</option>
+                                <option key={ key } value={ category.id }>{ category.name }</option>
                             )
                         }
                     )

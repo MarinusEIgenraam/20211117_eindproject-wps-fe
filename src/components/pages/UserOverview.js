@@ -1,50 +1,29 @@
 ////////////////////
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components';
-import { UtilityContext } from "../../context/UtilityProvider";
 import axios from "axios";
-import UserListItem from "./Users/UserListItem";
-import { PageContainer, PageHeader, UserItem } from "../shared/styling/Layout";
-import { HeaderContainer } from "../shared/styling/TextLayout";
-import { ListWrapper } from "../shared/styling/List";
-import { DetailContainer, H1, H2, SubTitle } from "../shared/styling/Text";
-import Logo from "../../assets/images/home_background.png";
-import { ProfileImage } from "../shared/styling/Images";
-
 ////////////////////
 //// Environmental
-const { REACT_APP_API_URL } = process.env;
-////////////////////
-//// External
+import { UtilityContext } from "../../context/UtilityProvider";
+import { PageContainer, PageHeader } from "../../styles/Layout";
+import { DetailContainer, H1, H2, SubTitle } from "../../styles/Typography";
+import Logo from "../../assets/images/home_background.png";
+import { ProfileImage } from "../../styles/Images";
+import { UserListItem } from "../../styles/List";
+import { getUsers } from "../../services/controllers/Users";
 
 export default function UserOverview() {
-    const { setIsLoading } = useContext(UtilityContext);
+    const { setIsLoading, setHasError } = useContext(UtilityContext);
     const [ loadedUsers, setLoadedUsers ] = useState();
-    const [ hasError, setHasError ] = useState(false);
-    const [ category, setCategory ] = useState(false);
-
-    const API_URL = `${ REACT_APP_API_URL }users`;
-
 
     useEffect(() => {
         const source = axios.CancelToken.source();
 
-        async function getData() {
-            setHasError(false);
-            setIsLoading(true)
-            try {
-                const result = await axios.get(API_URL, { cancelToken: source.token, });
-
-                setLoadedUsers(result.data.content);
-                console.log(loadedUsers)
-
-            } catch (e) {
-                console.error(e);
-                setHasError(true);
+        const getData = async () => {
+            const response = await getUsers(setHasError, setIsLoading)
+            {
+                response && setLoadedUsers(response.data.content)
             }
-            console.log(loadedUsers)
-            setIsLoading(false)
         }
 
         getData()
@@ -71,9 +50,9 @@ export default function UserOverview() {
                 reprehenderit, sed soluta, tempore voluptatibus.
             </PageHeader>
             { loadedUsers &&
-                loadedUsers.map((user) => {
+                loadedUsers.map((user, index) => {
                     return (
-                        <UserItem>
+                        <UserListItem key={ index }>
                             <DetailContainer>
                                 <H2> { user.username } </H2>
                                 <span>{ user?.role }</span>
@@ -85,16 +64,12 @@ export default function UserOverview() {
 
                             </div>
                             <ProfileImage alt={ user.username } src={ Logo }/>
-                        </UserItem>
+                        </UserListItem>
                     );
                 })
             }
         </PageContainer>
     )
 }
-
-const NewUsers = styled.div`
-
-`
 
 /** Created by ownwindows on 04-01-22 **/
