@@ -7,7 +7,7 @@ import axios from "axios";
 import { UtilityContext } from "../../context/UtilityProvider";
 import { PageContainer, PageHeader } from "../../styles/Layout";
 import Logo from '../../assets/images/home_background.png'
-import { DetailContainer, H1, H2, SubTitle } from "../../styles/Typography";
+import { DetailContainer, CenteredHeader, CenteredSubHeader, SubTitle } from "../../styles/Typography";
 import { Image } from "../../styles/Images";
 import { UnsortedList, UserListItem } from "../../styles/List";
 import { getAdmins } from "../../services/controllers/Users";
@@ -36,9 +36,9 @@ export default function About() {
 
     return (
         <PageContainer>
-            <H1>
+            <CenteredHeader>
                 About
-            </H1>
+            </CenteredHeader>
             <SubTitle>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             </SubTitle>
@@ -56,7 +56,7 @@ export default function About() {
                         return (
                             <UserListItem key={ index }>
                                 <DetailContainer>
-                                    <H2> { admin.username } </H2>
+                                    <CenteredSubHeader> { admin.username } </CenteredSubHeader>
                                     <span>{ admin?.role }</span>
                                     <span> { admin.email }</span>
                                     <span> { admin?.description }</span>

@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 ////////////////////
 //// Environmental
 import { AuthContext } from "../../context/AuthProvider";
-import { H1 } from "../../styles/Typography";
+import { CenteredHeader } from "../../styles/Typography";
 import { Divider, PageContainer } from "../../styles/Layout";
 import ProjectList from "../feature/Projects/ProjectList";
 import TaskList from "../feature/Tasks/TaskList";
@@ -21,10 +21,10 @@ export default function Portal() {
 
     return (
         <PageContainer>
-            <H1>
+            <CenteredHeader>
                 Welcome back { user.username }
                 <Divider className="small"/>
-            </H1>
+            </CenteredHeader>
 
             <PortalUserDetails/>
 

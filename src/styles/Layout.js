@@ -17,16 +17,25 @@ export const Column = styled.div`
   width: 100%;
 `
 
+export const CommentContainer = styled.li`
+  border: solid var(--box-border-medium) ${ props => props.theme.border };
 
+    width: 50vw;
+`
 export const DetailRow = styled.footer`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-self: end;
   width: 100%;
   margin-top: 0.25rem;
   padding: 0.25rem 0;
   border-top: solid var(--box-border-medium) ${ props => props.theme.border };
 
+  &.users {
+    justify-content: start;
+    align-self: end;
+  }
+  
 
   .light {
     font-weight: 300;

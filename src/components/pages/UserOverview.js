@@ -6,7 +6,7 @@ import axios from "axios";
 //// Environmental
 import { UtilityContext } from "../../context/UtilityProvider";
 import { PageContainer, PageHeader } from "../../styles/Layout";
-import { DetailContainer, H1, H2, SubTitle } from "../../styles/Typography";
+import { DetailContainer, CenteredHeader, CenteredSubHeader, SubTitle } from "../../styles/Typography";
 import Logo from "../../assets/images/home_background.png";
 import { ProfileImage } from "../../styles/Images";
 import { UserListItem } from "../../styles/List";
@@ -36,9 +36,9 @@ export default function UserOverview() {
 
     return (
         <PageContainer>
-            <H1>
+            <CenteredHeader>
                 Users
-            </H1>
+            </CenteredHeader>
             <SubTitle>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             </SubTitle>
@@ -54,7 +54,7 @@ export default function UserOverview() {
                     return (
                         <UserListItem key={ index }>
                             <DetailContainer>
-                                <H2> { user.username } </H2>
+                                <CenteredSubHeader> { user.username } </CenteredSubHeader>
                                 <span>{ user?.role }</span>
                                 <span> { user.email }</span>
                                 <span> { user?.description }</span>

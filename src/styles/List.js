@@ -111,11 +111,26 @@ export const TaskListItem = styled.li`
 
 `
 
+export const CommentListItem = styled(ListItem)`
+  width: 40vw;
+  justify-content: start;
+  align-items: start;
+  border: solid var(--box-border-medium) ${ props => props.theme.border };
+  height: min-content;
+
+  & footer {
+    display: flex;
+    text-align: start;
+  }
+
+`
+
 export const ProjectListItem = styled.li`
   width: 70vw;
   height: 100%;
   margin-top: 1rem;
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: start;
   flex-direction: row;

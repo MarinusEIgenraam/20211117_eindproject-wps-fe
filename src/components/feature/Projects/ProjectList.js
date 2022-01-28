@@ -12,7 +12,7 @@ import RectangleButton from "../../shared/elements/clickables/RectangleButton";
 import { Container, DetailRow } from "../../../styles/Layout";
 import { NavLink } from "react-router-dom";
 import { getProjectsFor } from "../../../services/controllers/Projects";
-import { H2 } from "../../../styles/Typography";
+import { CenteredSubHeader } from "../../../styles/Typography";
 import { ProjectListItem, UnsortedList } from "../../../styles/List";
 
 export default function ProjectList() {
@@ -47,9 +47,9 @@ export default function ProjectList() {
 
     return (
         <Container>
-            <H2>
+            <CenteredSubHeader>
                 Your Projects
-            </H2>
+            </CenteredSubHeader>
 
             <UnsortedList>
                 { loadedProjects && loadedProjects.map(project => (

@@ -7,7 +7,7 @@ import { AiOutlineClose } from "react-icons/all";
 ////////////////////
 //// Environmental
 import { UtilityContext } from "../../context/UtilityProvider";
-import { H1, SubTitle } from "../../styles/Typography";
+import { CenteredHeader, SubTitle } from "../../styles/Typography";
 import { PageContainer, PageHeader } from "../../styles/Layout";
 import Blog from "./Blog";
 import BlogCreate from "../feature/Blogs/BlogCreate";
@@ -49,9 +49,9 @@ export default function BlogOverview() {
 
     return (
         <PageContainer>
-            <H1>
+            <CenteredHeader>
                 Blogs
-            </H1>
+            </CenteredHeader>
             <SubTitle>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             </SubTitle>

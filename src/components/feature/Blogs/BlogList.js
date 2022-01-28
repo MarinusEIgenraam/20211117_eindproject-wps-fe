@@ -6,7 +6,7 @@ import axios from "axios";
 ////////////////////
 //// Environmental
 import { UtilityContext } from "../../../context/UtilityProvider";
-import { H2 } from "../../../styles/Typography";
+import { CenteredSubHeader } from "../../../styles/Typography";
 import { TaskListItem, UnsortedList } from "../../../styles/List";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton";
 import { AuthContext } from "../../../context/AuthProvider";
@@ -54,9 +54,9 @@ export default function BlogList() {
 
     return (
         <Container>
-            <H2>
+            <CenteredSubHeader>
                 Your blogs
-            </H2>
+            </CenteredSubHeader>
             <UnsortedList>
                 { loadedBlogs && loadedBlogs.map(blog => (
                     <TaskListItem to={ `/project/${ blog.id }` } key={ blog.id }>

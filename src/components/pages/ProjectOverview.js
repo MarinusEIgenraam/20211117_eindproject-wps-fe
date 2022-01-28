@@ -6,14 +6,15 @@ import { AiOutlineClose } from "react-icons/all";
 ////////////////////
 //// Environmental
 import { UtilityContext } from "../../context/UtilityProvider";
-import { DetailContainer, H1, SubTitle } from "../../styles/Typography";
-import { PageContainer, PageHeader } from "../../styles/Layout";
+import { DetailContainer, CenteredHeader, SubTitle, Owner, Users, User } from "../../styles/Typography";
+import { DetailRow, Divider, PageContainer, PageHeader } from "../../styles/Layout";
 import { ProjectListItem, UnsortedList } from "../../styles/List";
 import { Image } from "../../styles/Images";
 import RectangleButton from "../shared/elements/clickables/RectangleButton";
 import { AuthContext } from "../../context/AuthProvider";
 import ProjectCreate from "../feature/Projects/ProjectCreate";
 import { getProjectsFor } from "../../services/controllers/Projects";
+import { ProjectCardLink, ProjectLink } from "../../styles/Navigation";
 
 export default function ProjectOverview() {
     const { setIsLoading, setHasError } = useContext(UtilityContext);
@@ -39,7 +40,6 @@ export default function ProjectOverview() {
         }
 
         getData()
-        console.log(loadedProjects)
 
         return function clearData() {
             source.cancel();
@@ -69,9 +69,9 @@ export default function ProjectOverview() {
 
     return (
         <PageContainer>
-            <H1>
+            <CenteredHeader>
                 Projects
-            </H1>
+            </CenteredHeader>
             <SubTitle>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             </SubTitle>
@@ -88,26 +88,25 @@ export default function ProjectOverview() {
             }
             <UnsortedList>
                 { loadedProjects && loadedProjects.map(project => (
-                    <ProjectListItem to={ `/project/${ project.id }` } key={ project.id }>
+                    <ProjectListItem key={ project.id }>
                         <DetailContainer>
-                            <h4> { project.projectName } </h4>
+                            <ProjectCardLink to={ `/projects/${ project.projectId }` }>
+                                { project.projectName }
+                            </ProjectCardLink>
 
                             <span>{ project.category.name }</span>
-                            <span>{ project.projectOwner.username }</span>
                             <span>{ project.startTime }</span>
+                            <DetailRow className="users">
+                                <Owner>{ project.projectOwner.username } | </Owner>
+                                { project?.collaborators.map((user, index) => (
+                                    <User className="on">{ user.username } </User>
+                                )) }
+                            </DetailRow>
                         </DetailContainer>
 
                         <Image src={ project.imageUrl }/>
 
-                        {/*<span> { admin.email }</span>*/ }
-                        {/*<span> { admin?.description }</span>*/ }
-                        { project?.collaborators.map(user => (
-                            <li key={ user.imageUrl } title={ user.username }>
-                                <div>
-                                    <img src={ user.imageUrl }/>
-                                </div>
-                            </li>
-                        )) }
+
 
                     </ProjectListItem>
                 )) }

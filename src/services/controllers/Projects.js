@@ -27,11 +27,11 @@ export const getOneProject = async (setHasError, setIsLoading, id) => {
     setHasError(false);
     setIsLoading(true)
     try {
-        return await axios.get(`${ REACT_APP_API_URL }projects/${ id }`, {
+        const results =  await axios.get(`${ REACT_APP_API_URL }projects/${ id }`, {
             cancelToken: source.token
-        }).then(() => {
-            setIsLoading(false)
-        });
+        })
+        setIsLoading(false);
+        return results
     } catch (err) {
         setHasError(true);
         console.error(err);

@@ -5,7 +5,7 @@ import axios from "axios";
 ////////////////////
 //// Environmental
 import { UtilityContext } from "../../../context/UtilityProvider";
-import { H2 } from "../../../styles/Typography";
+import { CenteredSubHeader } from "../../../styles/Typography";
 import { TaskListItem, UnsortedList } from "../../../styles/List";
 import { AuthContext } from "../../../context/AuthProvider";
 import TaskItem from "./TaskItem";
@@ -46,9 +46,9 @@ export default function TaskList({ editCount, setEditCount }) {
 
     return (
         <Container>
-            <H2>
+            <CenteredSubHeader>
                 Your tasks
-            </H2>
+            </CenteredSubHeader>
 
 
             <UnsortedList>

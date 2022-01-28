@@ -17,5 +17,17 @@ export const ProjectLink = styled(NavLink)`
   max-width: 20ch;
 `
 
+export const ProjectCardLink = styled(NavLink)`
+  display: inline-block;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+  padding-right: 1rem;
+  font-weight: 700;
+  color: ${ props => props.theme.text };
+`
+
 /** Created by ownwindows on 15-01-22 **/
 

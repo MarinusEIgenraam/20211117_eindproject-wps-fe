@@ -4,7 +4,7 @@ import React from 'react'
 import AuthRegister from "../feature/Auth/AuthRegister";
 import AuthLogin from "../feature/Auth/AuthLogin";
 import { PageContainer, PageHeader } from "../../styles/Layout";
-import { H1, SubTitle } from "../../styles/Typography";
+import { CenteredHeader, SubTitle } from "../../styles/Typography";
 
 ////////////////////
 //// Environmental
@@ -17,9 +17,9 @@ export default function Register() {
 
     return (
         <PageContainer>
-            <H1>
+            <CenteredHeader>
                 Are you willpowered?
-            </H1>
+            </CenteredHeader>
             <SubTitle>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             </SubTitle>
