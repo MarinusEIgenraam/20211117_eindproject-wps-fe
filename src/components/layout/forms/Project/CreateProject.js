@@ -1,32 +1,29 @@
 ////////////////////
 //// Build
 import React, { useContext, useState } from 'react'
-import styled from 'styled-components';
 import { useForm } from "react-hook-form";
 import { UtilityContext } from "../../../../context/UtilityProvider";
 import FieldArray from "./TaskListProject";
 import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
-import { postProject, uploadImage } from "../../../../services/controllers/postRequests";
-import SelectCategory from "../../../shared/elements/FormElements/SelectCategory";
 import {
-    CashOnContent,
-    CashOnImage,
-    CashOnWrap,
     Form,
     FormBreak,
     FormError,
     FormInput,
     FormInputWrap,
-    FormLabel, FormSection, FormSectionHeading, Heading
+    FormLabel,
+    FormSection,
+    FormSectionHeading,
+    Heading
 } from "../../../shared/styling/FormStyles";
-import { H2 } from "../../../shared/styling/Text";
-import InputField from "../../../shared/elements/FormElements/InputField";
 import { ButtonBox } from "../../../shared/styling/Form";
+import { postProject } from "../../../../services/controllers/Projects";
+import { uploadImage } from "../../../../services/controllers/Images";
+import SelectCategory from "../../../shared/elements/FormElements/SelectCategory";
 
 ////////////////////
 //// Environmental
 
-const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
 
 ////////////////////
 //// External
@@ -53,9 +50,7 @@ const defaultValues = {
 };
 
 export default function CreateProject() {
-    const [ projectCategory, setProjectCategory ] = useState('');
-    const { hasError, setHasError, setIsLoading } = useContext(UtilityContext);
-    const [ error, toggleError ] = useState(false);
+    const { setHasError, setIsLoading } = useContext(UtilityContext);
     const [ publicVisibility, setPublicVisibility ] = useState(true);
     const [ picture, setPicture ] = useState('')
 
@@ -73,52 +68,37 @@ export default function CreateProject() {
 
     const handleImageChange = (event) => {
         if (!event || !event.target.files) {
-            console.log("anything")
             return
         }
         const imageFile = event.target.files[0]
         const imageURL = URL.createObjectURL(imageFile)
         setPicture(imageURL)
-        console.log(picture)
     }
 
 
     const onSubmit = async (values) => {
         setIsLoading(true)
-        console.log("jo")
-        console.log(values);
 
         if (values.imageUrl[0]) {
             if (values.imageUrl[0].type === 'image/jpeg' || values.imageUrl[0].type === 'image/png') {
-                const imgur = await uploadImage(values.imageUrl[0])
-                console.log(imgur)
+                const imgur = await uploadImage(setHasError, setIsLoading, values.imageUrl[0])
                 const request = {
                     ...values,
-                    categoryId: projectCategory,
                     imageUrl: imgur
                 }
-                const response = await postProject(request)
-                const project = { ...response }
-                console.log(project)
+                await postProject(setHasError, setIsLoading, request)
 
             } else (
                 console.log('incorrect input')
             )
         } else {
-            console.log(projectCategory)
-
             const imgur = ''
             const request = {
                 ...values,
-                categoryId: projectCategory,
                 imageUrl: imgur
             }
-            const response = await postProject(request)
-            const project = { ...response }
-            console.log(project)
-
+            await postProject(setHasError, setIsLoading, request)
         }
-        setIsLoading(false)
     }
 
     const handleVisibility = () => {
@@ -206,10 +186,11 @@ export default function CreateProject() {
 
                     </FormBreak>
                     <FormBreak>
-                        <FormInput>
-                            <SelectCategory register={register} category={projectCategory} setCategory={setProjectCategory}/>
-
-                        </FormInput>
+                        <SelectCategory
+                            defaultValue={ "Category" }
+                            register={ register }
+                            parent={ `categoryId, { required: true }` }
+                        />
                         <FormInput className="radio">
                             <FormLabel>
 
@@ -221,7 +202,7 @@ export default function CreateProject() {
                                 id="publiclyVisible"
                                 value="publiclyVisible"
                                 onClick={handleVisibility}
-                                checked={publicVisibility === true ? true : false}
+                                checked={publicVisibility === true}
                             />
 
                         </FormInput>
@@ -235,7 +216,6 @@ export default function CreateProject() {
                                 </FormError>
                             </FormLabel>
                             <textarea
-                                type="text"
                                 name="description"
                                 id="description"
                                 placeholder="Describe the purpose of your project"

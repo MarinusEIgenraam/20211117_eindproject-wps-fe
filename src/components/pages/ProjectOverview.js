@@ -2,46 +2,31 @@
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
-import { UtilityContext } from "../../../context/UtilityProvider";
 import axios from "axios";
-import { DetailContainer, H1, H2, SubTitle } from "../../shared/styling/Text";
-import { PageContainer, PageHeader } from "../../shared/styling/Layout";
-import Logo from "../../../assets/images/home_background.png";
-import { Ul, UnorderedList } from "../../shared/styling/List";
-import { Image } from "../../shared/styling/Images";
-import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
 import { AiOutlineClose } from "react-icons/all";
-import CreateBlog from "../../layout/forms/Blog/CreateBlog";
-import { AuthContext } from "../../../context/AuthProvider";
-import CreateProject from "../../layout/forms/Project/CreateProject";
-import { getOneProject, getProjectsFor } from "../../../services/controllers/getRequests";
-
 ////////////////////
 //// Environmental
-const { REACT_APP_API_URL } = process.env;
-
-////////////////////
-//// External
+import { UtilityContext } from "../../context/UtilityProvider";
+import { DetailContainer, H1, SubTitle } from "../shared/styling/Text";
+import { PageContainer, PageHeader } from "../shared/styling/Layout";
+import { UnorderedList } from "../shared/styling/List";
+import { Image } from "../shared/styling/Images";
+import RectangleButton from "../shared/elements/clickables/RectangleButton/RectangleButton";
+import { AuthContext } from "../../context/AuthProvider";
+import CreateProject from "../layout/forms/Project/CreateProject";
+import { getProjectsFor } from "../../services/controllers/Projects";
 
 export default function ProjectOverview() {
-    const [ pageOffset, setPageOffset ] = useState(0);
-    const { setIsLoading } = useContext(UtilityContext);
-    const { isAuth, user } = useContext(AuthContext);
+    const { setIsLoading, setHasError } = useContext(UtilityContext);
+    const { user } = useContext(AuthContext);
     const [ writeProject, setWriteProject ] = useState(false);
-    const [ hasError, setHasError ] = useState(false);
     const [ requestUri, setRequestUri ] = useState('');
-    const [ categoryUri, setCategoryUri ] = useState('');
 
     const [ loadedProjects, setLoadedProjects ] = useState();
-    const [ filteredProjects, setFilteredProjects ] = useState(loadedProjects);
-    const [ searchParam, setSearchParam ] = useState([ "owner", "name" ])
 
-    const [ isSelected, setIsSelected ] = useState({});
     const [ projectCategory, setProjectCategory ] = useState('');
 
-    const API_URL = `${ REACT_APP_API_URL }projects`;
     const source = axios.CancelToken.source();
-    const token = localStorage.getItem('token');
 
 
     useEffect(() => {
@@ -49,12 +34,10 @@ export default function ProjectOverview() {
             setRequestUri(`?categoryId=${ projectCategory }`)
         }
 
-        const getData = async()=>{
-            setHasError(false);
-            setIsLoading(true)
-            const response = await getProjectsFor(requestUri)
-            setLoadedProjects(response.content);
-            setIsLoading(false)
+        const getData = async () => {
+            const response = await getProjectsFor(setHasError, setIsLoading, requestUri)
+            console.log(response)
+            setLoadedProjects(response.data.content);
         }
 
         getData()
@@ -64,7 +47,7 @@ export default function ProjectOverview() {
             source.cancel();
         };
 
-    }, [projectCategory]);
+    }, [ projectCategory ]);
 
     const renderButton = () => {
         if (user?.authorities === "Project lord" | "Project manager" && !writeProject) {
@@ -103,7 +86,7 @@ export default function ProjectOverview() {
                 velit. Adipisci amet animi debitis dolor dolores eaque iusto laboriosam magni omnis pariatur possimus
                 reprehenderit, sed soluta, tempore voluptatibus.
             </PageHeader>
-            {renderButton() }
+            { renderButton() }
             { writeProject &&
                 <CreateProject/>
             }
@@ -154,8 +137,8 @@ const ProjectItem = styled.li`
 
   :not(:nth-child(1)) {
     margin-top: -130px;
-    box-shadow: rgba(0, 0, 0, 0.45) 0px -20px 20px -20px;  
-  
+    box-shadow: rgba(0, 0, 0, 0.45) 0px -20px 20px -20px;
+
   }
 
   :hover {

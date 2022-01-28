@@ -9,18 +9,18 @@ import styled from 'styled-components';
 //// Internal
 import Navbar from "./components/shared/views/Navbar";
 import PrivateRoutes from "./router/PrivateRoutes";
-import Portal from "./components/pages/Portal/Portal";
-import Home from "./components/pages/Home/Home";
+import Portal from "./components/pages/Portal";
+import Home from "./components/pages/Home";
 import BlogOverview from "./components/pages/Blogs/BlogOverview";
 import Register from "./components/pages/Register/Register";
-import About from "./components/pages/About/About";
-import ProjectDetails from "./components/pages/Projects/ProjectDetails";
-import Blog from "./components/pages/Blogs/Blog";
-import UserOverview from "./components/pages/Users/UserOverview";
-import UserProfile from "./components/pages/Users/UserProfile";
+import About from "./components/pages/About";
+import ProjectDetails from "./components/pages/ProjectDetails";
+import Blog from "./components/pages/Blog";
+import UserOverview from "./components/pages/UserOverview";
+import UserProfile from "./components/pages/UserProfile";
 import NoComponentFound from "./components/pages/NoComponentFound";
 import Footer from "./components/shared/views/Footer";
-import ProjectOverview from "./components/pages/Projects/ProjectOverview";
+import ProjectOverview from "./components/pages/ProjectOverview";
 
 function App() {
     const [ value, setValue ] = useState(``);
@@ -40,9 +40,8 @@ function App() {
                 {/*<Route path='/Login' element={ <Login/> }/>*/ }
                 <Route path='/about' element={ <About/> }/>
 
-                <Route path="/users" element={ <UserOverview/> }>
-                    <Route path=':id' element={ <UserProfile/> }/>
-                </Route>
+                <Route path="/users" element={ <UserOverview/> }/>
+                <Route path='/users/:username' element={ <UserProfile/> }/>
                 <Route path='/me' element={
                     <PrivateRoutes>
                         <Portal/>
@@ -64,8 +63,8 @@ const AppContainer = styled.div`
   flex: 1;
   color: ${ props => props.theme.text };
   background: ${ props => props.theme.background };
-  
-  
+
+
 
 `;
 

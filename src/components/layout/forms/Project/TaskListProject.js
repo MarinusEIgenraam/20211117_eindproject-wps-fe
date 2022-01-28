@@ -5,15 +5,8 @@ import { useFieldArray } from "react-hook-form";
 import styled from 'styled-components';
 ////////////////////
 //// Environmental
-import RectangleButton from "../../../shared/elements/clickables/RectangleButton/RectangleButton";
-import Tooltip from "../../../shared/elements/messages/Tooltip";
+import Tooltip from "../../../shared/elements/old/Tooltip";
 import { IoIosAddCircle, IoIosRemoveCircleOutline } from "react-icons/io";
-import InputField from "../../../shared/elements/FormElements/InputField";
-import { ListItem, TaskList } from "../../../shared/styling/List";
-import { Row } from "../../../shared/styling/Layout";
-import { ButtonBox } from "../../../shared/styling/Form";
-import NestedArray from "./TaskListTask";
-import { ErrorMessage } from "../../../shared/styling/Text";
 import {
     FormBreak,
     FormError,
@@ -21,16 +14,15 @@ import {
     FormInputWrap,
     FormLabel,
     FormSection,
-    FormSectionHeading, SubFormHeading
+    FormSectionHeading,
+    SubFormHeading
 } from "../../../shared/styling/FormStyles";
 import SelectUser from "../../../shared/elements/FormElements/SelectUser";
-import SelectCategory from "../../../shared/elements/FormElements/SelectCategory";
 
-let renderCount = 0;
 
-export default function Fields({ control, register, setValue, getValues, errors, listName }) {
+export default function Fields({ control, register, errors }) {
     const [ taskOwner, setTaskOwner ] = useState();
-    const { fields, append, remove, prepend } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control,
         name: "projectTaskList"
     });
@@ -45,13 +37,13 @@ export default function Fields({ control, register, setValue, getValues, errors,
                 console.log(item)
                 return (
                     <FormInputWrap key={ item.id }>
-                        <SubFormHeading>Task {index+1}</SubFormHeading>
+                        <SubFormHeading>Task { index + 1 }</SubFormHeading>
                         <FormBreak>
                             <FormInput>
                                 <FormLabel>
                                     <label htmlFor="taskName">Task name</label>
                                     <FormError role="alert">
-                                        {errors?.projectTaskList?.[index]?.taskName && "Enter a task name!"}
+                                        { errors?.projectTaskList?.[index]?.taskName && "Enter a task name!" }
                                     </FormError>
                                 </FormLabel>
                                 <input
@@ -59,8 +51,9 @@ export default function Fields({ control, register, setValue, getValues, errors,
                                     name="taskName"
                                     id="taskName"
                                     placeholder="Assign a task"
-                                    {...register(`projectTaskList[${ index }].taskName`, {
-                                        required: true})}
+                                    { ...register(`projectTaskList[${ index }].taskName`, {
+                                        required: true
+                                    }) }
                                 />
                             </FormInput>
                         </FormBreak>
@@ -69,15 +62,16 @@ export default function Fields({ control, register, setValue, getValues, errors,
                                 <FormLabel>
                                     <label htmlFor="deadline">Deadline</label>
                                     <FormError role="alert">
-                                        {errors?.projectTaskList?.[index]?.endTime && "Please set a deadline!"}
+                                        { errors?.projectTaskList?.[index]?.endTime && "Please set a deadline!" }
                                     </FormError>
                                 </FormLabel>
                                 <input
                                     type="date"
                                     name="endTime"
                                     id="endTime"
-                                    {...register(`projectTaskList[${ index }].endTime`, {
-                                        required: true})}
+                                    { ...register(`projectTaskList[${ index }].endTime`, {
+                                        required: true
+                                    }) }
                                 />
                             </FormInput>
 
@@ -87,7 +81,7 @@ export default function Fields({ control, register, setValue, getValues, errors,
                                 <FormLabel>
                                     <label htmlFor="description">Description</label>
                                     <FormError role="alert">
-                                        {errors?.projectTaskList?.[index]?.description && "Please describe your task!"}
+                                        { errors?.projectTaskList?.[index]?.description && "Please describe your task!" }
                                     </FormError>
                                 </FormLabel>
                                 <textarea
@@ -95,17 +89,25 @@ export default function Fields({ control, register, setValue, getValues, errors,
                                     name="description"
                                     id="description"
                                     placeholder="Describe how to complete this task"
-                                    {...register(`projectTaskList[${ index }].description`, {
-                                        required: true})}
+                                    { ...register(`projectTaskList[${ index }].description`, {
+                                        required: true
+                                    }) }
                                 />
                             </FormInput>
                         </FormBreak>
                         <FormBreak>
+                            <FormLabel>
+                                <label htmlFor="description">Task owner</label>
+                                <FormError role="alert">
+                                    { errors.taskOwner && "Enter a project name!" }
+                                </FormError>
+                            </FormLabel>
+                            <SelectUser
+                                defaultValue={ "Task owner" }
+                                register={ register }
+                                parent={ `projectTaskList[${ index }].task` }
+                                />
 
-                            <FormInput>
-                                <SelectUser location={`projectTaskList[${ index }]`} user={taskOwner} setUser={setTaskOwner}/>
-
-                            </FormInput>
                         </FormBreak>
 
                         <IconBox>

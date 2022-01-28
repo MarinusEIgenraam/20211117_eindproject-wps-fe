@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import { HeaderContainer } from "../../shared/styling/TextLayout";
 import { H1, H2, SubTitle } from "../../shared/styling/Text";
 import { PageContainer, PageHeader } from "../../shared/styling/Layout";
-import Blog from "./Blog";
+import Blog from "../Blog";
 import CreateBlog from "../../layout/forms/Blog/CreateBlog";
 import { AuthContext } from "../../../context/AuthProvider";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";

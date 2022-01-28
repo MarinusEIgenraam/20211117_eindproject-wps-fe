@@ -9,6 +9,9 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../context/AuthProvider";
 import { ButtonBox, FormWindow } from "../../shared/styling/Form";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton/RectangleButton";
+import { UtilityContext } from "../../../context/UtilityProvider";
+import { uploadImage, uploadProfileImage } from "../../../services/controllers/Images";
+import { postProject } from "../../../services/controllers/Projects";
 
 ////////////////////
 //// Environmental
@@ -19,6 +22,8 @@ import RectangleButton from "../../shared/elements/clickables/RectangleButton/Re
 export default function UserDetails() {
     const [ changeUsername, setChangeUsername ] = useState();
     const { user } = useContext(AuthContext);
+    const { hasError, setHasError, setIsLoading } = useContext(UtilityContext);
+    const [ picture, setPicture ] = useState('')
     const {
         control,
         register,
@@ -29,6 +34,28 @@ export default function UserDetails() {
         setValue
     } = useForm({
     });
+
+    const handleImageChange = (event) => {
+        if (!event || !event.target.files) {
+            console.log("anything")
+            return
+        }
+        const imageFile = event.target.files[0]
+        const image = URL.createObjectURL(imageFile)
+        setPicture(image)
+        console.log(picture)
+    }
+
+    const onSubmit = async (values) => {
+        setIsLoading(true)
+        console.log("jo")
+        console.log(values);
+
+        const profileImage = await uploadProfileImage(values.file[0])
+        console.log(profileImage)
+
+        setIsLoading(false)
+    }
 
     console.log(user)
     return (
@@ -55,27 +82,7 @@ export default function UserDetails() {
             </ButtonBox>
             <Form className="editForm" >
                 <FormInputWrap>
-                    {changeUsername &&
-                        <FormBreak>
-                            <FormInput>
-                                <FormLabel>
-                                    <label htmlFor="username">Username</label>
-                                    <FormError role="alert">
-                                        {errors.username && "Enter your username!"}
-                                    </FormError>
-                                </FormLabel>
-                                <input
-                                    type="text"
-                                    name="username"
-                                    id="username"
-                                    placeholder="WillPower"
-                                    defaultValue={user.username}
-                                    {...register("username", {
-                                        required: true})}
-                                />
-                            </FormInput>
-                        </FormBreak>
-                    }
+
 
                     <FormBreak>
                         <FormInput>
@@ -99,6 +106,29 @@ export default function UserDetails() {
 
                 </FormInputWrap>
             </Form>
+            <form onSubmit={handleSubmit(onSubmit)}>
+
+                <FormBreak>
+                    <FormInput>
+                        <FormLabel>
+                            <label htmlFor="image">Profile image</label>
+                            <FormError role="alert">
+                                {errors.imageUrl && "Please provide a jpg or png image!"}
+                            </FormError>
+                        </FormLabel>
+                        <input
+                            type="file"
+                            name="file"
+                            id="file"
+                            {...register("file")}
+                            onChange={ handleImageChange }
+                        />
+
+                    </FormInput>
+                    <input type="submit" value="Upload File" />
+
+                </FormBreak>
+            </form>
 
         </FormWindow>
     )

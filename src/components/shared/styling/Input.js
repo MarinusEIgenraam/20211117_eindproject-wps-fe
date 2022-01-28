@@ -17,10 +17,7 @@ export const SelectContainer = styled.div`
   width: 100%;
   font-size:1.1rem;
   font-weight: 500;
-
-  @media (min-width: 768px) {
-    width: 70%;
-  }
+  
   
   height: 3rem;
   border: 1px solid ${ props => props.theme.border };

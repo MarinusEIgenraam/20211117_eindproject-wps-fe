@@ -1,45 +1,25 @@
 ////////////////////
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components';
-import { UtilityContext } from "../../../../context/UtilityProvider";
 import axios from "axios";
 ////////////////////
 //// Environmental
-import Dropdown from "../clickables/Dropdown/Dropdown";
+import { UtilityContext } from "../../../../context/UtilityProvider";
+import { Select, SelectContainer } from "../../styling/Input";
+import { getCategories } from "../../../../services/controllers/Category";
 
-const { REACT_APP_API_URL } = process.env;
-
-////////////////////
-//// External
-
-export default function SelectCategory({ setCategory, category }) {
-    const { setIsLoading } = useContext(UtilityContext);
+export default function SelectCategory({ register, parent, defaultValue }) {
+    const { setIsLoading, setHasError } = useContext(UtilityContext);
     const [ loadedCategories, setLoadedCategories ] = useState(false);
-    const [ hasError, setHasError ] = useState(false);
 
-    const API_URL = `${ REACT_APP_API_URL }categories/all`;
-
-
-    useEffect(() => {
+    useEffect( () => {
         const source = axios.CancelToken.source();
 
-        async function getData() {
-            setHasError(false);
-            setIsLoading(true)
-
-
-            try {
-                const result = await axios.get(API_URL, { cancelToken: source.token, });
-                setLoadedCategories(result.data);
-
-            } catch (e) {
-                console.error(e);
-                setHasError(true);
-            }
-            setIsLoading(false)
+        const getData = async () => {
+            const result = await getCategories(setHasError, setIsLoading);
+            setLoadedCategories(result.data)
+            console.log(result)
         }
-
         getData()
 
         return function clearData() {
@@ -47,48 +27,23 @@ export default function SelectCategory({ setCategory, category }) {
         };
     }, []);
 
-
     return (
-        <Row>
-            { loadedCategories &&
-                <Dropdown onChange={ setCategory }
-                          data={ [
-                              loadedCategories.map((categoryEntity) => {
-                                  return (
-                                      ( {
-                                          value: categoryEntity.id,
-                                          label: categoryEntity.name,
-                                          iconClass: categoryEntity.name
-                                      } )
-                                  )
-                              })
-                          ] }
-                          value={ category }
+        <SelectContainer id="SelectContainer">
+            <Select { ...register(`${parent}`) }>
+                <option key={defaultValue} value={ defaultValue }>{defaultValue}</option>
+                { loadedCategories &&
+                    loadedCategories.map((category, key) => {
+                            return (
+                                <option key={key} value={ category.id }>{category.name}</option>
+                            )
+                        }
+                    )
+                }
 
-                          placeholder='Category'
-                />
-            }
-
-        </Row>
+            </Select>
+        </SelectContainer>
     );
 }
 
-export const Row = styled.div`
-  background-color: ${ props => props.theme.background };
-  width: 100%;
-  flex-direction: column;
-  gap: 1rem;
-
-  @media screen and (min-width: 650px) {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  & > * {
-    flex: 1;
-    margin: 1.375rem auto 0rem auto;
-  }
-`;
 
 /** Created by ownwindows on 08-01-22 **/

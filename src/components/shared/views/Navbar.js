@@ -5,13 +5,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 ////////////////////
 //// Environmental
-import { RiLoginCircleFill } from "react-icons/ri";
-import { AuthContext } from "../../../context/AuthProvider";
-import LogoLoader from "../elements/messages/LogoLoader";
-import Tooltip from "../elements/messages/Tooltip";
-import useMediaQuery from "../../../hooks/useMediaQuery";
-import ThemeSwitch from "../elements/clickables/ThemeSwitch";
 import { QUERIES } from "../../../services/helpers/mediaQueries";
+import useMediaQuery from "../../../hooks/useMediaQuery";
+import { AuthContext } from "../../../context/AuthProvider";
+import { RiLoginCircleFill } from "react-icons/ri";
+import ThemeSwitch from "../elements/clickables/ThemeSwitch";
+import LogoLoader from "../elements/messages/LogoLoader";
+import Tooltip from "../elements/old/Tooltip";
 
 ////////////////////
 //// External
@@ -120,16 +120,12 @@ const Nav = styled.div`
   }
 `
 
-
 const Menu = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: ${ props => props.theme.text };
   position: relative;
-  
-
- //TODO Set to min width
   
   @media (max-width: 768px) {
     justify-content: center;
@@ -142,6 +138,7 @@ const Menu = styled.div`
     width: 100%;
   }
 `
+
 const MenuLink = styled(NavLink)`
 
   cursor: pointer;

@@ -1,94 +1,48 @@
 ////////////////////
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components';
 import { UtilityContext } from "../../../../context/UtilityProvider";
 import axios from "axios";
 ////////////////////
 //// Environmental
-import Dropdown from "../clickables/Dropdown/Dropdown";
+import { Select, SelectContainer } from "../../styling/Input";
+import { getUsers } from "../../../../services/controllers/Users";
 
-const { REACT_APP_API_URL } = process.env;
-
-////////////////////
-//// External
-
-export default function SelectUser({ setUser, user, location }) {
-    const { setIsLoading } = useContext(UtilityContext);
+export default function SelectUser({ register, parent, defaultValue }) {
+    const { setIsLoading, setHasError } = useContext(UtilityContext);
     const [ loadedUsers, setLoadedUsers ] = useState(false);
-    const [ hasError, setHasError ] = useState(false);
 
-    const API_URL = `${ REACT_APP_API_URL }users`;
-
-
-    useEffect(() => {
+    useEffect( () => {
         const source = axios.CancelToken.source();
 
-        async function getData() {
-            setHasError(false);
-            setIsLoading(true)
-            try {
-                const result = await axios.get(API_URL, { cancelToken: source.token, });
-
-                setLoadedUsers(result.data.content);
-                console.log(loadedUsers)
-
-            } catch (e) {
-                console.error(e);
-                setHasError(true);
-            }
-            console.log(loadedUsers)
-            setIsLoading(false)
+        const getData = async () => {
+            const userData = await getUsers(setHasError, setIsLoading);
+            setLoadedUsers(userData.data.content)
         }
-
         getData()
 
         return function clearData() {
             source.cancel();
         };
-
     }, []);
 
-
     return (
-        <Row>
-            { loadedUsers &&
-                <Dropdown onChange={ setUser }
-                          data={ [
-                              loadedUsers.map((user) => {
-                                  return (
-                                      ( {
-                                          value: user.username,
-                                          label: user.username,
-                                          iconClass: user.username
-                                      } )
-                                  )
-                              })
-                          ] }
-                          value={ location.user }
+        <SelectContainer id="SelectContainer">
+            <Select { ...register(`${parent}Owner.username`) }>
+                <option key={defaultValue} value={ defaultValue }>{defaultValue}</option>
+                { loadedUsers &&
+                    loadedUsers.map((user, key) => {
+                            return (
+                                <option key={key} value={ user.username }>{user.username}</option>
+                            )
+                        }
+                    )
+                }
 
-                          placeholder='Task owner'/>
-            }
-
-        </Row>
+            </Select>
+        </SelectContainer>
     );
 }
 
-export const Row = styled.div`
-  background-color: ${ props => props.theme.background };
-  width: 100%;
-  flex-direction: column;
-  gap: 1rem;
 
-  @media screen and (min-width: 650px) {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  & > * {
-    flex: 1;
-    margin: 1.375rem auto 0rem auto;
-  }
-`;
 /** Created by ownwindows on 08-01-22 **/

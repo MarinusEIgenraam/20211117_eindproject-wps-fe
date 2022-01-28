@@ -9,7 +9,7 @@ import { UnorderedList } from "../../shared/styling/List";
 import { IoCheckmarkDoneCircleSharp } from "react-icons/all";
 import { AuthContext } from "../../../context/AuthProvider";
 import { NavLink } from "react-router-dom";
-import Tooltip from "../../shared/elements/messages/Tooltip";
+import Tooltip from "../../shared/elements/old/Tooltip";
 import TaskItem from "./TaskItem";
 import { IconBox } from "../../shared/styling/Icons";
 

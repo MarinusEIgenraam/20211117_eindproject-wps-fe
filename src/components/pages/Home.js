@@ -2,14 +2,14 @@
 //// Build
 import React, { useContext } from 'react'
 import styled from 'styled-components';
-import LoginWindow from "../../layout/forms/Auth/LoginWindow";
-import { AuthContext } from "../../../context/AuthProvider";
-import { PageContainer} from "../../shared/styling/Layout";
-import { BackgroundImage, Img } from "../../shared/styling/Images";
+import LoginWindow from "../layout/forms/Auth/LoginWindow";
+import { AuthContext } from "../../context/AuthProvider";
+import { PageContainer} from "../shared/styling/Layout";
+import { BackgroundImage, Img } from "../shared/styling/Images";
 
 ////////////////////
 //// Environmental
-import homeBackground from '../../../assets/images/home_background.png'
+import homeBackground from '../../assets/images/home_background.png'
 
 ////////////////////
 //// External

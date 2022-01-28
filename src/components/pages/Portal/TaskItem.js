@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { UtilityContext } from "../../../context/UtilityProvider";
 import { AuthContext } from "../../../context/AuthProvider";
-import Tooltip from "../../shared/elements/messages/Tooltip";
+import Tooltip from "../../shared/elements/old/Tooltip";
 import { IoBanOutline, IoCheckmarkSharp, IoCreateOutline, IoIosSend, TiArrowBack, TiThumbsOk } from "react-icons/all";
 import { FinishedBox, IconBox } from "../../shared/styling/Icons";
 import {
@@ -17,11 +17,11 @@ import {
     FormSection
 } from "../../shared/styling/FormStyles";
 import { useForm } from "react-hook-form";
-import SelectUsers from "../../shared/elements/select/SelectUsers";
+import SelectUser from "../../shared/elements/FormElements/SelectUser";
 import TaskSubList from "./TaskSubList";
 import AddTask from "./AddTask";
 import { IoIosAddCircle, IoIosRemoveCircleOutline } from "react-icons/io";
-import { putTask } from "../../../services/controllers/putRequests";
+import { putTask } from "../../../services/controllers/Tasks";
 
 ////////////////////
 //// Environmental
@@ -151,9 +151,9 @@ export default function TaskItem({ task, editCount, setEditCount }) {
                                                 { errors.taskOwner && "Enter a project name!" }
                                             </FormError>
                                         </FormLabel>
-                                        <SelectUsers defaultValue={ editedTask.taskOwner.username }
-                                                     register={ register }
-                                                     parent="task"/>
+                                        <SelectUser defaultValue={ editedTask.taskOwner.username }
+                                                    register={ register }
+                                                    parent="task"/>
 
                                     </FormEdit>
                                     <IconBox className="bottom">

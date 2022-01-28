@@ -13,6 +13,8 @@ import CreateProject from "../../layout/forms/Project/CreateProject";
 import { Container } from "../../shared/styling/Layout";
 import { ProjectLink } from "../../shared/styling/Navigation";
 import { NavLink } from "react-router-dom";
+import { getTasksFor } from "../../../services/controllers/Tasks";
+import { getProjectsFor } from "../../../services/controllers/Projects";
 
 ////////////////////
 //// Environmental
@@ -46,36 +48,22 @@ export default function ListProject() {
             setCategoryUri(`?categoryId=${ projectCategory }`)
         }
 
-        async function getData() {
+        const getData = async()=>{
             setHasError(false);
             setIsLoading(true)
-
-
-            try {
-                const result = await axios.get(`${ API_URL }${ categoryUri }`, {
-                    cancelToken: source.token,
-                    headers: {
-                        Authorization: `Bearer ${ token }`
-                    }
-                });
-
-                setLoadedProjects(result.data.content);
-                console.log(loadedProjects)
-            } catch (e) {
-                console.error(e);
-                setHasError(true);
-            }
+            const projects = await getProjectsFor(categoryUri)
+            console.log(projects);
+            setLoadedProjects(projects.data.content)
             setIsLoading(false)
         }
 
         getData()
-        console.log(loadedProjects)
 
         return function clearData() {
             source.cancel();
         };
 
-    }, [ pageOffset, projectCategory ]);
+    }, [projectCategory]);
 
     const handleSearch = (event) => {
     }
@@ -90,7 +78,7 @@ export default function ListProject() {
                 <UnorderedList>
                 { loadedProjects && loadedProjects.map(project => (
                     <ProjectListItem key={ project.id }>
-                        <NavLink to={ `/project/${ project.id }` } ><h6> { project.projectName } </h6></NavLink>
+                        <NavLink to={ `/projects/${ project.projectId }` } ><h6> { project.projectName } </h6></NavLink>
 
                         <DetailRow>
                             <h6>{ project.startTime } <span className="light">| { project.category.name } | { project.projectOwner.username } </span>

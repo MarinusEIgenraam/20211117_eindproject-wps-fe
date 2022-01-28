@@ -105,6 +105,7 @@ export default function AuthProvider({ children }) {
         user: isAuth.user,
         login: login,
         logout: logout,
+        setRole: setRole
     };
 
 

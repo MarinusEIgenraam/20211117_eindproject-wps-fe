@@ -9,7 +9,7 @@ import { Input } from "../../styling/Input";
 ////////////////////
 //// External
 
-export default function ImageUpload({register}) {
+export default function InputFile({register}) {
     const [picture, setPicture] = useState('')
 
 

@@ -2,15 +2,15 @@
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
-import { UtilityContext } from "../../../context/UtilityProvider";
+import { UtilityContext } from "../../context/UtilityProvider";
 import axios from "axios";
-import UserListItem from "./UserListItem";
-import { PageContainer, PageHeader, UserItem } from "../../shared/styling/Layout";
-import { HeaderContainer } from "../../shared/styling/TextLayout";
-import { ListWrapper } from "../../shared/styling/List";
-import { DetailContainer, H1, H2, SubTitle } from "../../shared/styling/Text";
-import Logo from "../../../assets/images/home_background.png";
-import { ProfileImage } from "../../shared/styling/Images";
+import UserListItem from "./Users/UserListItem";
+import { PageContainer, PageHeader, UserItem } from "../shared/styling/Layout";
+import { HeaderContainer } from "../shared/styling/TextLayout";
+import { ListWrapper } from "../shared/styling/List";
+import { DetailContainer, H1, H2, SubTitle } from "../shared/styling/Text";
+import Logo from "../../assets/images/home_background.png";
+import { ProfileImage } from "../shared/styling/Images";
 
 ////////////////////
 //// Environmental

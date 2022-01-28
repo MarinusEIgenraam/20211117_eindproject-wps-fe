@@ -2,24 +2,14 @@
 //// Build
 import React, { useContext, useState } from 'react'
 import { useForm } from "react-hook-form";
-import SelectUser from "../../shared/elements/FormElements/SelectUser";
-import Tooltip from "../../shared/elements/messages/Tooltip";
-import { IoIosAddCircle, IoIosRemoveCircleOutline } from "react-icons/io";
-import {
-    Form,
-    FormBreak,
-    FormEdit, FormEditBreak,
-    FormError,
-    FormInput,
-    FormLabel,
-    FormSection
-} from "../../shared/styling/FormStyles";
+import Tooltip from "../../shared/elements/old/Tooltip";
+import { Form, FormEdit, FormEditBreak, FormError, FormLabel, FormSection } from "../../shared/styling/FormStyles";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import { IconBox } from "../../shared/styling/Icons";
 import { AuthContext } from "../../../context/AuthProvider";
-import SelectUsers from "../../shared/elements/select/SelectUsers";
-import { IoBanOutline, IoIosSend } from "react-icons/all";
-import { postProject, postTask, uploadImage } from "../../../services/controllers/postRequests";
+import SelectUser from "../../shared/elements/FormElements/SelectUser";
+import { IoIosSend } from "react-icons/all";
+import { postTask } from "../../../services/controllers/Tasks";
 
 ////////////////////
 //// Environmental
@@ -123,7 +113,7 @@ export default function AddTask({parentTask, editCount, setEditCount}) {
                                 { errors.taskOwner && "Enter a project name!" }
                             </FormError>
                         </FormLabel>
-                        <SelectUsers
+                        <SelectUser
                             defaultValue={ user.username }
                                      register={ register }
                                      parent="task"/>

@@ -6,14 +6,11 @@ import { UtilityContext } from "../../../context/UtilityProvider";
 import axios from "axios";
 import { H2 } from "../../shared/styling/Text";
 import { UnorderedList } from "../../shared/styling/List";
-import { IoCheckmarkDoneCircleSharp, IoCheckmarkSharp, TiArrowBack, TiThumbsOk } from "react-icons/all";
 import { AuthContext } from "../../../context/AuthProvider";
 import { NavLink } from "react-router-dom";
-import Tooltip from "../../shared/elements/messages/Tooltip";
 import TaskItem from "./TaskItem";
-import { FinishedBox, IconBox } from "../../shared/styling/Icons";
-import { putTask } from "../../../services/controllers/postRequests";
 import TaskParentItem from "./TaskParentItem";
+import { getTasksFor } from "../../../services/controllers/Tasks";
 
 ////////////////////
 //// Environmental
@@ -31,46 +28,27 @@ export default function TaskList({editCount, setEditCount}) {
     const [ loadedTasks, setLoadedTasks ] = useState();
     const [ projectCategory, setProjectCategory ] = useState('');
 
-    const API_URL = `${ REACT_APP_API_URL }tasks`;
-
 
     useEffect(() => {
         const source = axios.CancelToken.source();
         const token = localStorage.getItem('token');
-        if (projectCategory) {
-            setCategoryUri(`?categoryId=${ projectCategory }`)
-        }
 
-        async function getData() {
+        const getData = async()=>{
             setHasError(false);
             setIsLoading(true)
-            console.log("reload")
-
-            try {
-                const result = await axios.get(`${ API_URL }?taskOwner=${ user.username }`, {
-                    cancelToken: source.token,
-                    headers: {
-                        Authorization: `Bearer ${ token }`
-                    }
-                });
-
-                setLoadedTasks(result.data);
-                console.log(result.data)
-            } catch (e) {
-                console.error(e);
-                setHasError(true);
-            }
+            const tasks = await getTasksFor(token, user)
+            setLoadedTasks(tasks)
             setIsLoading(false)
         }
-
 
         getData()
 
         return function clearData() {
             source.cancel();
         };
-        console.log(editCount)
-    }, [ editCount ]);
+
+    }, [editCount]);
+
 
 
     return (
