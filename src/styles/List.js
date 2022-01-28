@@ -113,11 +113,13 @@ export const TaskListItem = styled.li`
 
 export const CommentListItem = styled(ListItem)`
   width: 40vw;
+  padding: 1em;
   justify-content: start;
   align-items: start;
-  border: solid var(--box-border-medium) ${ props => props.theme.border };
+  /*border: solid var(--box-border-medium) ${ props => props.theme.border };*/
   height: min-content;
-
+  border-top:none;
+  
   & footer {
     display: flex;
     text-align: start;
@@ -145,7 +147,6 @@ export const ProjectListItem = styled.li`
     box-shadow: rgba(0, 0, 0, 0.45) 0px -20px 20px -20px;
 
   }
-
   :hover {
     border: solid var(--box-border-medium) ${ props => props.theme.border };
     box-shadow: ${ props => props.theme.shadow };

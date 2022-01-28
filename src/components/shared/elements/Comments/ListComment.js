@@ -12,7 +12,7 @@ import { OrderedList } from "../../../../styles/List";
 //// External
 
 export default function ListComment({ comment }) {
-
+    console.log(comment)
     return (
         <CommentList>
             { comment.commentList &&

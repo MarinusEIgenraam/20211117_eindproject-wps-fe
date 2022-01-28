@@ -70,7 +70,7 @@ const Button = styled.button`
     min-height: 2.5rem;
     border: solid 0.1vh var(--tertiary);
     box-shadow: var(--button-shadow);
-
+    padding: 0 10px;
 
     &:hover {
       background: var(--quaternary);
