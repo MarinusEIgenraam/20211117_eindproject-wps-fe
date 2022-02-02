@@ -1,6 +1,6 @@
 ////////////////////
 //// Build
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { Form, FormBreak, FormError, FormInput, FormInputWrap, FormLabel } from "../../../styles/FormStyles";
 import { useForm } from "react-hook-form";
@@ -30,7 +30,14 @@ export default function Footer() {
         await loginUser(setHasError, setIsLoading, event)
     }
 
-    window.addEventListener('scroll', changeBackground);
+    useEffect(() => {
+        const mediaWatcher = window.addEventListener('scroll', changeBackground);
+
+        return function cleanup() {
+            mediaWatcher.removeEventListener('scroll', changeBackground)
+        }
+    },[])
+
 
     return (
         <FooterContainer hasError={ hasError } fixed={ fixed }>

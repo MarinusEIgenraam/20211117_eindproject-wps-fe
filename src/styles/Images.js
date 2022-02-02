@@ -30,8 +30,13 @@ export const ProfileImage = styled.img`
 `
 
 export const BackgroundImage = styled.img`
+  filter: ${ props => props.theme.svg };
+  
   width: 70vw;
   overflow: hidden;
+  &.hero-logo {
+    width: 90vw;
+  }
 `
 
 export const ProjectHero = styled.div`

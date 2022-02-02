@@ -28,7 +28,9 @@ const lightTheme = {
 
     createBackground: "var(--white)",
     background: "var(--white)",
-    windowBackground: "var(--quaternary-quarter)"
+    windowBackground: "var(--quaternary-quarter)",
+
+    svg: "var(--svg-light)"
 };
 
 const darkTheme = {
@@ -47,7 +49,9 @@ const darkTheme = {
 
     windowBackground: "var(--tertiary)",
     createBackground: "var(--tertiary)",
-    background: "var(--secondary)"
+    background: "var(--secondary)",
+
+    svg: "var(--svg-dark)"
 };
 
 const themes = {

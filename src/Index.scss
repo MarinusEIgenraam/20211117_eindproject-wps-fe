@@ -54,6 +54,10 @@
   --box-border-medium: 1.5px;
   --box-border-thick: 2px;
 
+  --svg-dark: invert(33%) sepia(53%) saturate(620%) hue-rotate(143deg) brightness(97%) contrast(99%);
+  --svg-light: invert(99%) sepia(53%) saturate(620%) hue-rotate(143deg) brightness(97%) contrast(99%);
+
+
   --shadow-medium: 15px 15px 1px var(--primary), 15px 15px 1px var(--box-border-medium) var(--secondary-half);
   --shadow-medium-revert: 15px 15px 1px var(--tertiary-quarter), 15px 15px 1px var(--box-border-medium) var(--tertiary);
 

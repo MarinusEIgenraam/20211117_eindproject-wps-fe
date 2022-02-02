@@ -147,9 +147,14 @@ export const PageContainer = styled.div`
   position: relative;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 85vh;
+  min-height: 100vh;
   width: 100%;
 
+  &.home {
+    margin-top: 0;
+    min-height: 85vh;
+
+  }
 
   @media screen and (min-width: 769px) {
     margin-top: 15vh;
