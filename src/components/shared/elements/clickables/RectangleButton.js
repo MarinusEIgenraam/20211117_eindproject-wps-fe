@@ -22,10 +22,10 @@ const STYLES = [
     "btn--special--outline",
 ];
 
-const SIZES = [ "btn--medium", "btn--large", "btn--small" ];
+const SIZES = [ "btn--super-small", "btn--medium", "btn--large", "btn--small" ];
 
 
-const RectangleButton = ({ children, type, onClick, buttonStyle, buttonSize, disabled }) => {
+const RectangleButton = ({ children, type, onClick, buttonStyle, buttonSize, disabled, disabledText }) => {
     const checkButtonStyle = STYLES.includes(buttonStyle) ? buttonStyle : STYLES[0];
     const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize : SIZES[0];
 
@@ -39,9 +39,14 @@ const RectangleButton = ({ children, type, onClick, buttonStyle, buttonSize, dis
 
             { disabled
                 ?
-                <AiFillCloseCircle
-                    size={ 15 }
-                />
+                (disabledText
+                    ?
+                disabledText
+                        :
+                        <AiFillCloseCircle
+                            size={ 15 }
+                        />
+                )
                 :
                 children
             }
@@ -66,18 +71,19 @@ const Button = styled.button`
     cursor: pointer;
     width: max-content;
     align-self: center;
-    align-self: center;
-    min-height: 2.5rem;
+    //min-height: 2.5rem;
     border: solid 0.1vh var(--tertiary);
     box-shadow: var(--button-shadow);
-    padding: 0 10px;
+    //padding: 0 10px;
 
     &:hover {
       background: var(--quaternary);
     }
 
-    &disabled,
-    button[disabled] {
+    &:disabled,
+    &button[disabled] {
+      font-size: 0.8rem;
+      font-weight: 300;
       border: 1px solid #999999;
       background-color: #cccccc;
       color: #666666;
@@ -86,6 +92,16 @@ const Button = styled.button`
 
   /*Sizes*/
 
+  &.btn--super-small {
+    padding: 0.25rem 0.25rem;
+    font-size: 18px;
+    min-width: 100px;
+    height: 25px;
+    text-align: center;
+    box-shadow: none;
+    border: 2px solid var(--danger);
+  }
+  
   &.btn--small {
     min-width: 70px;
     padding: 0.25rem 0.25rem;

@@ -12,8 +12,6 @@ import homeBackground from '../../assets/images/home_background.png'
 export default function Home() {
     const { isAuth } = useContext(AuthContext);
 
-    console.log("isAuth")
-    console.log(isAuth)
     return (
         <PageContainer>
             { !isAuth && <AuthLogin/> }

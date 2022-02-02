@@ -14,29 +14,40 @@ const lightTheme = {
     text: "var(--secondary)",
     header: "var(--secondary-half)",
     sub_text: "var(--primary)",
-    border: "var(--secondary-quarter)",
-    windowBackground: "var(--quaternary-quarter)",
-    boxShadow: "var(--quaternary-dark)",
-    background: "var(--white)",
-    shadow: "var(--shadow-thin-light)",
-    createBorder: "var(--quaternary-half)",
-    createBackground: "var(--white)",
-    createBoxShadow: "var(--quaternary-quarter)",
     createSubText: "var(--primary)",
-    createShadow: "var(--shadow-thin-create)"
+
+    border: "var(--secondary-quarter)",
+    createBorder: "var(--quaternary-half)",
+
+    shadow: "var(--shadow-medium)",
+    createShadow: "var(--shadow-medium-create)",
+
+    topShadow: "var(--shadow-top-thin-light)",
+    boxShadow: "var(--quaternary-dark)",
+    createBoxShadow: "var(--quaternary-quarter)",
+
+    createBackground: "var(--white)",
+    background: "var(--white)",
+    windowBackground: "var(--quaternary-quarter)"
 };
 
 const darkTheme = {
     text: "var(--white)",
     header: "var(--quaternary)",
     sub_text: "var(--secondary)",
+
     border: "var(--secondary-quarter)",
+
+    shadow: "var(--shadow-medium-revert)",
+    createShadow: "var(--shadow-medium-create-revert)",
+
+    boxShadow: "var(--tertiary-quarter)",
+    createBoxShadow: "var(--tertiary-quarter)",
+    topShadow: "var(--shadow-top-thin-light)",
+
     windowBackground: "var(--tertiary)",
     createBackground: "var(--tertiary)",
-    createBoxShadow: "var(--tertiary-quarter)",
-    boxShadow: "var(--tertiary-quarter)",
-    background: "var(--secondary)",
-    shadow: "var(--shadow-thin-light)"
+    background: "var(--secondary)"
 };
 
 const themes = {

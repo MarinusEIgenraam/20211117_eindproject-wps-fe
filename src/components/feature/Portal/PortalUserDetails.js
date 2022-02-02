@@ -1,6 +1,6 @@
 ////////////////////
 //// Build
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 ////////////////////
 //// Environmental
@@ -9,14 +9,19 @@ import { AuthContext } from "../../../context/AuthProvider";
 import { ButtonBox, FormWindow } from "../../../styles/Form";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton";
 import { UtilityContext } from "../../../context/UtilityProvider";
-import { uploadProfileImage } from "../../../services/controllers/Images";
+import { getProfileImage, uploadProfileImage } from "../../../services/controllers/Images";
+import { Image } from "../../../styles/Images";
+import { getProjectsFor } from "../../../services/controllers/Projects";
+import axios from "axios";
 
 export default function PortalUserDetails() {
     const [ changeUsername, setChangeUsername ] = useState();
+    const source = axios.CancelToken.source();
+    const token = localStorage.getItem('token');
     const { user } = useContext(AuthContext);
-    const { hasError, setHasError, setIsLoading } = useContext(UtilityContext);
+    const { setHasError, setIsLoading } = useContext(UtilityContext);
     const [ picture, setPicture ] = useState('')
-    const [ profileImage, setProfileImage ] = useState('')
+    const [ loadedImage, setLoadedImage ] = useState('')
     const {
         control,
         register,
@@ -27,29 +32,40 @@ export default function PortalUserDetails() {
         setValue
     } = useForm({});
 
+    useEffect(() => {
+
+        const getData = async () => {
+            const response = await getProfileImage(setHasError, setIsLoading, user.username)
+            {
+                response && setLoadedImage(response)
+            }
+            console.log(response)
+        }
+
+        getData()
+
+        return function clearData() {
+            source.cancel();
+        };
+
+    }, [ ]);
+
     const handleImageChange = (event) => {
         if (!event || !event.target.files) {
-            console.log("anything")
             return
         }
         const imageFile = event.target.files[0]
         const image = URL.createObjectURL(imageFile)
         setPicture(image)
-        console.log(picture)
     }
 
     const onSubmit = async (values) => {
         setIsLoading(true)
-        console.log("jo")
-        console.log(values);
-
         const profileImage = await uploadProfileImage(setHasError, setIsLoading, values.file[0])
-        console.log(profileImage)
-
         setIsLoading(false)
+        console.log(profileImage)
     }
 
-    console.log(user)
     return (
         <FormWindow>
             <h2 className="centered">
@@ -122,6 +138,7 @@ export default function PortalUserDetails() {
 
                 </FormBreak>
             </form>
+            <Image src={ loadedImage}/>
 
         </FormWindow>
     )

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import { UtilityContext } from "./UtilityProvider";
+import { setRole } from "../services/helpers/filters";
 ///////////////////////
 //// Environmental
 export const AuthContext = createContext({});
@@ -55,17 +56,6 @@ export default function AuthProvider({ children }) {
         navigate('/');
     }
 
-    function setRole(roles) {
-        if (roles.some(e => e.authority === 'ROLE_ADMIN')) {
-            return 'Project lord'
-        } else if (roles.some(e => e.authority === 'ROLE_SUPER_USER')) {
-            return 'Project manager'
-        } else if (roles.some(e => e.authority === 'ROLE_USER')) {
-            return 'Project fanatic';
-        } else {
-            return 'whatwhat?'
-        }
-    }
 
     async function fetchUserData(username, token, redirectUrl) {
         setHasError(false);
@@ -113,7 +103,6 @@ export default function AuthProvider({ children }) {
         user: isAuth.user,
         login: login,
         logout: logout,
-        setRole: setRole
     };
 
 

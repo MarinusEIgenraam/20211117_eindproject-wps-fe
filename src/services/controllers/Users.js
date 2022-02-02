@@ -33,7 +33,7 @@ export const getAdmins = async (setHasError, setIsLoading) => {
     setHasError(false);
     setIsLoading(true)
     try {
-        return await axios.get(`${ REACT_APP_API_URL }users`, { cancelToken: source.token, })
+        return await axios.get(`${ REACT_APP_API_URL }users?authority=ROLE_ADMIN`, { cancelToken: source.token, })
     } catch (e) {
         console.error(e);
         setHasError(true);

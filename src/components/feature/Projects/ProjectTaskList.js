@@ -25,14 +25,12 @@ export default function Fields({ control, register, errors }) {
         name: "projectTaskList"
     });
 
-    console.log(errors)
 
     return (
         <FormSection>
             <FormSectionHeading>Project tasks</FormSectionHeading>
 
             { fields.map((item, index) => {
-                console.log(item)
                 return (
                     <FormInputWrap key={ item.id }>
                         <SubFormHeading>Task { index + 1 }</SubFormHeading>

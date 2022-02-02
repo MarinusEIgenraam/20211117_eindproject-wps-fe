@@ -9,7 +9,7 @@ import { AiOutlineClose } from "react-icons/all";
 import { UtilityContext } from "../../context/UtilityProvider";
 import { CenteredHeader, SubTitle } from "../../styles/Typography";
 import { PageContainer, PageHeader } from "../../styles/Layout";
-import Blog from "./Blog";
+import Blog from "../feature/Blogs/Blog";
 import BlogCreate from "../feature/Blogs/BlogCreate";
 import { AuthContext } from "../../context/AuthProvider";
 import RectangleButton from "../shared/elements/clickables/RectangleButton";
@@ -22,13 +22,17 @@ export default function BlogOverview() {
     const [ loadedBlogs, setLoadedBlogs ] = useState();
     const [ hasError, setHasError ] = useState(false);
     const [ writeBlog, setWriteBlog ] = useState(false)
+    const [pageable, setPageable] = useState('');
+    const [creationCount, setCreationCount] = useState(0);
 
     useEffect(() => {
         const source = axios.CancelToken.source();
 
+        console.log(creationCount)
         async function getData() {
-            const response = await getBlogs(setIsLoading, setHasError)
-            setLoadedBlogs(response.data);
+            const response = await getBlogs(setIsLoading, setHasError, pageable)
+            setLoadedBlogs(response.data.content);
+            console.log(response)
         }
 
         getData()
@@ -37,7 +41,8 @@ export default function BlogOverview() {
             source.cancel();
         };
 
-    }, []);
+
+    }, [creationCount]);
 
     function closeWindow(is) {
         if (isLoading) {
@@ -46,6 +51,8 @@ export default function BlogOverview() {
             setWriteBlog(false)
         }
     }
+
+
 
     return (
         <PageContainer>
@@ -77,7 +84,7 @@ export default function BlogOverview() {
             { writeBlog &&
                 <>
                     <AiOutlineClose onClick={ () => setWriteBlog(false) } size={ 30 }/>
-                    <BlogCreate/>
+                    <BlogCreate creationCount={creationCount} setCreationCount={setCreationCount}/>
                 </>
             }
 

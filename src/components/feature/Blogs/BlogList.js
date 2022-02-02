@@ -36,7 +36,7 @@ export default function BlogList() {
 
             const response = await getBlogsFor(setHasError, setIsLoading, token, user)
             {
-                response && setLoadedBlogs(response.data)
+                response && setLoadedBlogs(response.data.content)
             }
         }
 

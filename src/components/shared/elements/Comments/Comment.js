@@ -8,6 +8,7 @@ import { AuthContext } from "../../../../context/AuthProvider";
 import CommentAdd from "./CommentAdd";
 import RectangleButton from "../clickables/RectangleButton";
 import styled from "styled-components";
+import { AiFillCloseCircle } from "react-icons/all";
 
 ////////////////////
 //// Environmental
@@ -16,10 +17,9 @@ import styled from "styled-components";
 //// External
 
 export default function Comment({ comment }) {
-    const { isAuth, user } = useContext(AuthContext);
+    const { isAuth } = useContext(AuthContext);
     const [ addComment, setAddComment ] = useState(false);
     const [ children, showChildren ] = useState(false);
-    console.log(comment.commentList)
 
     return (
         <CommentListItem className="comment">
@@ -33,26 +33,43 @@ export default function Comment({ comment }) {
             <CommentText>
                 { comment.text }
             </CommentText>
-            <CommentChildren>
-                <ListComment comment={ comment }/>
-
-            </CommentChildren>
             <CommentAddWindow>
-                <RectangleButton
-                    className="btn btn--medium"
-                    onClick={ () => setAddComment(!addComment) }
-                >
-                    Add comment
-                </RectangleButton>
+                <ButtonRow>
+
+                    <RectangleButton
+                        className="btn btn--super-small"
+                        disabled={ !isAuth }
+                        disabledText="Login to reply"
+                        onClick={ () => setAddComment(!addComment) }
+                    >
+                        comment
+                    </RectangleButton>
+                    { addComment &&
+                        <AiFillCloseCircle
+                            onClick={ () => setAddComment(false)}
+                            size={ 15 }
+                        />
+                    }
+                </ButtonRow>
+
 
                 { ( addComment && isAuth ) &&
                     <CommentAdd parent={ `parentCommentId` } parentId={ comment.id }/>
                 }
+
             </CommentAddWindow>
+            <CommentChildren>
+                <ListComment comment={ comment }/>
+
+            </CommentChildren>
         </CommentListItem>
     )
 }
 
+const ButtonRow = styled.div`
+  display: flex;
+  align-items: center;
+`
 const UserCommenterDetails = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -93,9 +110,11 @@ const CommenterDetail = styled.div`
 const CommentChildren = styled.div`
   padding-top: 1em;
   padding-left: 1em;
+  
 
 `
 const CommentAddWindow = styled.div`
+    width: 100%;
 
 `
 

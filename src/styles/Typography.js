@@ -24,10 +24,31 @@ export const CenteredSubHeader = styled.h2`
   ${ props => props.theme.text };
 `;
 
+export const SubHeader = styled.h4`
+margin-bottom: .5rem;
+  color: ${ props => props.theme.sub_text };
+`
 export const Owner = styled.span`
   font-weight: 500;
 `
 
+export const Date = styled.span`
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-right: 1rem;
+`
+
+export const Category = styled.span`
+  font-size: 0.9rem;
+  margin-right: 1rem;
+`
+
+export const SecondaryInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+export const PrimaryInfo = styled.div`
+`
 export const User = styled.span`
   font-size: 0.9rem;
   justify-content: start;
@@ -76,7 +97,12 @@ export const DetailContainer = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  width: 100%;
   min-height: 200px;
+
+  &.userListDetails{
+   min-height: 0; 
+  }
 
 `
 
@@ -111,4 +137,15 @@ export const SubFormHeading = styled.h4`
   font-size: 0.8rem;
   color: ${ props => props.theme.text };
 `;
+
+export const ProjectDescription = styled.p`
+  margin-top: 0.5rem;
+font-size: 0.9rem;
+`
+
+export const ProjectMain = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`
 /** Created by ownwindows on 15-01-22 **/

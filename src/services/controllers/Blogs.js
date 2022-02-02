@@ -3,21 +3,26 @@ import axios from 'axios'
 const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
 const source = axios.CancelToken.source();
 
-export const postBlog = async (blog) => {
+export const postBlog = async (setIsLoading, setHasError, blog) => {
     const token = localStorage.getItem('token');
+    setHasError(false);
+    setIsLoading(true)
+
     try {
         const response = await axios.post(REACT_APP_API_URL + 'blogs', blog, {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
         })
+        setIsLoading(false)
         return response.data
     } catch (err) {
-        return err.response.data
+        console.error(err);
+        setHasError(true);
     }
 }
 
-export const getBlogsFor = async (setIsLoading, setHasError, token, user) => {
+export const getBlogsFor = async (setIsLoading, setHasError, user) => {
     setHasError(false);
     setIsLoading(true)
     try {
@@ -32,11 +37,11 @@ export const getBlogsFor = async (setIsLoading, setHasError, token, user) => {
     }
 }
 
-export const getBlogs = async (setIsLoading, setHasError) => {
+export const getBlogs = async (setIsLoading, setHasError, pageable) => {
     setHasError(false);
     setIsLoading(true)
     try {
-        const response = await axios.get(`${ REACT_APP_API_URL }blogs/all`, {
+        const response = await axios.get(`${ REACT_APP_API_URL }blogs${pageable}`, {
             cancelToken: source.token
         });
         setIsLoading(false)

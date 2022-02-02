@@ -6,9 +6,17 @@ import { AiOutlineClose } from "react-icons/all";
 ////////////////////
 //// Environmental
 import { UtilityContext } from "../../context/UtilityProvider";
-import { DetailContainer, CenteredHeader, SubTitle, Owner, Users, User } from "../../styles/Typography";
+import {
+    DetailContainer,
+    CenteredHeader,
+    SubTitle,
+    Owner,
+    Users,
+    User,
+    ProjectDescription, ProjectMain, Category, Date, SecondaryInfo, PrimaryInfo
+} from "../../styles/Typography";
 import { DetailRow, Divider, PageContainer, PageHeader } from "../../styles/Layout";
-import { ProjectListItem, UnsortedList } from "../../styles/List";
+import { ProjectPageListItem, UnsortedList } from "../../styles/List";
 import { Image } from "../../styles/Images";
 import RectangleButton from "../shared/elements/clickables/RectangleButton";
 import { AuthContext } from "../../context/AuthProvider";
@@ -88,27 +96,38 @@ export default function ProjectOverview() {
             }
             <UnsortedList>
                 { loadedProjects && loadedProjects.map(project => (
-                    <ProjectListItem key={ project.id }>
-                        <DetailContainer>
-                            <ProjectCardLink to={ `/projects/${ project.projectId }` }>
-                                { project.projectName }
-                            </ProjectCardLink>
+                    <ProjectPageListItem key={ project.id }>
+                        <ProjectMain>
 
-                            <span>{ project.category.name }</span>
-                            <span>{ project.startTime }</span>
-                            <DetailRow className="users">
+                            <DetailContainer>
+                                <ProjectCardLink to={ `/projects/${ project.projectId }` }>
+                                    { project.projectName }
+                                </ProjectCardLink>
+                                <ProjectDescription>
+                                    {project.description}
+                                </ProjectDescription>
+
+
+
+                            </DetailContainer>
+                            <Image className="with-margin" src={ project.imageUrl }/>
+                        </ProjectMain>
+
+
+
+                        <DetailRow className="users">
+                            <PrimaryInfo>
                                 <Owner>{ project.projectOwner.username } | </Owner>
                                 { project?.collaborators.map((user, index) => (
                                     <User className="on">{ user.username } </User>
                                 )) }
-                            </DetailRow>
-                        </DetailContainer>
-
-                        <Image src={ project.imageUrl }/>
-
-
-
-                    </ProjectListItem>
+                            </PrimaryInfo>
+                            <SecondaryInfo>
+                                <Category>{ project.category.name }</Category>
+                                <Date>{ project.startTime }</Date>
+                            </SecondaryInfo>
+                        </DetailRow>
+                    </ProjectPageListItem>
                 )) }
             </UnsortedList>
 

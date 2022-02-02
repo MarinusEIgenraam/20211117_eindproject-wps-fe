@@ -120,7 +120,7 @@ const Nav = styled.div`
                   "background: transparent"
   };
   border-radius: 2px;
-  @media ${ QUERIES.tabletMini } {
+  @media (min-width: 1154px) {
     align-items: baseline;
 
   }
@@ -133,7 +133,8 @@ const Menu = styled.div`
   color: ${ props => props.theme.text };
   position: relative;
 
-  @media (max-width: 768px) {
+  
+  @media (max-width: 1154px) {
     justify-content: center;
     overflow: hidden;
     flex-direction: column;
@@ -185,7 +186,7 @@ const Hamburger = styled.div`
     border-radius: 5.5px;
   }
 
-  @media ${ QUERIES.tabletMini } {
+  @media (min-width: 1154px) {
     display: none;
 
   }

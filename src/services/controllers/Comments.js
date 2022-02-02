@@ -4,11 +4,11 @@ const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
 const source = axios.CancelToken.source();
 
 
-export const getProjectComments = async (setIsLoading, setHasError, id) => {
+export const getProjectComments = async (setIsLoading, setHasError, loadCount, id) => {
     setHasError(false);
     setIsLoading(true)
     try {
-        const results = await axios.get(`${ REACT_APP_API_URL }comments?projectId=${ id }`, {
+        const results = await axios.get(`${ REACT_APP_API_URL }comments?parentProjectId=${ id }&page=0&size=${loadCount}`, {
             cancelToken: source.token
         });
         setIsLoading(false);

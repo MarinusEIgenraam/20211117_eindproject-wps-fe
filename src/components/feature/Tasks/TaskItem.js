@@ -63,7 +63,6 @@ export default function TaskItem({ task, editCount, setEditCount }) {
     }
 
     useEffect(() => {
-        console.log(task)
 
     }, [ task ]);
 

@@ -22,7 +22,6 @@ export default ({ nestIndex, control, register, errors }) => {
         control,
         name: `projectTaskList[${ nestIndex }].subTaskList`
     });
-    console.log()
     return (
         <FormSection>
             { fields.map((item, subIndex) => {

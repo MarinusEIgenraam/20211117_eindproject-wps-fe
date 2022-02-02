@@ -23,12 +23,16 @@ export const FormWindow = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  padding: 2rem 1rem;
+  padding: 1rem;
   margin: 3rem 0 3rem 0;
 
   background: ${ props => props.theme.createBackground };
   border: solid var(--box-border-medium) ${ props => props.theme.createBorder };
   box-shadow: ${ props => props.theme.createShadow };
+  
+  &.project-details-tasks {
+    margin-top: -1rem;
+  }
 
 `
 

@@ -2,7 +2,7 @@
 //// Build
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
-import { Form, FormError, FormInput, FormLabel } from "../../../styles/FormStyles";
+import { Form, FormBreak, FormError, FormInput, FormInputWrap, FormLabel } from "../../../styles/FormStyles";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { UtilityContext } from "../../../context/UtilityProvider";
@@ -46,7 +46,6 @@ export default function Footer() {
                 password: event.password,
             });
 
-            console.log(result)
             login(result.data.jwt);
 
         } catch (e) {
@@ -68,64 +67,73 @@ export default function Footer() {
 
     return (
         <FooterContainer hasError={ hasError } fixed={ fixed }>
-            <LoginContainer>
-                { isAuth ?
-                    <span>Welcome back { user.username }</span>
-                    :
-                    <Form id="footerForm" onSubmit={ handleSubmit(onSubmit) }>
-                        <FormInput>
-                            <FormLabel>
-                                <FormError role="alert">
-                                    { errors.username && "Enter your username!" }
-                                </FormError>
-                            </FormLabel>
-                            <input
-                                type="text"
-                                name="username"
-                                id="username"
-                                placeholder="Username"
-                                { ...register("username", {
-                                    required: true
-                                }) }
-                            />
-                        </FormInput>
-                        <FormInput>
-                            <FormLabel>
-                                <FormError role="alert">
-                                    { errors.password && "Please provide your correct password!" }
-                                </FormError>
-                            </FormLabel>
-                            <input
-                                type="password"
-                                name="password"
-                                id="password"
+            <FooterContent>
 
-                                placeholder="Password"
-                                { ...register("password") }
-                            />
-                        </FormInput>
-                    </Form>
+                <LoginContainer>
+                    { isAuth ?
+                        <span>Welcome back { user.username }</span>
+                        :
+                        <Form id="footerForm" onSubmit={ handleSubmit(onSubmit) }>
+                            <FormInputWrap>
+                                <FormBreak>
+                                    <FormInput>
+                                        <FormLabel>
+                                            <FormError role="alert">
+                                                { errors.username && "Enter your username!" }
+                                            </FormError>
+                                        </FormLabel>
+                                        <input
+                                            type="text"
+                                            name="username"
+                                            id="username"
+                                            placeholder="Username"
+                                            { ...register("username", {
+                                                required: true
+                                            }) }
+                                        />
+                                    </FormInput>
+                                </FormBreak>
+                                <FormBreak>
+                                    <FormInput>
+                                        <FormLabel>
+                                            <FormError role="alert">
+                                                { errors.password && "Please provide your correct password!" }
+                                            </FormError>
+                                        </FormLabel>
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            id="password"
 
-                }
-            </LoginContainer>
-            <FooterWrap>
-                <ContactContainer>
-                    <h4>Contact</h4>
-                    <span>Marinus Eigenraam</span>
-                    <p>rinuseigenraam@gmail.com</p>
-                </ContactContainer>
+                                            placeholder="Password"
+                                            { ...register("password") }
+                                        />
+                                    </FormInput>
+                                </FormBreak>
+                                <input className="invisible" type="submit"/>
+                            </FormInputWrap>
+                        </Form>
 
-            </FooterWrap>
+                    }
+                </LoginContainer>
+                <FooterWrap>
+                    <ContactContainer>
+                        <h4>Contact</h4>
+                        <span>Marinus Eigenraam</span>
+                        <p>rinuseigenraam@gmail.com</p>
+                    </ContactContainer>
+
+                </FooterWrap>
+            </FooterContent>
 
         </FooterContainer>
     )
 }
 
-const SocialsContainer = styled.div`
-  justify-content: space-between;
-  min-height: 5rem;
-  z-index: auto;
-  position: relative;
+const FooterContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  
 `
 const ContactContainer = styled.div`
   padding: 0 0.5rem;
@@ -133,7 +141,8 @@ const ContactContainer = styled.div`
 `
 
 const LoginContainer = styled.div`
-
+  display: flex;
+  justify-content: center;
   form {
 
     display: flex;
@@ -161,12 +170,18 @@ export const FooterWrap = styled.div`
     flex-direction: column;
 
     @media ${ QUERIES.tabletMini } {
-      align-items: flex-start;
+      flex-direction: row;
+      > * {
+        margin-right: 1em;
+      }
     }
   }
 `;
 
 const FooterContainer = styled.footer`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 100%;
   padding: 0.5rem 1rem;
   background: ${ props => props.theme.windowBackground };

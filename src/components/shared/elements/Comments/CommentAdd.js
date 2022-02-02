@@ -27,37 +27,41 @@ import { postComment } from "../../../../services/controllers/Comments";
 //// External
 
 export default function CommentAdd ({ parent, parentId }) {
-    const { setHasError, setIsLoading } = useContext(UtilityContext);
-    const { isAuth, user } = useContext(AuthContext);
-    const [addComment, setAddComment] = useState(false);
+    const { setHasError, setIsLoading, creationCount, setCreationCount  } = useContext(UtilityContext);
 
-    const {
-        register,
+
+    const { register,
         handleSubmit,
         formState: { errors },
     } = useForm();
 
+    const  parentValue = `${parentId}`
+    const parentProperty =  `${ parent }`
+
     const onSubmit = async (values) => {
         const request = {
             ...values,
-            parent: parentId,
+            ...((parent === "parentProjectId") &&  { projectId: parentId }),
+            ...((parent === "parentBlogId") &&  { blogtId: parentId }),
+            ...((parent === "parentCommentId") &&  { parentCommentId: parentId })
         }
-
+        console.log(request)
         const response = await postComment(setIsLoading, setHasError, request)
+        setCreationCount(creationCount+1)
     }
 
     return (
-        <Form id="taskCreation" className="editForm" onSubmit={ handleSubmit(onSubmit) }>
-            <FormSection>
+        <Form id="comment" className="editForm comment" onSubmit={ handleSubmit(onSubmit) }>
+            <FormSection className="comment">
                 <FormEditBreak>
                     <FormEdit>
                         <FormLabel>
-                            <label htmlFor="taskName">Task name</label>
                             <FormError role="alert">
-                                { errors.taskName && "Enter a task name!" }
+                                { errors.taskName && "Enter a comment!" }
                             </FormError>
                         </FormLabel>
                         <textarea
+                            className="comment"
                             name="text"
                             id="text"
                             placeholder="Tell us something new"

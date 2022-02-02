@@ -42,7 +42,7 @@ export const getProjectsFor = async (setHasError, setIsLoading, what) => {
     setHasError(false);
     setIsLoading(true)
     try {
-        const results = await axios.get(`${ REACT_APP_API_URL }projects/${ what }`, {
+        const results = await axios.get(`${ REACT_APP_API_URL }projects${ what }`, {
             cancelToken: source.token
         });
         setIsLoading(false)

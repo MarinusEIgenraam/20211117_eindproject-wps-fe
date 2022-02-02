@@ -18,7 +18,6 @@ export default function SelectCategory({ register, parent, defaultValue }) {
         const getData = async () => {
             const result = await getCategories(setHasError, setIsLoading);
             setLoadedCategories(result.data)
-            console.log(result)
         }
         getData()
 

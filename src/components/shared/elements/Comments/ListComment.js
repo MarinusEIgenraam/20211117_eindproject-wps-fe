@@ -12,7 +12,6 @@ import { OrderedList } from "../../../../styles/List";
 //// External
 
 export default function ListComment({ comment }) {
-    console.log(comment)
     return (
         <CommentList>
             { comment.commentList &&
@@ -26,6 +25,14 @@ export default function ListComment({ comment }) {
 }
 
 const CommentList = styled(OrderedList)`
+    
+    &:not(:hover){
+      & > *{
+        //
+        //text-shadow: 0 0 12px black;
+        //color: transparent;
+      }
+    }
 
 `
 

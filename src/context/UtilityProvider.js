@@ -16,6 +16,7 @@ export default function UtilityProvider({ children }) {
     const [ theme, setTheme ] = useState("light");
     const [ isLoading, setIsLoading ] = useState(false);
     const [ hasError, setHasError ] = useState(false)
+    const [ creationCount, setCreationCount ] = useState(0)
 
     function toggleTheme() {
         if (theme === "light") {
@@ -34,7 +35,9 @@ export default function UtilityProvider({ children }) {
                 theme,
                 toggleTheme,
                 isLoading,
-                setIsLoading
+                setIsLoading,
+                creationCount,
+                setCreationCount
             } }>
             { children }
         </UtilityContext.Provider>

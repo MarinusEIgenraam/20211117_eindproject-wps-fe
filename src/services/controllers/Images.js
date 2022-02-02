@@ -14,9 +14,8 @@ export const uploadImage = async (setHasError, setIsLoading, image) => {
             headers: {
                 Authorization: "Client-ID da0e55c817cb308"
             },
-        }).then(() => {
-            setIsLoading(false)
-        });
+        })
+        setIsLoading(false)
         return response.data.data.link
     } catch (err) {
         setHasError(true);
@@ -29,11 +28,9 @@ export const getProfileImage = async (setHasError, setIsLoading, username) => {
     setIsLoading(true)
 
     try {
-        const result = await axios.get(`${ REACT_APP_API_URL }files/profile/${ username }`, {
-            cancelToken: source.token
-        }).then(() => {
-            setIsLoading(false)
-        });
+        const result = await axios.get(`${ REACT_APP_API_URL }files/1/download`, {
+            cancelToken: source.token,
+        })
         return result
     } catch (err) {
         setHasError(true);
@@ -42,6 +39,7 @@ export const getProfileImage = async (setHasError, setIsLoading, username) => {
 }
 
 export const uploadProfileImage = async (setHasError, setIsLoading, file) => {
+    const token = localStorage.getItem('token');
     setHasError(false);
     setIsLoading(true)
 
@@ -49,12 +47,12 @@ export const uploadProfileImage = async (setHasError, setIsLoading, file) => {
     formData.append('document', file)
 
     try {
-        console.log(file)
         const response = await axios.post(`${ REACT_APP_API_URL }files`, formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-        }).then(() => {
-            setIsLoading(false)
-        });
+            headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${ token }`},
+
+        })
+
+        setIsLoading(false)
         return response
     } catch (err) {
         setHasError(true);

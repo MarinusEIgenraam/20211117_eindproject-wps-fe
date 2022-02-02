@@ -12,7 +12,7 @@ import { postBlog } from "../../../services/controllers/Blogs";
 import { uploadImage } from "../../../services/controllers/Images";
 import { Heading } from "../../../styles/Typography";
 
-export default function BlogCreate() {
+export default function BlogCreate({ creationCount, setCreationCount }) {
     const { setHasError, setIsLoading } = useContext(UtilityContext);
     const [ picture, setPicture ] = useState('')
 
@@ -30,18 +30,15 @@ export default function BlogCreate() {
 
     const handleImageChange = (event) => {
         if (!event || !event.target.files) {
-            console.log("anything")
             return
         }
         const imageFile = event.target.files[0]
         const imageURL = URL.createObjectURL(imageFile)
         setPicture(imageURL)
-        console.log(picture)
     }
 
 
     const onSubmit = async (values) => {
-        setIsLoading(true)
         const imgur = await uploadImage(setHasError, setIsLoading, values.imageUrl[0])
 
 
@@ -49,11 +46,12 @@ export default function BlogCreate() {
             ...values,
             imageUrl: imgur
         }
+        console.log(request);
         const response = await postBlog(setHasError, setIsLoading, request)
         const project = { ...response }
-        console.log(project)
+        setCreationCount(creationCount+1)
 
-        setIsLoading(false)
+        console.log(creationCount)
     }
 
 

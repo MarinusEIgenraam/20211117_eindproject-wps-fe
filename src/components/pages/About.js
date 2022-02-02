@@ -5,12 +5,20 @@ import axios from "axios";
 ////////////////////
 //// Environmental
 import { UtilityContext } from "../../context/UtilityProvider";
-import { PageContainer, PageHeader } from "../../styles/Layout";
+import { DetailRow, PageContainer, PageHeader } from "../../styles/Layout";
 import Logo from '../../assets/images/home_background.png'
-import { DetailContainer, CenteredHeader, CenteredSubHeader, SubTitle } from "../../styles/Typography";
+import {
+    DetailContainer,
+    CenteredHeader,
+    CenteredSubHeader,
+    SubTitle,
+    Owner,
+    ProjectMain, ProjectDescription, PrimaryInfo, User, SecondaryInfo, Votes, Category, Date
+} from "../../styles/Typography";
 import { Image } from "../../styles/Images";
 import { UnsortedList, UserListItem } from "../../styles/List";
 import { getAdmins } from "../../services/controllers/Users";
+import { ProjectCardLink } from "../../styles/Navigation";
 
 export default function About() {
     const { setIsLoading, setHasError } = useContext(UtilityContext);
@@ -55,17 +63,21 @@ export default function About() {
                     loadedAdmins.map((admin, index) => {
                         return (
                             <UserListItem key={ index }>
-                                <DetailContainer>
-                                    <CenteredSubHeader> { admin.username } </CenteredSubHeader>
-                                    <span>{ admin?.role }</span>
-                                    <span> { admin.email }</span>
-                                    <span> { admin?.description }</span>
-
-                                </DetailContainer>
-                                <div>
-
-                                </div>
-                                <Image alt={ admin.username } src={ Logo }/>
+                                <ProjectMain>
+                                    <DetailContainer>
+                                        {/*<ProjectCardLink to={ `/users/${ admin.username }` }>*/}
+                                        {/*    { admin.username }*/}
+                                        {/*</ProjectCardLink>*/}
+                                    </DetailContainer>
+                                    <Image alt={ admin.username } src={ Logo }/>
+                                </ProjectMain>
+                                    <DetailRow className="users">
+                                        <PrimaryInfo>
+                                                <User className="on">{ admin.email } </User>
+                                        </PrimaryInfo>
+                                        <SecondaryInfo>
+                                        </SecondaryInfo>
+                                    </DetailRow>
                             </UserListItem>
                         );
                     })

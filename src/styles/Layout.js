@@ -25,17 +25,13 @@ export const CommentContainer = styled.li`
 export const DetailRow = styled.footer`
   display: flex;
   flex-direction: row;
-  justify-self: end;
+  justify-content: space-between;
   width: 100%;
-  margin-top: 0.25rem;
+  margin-top: 1rem;
   padding: 0.25rem 0;
   border-top: solid var(--box-border-medium) ${ props => props.theme.border };
-
-  &.users {
-    justify-content: start;
-    align-self: end;
-  }
   
+
 
   .light {
     font-weight: 300;
@@ -44,7 +40,7 @@ export const DetailRow = styled.footer`
 
 export const Divider = styled.hr`
   margin: 1rem 0 1rem 0;
-  border: 1px solid ${ props => props.theme.text };
+  border: 1px solid ${ props => props.theme.windowBackground };
   border-radius: 5px;
 
   &.small {
@@ -65,10 +61,7 @@ export const Container = styled.div`
   flex-wrap: wrap;
   width: 100%;
 
-
-  @media screen and (min-width: 769px) {
-    margin-top: 15vh;
-  }
+  
 `
 
 export const PageHeader = styled.div`
@@ -100,25 +93,19 @@ export const BlogsContainer = styled.div`
 
 
 export const BlogContainer = styled.div`
-  padding: 1rem;
   position: relative;
-  width: 100%;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
   border: solid var(--box-border-medium) ${ props => props.theme.border };
-  float: left;
-  margin-bottom: 12px;
+  
   overflow: hidden;
-  margin-top: 10px;
 
-
-  height: ${ ({ showMore, theme }) =>
-    ( showMore )
-        ?
-        "min-content"
-        :
-        "500px"
-};
-
+  width: 100%;
+  background:#F4F1E0;
+  padding: .5em;
+  display: inline-block;
+  margin: 0 0 1em;
+  font-size:1em;
+  box-sizing: border-box;
 `
 export const TaskFirstRow = styled.div`
   display: flex;

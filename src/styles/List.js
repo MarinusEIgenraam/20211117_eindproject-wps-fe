@@ -1,6 +1,7 @@
 ////////////////////
 //// Build
 import styled from 'styled-components';
+import { QUERIES } from "../services/helpers/mediaQueries";
 
 ////////////////////
 //// Environmental
@@ -25,14 +26,12 @@ export const UnsortedProjectList = styled.ul`
 `
 
 export const UnsortedList = styled.ul`
-  margin-top: 3rem;
   list-style: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 0 1em;
 `;
 
 export const OrderedList = styled.ol`
@@ -42,23 +41,45 @@ export const OrderedList = styled.ol`
   max-height: 30em;
   overflow-y: auto;
   padding: 0 1em;
+  
+  &.project-tasks {
+    & > li {
+      list-style: initial;
+    }
+  }
 `;
 
 export const BlogOverviewList = styled.ol`
   width: 70vw;
   margin-top: 2rem;
-  padding: 1rem;
+  *zoom: 1;
+  max-width:100%;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto;
+
   column-count: 1;
   column-gap: 1em;
 
-  @media (min-width: 768px) {
+  :after {
+    content: "";
+  }
+
+  & > div {
+    transition: all 0.7s ease-in 0.7s;
+  }
+
+  @media ${ QUERIES.mobile } {
     column-count: 2;
-    column-gap: 1em;
   }
-  @media (min-width: 1000px) {
+
+  @media ${ QUERIES.desktop } {
     column-count: 3;
-    column-gap: 1em;
   }
+  
+  
+  
 `
 
 // List items
@@ -76,6 +97,13 @@ export const ListItem = styled.li`
 
   &:first-child {
     border-top: none;
+  }
+  &.project-task {
+    flex-direction: row;
+    justify-content: space-between;
+    & > * {
+      font-size: 0.9rem;
+    } 
   }
 
   &.taskItem {
@@ -102,13 +130,9 @@ export const TaskListItem = styled.li`
   > h6 {
     color: ${ props => props.theme.sub_text };
   }
-  @media (min-width: 769px) {
-
-  }
-  @media (max-width: 660px) {
+  @media ${ QUERIES.mobile } {
     flex-direction: column;
   }
-
 `
 
 export const CommentListItem = styled(ListItem)`
@@ -127,21 +151,22 @@ export const CommentListItem = styled(ListItem)`
 
 `
 
-export const ProjectListItem = styled.li`
+export const ProjectPageListItem = styled.li`
   width: 70vw;
-  height: 100%;
-  margin-top: 1rem;
+  height: min-content;
+  margin-top: 2rem;
   display: flex;
-  position: relative;
+  //position: relative;
   justify-content: space-between;
   align-items: start;
-  flex-direction: row;
+  flex-direction: column;
   transition: all 500ms;
   padding: 1rem;
   background: ${ props => props.theme.background };
   border: solid var(--box-border-medium) ${ props => props.theme.border };
-  //overflow: hidden;
-
+  overflow: hidden;
+  
+  
   :not(:nth-child(1)) {
     margin-top: -130px;
     box-shadow: rgba(0, 0, 0, 0.45) 0px -20px 20px -20px;
@@ -150,20 +175,29 @@ export const ProjectListItem = styled.li`
   :hover {
     border: solid var(--box-border-medium) ${ props => props.theme.border };
     box-shadow: ${ props => props.theme.shadow };
-    //margin: 25px 25px 50px 25px;
     background: ${ props => props.theme.windowBackground };
     margin-bottom: 150px;
-
   }
 
-  @media (min-width: 769px) {
+  // @media ${ QUERIES.mobile } {
+  //   flex-direction: row;
+  // }
 
-  }
+`
 
-  @media (max-width: 660px) {
-    flex-direction: column;
-  }
-
+export const ProjectListItem = styled.li`
+width: 70vw;
+  height: 100%;
+  margin-top: 1rem;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: start;
+  flex-direction: column;
+  transition: all 500ms;
+  background: ${ props => props.theme.background };
+  overflow: hidden;
+  
 `
 
 export const UserListItem = styled.li`
@@ -172,7 +206,7 @@ export const UserListItem = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: start;
-  flex-direction: row;
+  flex-direction: column;
   transition: all 500ms;
   margin: 25px 25px -180px 25px;
   padding: 1rem;
@@ -181,7 +215,9 @@ export const UserListItem = styled.li`
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.45) 0px -20px 20px -20px;
 
-
+ &.userDetails{
+   margin: 25px 25px -75px 25px;
+ }
   :hover {
     border: solid var(--box-border-medium) ${ props => props.theme.border };
     box-shadow: ${ props => props.theme.shadow };
@@ -190,12 +226,11 @@ export const UserListItem = styled.li`
   }
 
   @media (min-width: 769px) {
-
-  }
-
-  @media (max-width: 660px) {
     flex-direction: column;
+
   }
+
+
 
 `
 /** Created by ownwindows on 15-01-22 **/

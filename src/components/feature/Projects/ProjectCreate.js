@@ -79,6 +79,7 @@ export default function ProjectCreate() {
                     ...values,
                     imageUrl: imgur
                 }
+                console.log(values)
                 await postProject(setHasError, setIsLoading, request)
 
             } else (
@@ -90,6 +91,8 @@ export default function ProjectCreate() {
                 ...values,
                 imageUrl: imgur
             }
+            console.log(values)
+
             await postProject(setHasError, setIsLoading, request)
         }
     }
@@ -184,7 +187,7 @@ export default function ProjectCreate() {
                         <SelectCategory
                             defaultValue={ "Category" }
                             register={ register }
-                            parent={ `categoryId, { required: true }` }
+                            parent={ `categoryId` }
                         />
                         <FormInput className="radio">
                             <FormLabel>

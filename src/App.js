@@ -15,7 +15,7 @@ import BlogOverview from "./components/pages/BlogOverview";
 import Register from "./components/pages/Register";
 import About from "./components/pages/About";
 import ProjectDetails from "./components/pages/ProjectDetails";
-import Blog from "./components/pages/Blog";
+import Blog from "./components/feature/Blogs/Blog";
 import UserOverview from "./components/pages/UserOverview";
 import UserProfile from "./components/pages/UserProfile";
 import NoComponentFound from "./components/pages/NoComponentFound";
@@ -38,7 +38,6 @@ function App() {
                 <Route path='/projects' element={ <ProjectOverview/> }/>
                 <Route path='/projects/:id' element={ <ProjectDetails/> }/>
                 <Route path='/register' element={ <Register/> }/>
-                {/*<Route path='/Login' element={ <Login/> }/>*/ }
                 <Route path='/about' element={ <About/> }/>
 
                 <Route path="/users" element={ <UserOverview/> }/>

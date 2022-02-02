@@ -27,7 +27,6 @@ export default function AuthRegister() {
     }
 
     useEffect(() => {
-        console.log(registerSucces)
         return function clearLoader() {
             clearTimeout();
             setRegisterSucces(false)

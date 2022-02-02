@@ -5,11 +5,11 @@ export const Form = styled.form`
   max-width: 70vw;
   width: 100%;
   padding: 2rem 1rem;
-  z-index: auto;
+  z-index: 1;
   //position: relative;
   background: ${ props => props.theme.createBackground };
   border: solid var(--box-border-medium) ${ props => props.theme.createBorder };
-  box-shadow: ${ props => props.theme.createShadow };
+   box-shadow: ${ props => props.theme.createShadow };
 
   &.editForm {
     display: flex;
@@ -19,6 +19,11 @@ export const Form = styled.form`
     margin: 0;
     padding: 0;
   }
+  
+  &.comment {
+    background: none;
+  }
+
 
   &#footerForm {
     background: transparent;
@@ -28,6 +33,7 @@ export const Form = styled.form`
     margin: 0;
     justify-content: space-between;
     width: 100%;
+    box-shadow: none;
 
     input {
       padding: 0.5rem;
@@ -41,10 +47,20 @@ export const Form = styled.form`
 `;
 
 export const FormSection = styled.div`
+  &.comment {
+
+    width: 100%;
+  }
+  
 `;
 
 export const FormInputWrap = styled.div`
   width: 100%;
+  
+  & > .invisible {
+    visibility: hidden;
+    position: absolute;
+  }
 
 
   @media ${ QUERIES.mobile } {
@@ -62,7 +78,7 @@ export const FormInputWrap = styled.div`
 export const FormEdit = styled.div`
   display: flex;
   flex-direction: column;
-  //width: 100%;
+  width: 100%;
 
   label {
     font-size: 0.8rem;
@@ -76,6 +92,10 @@ export const FormEdit = styled.div`
     input {
       height: 1rem;
     }
+  }
+
+  textarea {
+    width: 100%;
   }
 
   input,
@@ -104,12 +124,17 @@ export const FormEdit = styled.div`
     padding: 0.75rem 1rem;
     color: ${ props => props.theme.text };
     font-size: 1rem;
-    text-transform: capitalize;
     background-color: ${ props => props.theme.background };
+
+    &.comment {
+      min-height: 0;
+
+    }
 
     &:focus,
     &:hover {
       outline: ${ props => props.theme.createBorder } solid var(--box-border-medium);
+
     }
   }
 `;
@@ -193,14 +218,13 @@ export const FormEditBreak = styled.div`
   justify-content: space-between;
 
 
-
   @media ${ QUERIES.mobile } {
     flex: 1 50% 100%;
   }
 `;
 
 export const FormBreak = styled.div`
-width: 100%;
+  width: 100%;
   @media ${ QUERIES.mobile } {
     gap: 1rem;
 

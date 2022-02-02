@@ -5,12 +5,22 @@ import axios from "axios";
 ////////////////////
 //// Environmental
 import { UtilityContext } from "../../context/UtilityProvider";
-import { PageContainer, PageHeader } from "../../styles/Layout";
-import { DetailContainer, CenteredHeader, CenteredSubHeader, SubTitle } from "../../styles/Typography";
+import { DetailRow, PageContainer, PageHeader } from "../../styles/Layout";
+import {
+    Category,
+    CenteredHeader, Date,
+    DetailContainer,
+    Owner,
+    PrimaryInfo,
+    ProjectMain, SecondaryInfo,
+    SubTitle,
+    User
+} from "../../styles/Typography";
 import Logo from "../../assets/images/home_background.png";
-import { ProfileImage } from "../../styles/Images";
-import { UserListItem } from "../../styles/List";
+import { Image } from "../../styles/Images";
+import { UnsortedList, UserListItem } from "../../styles/List";
 import { getUsers } from "../../services/controllers/Users";
+import { ProjectCardLink } from "../../styles/Navigation";
 
 export default function UserOverview() {
     const { setIsLoading, setHasError } = useContext(UtilityContext);
@@ -24,6 +34,7 @@ export default function UserOverview() {
             {
                 response && setLoadedUsers(response.data.content)
             }
+            console.log(response)
         }
 
         getData()
@@ -49,25 +60,31 @@ export default function UserOverview() {
                 velit. Adipisci amet animi debitis dolor dolores eaque iusto laboriosam magni omnis pariatur possimus
                 reprehenderit, sed soluta, tempore voluptatibus.
             </PageHeader>
-            { loadedUsers &&
-                loadedUsers.map((user, index) => {
-                    return (
-                        <UserListItem key={ index }>
-                            <DetailContainer>
-                                <CenteredSubHeader> { user.username } </CenteredSubHeader>
-                                <span>{ user?.role }</span>
-                                <span> { user.email }</span>
-                                <span> { user?.description }</span>
-
-                            </DetailContainer>
-                            <div>
-
-                            </div>
-                            <ProfileImage alt={ user.username } src={ Logo }/>
-                        </UserListItem>
-                    );
-                })
-            }
+            <UnsortedList className="userList">
+                { loadedUsers &&
+                    loadedUsers.map((user, index) => {
+                        return (
+                            <UserListItem className="userDetails" key={ index }>
+                                <ProjectMain>
+                                    <DetailContainer className="userListDetails" >
+                                        <ProjectCardLink to={ `/users/${ user.username }` }>
+                                            { user.username }
+                                        </ProjectCardLink>
+                                    </DetailContainer>
+                                </ProjectMain>
+                                <DetailRow className="users">
+                                    <PrimaryInfo>
+                                        <Owner>{ user.email }</Owner>
+                                    </PrimaryInfo>
+                                    <SecondaryInfo>
+                                        <span>{ user?.role }</span>
+                                    </SecondaryInfo>
+                                </DetailRow>
+                            </UserListItem>
+                        );
+                    })
+                }
+            </UnsortedList>
         </PageContainer>
     )
 }

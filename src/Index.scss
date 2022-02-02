@@ -8,26 +8,33 @@
 
 :root {
 
-  --primary: hsla(137, 28%, 79%, 1);
-  --secondary: hsla(88, 9%, 29%, 1);
-  --tertiary: hsla(205, 20%, 62%, 1);
-  --quaternary: hsla(43, 100%, 64%, 1);
-  --primary-half: hsla(136, 28%, 90%, 1);
-  --secondary-half: hsla(88, 9%, 65%, 1);
-  --tertiary-half: hsla(205, 20%, 81%, 1);
-  --quaternary-half: hsla(43, 100%, 82%, 1);
-  --primary-quarter: hsla(137, 28%, 95%, 1);
-  --secondary-quarter: hsla(204, 21%, 91%, 1);
-  --tertiary-quarter: hsla(83, 9%, 82%, 1);
-  --quaternary-quarter: hsla(43, 100%, 91%, 1);
-  --primary-dark: hsl(138, 29%, 23%);
-  --secondary-dark: hsl(90, 8%, 15%);
-  --tertiary-dark: hsl(204, 20%, 31%);
-  --quaternary-dark: hsl(19, 100%, 20%);
+  --primary: #51C4D3;
+  --secondary: #126E82;
+  --tertiary: #132C33;
+  --quaternary: #D8E3E7;
+
+  --primary-half: #a8e2e9;
+  --secondary-half: #89b7c1;
+  --tertiary-half: #899699;
+  --quaternary-half: #ecf1f3;
+  --primary-quarter: #dcf3f6;
+  --secondary-quarter: #d0e2e6;
+  --tertiary-quarter: #d0d5d6;
+  --quaternary-quarter: #f7f9fa;
+  --primary-dark: #093741;
+  --secondary-dark: #29626a;
+  --tertiary-dark: #0a161a;
+  --quaternary-dark: #6c7274;
+  --succes: #CF9508;
+  --succes-half: #e7ca84;
+  --succes-quarter: #f5eace;
+  --succes-dark: #684b04;
+  --danger: #825f0c;
+  --danger-half: #c1af86;
+  --danger-quarter: #e6dfce;
+  --danger-dark: #413006;
 
   --warning: hsla(205, 20%, 62%, 1);
-  --succes: hsla(43, 100%, 64%, 1);
-  --danger: hsl(39, 64%, 38%);
 
   --lighgray: hsl(0, 0%, 69%);
   --darkgray: hsl(0, 0%, 36%);
@@ -40,17 +47,22 @@
   --tittle-font: 'Roboto Mono', monospace;
 
   --select-border: var(--secondary);
-  --select-focus: blue;
+  --select-focus: var(--tertiary);
   --select-arrow: var(--select-border);
 
   --box-border-thin: 1px;
-  --box-border-medium: 1px;
+  --box-border-medium: 1.5px;
   --box-border-thick: 2px;
 
+  --shadow-medium: 15px 15px 1px var(--primary), 15px 15px 1px var(--box-border-medium) var(--secondary-half);
+  --shadow-medium-revert: 15px 15px 1px var(--tertiary-quarter), 15px 15px 1px var(--box-border-medium) var(--tertiary);
+
+  --shadow-medium-create: 15px 15px 1px var(--quaternary-quarter), 15px 15px 1px var(--box-border-medium) var(--secondary);
+  --shadow-medium-create-revert: 15px 15px 1px var(--quaternary-dark), 15px 15px 1px var(--box-border-medium) var(--quaternary-quarter);
+
   --shadow-thin-light: 1.5vh 1.5vh 0.15vh var(--tertiary-quarter), 1.5vh 1.5vh 0.1vh var(--box-border-thin) var(--secondary-half);
-  --shadow-thin-create: 1.5vh 1.5vh 0.15vh var(--quaternary-quarter), 1.5vh 1.5vh 0.1vh var(--box-border-thin) var(--quaternary-quarter);
+  --shadow-top-thin-light:  -1.5vh 0vh 0.15vh var(--quaternary-quarter), -1.5vh 0vh 0.1vh var(--box-border-thin) var(--quaternary-quarter);
   --shadow-thin-dark: 1.5vh 1.5vh 0.15vh var(--tertiary-quarter), 1.5vh 1.5vh 0.1vh var(--box-border-thin) var(--secondary-half);
-  --shadow-medium: 1.5vh 1.5vh 0.15vh var(--tertiary-quarter), 1.5vh 1.5vh 0.1vh var(--box-border-medium) var(--secondary);
   --button-shadow: 0.5vh 0.5vh 0.1vh var(--tertiary-quarter), 0.5vh 0.5vh 0.1vh 0.1vh var(--secondary-half);
 
   ::-webkit-scrollbar {
