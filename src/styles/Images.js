@@ -30,7 +30,7 @@ export const ProfileImage = styled.img`
 `
 
 export const BackgroundImage = styled.img`
-  width: 100vw;
+  width: 70vw;
   overflow: hidden;
 `
 

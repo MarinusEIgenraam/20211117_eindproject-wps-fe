@@ -4,27 +4,18 @@ import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
 import { Form, FormBreak, FormError, FormInput, FormInputWrap, FormLabel } from "../../../styles/FormStyles";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import { AuthContext } from "../../../context/AuthProvider";
 import { QUERIES } from "../../../services/helpers/mediaQueries";
-
-////////////////////
-//// Environmental
-const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
-
-////////////////////
-//// External
+import { loginUser } from "../../../services/controllers/Auth";
 
 export default function Footer() {
     const [ fixed, setFixed ] = useState(true);
-    const { setIsLoading, hasError } = useContext(UtilityContext);
-    const [ error, toggleError ] = useState(false);
-    const [ succes, toggleSucces ] = useState(false);
+    const { setIsLoading, hasError, setHasError } = useContext(UtilityContext);
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: 'onChange'
     });
-    const { login, isAuth, user } = useContext(AuthContext);
+    const { isAuth, user } = useContext(AuthContext);
 
 
     const changeBackground = () => {
@@ -36,33 +27,9 @@ export default function Footer() {
     };
 
     async function onSubmit(event) {
-        toggleError(false);
-        setIsLoading(true);
-
-        try {
-
-            const result = await axios.post(REACT_APP_AUTH, {
-                username: event.username,
-                password: event.password,
-            });
-
-            login(result.data.jwt);
-
-        } catch (e) {
-            console.error(e)
-
-            toggleError(true);
-        }
-
+        await loginUser(setHasError, setIsLoading, event)
     }
 
-    const enterSubmit = (e) => {
-        if (e.key === "Enter" && e.shiftKey == false) {
-            const data = { content: e.target.value };
-
-            return handleSubmit(onSubmit(data));
-        }
-    };
     window.addEventListener('scroll', changeBackground);
 
     return (

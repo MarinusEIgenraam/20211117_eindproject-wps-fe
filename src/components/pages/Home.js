@@ -3,20 +3,20 @@
 import React, { useContext } from 'react'
 ////////////////////
 //// Environmental
-import AuthLogin from "../feature/Auth/AuthLogin";
 import { AuthContext } from "../../context/AuthProvider";
-import { PageContainer } from "../../styles/Layout";
+import { HeaderImage, PageContainer } from "../../styles/Layout";
 import { BackgroundImage } from "../../styles/Images";
-import homeBackground from '../../assets/images/home_background.png'
+import homeBackground from '../../assets/images/hero_image-white.svg'
 
 export default function Home() {
     const { isAuth } = useContext(AuthContext);
 
     return (
         <PageContainer>
-            { !isAuth && <AuthLogin/> }
+            <HeaderImage>
 
-            <BackgroundImage alt="home" src={ homeBackground }/>
+                <BackgroundImage alt="home" src={ homeBackground }/>
+            </HeaderImage>
 
         </PageContainer>
     )

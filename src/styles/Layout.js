@@ -132,6 +132,14 @@ export const PageHeader = styled.div`
   padding: 1rem;
 `
 
+export const HeaderImage = styled.div`
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 export const PageContainer = styled.div`
   display: flex;
   margin-top: 15vh;
@@ -139,7 +147,7 @@ export const PageContainer = styled.div`
   position: relative;
   flex-direction: column;
   flex-wrap: wrap;
-  min-height: 100vh;
+  height: 85vh;
   width: 100%;
 
 
