@@ -51,7 +51,6 @@ export const uploadProfileImage = async (setHasError, setIsLoading, file) => {
             headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${ token }`},
 
         })
-
         setIsLoading(false)
         return response
     } catch (err) {

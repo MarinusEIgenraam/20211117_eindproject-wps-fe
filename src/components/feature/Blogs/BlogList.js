@@ -13,6 +13,7 @@ import { AuthContext } from "../../../context/AuthProvider";
 import ProjectCreate from "../Projects/ProjectCreate";
 import { Container, DetailRow } from "../../../styles/Layout";
 import { getBlogsFor } from "../../../services/controllers/Blogs";
+import BlogCreate from "./BlogCreate";
 
 export default function BlogList() {
     const { setIsLoading, setHasError } = useContext(UtilityContext);
@@ -58,8 +59,8 @@ export default function BlogList() {
                 Your blogs
             </CenteredSubHeader>
             <UnsortedList>
-                { loadedBlogs && loadedBlogs.map(blog => (
-                    <TaskListItem to={ `/project/${ blog.id }` } key={ blog.id }>
+                { loadedBlogs && loadedBlogs.map((blog, index) => (
+                    <TaskListItem to={ `/project/${ blog.id }` } key={ index }>
                         <h6> { blog.blogName } </h6>
                         <DetailRow>
                             <h6>{ blog.startTime } <span
@@ -85,7 +86,7 @@ export default function BlogList() {
 
             }
             { writeProject &&
-                <ProjectCreate/>
+                <BlogCreate/>
             }
         </Container>
     )

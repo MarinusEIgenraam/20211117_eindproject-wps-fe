@@ -35,14 +35,12 @@ export default function CommentAdd ({ parent, parentId }) {
         formState: { errors },
     } = useForm();
 
-    const  parentValue = `${parentId}`
-    const parentProperty =  `${ parent }`
 
     const onSubmit = async (values) => {
         const request = {
             ...values,
-            ...((parent === "parentProjectId") &&  { projectId: parentId }),
-            ...((parent === "parentBlogId") &&  { blogtId: parentId }),
+            ...((parent === "parentProjectId") &&  { parentProjectId: parentId }),
+            ...((parent === "parentBlogId") &&  { parentBlogId: parentId }),
             ...((parent === "parentCommentId") &&  { parentCommentId: parentId })
         }
         console.log(request)

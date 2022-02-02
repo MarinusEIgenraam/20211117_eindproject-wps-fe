@@ -41,7 +41,14 @@ export const ProjectHero = styled.div`
   border: solid var(--box-border-medium) ${ props => props.theme.border };
   min-width: 100px;
   max-height: 200px;
-  //background: blue;
+  aspect-ratio: 1 / 1;
+`
+export const BlogHero = styled.div`
+  background-image: url('${image=> image.image}');
+  background-size: cover;
+  border: solid var(--box-border-medium) ${ props => props.theme.border };
+  width: 100%;
+  max-height: 200px;
   aspect-ratio: 1 / 1;
 `
 

@@ -11,6 +11,9 @@ export const Form = styled.form`
   border: solid var(--box-border-medium) ${ props => props.theme.createBorder };
    box-shadow: ${ props => props.theme.createShadow };
 
+  &.login {
+    width: max-content;
+  }
   &.editForm {
     display: flex;
     background: ${ props => props.theme.createBackground };
@@ -46,6 +49,25 @@ export const Form = styled.form`
   }
 `;
 
+export const FormColumn = styled.div`
+  width: 70vw;
+  margin-top: 2rem;
+  *zoom: 1;
+  max-width:100%;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto;
+
+  column-count: 1;
+  column-gap: 1em;
+
+  :after {
+    content: "";
+  }
+
+
+`
 export const FormSection = styled.div`
   &.comment {
 
@@ -61,12 +83,16 @@ export const FormInputWrap = styled.div`
     visibility: hidden;
     position: absolute;
   }
-
+  &.login {
+    flex-direction: column;
+    align-items: center;
+  }
 
   @media ${ QUERIES.mobile } {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
 
 
     & > * {

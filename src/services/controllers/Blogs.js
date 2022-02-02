@@ -22,6 +22,21 @@ export const postBlog = async (setIsLoading, setHasError, blog) => {
     }
 }
 
+export const getOneBlog = async (setHasError, setIsLoading, id) => {
+    setHasError(false);
+    setIsLoading(true)
+    try {
+        const results =  await axios.get(`${ REACT_APP_API_URL }blogs/${ id }`, {
+            cancelToken: source.token
+        })
+        setIsLoading(false);
+        return results
+    } catch (err) {
+        setHasError(true);
+        console.error(err);
+    }
+}
+
 export const getBlogsFor = async (setIsLoading, setHasError, user) => {
     setHasError(false);
     setIsLoading(true)

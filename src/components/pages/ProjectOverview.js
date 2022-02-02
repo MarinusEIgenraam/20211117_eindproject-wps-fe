@@ -95,8 +95,8 @@ export default function ProjectOverview() {
                 <ProjectCreate/>
             }
             <UnsortedList>
-                { loadedProjects && loadedProjects.map(project => (
-                    <ProjectPageListItem key={ project.id }>
+                { loadedProjects && loadedProjects.map((project, index) => (
+                    <ProjectPageListItem key={ index }>
                         <ProjectMain>
 
                             <DetailContainer>
@@ -119,7 +119,7 @@ export default function ProjectOverview() {
                             <PrimaryInfo>
                                 <Owner>{ project.projectOwner.username } | </Owner>
                                 { project?.collaborators.map((user, index) => (
-                                    <User className="on">{ user.username } </User>
+                                    <User key={index} className="on">{ user.username } </User>
                                 )) }
                             </PrimaryInfo>
                             <SecondaryInfo>

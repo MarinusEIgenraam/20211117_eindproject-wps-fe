@@ -22,6 +22,58 @@ export const CommentContainer = styled.li`
 
     width: 50vw;
 `
+
+export const CommenterDetail = styled.div`
+
+  line-height: 1em;
+
+  a {
+    font-weight: 700;
+    text-decoration: none;
+
+    color: var(--tertiary);
+  }
+
+  &.date {
+    font-size: 0.8rem;
+    color: ${ props => props.theme.sub_text };
+  }
+
+  &.commentListLength {
+    span {
+      font-weight: 700;
+    }
+  }
+
+`
+export const CommentChildren = styled.div`
+  padding-top: 1em;
+  padding-left: 1em;
+  
+
+`
+export const CommentAddWindow = styled.div`
+    width: 100%;
+`
+
+export const ButtonRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  //width: 100%;
+`
+export const UserCommenterDetails = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  align-items: baseline;
+
+
+  margin-bottom: 1em;
+  border-bottom: solid var(--box-border-medium) ${ props => props.theme.border };
+
+
+`
+
 export const DetailRow = styled.footer`
   display: flex;
   flex-direction: row;
@@ -32,6 +84,17 @@ export const DetailRow = styled.footer`
   border-top: solid var(--box-border-medium) ${ props => props.theme.border };
   
 
+  &.listItem {
+  margin-top: .25rem;  
+  }
+  
+  &.double{
+    align-items: end;
+    
+  }
+  &.no-margin {
+    margin-top: 0;
+  }
 
   .light {
     font-weight: 300;
@@ -100,7 +163,6 @@ export const BlogContainer = styled.div`
   overflow: hidden;
 
   width: 100%;
-  background:#F4F1E0;
   padding: .5em;
   display: inline-block;
   margin: 0 0 1em;

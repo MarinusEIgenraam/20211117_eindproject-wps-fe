@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import axios from "axios";
 ////////////////////
 //// Environmental
-import { DetailRow, PageContainer } from "../../styles/Layout";
+import { ButtonRow, CommentAddWindow, DetailRow, PageContainer } from "../../styles/Layout";
 import { UtilityContext } from "../../context/UtilityProvider";
 import { useParams } from "react-router-dom";
-import { FormWindow } from "../../styles/Form";
+import { ButtonBox, FormWindow } from "../../styles/Form";
 import { Image } from "../../styles/Images";
 import { getProjectComments } from "../../services/controllers/Comments";
 import { getOneProject } from "../../services/controllers/Projects";
@@ -23,12 +23,22 @@ import {
     ProjectMain,
     SecondaryInfo,
     SubHeader,
-    User,
-    Votes
+    User, Votes
 } from "../../styles/Typography";
 import RectangleButton from "../shared/elements/clickables/RectangleButton";
 import { Table, TableRow } from "../../styles/Table";
-import { QUERIES } from "../../services/helpers/mediaQueries";
+import {
+    AiFillCloseCircle,
+    AiFillHeart,
+    FcDislike, FcLike,
+    FcLikePlaceholder, IoIosHeart,
+    IoIosHeartDislike,
+    RiDislikeFill
+} from "react-icons/all";
+import CommentAdd from "../shared/elements/Comments/CommentAdd";
+import { AuthContext } from "../../context/AuthProvider";
+import { HeartIcon } from "../../styles/Icons";
+import { projectVote } from "../../services/controllers/Votes";
 
 
 export default function Project({}) {
@@ -37,6 +47,8 @@ export default function Project({}) {
     const [ loadedProject, setLoadedProject ] = useState();
     const [ loadedComments, setLoadedComments ] = useState();
     const [ loadCount, setLoadCount ] = useState(6);
+    const { isAuth } = useContext(AuthContext);
+    const [ addComment, setAddComment ] = useState(false);
 
     const { id } = useParams();
 
@@ -57,8 +69,24 @@ export default function Project({}) {
 
     }, [ loadCount, creationCount ]);
 
+    useEffect(() => {
+        setAddComment(false)
+    }, [ creationCount ]);
+
+
     function handlePageable() {
         setLoadCount(loadCount + 6)
+    }
+
+    async function handleVote(voteType) {
+        const newVote = {
+            voteType: voteType,
+            projectId: id
+        }
+        console.log(newVote)
+        const results = await projectVote(setIsLoading, setHasError, newVote)
+        setCreationCount(creationCount+1)
+        console.log(results)
     }
 
     return (
@@ -67,14 +95,16 @@ export default function Project({}) {
                 <>
 
                     <FormWindow>
+
                         <ProjectMain>
-                            <DetailContainer>
+                            <DetailContainer className="projectDetails">
                                 <Title>
                                     { loadedProject.projectName }
                                 </Title>
                                 <ProjectDescription>
                                     { loadedProject.description }
                                 </ProjectDescription>
+
                             </DetailContainer>
                             <Image className="with-margin" src={ loadedProject.imageUrl }/>
                         </ProjectMain>
@@ -86,15 +116,31 @@ export default function Project({}) {
                                 )) }
                             </PrimaryInfo>
                             <SecondaryInfo>
-                                <Votes>{ loadedProject?.voteCount } vote{ loadedProject?.voteCount > 1 && `'s` } on this
-                                    project</Votes>
                                 <Category>{ loadedProject?.category.name }</Category>
                                 <Date>{ loadedProject?.startTime }</Date>
                             </SecondaryInfo>
                         </DetailRow>
-
-
+                        <ButtonBox className="liked">
+                            <HeartIcon>
+                                <div>
+                                    <IoIosHeart
+                                        onClick={ () => handleVote("UPVOTE") }
+                                        size={ 30 }
+                                    />
+                                </div>
+                            </HeartIcon>
+                            <Votes>{ loadedProject.voteCount }</Votes>
+                            <HeartIcon>
+                                <div>
+                                    <IoIosHeartDislike
+                                        onClick={ () => handleVote("DOWNVOTE") }
+                                        size={ 30 }
+                                    />
+                                </div>
+                            </HeartIcon>
+                        </ButtonBox>
                     </FormWindow>
+
                     <FormWindow className="project-details-tasks">
                         <SubHeader>
                             Project tasks
@@ -149,14 +195,38 @@ export default function Project({}) {
 
 
                     <CommentList>
+                        <CommentAddWindow>
+                            <ButtonRow>
 
+                                <RectangleButton
+                                    className="btn btn--super-small"
+                                    disabled={ !isAuth }
+                                    disabledText="Login to reply"
+                                    onClick={ () => setAddComment(!addComment) }
+                                >
+                                    comment
+                                </RectangleButton>
+                                { addComment &&
+                                    <AiFillCloseCircle
+                                        onClick={ () => setAddComment(false) }
+                                        size={ 15 }
+                                    />
+                                }
+                            </ButtonRow>
+
+
+                            { ( addComment && isAuth ) &&
+                                <CommentAdd parent={ `parentProjectId` } parentId={ loadedProject.projectId }/>
+                            }
+
+                        </CommentAddWindow>
                         { loadedComments &&
                             loadedComments.map(comment =>
                                 (
                                     <Comment comment={ comment }/>
                                 ))
                         }
-                        { (loadedComments && loadedComments.length > 0) &&
+                        { ( loadedComments && loadedComments.length > 6 ) &&
                             <RectangleButton onClick={ handlePageable } buttonSize="btn btn--medium"
                                              buttonStyle="btn--special--outline">
                                 Load more

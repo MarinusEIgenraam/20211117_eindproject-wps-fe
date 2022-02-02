@@ -51,4 +51,14 @@ export const FinishedBox = styled.div`
   bottom: 15px;
 `
 
+export const HeartIcon = styled.div`
+  padding: 1rem;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`
+
 /** Created by ownwindows on 15-01-22 **/

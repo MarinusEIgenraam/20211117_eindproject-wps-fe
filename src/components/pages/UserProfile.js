@@ -22,6 +22,7 @@ import { getProjectsFor } from "../../services/controllers/Projects";
 import { ProjectListItem, TaskListItem, UnsortedList } from "../../styles/List";
 import { getBlogsFor } from "../../services/controllers/Blogs";
 import { setRole } from "../../services/helpers/filters";
+import { ListLink } from "../../styles/Navigation";
 
 export default function UserProfile() {
     const source = axios.CancelToken.source();
@@ -98,10 +99,10 @@ export default function UserProfile() {
                     <UnsortedList>
                         { projects.map((project, index) => (
                             <ProjectListItem key={ index }>
-                                <NavLink to={ `/projects/${ project.projectId }` }><h6> { project.projectName } </h6>
-                                </NavLink>
+                                <ListLink to={ `/projects/${ project.projectId }` }><h6> { project.projectName } </h6>
+                                </ListLink>
 
-                                <DetailRow>
+                                <DetailRow className="listItem">
                                     <h6>{ project.startTime } <span
                                         className="light">| { project.category.name } | { project.projectOwner.username } </span>
                                     </h6>
@@ -116,16 +117,17 @@ export default function UserProfile() {
                     </UnsortedList>
                 </>
             }
-            {(blogs && blogs.length > 0) &&
+            {(blogs && blogs.length > 0) ?
             <>
                 <SubHeader>
                     User blogs
                 </SubHeader>
                 <UnsortedList>
-                    { blogs && blogs.map((blog, index) => (
-                        <TaskListItem to={ `/project/${ blog.id }` } key={ index }>
-                            <h6> { blog.blogName } </h6>
-                            <DetailRow>
+                    {blogs.map((blog, index) => (
+                        <TaskListItem key={ index }>
+                            <NavLink to={ `/blogs/${ blog.blogId }` }><h6> { blog.blogName }  </h6>
+                            </NavLink>
+                            <DetailRow className="listItem">
                                 <h6>{ blog.startTime } <span
                                     className="light">| { blog.blogOwner.username } </span>
                                 </h6>
@@ -136,6 +138,8 @@ export default function UserProfile() {
                     )) }
                 </UnsortedList>
             </>
+                :
+                <>{userDetails.username} is not working on any projects</>
             }
 
         </PageContainer>

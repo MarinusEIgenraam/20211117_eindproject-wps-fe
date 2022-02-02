@@ -52,8 +52,8 @@ export default function ProjectList() {
             </CenteredSubHeader>
 
             <UnsortedList>
-                { loadedProjects && loadedProjects.map(project => (
-                    <ProjectListItem key={ project.id }>
+                { loadedProjects && loadedProjects.map((project, index) => (
+                    <ProjectListItem key={ index }>
                         <NavLink to={ `/projects/${ project.projectId }` }><h6> { project.projectName } </h6></NavLink>
 
                         <DetailRow>

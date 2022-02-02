@@ -3,35 +3,45 @@
 import React, { useState } from 'react'
 ////////////////////
 //// Environmental
-import { Header, SeeMore, SubTitle } from "../../../styles/Typography";
+import { Date, Header, Owner, PrimaryInfo, SecondaryInfo } from "../../../styles/Typography";
 import { BlogImage } from "../../../styles/Images";
-import { Gradient } from "../../../styles/Graphics";
-import { BlogContainer } from "../../../styles/Layout";
+import { BlogContainer, DetailRow } from "../../../styles/Layout";
+import { LinkRow, ProjectCardLink } from "../../../styles/Navigation";
+import { AiFillCloseCircle, BsArrowRightCircleFill } from "react-icons/all";
 
-export default function Blog({ blog: { blogName, blogOwner, imageUrl, description, startTime } }) {
+export default function Blog({ blog }) {
     const [ showMore, setShowMore ] = useState(false)
-
 
 
     return (
 
         <BlogContainer className="card" onClick={ () => setShowMore(!showMore) }>
             <Header>
-                <h3>
-                    { blogName }
-                </h3>
-                <SubTitle>
-                    { blogOwner?.username }
-                </SubTitle>
+                <ProjectCardLink className="blog" to={ `/blogs/${ blog.blogId }` }>
+                    { blog.blogName }
+                </ProjectCardLink>
             </Header>
-            <BlogImage src={ imageUrl } alt={ blogName }/>
+            <BlogImage src={ blog.imageUrl } alt={ blog.blogName }/>
             <p>
-                { description }
+                { blog.description }
             </p>
-
-
-            <small>{ startTime }</small>
-
+            <LinkRow to={ `/blogs/${ blog.blogId }` } className="double">
+                For comments and more information
+                <BsArrowRightCircleFill
+                    size={ 15 }
+                />
+            </LinkRow>
+            <DetailRow className="users no-margin">
+                <PrimaryInfo>
+                    <Owner>
+                        { blog.blogOwner.username }
+                    </Owner>
+                </PrimaryInfo>
+                <SecondaryInfo>
+                    {/*<Category>{ project.category.name }</Category>*/ }
+                    <Date className="blog">{ blog.startTime }</Date>
+                </SecondaryInfo>
+            </DetailRow>
 
         </BlogContainer>
     )

@@ -19,6 +19,7 @@ export const FormWindow = styled.div`
   width: 70vw;
   height: max-content;
   max-width: 1200px;
+  position: relative;
 
   display: flex;
   flex-wrap: wrap;
@@ -33,6 +34,13 @@ export const FormWindow = styled.div`
   &.project-details-tasks {
     margin-top: -1rem;
   }
+  &.blog-window {
+    width: 40vw;
+  }
+  
+  &.portalWindow {
+    flex-direction: column;
+  }
 
 `
 
@@ -44,7 +52,16 @@ export const ButtonBox = styled.section`
   justify-content: center;
   align-items: center;
   position: relative;
+  
+  &.liked {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    bottom: -32px;
+  }
 `
+
+
 
 export const InputRow = styled.div`
   display: flex;

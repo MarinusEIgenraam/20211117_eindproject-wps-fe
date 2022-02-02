@@ -46,13 +46,13 @@ export default function Navbar() {
             </Hamburger>
             <Menu menuOpen={ menuOpen } navActive={ navActive }>
                 { !isAuth &&
-                    <MenuLink activeClassName="active" className="highlight" onClick={ () => setMenuOpen(false) }
+                    <MenuLink className="highlight" onClick={ () => setMenuOpen(false) }
                               to="/register">Register</MenuLink> }
-                <MenuLink activeClassName="active" onClick={ () => setMenuOpen(false) } to="/blogs">Blogs</MenuLink>
-                <MenuLink activeClassName="active" onClick={ () => setMenuOpen(false) }
+                <MenuLink onClick={ () => setMenuOpen(false) } to="/blogs">Blogs</MenuLink>
+                <MenuLink onClick={ () => setMenuOpen(false) }
                           to="/projects">Projects</MenuLink>
-                <MenuLink activeClassName="active" onClick={ () => setMenuOpen(false) } to="/about">About</MenuLink>
-                <MenuLink activeClassName="active" onClick={ () => setMenuOpen(false) } to="/users">Users</MenuLink>
+                <MenuLink onClick={ () => setMenuOpen(false) } to="/about">About</MenuLink>
+                <MenuLink onClick={ () => setMenuOpen(false) } to="/users">Users</MenuLink>
                 <a>{ isAuth }</a>
                 { isAuth &&
                     <MenuLink onClick={ () => setMenuOpen(false) } to="/me">Portal</MenuLink>
@@ -61,11 +61,11 @@ export default function Navbar() {
                 { useMediaQuery('(max-width: 768px)') ?
                     ( isAuth
                             ?
-                            <MenuLink activeClassName="active" to="/"
+                            <MenuLink to="/"
                                       onClick={ ( logout, () => setMenuOpen(false) ) }>Logout</MenuLink>
 
                             :
-                            <MenuLink activeClassName="active" onClick={ () => setMenuOpen(false) }
+                            <MenuLink onClick={ () => setMenuOpen(false) }
                                       to="/">Login</MenuLink>
 
                     )
@@ -73,14 +73,14 @@ export default function Navbar() {
                     :
                     ( isAuth
                             ?
-                            <MenuLink activeClassName="active" onClick={ () => setMenuOpen(false) }
+                            <MenuLink onClick={ () => setMenuOpen(false) }
                                       className="icon-link" to="/" onClick={ logout }>
                                 <Tooltip text="Logout">
                                     <RiLoginCircleFill size={ 30 }/>
                                 </Tooltip>
                             </MenuLink>
                             :
-                            <MenuLink activeClassName="active" onClick={ () => setMenuOpen(false) }
+                            <MenuLink onClick={ () => setMenuOpen(false) }
                                       className="icon-link" to="/login">
                                 <Tooltip text="Login">
                                     <RiLoginCircleFill size={ 30 }/>

@@ -36,6 +36,9 @@ export const Date = styled.span`
   font-size: 0.9rem;
   font-weight: 700;
   margin-right: 1rem;
+  &.blog {
+    margin: 0;
+  }
 `
 
 export const Category = styled.span`
@@ -102,6 +105,10 @@ export const DetailContainer = styled.div`
 
   &.userListDetails{
    min-height: 0; 
+  }
+  
+  &.projectDetails{
+    justify-content: space-between;
   }
 
 `

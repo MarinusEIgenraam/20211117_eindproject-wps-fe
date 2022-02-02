@@ -12,8 +12,8 @@ import { postBlog } from "../../../services/controllers/Blogs";
 import { uploadImage } from "../../../services/controllers/Images";
 import { Heading } from "../../../styles/Typography";
 
-export default function BlogCreate({ creationCount, setCreationCount }) {
-    const { setHasError, setIsLoading } = useContext(UtilityContext);
+export default function BlogCreate({}) {
+    const { setHasError, setIsLoading, creationCount, setCreationCount } = useContext(UtilityContext);
     const [ picture, setPicture ] = useState('')
 
     const {

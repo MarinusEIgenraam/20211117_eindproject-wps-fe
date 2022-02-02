@@ -15,7 +15,6 @@ import BlogOverview from "./components/pages/BlogOverview";
 import Register from "./components/pages/Register";
 import About from "./components/pages/About";
 import ProjectDetails from "./components/pages/ProjectDetails";
-import Blog from "./components/feature/Blogs/Blog";
 import UserOverview from "./components/pages/UserOverview";
 import UserProfile from "./components/pages/UserProfile";
 import NoComponentFound from "./components/pages/NoComponentFound";
@@ -23,6 +22,8 @@ import Footer from "./components/shared/views/Footer";
 import ProjectOverview from "./components/pages/ProjectOverview";
 import { UtilityContext } from "./context/UtilityProvider";
 import Error from "./components/shared/elements/messages/Error";
+import BlogDetails from "./components/pages/BlogDetails";
+import Login from "./components/pages/Login";
 
 function App() {
     const { hasError } = useContext(UtilityContext);
@@ -34,10 +35,11 @@ function App() {
             <Routes>
                 <Route path='/' element={ <Home/> }/>
                 <Route path='/blogs' element={ <BlogOverview/> }/>
-                <Route path='/blogs/:id' element={ <Blog/> }/>
+                <Route path='/blogs/:id' element={ <BlogDetails/> }/>
                 <Route path='/projects' element={ <ProjectOverview/> }/>
                 <Route path='/projects/:id' element={ <ProjectDetails/> }/>
                 <Route path='/register' element={ <Register/> }/>
+                <Route path='/login' element={ <Login/> }/>
                 <Route path='/about' element={ <About/> }/>
 
                 <Route path="/users" element={ <UserOverview/> }/>

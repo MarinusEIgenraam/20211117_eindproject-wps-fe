@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const { REACT_APP_AUTH_REGISTER, REACT_APP_AUTH } = process.env;
+const { REACT_APP_AUTH_REGISTER, REACT_APP_AUTH, REACT_APP_API_URL } = process.env;
 const source = axios.CancelToken.source();
 
 export const registerUser = async (navigate, setRegisterSucces, setHasError, setIsLoading, event) => {
@@ -40,6 +40,29 @@ export const loginUser = async (login, setIsLoading, setHasError, event) => {
         }, {});
         login(response.data.jwt);
         setIsLoading(false)
+    } catch (err) {
+        setHasError(true);
+        console.error(err);
+    }
+}
+
+export const changePassword = async (setRegisterSucces, setIsLoading, setHasError, event) => {
+    const token = localStorage.getItem('token');
+    setHasError(false);
+    setIsLoading(true)
+
+    try {
+        const response = await axios.put(`${REACT_APP_API_URL}users/password`,{
+            oldPassword: event.oldPassword,
+            newPassword: event.newPassword,
+        }, {
+            headers: {
+                Authorization: `Bearer ${ token }`
+            }
+        });
+        setIsLoading(false)
+        setRegisterSucces(true)
+        return response;
     } catch (err) {
         setHasError(true);
         console.error(err);

@@ -30,7 +30,6 @@ export default function Register() {
                 velit. Adipisci amet animi debitis dolor dolores eaque iusto laboriosam magni omnis pariatur possimus
                 reprehenderit, sed soluta, tempore voluptatibus.
             </PageHeader>
-            <AuthLogin/>
             <AuthRegister/>
         </PageContainer>
     )
