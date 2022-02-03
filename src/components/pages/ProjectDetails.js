@@ -58,7 +58,9 @@ export default function Project({}) {
             const projectResult = await getOneProject(setIsLoading, setHasError, id);
             setLoadedProject(projectResult.data);
             const commentResults = await getProjectComments(setIsLoading, setHasError, loadCount, id);
+            {commentResults &&
             setLoadedComments(commentResults.data.content)
+            }
         }
 
         getData()
@@ -84,9 +86,8 @@ export default function Project({}) {
             projectId: id
         }
         console.log(newVote)
-        const results = await projectVote(setIsLoading, setHasError, newVote)
+        await projectVote(setIsLoading, setHasError, newVote)
         setCreationCount(creationCount+1)
-        console.log(results)
     }
 
     return (
@@ -147,7 +148,9 @@ export default function Project({}) {
                         </SubHeader>
                         <Table>
 
+                            <tbody>
                             <TableRow>
+
                                 <th className="name">
                                     name
                                 </th>
@@ -166,6 +169,7 @@ export default function Project({}) {
                                 <th className="date">
                                     created at
                                 </th>
+
                             </TableRow>
 
                             { loadedProject?.projectTaskList &&
@@ -190,6 +194,7 @@ export default function Project({}) {
                                         </TableRow> )
                                 )
                             }
+                            </tbody>
                         </Table>
                     </FormWindow>
 

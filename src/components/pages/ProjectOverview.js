@@ -30,22 +30,26 @@ export default function ProjectOverview() {
     const [ writeProject, setWriteProject ] = useState(false);
     const [ requestUri, setRequestUri ] = useState('');
     const [ loadedProjects, setLoadedProjects ] = useState();
-    const [ projectCategory, setProjectCategory ] = useState('');
+    const [ projectCategory, setProjectCategory ] = useState();
+    const [ loadCount, setLoadCount ] = useState(6);
 
     const source = axios.CancelToken.source();
 
 
     useEffect(() => {
         if (projectCategory) {
-            setRequestUri(`?categoryId=${ projectCategory }`)
+            setRequestUri(`?categoryId=${ projectCategory }&page=1&size=${ loadCount }`);
+        } else {
+            setRequestUri(`?page=0&size=${loadCount}`)
         }
+
 
         const getData = async () => {
             const response = await getProjectsFor(setHasError, setIsLoading, requestUri)
             {
                 response && setLoadedProjects(response.data.content)
             }
-        }
+        };
 
         getData()
 
@@ -53,7 +57,7 @@ export default function ProjectOverview() {
             source.cancel();
         };
 
-    }, [ projectCategory ]);
+    }, [ projectCategory, loadCount ]);
 
     const renderButton = () => {
         if (user?.authorities === "Project lord" | "Project manager" && !writeProject) {
@@ -74,6 +78,9 @@ export default function ProjectOverview() {
         }
     }
 
+    function handlePageable() {
+        setLoadCount(loadCount + 6)
+    }
 
     return (
         <PageContainer>
@@ -130,7 +137,12 @@ export default function ProjectOverview() {
                     </ProjectPageListItem>
                 )) }
             </UnsortedList>
-
+            { ( loadedProjects && loadedProjects.length >= 6 ) &&
+                <RectangleButton onClick={ handlePageable } buttonSize="btn btn--medium"
+                                 buttonStyle="btn--special--outline">
+                    Load more
+                </RectangleButton>
+            }
         </PageContainer>
     )
 }

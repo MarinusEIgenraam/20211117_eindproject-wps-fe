@@ -8,17 +8,17 @@ import { UtilityContext } from "../../context/UtilityProvider";
 import { DetailRow, PageContainer, PageHeader } from "../../styles/Layout";
 import Logo from '../../assets/images/home_background.png'
 import {
-    DetailContainer,
     CenteredHeader,
-    CenteredSubHeader,
+    DetailContainer,
+    PrimaryInfo,
+    ProjectMain,
+    SecondaryInfo,
     SubTitle,
-    Owner,
-    ProjectMain, ProjectDescription, PrimaryInfo, User, SecondaryInfo, Votes, Category, Date
+    User
 } from "../../styles/Typography";
 import { Image } from "../../styles/Images";
 import { UnsortedList, UserListItem } from "../../styles/List";
 import { getAdmins } from "../../services/controllers/Users";
-import { ProjectCardLink } from "../../styles/Navigation";
 
 export default function About() {
     const { setIsLoading, setHasError } = useContext(UtilityContext);
