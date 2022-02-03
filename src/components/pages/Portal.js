@@ -10,6 +10,7 @@ import ProjectList from "../feature/Projects/ProjectList";
 import TaskList from "../feature/Tasks/TaskList";
 import BlogList from "../feature/Blogs/BlogList";
 import PortalUserDetails from "../feature/Portal/PortalUserDetails";
+import AlertList from "../feature/Alerts/AlertList";
 
 
 export default function Portal() {
@@ -25,6 +26,7 @@ export default function Portal() {
                 Welcome back { user.username }
                 <Divider className="small"/>
             </CenteredHeader>
+            <AlertList/>
 
             <PortalUserDetails/>
 

@@ -28,11 +28,8 @@ export default function TaskList({ editCount, setEditCount }) {
         const token = localStorage.getItem('token');
 
         const getData = async () => {
-            setHasError(false);
-            setIsLoading(true)
             const tasks = await getTasksFor(setIsLoading, setHasError, token, user)
             setLoadedTasks(tasks)
-            setIsLoading(false)
         }
 
         getData()
@@ -57,15 +54,18 @@ export default function TaskList({ editCount, setEditCount }) {
                         <TaskListItem key={ index }>
                             <TaskParentItem editCount={ editCount } setEditCount={ setEditCount } task={ task }/>
                             <h6>Sub tasks</h6>
-                            { task.taskTaskList &&
-                                task.taskTaskList.map((subTask, index) => {
-                                    return (
-                                        <TaskItem key={ index } editCount={ editCount } setEditCount={ setEditCount }
-                                                  task={ subTask }/>
+                            <UnsortedList>
 
-                                    )
-                                })
-                            }
+                                { task.taskTaskList &&
+                                    task.taskTaskList.map((subTask, index) => {
+                                        return (
+                                            <TaskItem key={ index } editCount={ editCount } setEditCount={ setEditCount }
+                                                      task={ subTask }/>
+
+                                        )
+                                    })
+                                }
+                            </UnsortedList>
 
                         </TaskListItem>
                     )

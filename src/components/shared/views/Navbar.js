@@ -90,7 +90,7 @@ export default function Navbar() {
 
                 }
 
-                <ThemeSwitch/>
+                <ThemeSwitch onClick={() => setMenuOpen(false) }/>
 
 
             </Menu>

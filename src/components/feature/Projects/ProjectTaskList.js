@@ -93,9 +93,9 @@ export default function Fields({ control, register, errors }) {
                         </FormBreak>
                         <FormBreak>
                             <FormLabel>
-                                <label htmlFor="description">Task owner</label>
+                                <label htmlFor="taskOwner">Task owner</label>
                                 <FormError role="alert">
-                                    { errors.taskOwner && "Enter a project name!" }
+                                    { errors.taskOwner && "Select a task owner!" }
                                 </FormError>
                             </FormLabel>
                             <SelectUser

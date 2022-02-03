@@ -34,6 +34,10 @@ export const BackgroundImage = styled.img`
   
   width: 70vw;
   overflow: hidden;
+  
+  @media (min-width: 500px){
+    filter: none;
+  }
   &.hero-logo {
     width: 90vw;
   }

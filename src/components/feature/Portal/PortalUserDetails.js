@@ -36,15 +36,7 @@ export default function PortalUserDetails() {
     const [ passwordSucces, setPasswordSucces ] = useState()
     const [ loadedImage, setLoadedImage ] = useState('')
     const [ registerSucces, setRegisterSucces ] = useState(false);
-    const {
-        control,
-        register,
-        handleSubmit,
-        getValues,
-        formState: { errors },
-        reset,
-        setValue
-    } = useForm({});
+
 
     useEffect(() => {
 
@@ -74,16 +66,31 @@ export default function PortalUserDetails() {
     }
 
     const onSubmit = async (values) => {
-        setIsLoading(true)
         const profileImage = await uploadProfileImage(setHasError, setIsLoading, values.file[0])
-        setIsLoading(false)
         console.log(profileImage)
     }
 
     const onPasswordChange = async (values) => {
-        const message = await changePassword(setRegisterSucces, setHasError, setIsLoading, values)
-        setPasswordSucces(message)
+        console.log(values)
+        // const message = await changePassword(setRegisterSucces, setHasError, setIsLoading, values)
+        // setPasswordSucces(message)
     }
+
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm({
+        mode: "onBlur",
+    });
+
+    const {
+        register: imageRegister,
+        formState: { errors: imageErrors },
+        handleSubmit: imageSubmit,
+    } = useForm({
+        mode: "onBlur",
+    });
 
     return (
         <FormWindow>
@@ -179,26 +186,28 @@ export default function PortalUserDetails() {
 
             </Form>
 
-            <Form className="editForm" onSubmit={ handleSubmit(onSubmit) }>
+            <Form className="editForm" onSubmit={ imageSubmit(onSubmit) }>
 
                 <FormBreak>
                     <FormInput>
                         <FormLabel>
                             <label htmlFor="image">Profile image</label>
                             <FormError role="alert">
-                                { errors.imageUrl && "Please provide a jpg or png image!" }
+                                { imageErrors.imageUrl && "Please provide a jpg or png image!" }
                             </FormError>
                         </FormLabel>
                         <input
                             type="file"
                             name="file"
+                            // accept="image/png, image/jpeg"
                             id="file"
-                            { ...register("file") }
+                            { ...imageRegister("file") }
                             onChange={ handleImageChange }
                         />
-                        <RectangleButton type="submit">Upload</RectangleButton>
+                        <RectangleButton
+                            onClick={ imageSubmit(onSubmit) }>Upload</RectangleButton>
                     </FormInput>
-
+                    {/*<img th:src="/@{${user.photosImagePath}}" />*/}
                 </FormBreak>
             </Form>
             <ProjectHero image={ loadedImage}/>

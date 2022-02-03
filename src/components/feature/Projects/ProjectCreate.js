@@ -76,10 +76,10 @@ export default function ProjectCreate() {
             if (values.imageUrl[0].type === 'image/jpeg' || values.imageUrl[0].type === 'image/png') {
                 const imgur = await uploadImage(setHasError, setIsLoading, values.imageUrl[0])
                 const request = {
-                    ...values,
+                    values,
                     imageUrl: imgur
                 }
-                console.log(values)
+                console.log(request)
                 await postProject(setHasError, setIsLoading, request)
 
             } else (

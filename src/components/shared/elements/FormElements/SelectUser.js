@@ -28,12 +28,12 @@ export default function SelectUser({ register, parent, defaultValue }) {
 
     return (
         <SelectContainer id="SelectContainer">
-            <Select { ...register(`${ parent }Owner.username`) }>
+            <Select { ...register(`${ parent }Owner`) }>
                 <option key={ defaultValue } value={ defaultValue }>{ defaultValue }</option>
                 { loadedUsers &&
                     loadedUsers.map((user, key) => {
                             return (
-                                <option key={ key } value={ user.username }>{ user.username }</option>
+                                <option key={ key } value={ user.username.value }>{ user.username.value }</option>
                             )
                         }
                     )
