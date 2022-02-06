@@ -6,8 +6,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from "../../context/AuthProvider";
 import { HeaderImage, PageContainer } from "../../styles/Layout";
 import { BackgroundImage } from "../../styles/Images";
-import homeBackground from '../../assets/images/WPS-01.svg'
-import heroBackground from '../../assets/images/wps_hero.svg'
+import homeBackground from '../../assets/images/hero_image-black.svg'
+import heroBackground from '../../assets/images/wps_half-fill_hero-black.svg'
 
 export default function Home() {
     const [isNarrowScreen, setIsNarrowScreen] = useState(false);

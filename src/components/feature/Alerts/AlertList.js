@@ -8,7 +8,7 @@ import { AuthContext } from "../../../context/AuthProvider";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import { Container, DetailRow } from "../../../styles/Layout";
 import { CenteredSubHeader } from "../../../styles/Typography";
-import { ProjectListItem, UnsortedList } from "../../../styles/List";
+import { ListItem, UnsortedList } from "../../../styles/List";
 import { getAlertsFor } from "../../../services/controllers/Alerts";
 
 export default function AlertList() {
@@ -42,22 +42,21 @@ export default function AlertList() {
             <CenteredSubHeader>
                 Alerts
                 <DetailRow>
-                    {/*You have {loadedAlerts.length} new alerts*/}
                 </DetailRow>
             </CenteredSubHeader>
 
             <UnsortedList>
                 { loadedAlerts && loadedAlerts.map((alert, index) => (
-                    <ProjectListItem key={ index }>
-                        <DetailRow>
-                            <h6>{ alert.createdAt } <span
-                                className="light">| { alert.title } | { alert.text } </span>
-                            </h6>
+                    <ListItem className="alert-list" key={ index }>
 
+                        <DetailRow key={ index }>
+                            <h6>{ alert.createdAt } <span
+                                className="light">{ alert.createdAt } | { alert.title } | { alert.text } </span>
+                            </h6>
                         </DetailRow>
 
 
-                    </ProjectListItem>
+                    </ListItem>
                 )) }
             </UnsortedList>
         </Container>

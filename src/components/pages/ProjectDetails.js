@@ -23,18 +23,12 @@ import {
     ProjectMain,
     SecondaryInfo,
     SubHeader,
-    User, Votes
+    User,
+    Votes
 } from "../../styles/Typography";
 import RectangleButton from "../shared/elements/clickables/RectangleButton";
 import { Table, TableRow } from "../../styles/Table";
-import {
-    AiFillCloseCircle,
-    AiFillHeart,
-    FcDislike, FcLike,
-    FcLikePlaceholder, IoIosHeart,
-    IoIosHeartDislike,
-    RiDislikeFill
-} from "react-icons/all";
+import { AiFillCloseCircle, IoIosHeart, IoIosHeartDislike } from "react-icons/all";
 import CommentAdd from "../shared/elements/Comments/CommentAdd";
 import { AuthContext } from "../../context/AuthProvider";
 import { HeartIcon } from "../../styles/Icons";
@@ -226,9 +220,9 @@ export default function Project({}) {
 
                         </CommentAddWindow>
                         { loadedComments &&
-                            loadedComments.map(comment =>
+                            loadedComments.map((comment, index) =>
                                 (
-                                    <Comment comment={ comment }/>
+                                    <Comment index={index} comment={ comment }/>
                                 ))
                         }
                         { ( loadedComments && loadedComments.length > 6 ) &&

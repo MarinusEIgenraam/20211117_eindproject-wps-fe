@@ -24,7 +24,7 @@ import { UtilityContext } from "../../../../context/UtilityProvider";
 ////////////////////
 //// External
 
-export default function Comment({ comment }) {
+export default function Comment({ comment, index }) {
     const { isAuth } = useContext(AuthContext);
     const { creationCount } = useContext(UtilityContext);
     const [ addComment, setAddComment ] = useState(false);
@@ -35,7 +35,7 @@ export default function Comment({ comment }) {
     }, [creationCount]);
 
     return (
-        <CommentListItem className="comment">
+        <CommentListItem key={index} className="comment">
             <UserCommenterDetails>
                 <CommenterDetail className="date">{ comment.startTime }</CommenterDetail>
                 <CommenterDetail className="username"><NavLink className="UserLink"

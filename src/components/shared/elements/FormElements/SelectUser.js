@@ -18,6 +18,7 @@ export default function SelectUser({ register, parent, defaultValue }) {
         const getData = async () => {
             const userData = await getUsers(setHasError, setIsLoading);
             setLoadedUsers(userData.data.content)
+            console.log(userData)
         }
         getData()
 
@@ -33,7 +34,7 @@ export default function SelectUser({ register, parent, defaultValue }) {
                 { loadedUsers &&
                     loadedUsers.map((user, key) => {
                             return (
-                                <option key={ key } value={ user.username.value }>{ user.username.value }</option>
+                                <option key={ key } value={ user.username }>{ user.username }</option>
                             )
                         }
                     )

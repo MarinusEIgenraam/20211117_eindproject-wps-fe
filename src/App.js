@@ -34,6 +34,8 @@ function App() {
             <Navbar/>
             <Routes>
                 <Route path='/' element={ <Home/> }/>
+                <Route path="/users" element={ <UserOverview/> }/>
+                <Route path='/users/:username' element={ <UserProfile/> }/>
                 <Route path='/blogs' element={ <BlogOverview/> }/>
                 <Route path='/blogs/:id' element={ <BlogDetails/> }/>
                 <Route path='/projects' element={ <ProjectOverview/> }/>
@@ -42,8 +44,6 @@ function App() {
                 <Route path='/login' element={ <Login/> }/>
                 <Route path='/about' element={ <About/> }/>
 
-                <Route path="/users" element={ <UserOverview/> }/>
-                <Route path='/users/:username' element={ <UserProfile/> }/>
                 <Route path='/me' element={
                     <PrivateRoutes>
                         <Portal/>

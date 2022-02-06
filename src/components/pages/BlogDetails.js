@@ -9,7 +9,7 @@ import { ButtonRow, CommentAddWindow, DetailRow, PageContainer } from "../../sty
 import { UtilityContext } from "../../context/UtilityProvider";
 import { useParams } from "react-router-dom";
 import { FormWindow } from "../../styles/Form";
-import { BlogHero, Image, ProjectHero } from "../../styles/Images";
+import { Image, Hero } from "../../styles/Images";
 import { getBlogComments, getProjectComments } from "../../services/controllers/Comments";
 import { getOneProject } from "../../services/controllers/Projects";
 import Comment from "../shared/elements/Comments/Comment";
@@ -83,7 +83,7 @@ export default function BlogDetails({}) {
                                     { loadedBlog.blogName }
                                 </Title>
                             </DetailContainer>
-                            <BlogHero className="" image={ loadedBlog.imageUrl }/>
+                            <Hero className="" image={ loadedBlog.imageUrl }/>
                         </ProjectMain>
                         <ProjectDescription>
                             { loadedBlog.description }

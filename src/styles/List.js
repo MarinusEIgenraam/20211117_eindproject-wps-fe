@@ -105,6 +105,15 @@ export const ListItem = styled.li`
       font-size: 0.9rem;
     } 
   }
+  
+  &.alert-list{
+    align-items: start;
+    width:70vw;
+    h5{
+      margin: 0;
+      padding: 0;
+    }
+  }
 
   &.taskItem {
     margin-top: 0.2rem;

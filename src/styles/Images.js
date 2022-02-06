@@ -30,7 +30,7 @@ export const ProfileImage = styled.img`
 `
 
 export const BackgroundImage = styled.img`
-  filter: ${ props => props.theme.svg };
+  filter: invert(31%) sepia(20%) saturate(4258%) hue-rotate(159deg) brightness(90%) contrast(86%);
   
   width: 70vw;
   overflow: hidden;
@@ -52,7 +52,7 @@ export const ProjectHero = styled.div`
   max-height: 200px;
   aspect-ratio: 1 / 1;
 `
-export const BlogHero = styled.div`
+export const Hero = styled.div`
   background-image: url('${image=> image.image}');
   background-size: cover;
   border: solid var(--box-border-medium) ${ props => props.theme.border };

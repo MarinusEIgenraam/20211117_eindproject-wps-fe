@@ -42,36 +42,42 @@ export default function TaskList({ editCount, setEditCount }) {
 
 
     return (
-        <Container>
-            <CenteredSubHeader>
-                Your tasks
-            </CenteredSubHeader>
+        <>
+            { loadedTasks.length > 0 &&
+                <Container>
+                    <CenteredSubHeader>
+                        Your tasks
+                    </CenteredSubHeader>
 
 
-            <UnsortedList>
-                { loadedTasks && loadedTasks.map((task, index) => {
-                    return (
-                        <TaskListItem key={ index }>
-                            <TaskParentItem editCount={ editCount } setEditCount={ setEditCount } task={ task }/>
-                            <h6>Sub tasks</h6>
-                            <UnsortedList>
+                    <UnsortedList>
+                        { loadedTasks.map((task, index) => {
+                            return (
+                                <TaskListItem key={ index }>
+                                    <TaskParentItem editCount={ editCount } setEditCount={ setEditCount }
+                                                    task={ task }/>
+                                    <h6>Sub tasks</h6>
+                                    <UnsortedList>
 
-                                { task.taskTaskList &&
-                                    task.taskTaskList.map((subTask, index) => {
-                                        return (
-                                            <TaskItem key={ index } editCount={ editCount } setEditCount={ setEditCount }
-                                                      task={ subTask }/>
+                                        { task.taskTaskList &&
+                                            task.taskTaskList.map((subTask, index) => {
+                                                return (
+                                                    <TaskItem key={ index } editCount={ editCount }
+                                                              setEditCount={ setEditCount }
+                                                              task={ subTask }/>
 
-                                        )
-                                    })
-                                }
-                            </UnsortedList>
+                                                )
+                                            })
+                                        }
+                                    </UnsortedList>
 
-                        </TaskListItem>
-                    )
-                }) }
-            </UnsortedList>
-        </Container>
+                                </TaskListItem>
+                            )
+                        }) }
+                    </UnsortedList>
+                </Container>
+            }
+        </>
     )
 }
 
