@@ -39,6 +39,7 @@ export default function BlogList() {
             {
                 response && setLoadedBlogs(response.data.content)
             }
+            console.log(response);
         }
 
         getData()
@@ -55,6 +56,8 @@ export default function BlogList() {
 
     return (
 
+<>
+    { loadedBlogs &&
         <Container>
             <CenteredSubHeader>
                 Your blogs
@@ -73,23 +76,9 @@ export default function BlogList() {
                     </TaskListItem>
                 )) }
             </UnsortedList>
-            { ( user?.authorities === "Project lord" | "Project manager" && !writeProject ) ?
-                <RectangleButton
-                    type="button"
-                    onClick={ () => setWriteProject(true) }
-                    buttonSize="btn--medium"
-                    buttonStyle="btn--special--solid"
-                >
-                    NEW
-                </RectangleButton>
-                :
-                <AiOutlineClose onClick={ () => setWriteProject(false) } size={ 30 }/>
-
-            }
-            { writeProject &&
-                <BlogCreate/>
-            }
         </Container>
+    }
+</>
     )
 }
 

@@ -43,7 +43,7 @@ export default function TaskList({ editCount, setEditCount }) {
 
     return (
         <>
-            { loadedTasks.length > 0 &&
+            { (loadedTasks && loadedTasks.length  > 0) &&
                 <Container>
                     <CenteredSubHeader>
                         Your tasks

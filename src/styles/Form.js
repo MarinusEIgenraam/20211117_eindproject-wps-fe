@@ -1,7 +1,7 @@
 ////////////////////
 //// Build
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 ////////////////////
 //// Environmental
@@ -45,10 +45,14 @@ export const FormWindow = styled.div`
 `
 
 export const ButtonBox = styled.section`
+  ${ ({ area }) =>
+          area &&
+          css`
+            grid-area: ${ area };
+          ` }
   display: flex;
   width: 100%;
   flex-direction: row;
-  padding: 1rem 1rem;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -59,6 +63,11 @@ export const ButtonBox = styled.section`
     position: absolute;
     bottom: -32px;
   }
+`
+
+export const ButtonWindow = styled(ButtonBox)`
+margin: 1rem 0;
+  min-height: 50px;
 `
 
 

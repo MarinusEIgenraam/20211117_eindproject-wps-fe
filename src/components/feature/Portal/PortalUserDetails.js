@@ -4,26 +4,24 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 ////////////////////
 //// Environmental
-import {
-    Form,
-    FormBreak,
-    FormError,
-    FormInput,
-    FormInputWrap,
-    FormLabel,
-    FormSection
-} from "../../../styles/FormStyles";
+import { FormColumn, FormError, FormInput, FormInputWrap, FormLabel } from "../../../styles/FormStyles";
 import { AuthContext } from "../../../context/AuthProvider";
-import { FormWindow } from "../../../styles/Form";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import { getProfileImage, uploadProfileImage } from "../../../services/controllers/Images";
 import axios from "axios";
 import { changePassword } from "../../../services/controllers/Auth";
-import { Hero } from "../../../styles/Images";
+import { Hero, WindowVisual } from "../../../styles/Images";
 import { IconBox } from "../../../styles/Icons";
 import Tooltip from "../../shared/elements/messages/Tooltip";
 import { IoIosSend } from "react-icons/all";
+import styled from "styled-components";
+import { BorderedWindow, VisualContainer } from "../../../styles/Windows";
+import { QUERIES } from "../../../services/helpers/mediaQueries";
+import blogBackground from "../../../assets/images/visual_Blogs.svg";
+import { Heading, SubHeading } from "../../../styles/Typography";
+import { ButtonBox } from "../../../styles/Form";
+import { getBlogs } from "../../../services/controllers/Blogs";
 
 export default function PortalUserDetails() {
     const [ changeUsername, setChangeUsername ] = useState();
@@ -35,6 +33,8 @@ export default function PortalUserDetails() {
     const [ passwordSucces, setPasswordSucces ] = useState()
     const [ loadedImage, setLoadedImage ] = useState('')
     const [ registerSucces, setRegisterSucces ] = useState(false);
+    const [editCount, setEditCount] = useState(creationCount)
+
 
 
     useEffect(() => {
@@ -65,13 +65,12 @@ export default function PortalUserDetails() {
     }
 
     const onSubmit = async (values) => {
-        const profileImage = await uploadProfileImage(setHasError, setIsLoading, values.file[0])
-        console.log(profileImage)
+        const profileImage = await uploadProfileImage(setEditCount, setHasError, setIsLoading, values.file[0])
     }
 
     const onPasswordChange = async (values) => {
         console.log(values)
-        const message = await changePassword(setRegisterSucces, setHasError, setIsLoading, values)
+        const message = await changePassword(setEditCount, setRegisterSucces, setHasError, setIsLoading, values)
     }
 
     const {
@@ -90,122 +89,181 @@ export default function PortalUserDetails() {
         mode: "onBlur",
     });
 
+    useEffect(() => {
+        console.log(creationCount)
+
+    }, [editCount]);
+
     return (
-        <FormWindow>
-            <h2 className="centered">
-                Settings
-            </h2>
-            <Form className="editForm" onSubmit={ handleSubmit(onPasswordChange) }>
+        <UserDetailWindow>
+            <VisualContainer>
 
-                <FormSection>
-                    <FormInputWrap>
-                        <FormBreak>
+                <WindowVisual src={ blogBackground }/>
+            </VisualContainer>
+            <FormColumn>
+                <SubHeading>Profile settings</SubHeading>
 
-                            <FormInput>
-                                <FormLabel>
-                                    <label htmlFor="password">Old password</label>
-                                    <FormError role="alert">
-                                        { errors.password && "Enter your old password!" }
-                                    </FormError>
-                                </FormLabel>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    id="oldPassword"
-                                    { ...register("oldPassword", {
-                                        required: true
-                                    }) }
-                                />
-                            </FormInput>
-                            <FormInput>
-                                <FormLabel>
-                                    <label htmlFor="password">repeat your password</label>
-                                    <FormError role="alert">
-                                        { errors.password && "Enter your old password!" }
-                                    </FormError>
-                                </FormLabel>
-                                <input
-                                    type="password"
-                                    name="passwordSecond"
-                                    id="oldPasswordSecond"
-                                    { ...register("oldPasswordSecond", {
-                                        required: true
-                                    }) }
-                                />
-                            </FormInput>
-                        </FormBreak>
-                        <FormBreak>
-                            <FormInput>
-                                <FormLabel>
-                                    <label htmlFor="password">New password</label>
-                                    <FormError role="alert">
-                                        { errors.password && "Enter your new password!" }
-                                    </FormError>
-                                </FormLabel>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    id="newPassword"
-                                    { ...register("newPassword", {
-                                        required: true
-                                    }) }
-                                />
-                            </FormInput>
-                        </FormBreak>
-                    </FormInputWrap>
-                    <IconBox className="bottom">
-                        <Tooltip text="Submit">
-                            <IoIosSend
-                                size={ 22 }
-                                type="submit"
-                                onClick={ handleSubmit(onPasswordChange) }
+                <Form className="editForm" onSubmit={ handleSubmit(onPasswordChange) }>
+
+                    <PasswordForm>
+                        <FormInput area="oldPassword">
+                            <FormLabel>
+                                <label htmlFor="password">Old password</label>
+                                <FormError role="alert">
+                                    { errors.password && "Enter your old password!" }
+                                </FormError>
+                            </FormLabel>
+                            <input
+                                type="password"
+                                name="password"
+                                id="oldPassword"
+                                { ...register("oldPassword", {
+                                    required: true
+                                }) }
                             />
-                        </Tooltip>
-                        { registerSucces &&
-                            <h6>Your password has been changed</h6>
+                        </FormInput>
+                        <FormInput area="newPassword">
+                            <FormLabel>
+                                <label htmlFor="password">New password</label>
+                                <FormError role="alert">
+                                    { errors.password && "Enter your new password!" }
+                                </FormError>
+                            </FormLabel>
+                            <input
+                                type="password"
+                                name="password"
+                                id="newPassword"
+                                { ...register("newPassword", {
+                                    required: true
+                                }) }
+                            />
+                        </FormInput>
+                        <FormInput area="newPasswordSecond">
+                            <FormLabel>
+                                <label htmlFor="password">repeat your password</label>
+                                <FormError role="alert">
+                                    { errors.password && "Enter your new password!" }
+                                </FormError>
+                            </FormLabel>
+                            <input
+                                type="password"
+                                name="passwordSecond"
+                                id="newPasswordSecond"
+                                { ...register("newPasswordSecond", {
+                                    required: true
+                                }) }
+                            />
+                        </FormInput>
+                        <IconBox area="submit" className="bottom">
+                            <Tooltip text="Submit">
+                                <IoIosSend
+                                    size={ 22 }
+                                    type="submit"
+                                    onClick={ handleSubmit(onPasswordChange) }
+                                />
+                            </Tooltip>
+                            { registerSucces &&
+                                <h6>Your password has been changed</h6>
 
-                        }
-                    </IconBox>
+                            }
+                        </IconBox>
 
 
-                </FormSection>
+                    </PasswordForm>
 
-            </Form>
+                </Form>
 
-            <Form className="editForm" onSubmit={ imageSubmit(onSubmit) }>
+                <Form className="editForm" onSubmit={ imageSubmit(onSubmit) }>
 
-                <FormBreak>
-                    <FormInput>
-                        <FormLabel>
-                            <label htmlFor="image">Profile image</label>
-                            <FormError role="alert">
-                                { imageErrors.imageUrl && "Please provide a jpg or png image!" }
-                            </FormError>
-                        </FormLabel>
-                        <input
-                            type="file"
-                            name="file"
-                            // accept="image/png, image/jpeg"
-                            id="file"
-                            { ...imageRegister("file") }
-                            onChange={ handleImageChange }
-                        />
-                        <RectangleButton
-                            onClick={ imageSubmit(onSubmit) }>Upload</RectangleButton>
-                    </FormInput>
+                    <ImageForm>
 
-                </FormBreak>
-                <FormBreak>
-                    <FormInput>
-                        <Hero image={ `http://localhost:8080/files/${ user.username }/download` }/>
+                        <FormInput>
+                            <FormLabel area="imageUrl">
+                                <label htmlFor="image">Profile image</label>
+                                <FormError role="alert">
+                                    { imageErrors.imageUrl && "Please provide a jpg or png image!" }
+                                </FormError>
+                            </FormLabel>
+                            <input
+                                type="file"
+                                name="file"
+                                // accept="image/png, image/jpeg"
+                                id="file"
+                                { ...imageRegister("file") }
+                                onChange={ handleImageChange }
+                            />
+                        </FormInput>
+                        <ImagePreview image={ `http://localhost:8080/files/${ user.username }/download` }/>
+                        <ButtonBox area="submit">
 
-                    </FormInput>
-                </FormBreak>
-            </Form>
+                            <RectangleButton onClick={ imageSubmit(onSubmit) }>Upload</RectangleButton>
+                        </ButtonBox>
+                    </ImageForm>
+                </Form>
+            </FormColumn>
 
-
-        </FormWindow>
+        </UserDetailWindow>
     )
 }
+const ImagePreview = styled(Hero)`
+  grid-area: imagePreview;
+  width: 100%;
+
+`
+const UserDetailWindow = styled(BorderedWindow)`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+      "visual"
+      "form";
+  @media ${ QUERIES.tablet } {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "form visual"
+      "form visual"
+  ;
+  }
+`
+
+const ImageForm = styled.section`
+  display: grid;
+  grid-column-gap: 0;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+      "imageUrl"
+      "imagePreview"
+      "submit"
+;
+  @media ${ QUERIES.tablet } {
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-template-areas:
+      "imageUrl imagePreview"
+      "submit imagePreview"
+  ;
+  }
+`
+
+const PasswordForm = styled.section`
+  display: grid;
+  grid-column-gap: 0;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+      "newPassword"
+      "newPasswordSecond"
+      "oldPassword"
+      "submit"
+;
+  @media ${ QUERIES.tablet } {
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-template-areas:
+      "newPassword newPasswordSecond"
+      "oldPassword submit"
+  ;
+  }
+`
+const Form = styled.form`
+`
 
 /** Created by ownwindows on 20-01-22 **/

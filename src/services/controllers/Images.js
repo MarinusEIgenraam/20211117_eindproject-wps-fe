@@ -38,7 +38,7 @@ export const getProfileImage = async (setHasError, setIsLoading, username) => {
     }
 }
 
-export const uploadProfileImage = async (setHasError, setIsLoading, file) => {
+export const uploadProfileImage = async (setEitCount, setHasError, setIsLoading, file) => {
     const token = localStorage.getItem('token');
     setHasError(false);
     setIsLoading(true)
@@ -53,6 +53,7 @@ export const uploadProfileImage = async (setHasError, setIsLoading, file) => {
         })
         console.log(response)
         setIsLoading(false)
+        setEitCount(+1)
         return response
     } catch (err) {
         setHasError(true);

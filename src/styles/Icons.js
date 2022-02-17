@@ -1,6 +1,6 @@
 ////////////////////
 //// Build
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 ////////////////////
 //// Environmental
@@ -9,6 +9,11 @@ import styled from 'styled-components';
 //// External
 
 export const IconBox = styled.div`
+  ${ ({ area }) =>
+          area &&
+          css`
+            grid-area: ${ area };
+          ` }
   display: flex;
   flex-direction: row;
   align-items: center;

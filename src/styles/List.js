@@ -41,7 +41,7 @@ export const OrderedList = styled.ol`
   max-height: 30em;
   overflow-y: auto;
   padding: 0 1em;
-  
+
   &.project-tasks {
     & > li {
       list-style: initial;
@@ -53,7 +53,7 @@ export const BlogOverviewList = styled.ol`
   width: 70vw;
   margin-top: 2rem;
   *zoom: 1;
-  max-width:100%;
+  max-width: 100%;
   padding-left: 1em;
   padding-right: 1em;
   margin-left: auto;
@@ -77,9 +77,9 @@ export const BlogOverviewList = styled.ol`
   @media ${ QUERIES.desktop } {
     column-count: 3;
   }
-  
-  
-  
+
+
+
 `
 
 // List items
@@ -98,18 +98,21 @@ export const ListItem = styled.li`
   &:first-child {
     border-top: none;
   }
+
   &.project-task {
     flex-direction: row;
     justify-content: space-between;
+
     & > * {
       font-size: 0.9rem;
-    } 
+    }
   }
-  
-  &.alert-list{
+
+  &.alert-list {
     align-items: start;
-    width:70vw;
-    h5{
+    width: 70vw;
+
+    h5 {
       margin: 0;
       padding: 0;
     }
@@ -139,6 +142,7 @@ export const TaskListItem = styled.li`
   > h6 {
     color: ${ props => props.theme.sub_text };
   }
+
   @media ${ QUERIES.mobile } {
     flex-direction: column;
   }
@@ -149,10 +153,10 @@ export const CommentListItem = styled(ListItem)`
   padding: 1em;
   justify-content: start;
   align-items: start;
-  /*border: solid var(--box-border-medium) ${ props => props.theme.border };*/
+    /*border: solid var(--box-border-medium) ${ props => props.theme.border };*/
   height: min-content;
-  border-top:none;
-  
+  border-top: none;
+
   & footer {
     display: flex;
     text-align: start;
@@ -174,13 +178,14 @@ export const ProjectPageListItem = styled.li`
   background: ${ props => props.theme.background };
   border: solid var(--box-border-medium) ${ props => props.theme.border };
   overflow: hidden;
-  
-  
+
+
   :not(:nth-child(1)) {
     margin-top: -130px;
     box-shadow: rgba(0, 0, 0, 0.45) 0px -20px 20px -20px;
 
   }
+
   :hover {
     border: solid var(--box-border-medium) ${ props => props.theme.border };
     box-shadow: ${ props => props.theme.shadow };
@@ -188,14 +193,14 @@ export const ProjectPageListItem = styled.li`
     margin-bottom: 150px;
   }
 
-  // @media ${ QUERIES.mobile } {
+    // @media ${ QUERIES.mobile } {
   //   flex-direction: row;
   // }
 
 `
 
 export const ProjectListItem = styled.li`
-width: 70vw;
+  width: 100%;
   height: 100%;
   margin-top: 1rem;
   display: flex;
@@ -224,9 +229,10 @@ export const UserListItem = styled.li`
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.45) 0px -20px 20px -20px;
 
- &.userDetails{
-   margin: 25px 25px -75px 25px;
- }
+  &.userDetails {
+    margin: 25px 25px -75px 25px;
+  }
+
   :hover {
     border: solid var(--box-border-medium) ${ props => props.theme.border };
     box-shadow: ${ props => props.theme.shadow };

@@ -30,17 +30,24 @@ export const ProfileImage = styled.img`
 `
 
 export const BackgroundImage = styled.img`
-  filter: invert(31%) sepia(20%) saturate(4258%) hue-rotate(159deg) brightness(90%) contrast(86%);
+  filter: invert(15%) sepia(28%) saturate(788%) hue-rotate(146deg) brightness(90%) contrast(97%);
   
   width: 70vw;
   overflow: hidden;
   
-  @media (min-width: 500px){
-    filter: none;
-  }
+
   &.hero-logo {
     width: 90vw;
   }
+`
+
+export const WindowVisual = styled.img`
+  grid-area: visual;
+  width: 100%;
+  max-width: 500px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 `
 
 export const ProjectHero = styled.div`
@@ -64,8 +71,7 @@ export const Hero = styled.div`
 export const BlogImage = styled.img`
   width: 100%;
   aspect-ratio: 1/1;
-  border: solid var(--box-border-medium) ${ props => props.theme.border };
+  border: solid var(--box-border-thin) ${ props => props.theme.border };
 `
-
 
 /** Created by ownwindows on 15-01-22 **/

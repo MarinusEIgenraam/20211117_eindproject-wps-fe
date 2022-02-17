@@ -8,6 +8,7 @@ import { HeaderImage, PageContainer } from "../../styles/Layout";
 import { BackgroundImage } from "../../styles/Images";
 import homeBackground from '../../assets/images/hero_image-black.svg'
 import heroBackground from '../../assets/images/wps_half-fill_hero-black.svg'
+import CreationForm from "../feature/CreationForm";
 
 export default function Home() {
     const [isNarrowScreen, setIsNarrowScreen] = useState(false);
@@ -41,6 +42,7 @@ export default function Home() {
                 }
 
             </HeaderImage>
+            <CreationForm/>
 
         </PageContainer>
     )

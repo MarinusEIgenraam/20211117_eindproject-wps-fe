@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { setRole } from "../helpers/filters";
 
 const { REACT_APP_AUTH_REGISTER, REACT_APP_AUTH, REACT_APP_API_URL } = process.env;
 const source = axios.CancelToken.source();
@@ -46,13 +47,13 @@ export const loginUser = async (login, setIsLoading, setHasError, event) => {
     }
 }
 
-export const changePassword = async (setRegisterSucces, setIsLoading, setHasError, event) => {
+export const changePassword = async (setCreationCount, setRegisterSucces, setIsLoading, setHasError, event) => {
     const token = localStorage.getItem('token');
     setHasError(false);
     setIsLoading(true)
 
     try {
-        const response = await axios.put(`${REACT_APP_API_URL}users/password`,{
+        const response = await axios.put(`${ REACT_APP_API_URL }users/password`, {
             oldPassword: event.oldPassword,
             newPassword: event.newPassword,
         }, {
@@ -62,6 +63,8 @@ export const changePassword = async (setRegisterSucces, setIsLoading, setHasErro
         });
         setIsLoading(false)
         setRegisterSucces(true)
+        setCreationCount(+1)
+
         return response;
     } catch (err) {
         setHasError(true);
@@ -70,3 +73,42 @@ export const changePassword = async (setRegisterSucces, setIsLoading, setHasErro
 }
 
 
+export async function fetchUserData(navigate, setHasError, setIsLoading, toggleIsAuth, isAuth, username, token, redirectUrl) {
+    setHasError(false);
+    setIsLoading(true);
+
+    try {
+        const result = await axios.get(`${ REACT_APP_API_URL }users/${ username }`, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${ token }`,
+            },
+        });
+
+        toggleIsAuth({
+            ...isAuth,
+            isAuth: true,
+            user: {
+                username: result.data.username,
+                email: result.data.email,
+                authorities: setRole(result.data.authorities),
+                enabled: result.data.enabled
+            },
+            status: 'done',
+        });
+
+        if (redirectUrl) {
+            navigate(redirectUrl);
+        }
+        setIsLoading(false);
+
+    } catch (e) {
+        console.error(e);
+        setHasError(true);
+        toggleIsAuth({
+            isAuth: false,
+            user: null,
+            status: 'done',
+        });
+    }
+}

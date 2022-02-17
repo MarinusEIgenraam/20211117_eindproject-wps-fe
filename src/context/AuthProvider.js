@@ -3,9 +3,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
-import axios from 'axios';
 import { UtilityContext } from "./UtilityProvider";
-import { setRole } from "../services/helpers/filters";
+import { fetchUserData } from "../services/controllers/Auth";
 ///////////////////////
 //// Environmental
 export const AuthContext = createContext({});
@@ -17,6 +16,7 @@ const { REACT_APP_API_URL } = process.env;
 export default function AuthProvider({ children }) {
     const { setHasError, setIsLoading } = useContext(UtilityContext);
 
+
     const [ isAuth, toggleIsAuth ] = useState({
         isAuth: false,
         user: null,
@@ -24,12 +24,13 @@ export default function AuthProvider({ children }) {
     });
     const navigate = useNavigate();
 
+
     useEffect(() => {
         const token = localStorage.getItem('token');
 
         if (token) {
             const decoded = jwt_decode(token);
-            fetchUserData(decoded.sub, token);
+            fetchUserData(navigate, setHasError, setIsLoading, toggleIsAuth, isAuth, decoded.sub, token);
         } else {
             toggleIsAuth({
                 isAuth: false,
@@ -39,11 +40,13 @@ export default function AuthProvider({ children }) {
         }
     }, []);
 
+
     function login(JWT) {
         localStorage.setItem('token', JWT);
         const decoded = jwt_decode(JWT);
-        fetchUserData(decoded.sub, JWT, '/me');
+        fetchUserData(navigate, setHasError, setIsLoading, toggleIsAuth, isAuth, decoded.sub, JWT, '/me');
     }
+
 
     function logout() {
         localStorage.clear();
@@ -54,47 +57,6 @@ export default function AuthProvider({ children }) {
         });
 
         navigate('/');
-    }
-
-
-    async function fetchUserData(username, token, redirectUrl) {
-        setHasError(false);
-        setIsLoading(true);
-
-        try {
-            const result = await axios.get(`${ REACT_APP_API_URL }users/${ username }`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${ token }`,
-                },
-            });
-
-            toggleIsAuth({
-                ...isAuth,
-                isAuth: true,
-                user: {
-                    username: result.data.username,
-                    email: result.data.email,
-                    authorities: setRole(result.data.authorities),
-                    enabled: result.data.enabled
-                },
-                status: 'done',
-            });
-
-            if (redirectUrl) {
-                navigate(redirectUrl);
-            }
-            setIsLoading(false);
-
-        } catch (e) {
-            console.error(e);
-            setHasError(true);
-            toggleIsAuth({
-                isAuth: false,
-                user: null,
-                status: 'done',
-            });
-        }
     }
 
 

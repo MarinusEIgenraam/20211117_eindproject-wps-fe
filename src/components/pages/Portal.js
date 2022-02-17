@@ -1,6 +1,7 @@
 ////////////////////
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
+import styled from 'styled-components';
 ////////////////////
 //// Environmental
 import { AuthContext } from "../../context/AuthProvider";
@@ -10,15 +11,24 @@ import ProjectList from "../feature/Projects/ProjectList";
 import TaskList from "../feature/Tasks/TaskList";
 import BlogList from "../feature/Blogs/BlogList";
 import PortalUserDetails from "../feature/Portal/PortalUserDetails";
-import AlertList from "../feature/Alerts/AlertList";
+import { UtilityContext } from "../../context/UtilityProvider";
+import { QUERIES } from "../../services/helpers/mediaQueries";
+import { ButtonBox, ButtonWindow } from "../../styles/Form";
+import RectangleButton from "../shared/elements/clickables/RectangleButton";
+import { AiFillCloseCircle, AiFillPlusCircle, AiOutlineClose, AiOutlinePlus } from "react-icons/all";
+import BlogCreate from "../feature/Blogs/BlogCreate";
+import ProjectCreate from "../feature/Projects/ProjectCreate";
 
 
 export default function Portal() {
     const [ editCount, setEditCount ] = useState(0);
     const { user } = useContext(AuthContext);
+    const [ writeProject, setWriteProject ] = useState(false);
+    const [ writeBlog, setWriteBlog ] = useState(false);
+    const { setHasError, setIsLoading, setCreationCount, creationCount } = useContext(UtilityContext);
 
     useEffect(() => {
-    }, [ editCount ]);
+    }, [ creationCount ]);
 
     return (
         <PageContainer>
@@ -26,23 +36,79 @@ export default function Portal() {
                 Welcome back { user.username }
                 <Divider className="small"/>
             </CenteredHeader>
-            <AlertList/>
 
             <PortalUserDetails/>
+            <ButtonBox>
+                { ( user?.authorities === "Project lord" | "Project manager" && !writeBlog ) &&
+                    <RectangleButton
+                        type="button"
+                        onClick={ () => setWriteBlog(true) }
+                        buttonSize="btn--large"
+                        buttonStyle="btn--special--solid"
+                        disabled={writeProject}
 
-            { ( user.authorities === "Project lord" ) &&
-                <>
-                    <BlogList/>
-                    <Divider className="rounded"/>
-                </>
+                    >
+                        blog<AiOutlinePlus size={ 15 }/>
+                    </RectangleButton>
+
+                }
+                { ( user?.authorities === "Project lord" | "Project manager" && !writeProject ) &&
+                    <RectangleButton
+                        type="button"
+                        onClick={ () => setWriteProject(true) }
+                        buttonSize="btn--large"
+                        buttonStyle="btn--danger--solid"
+                        disabled={writeBlog}
+                    >
+                        project<AiOutlinePlus size={ 15 }/>
+                    </RectangleButton>
+
+
+                }
+            </ButtonBox>
+            { (writeBlog || writeProject) &&
+                <ButtonWindow>
+                    { writeBlog &&
+                        <AiOutlineClose onClick={ () => setWriteBlog(false) } size={ 30 }/>
+                    }
+                    { writeProject &&
+                        <AiOutlineClose onClick={ () => setWriteProject(false) } size={ 30 }/>
+                    }
+                </ButtonWindow>
+
             }
-            <TaskList editCount={ editCount } setEditCount={ setEditCount }/>
-            <Divider className="rounded"/>
-            <ProjectList/>
-            <Divider className="rounded"/>
+
+            { writeBlog &&
+                <BlogCreate/>
+            }
+            { writeProject &&
+                <ProjectCreate/>
+            }
+
+            <ListWindow>
+                { ( user.authorities === "Project lord" ) &&
+                    <>
+                        <BlogList/>
+                    </>
+                }
+                <TaskList editCount={ editCount } setEditCount={ setEditCount }/>
+                <ProjectList/>
+            </ListWindow>
         </PageContainer>
     )
 }
+
+const ListWindow = styled.div`
+  margin-top: 40px;
+  display: flex;
+  width: 70vw;
+  flex-direction: column;
+  @media ${ QUERIES.tablet } {
+    flex-direction: row;
+  }
+
+
+`
 
 
 /** Created by ownwindows on 04-01-22 **/

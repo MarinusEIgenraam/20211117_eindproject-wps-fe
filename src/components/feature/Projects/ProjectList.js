@@ -15,6 +15,9 @@ import { getProjectsFor } from "../../../services/controllers/Projects";
 import { CenteredSubHeader } from "../../../styles/Typography";
 import { ProjectListItem, UnsortedList } from "../../../styles/List";
 
+/** Created by ownwindows on 18-01-22 **/
+
+
 export default function ProjectList() {
     const { setIsLoading, setHasError } = useContext(UtilityContext);
     const { isAuth, user } = useContext(AuthContext);
@@ -46,48 +49,39 @@ export default function ProjectList() {
     }, [ projectCategory ]);
 
     return (
-        <Container>
-            <CenteredSubHeader>
-                Your Projects
-            </CenteredSubHeader>
+        <>
+            { (loadedProjects && loadedProjects.length > 0) &&
+                <Container>
+                    <CenteredSubHeader>
+                        Your Projects
+                    </CenteredSubHeader>
 
-            <UnsortedList>
-                { loadedProjects && loadedProjects.map((project, index) => (
-                    <ProjectListItem key={ index }>
-                        <NavLink to={ `/projects/${ project.projectId }` }><h6> { project.projectName } </h6></NavLink>
+                    <UnsortedList>
+                        { loadedProjects && loadedProjects.map((project, index) => (
+                            <ProjectListItem key={ index }>
+                                <NavLink to={ `/projects/${ project.projectId }` }><h6> { project.projectName } </h6></NavLink>
 
-                        <DetailRow>
-                            <h6>{ project.startTime } <span
-                                className="light">| { project.category.name } | { project.projectOwner.username } </span>
-                            </h6>
-                            <h6>
-                                open tasks: { project.projectTaskList.length }
-                            </h6>
-                        </DetailRow>
+                                <DetailRow>
+                                    <h6>{ project.startTime } <span
+                                        className="light">| { project.category.name } | { project.projectOwner.username } </span>
+                                    </h6>
+                                    <h6>
+                                        open tasks: { project.projectTaskList.length }
+                                    </h6>
+                                </DetailRow>
 
 
-                    </ProjectListItem>
-                )) }
-            </UnsortedList>
-            { ( user?.authorities === "Project lord" | "Project manager" && !writeProject ) ?
-                <RectangleButton
-                    type="button"
-                    onClick={ () => setWriteProject(true) }
-                    buttonSize="btn--medium"
-                    buttonStyle="btn--special--solid"
-                >
-                    NEW
-                </RectangleButton>
-                :
-                <AiOutlineClose onClick={ () => setWriteProject(false) } size={ 30 }/>
+                            </ProjectListItem>
+                        )) }
+                    </UnsortedList>
 
+                    { writeProject &&
+                        <ProjectCreate/>
+                    }
+                </Container>
             }
-            { writeProject &&
-                <ProjectCreate/>
-            }
-        </Container>
-    )
+        </>
+
+
+)
 }
-
-
-/** Created by ownwindows on 18-01-22 **/

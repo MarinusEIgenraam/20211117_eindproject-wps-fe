@@ -15,6 +15,7 @@ import { AuthContext } from "../../context/AuthProvider";
 import RectangleButton from "../shared/elements/clickables/RectangleButton";
 import { BlogOverviewList } from "../../styles/List";
 import { getBlogs } from "../../services/controllers/Blogs";
+import { ButtonBox } from "../../styles/Form";
 
 export default function BlogOverview() {
     const { setIsLoading, isLoading } = useContext(UtilityContext);
@@ -72,18 +73,24 @@ export default function BlogOverview() {
 
 
             { ( user?.authorities === "Project lord" && !writeBlog ) &&
-                <RectangleButton
-                    type="button"
-                    onClick={ () => setWriteBlog(true) }
-                    buttonSize="btn--large"
-                    buttonStyle="btn--danger--solid"
-                >
-                    NEW
-                </RectangleButton>
+                <ButtonBox>
+                    <RectangleButton
+                        type="button"
+                        onClick={ () => setWriteBlog(true) }
+                        buttonSize="btn--large"
+                        buttonStyle="btn--danger--solid"
+                    >
+                        NEW
+                    </RectangleButton>
+                </ButtonBox>
+
             }
             { writeBlog &&
                 <>
-                    <AiOutlineClose onClick={ () => setWriteBlog(false) } size={ 30 }/>
+                    <ButtonBox>
+
+                        <AiOutlineClose onClick={ () => setWriteBlog(false) } size={ 30 }/>
+                    </ButtonBox>
                     <BlogCreate creationCount={creationCount} setCreationCount={setCreationCount}/>
                 </>
             }

@@ -5,7 +5,6 @@ import styled from 'styled-components'
 
 ///////////////////////
 //// Internal
-import { AiFillCloseCircle } from "react-icons/all";
 
 ///////////////////////
 //// External
@@ -36,20 +35,7 @@ const RectangleButton = ({ children, type, onClick, buttonStyle, buttonSize, dis
             type={ type ? type : "button" }
             disabled={ disabled }
         >
-
-            { disabled
-                ?
-                (disabledText
-                    ?
-                disabledText
-                        :
-                        <AiFillCloseCircle
-                            size={ 15 }
-                        />
-                )
-                :
-                children
-            }
+            { children }
         </Button>
     )
 
@@ -101,7 +87,7 @@ const Button = styled.button`
     box-shadow: none;
     border: 2px solid var(--danger);
   }
-  
+
   &.btn--small {
     min-width: 70px;
     padding: 0.25rem 0.25rem;
@@ -118,6 +104,7 @@ const Button = styled.button`
 
   &.btn--large {
     min-width: 100px;
+    height: 40px;
     padding: 0.5rem 1rem;
     font-size: 1rem;
 
@@ -138,13 +125,14 @@ const Button = styled.button`
     border: none;
   }
 
-  &.btn--succes--solid {
+  &.btn--danger--solid {
     background-color: var(--succes);
     color: var(--white);
     border: none;
+
   }
 
-  &.btn--danger--solid {
+  &.btn--succes--solid {
     background-color: var(--danger);
     color: var(--white);
     border: none;
@@ -170,13 +158,13 @@ const Button = styled.button`
     border: var(--box-border-thin) solid var(--warning);
   }
 
-  &.btn--succes--outline {
+  &.btn--danger--outline {
     background-color: transparent;
     color: var(--succes);
     border: 2px solid var(--succes);
   }
 
-  &.btn--danger--outline {
+  &.btn--succes--outline {
     background-color: transparent;
     color: var(--danger);
     border: 2px solid var(--danger);

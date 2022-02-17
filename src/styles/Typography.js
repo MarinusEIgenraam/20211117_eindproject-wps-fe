@@ -138,6 +138,18 @@ export const Heading = styled.h2`
   }
 `;
 
+export const SubHeading = styled.h2`
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+  font-weight: 300;
+  color: ${ props => props.theme.text };
+
+  @media ${ QUERIES.tabletMini } {
+    font-size: 2rem;
+  }
+`;
+
+
 export const SubFormHeading = styled.h4`
   width: 100%;
   margin: 0.5rem 0rem 0.5rem 0rem;

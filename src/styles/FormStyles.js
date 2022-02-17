@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { QUERIES } from "../services/helpers/mediaQueries";
 
 export const Form = styled.form`
@@ -9,11 +9,12 @@ export const Form = styled.form`
   //position: relative;
   background: ${ props => props.theme.createBackground };
   border: solid var(--box-border-medium) ${ props => props.theme.createBorder };
-   box-shadow: ${ props => props.theme.createShadow };
+  box-shadow: ${ props => props.theme.createShadow };
 
   &.login {
     width: max-content;
   }
+
   &.editForm {
     display: flex;
     background: ${ props => props.theme.createBackground };
@@ -22,7 +23,7 @@ export const Form = styled.form`
     margin: 0;
     padding: 0;
   }
-  
+
   &.comment {
     background: none;
   }
@@ -50,39 +51,29 @@ export const Form = styled.form`
 `;
 
 export const FormColumn = styled.div`
-  width: 70vw;
-  margin-top: 2rem;
-  *zoom: 1;
-  max-width:100%;
-  padding-left: 1em;
-  padding-right: 1em;
-  margin-left: auto;
-  margin-right: auto;
-
-  column-count: 1;
-  column-gap: 1em;
-
-  :after {
-    content: "";
-  }
-
-
+  grid-area: form;
+  width: 100%;
+  padding: 0 1rem;
 `
+
 export const FormSection = styled.div`
   &.comment {
 
     width: 100%;
   }
-  
+
 `;
 
 export const FormInputWrap = styled.div`
-  width: 100%;
   
+  
+  width: 100%;
+
   & > .invisible {
     visibility: hidden;
     position: absolute;
   }
+
   &.login {
     flex-direction: column;
     align-items: center;
@@ -95,9 +86,9 @@ export const FormInputWrap = styled.div`
 
 
 
-    & > * {
-      flex: 1 100% 100%;
-    }
+    //& > * {
+    //  flex: 1 100% 100%;
+    //}
   }
 `;
 
@@ -166,6 +157,11 @@ export const FormEdit = styled.div`
 `;
 
 export const FormInput = styled.div`
+  ${ ({ area }) =>
+          area &&
+          css`
+            grid-area: ${ area };
+          ` }
   display: flex;
   flex-direction: column;
   margin-bottom: 0.75rem;
@@ -185,7 +181,12 @@ export const FormInput = styled.div`
     }
   }
 
+  & [type="file"] {
+    min-width: 135px;
+  }
+
   input {
+    width: 100%;
     border: ${ props => props.theme.createBorder } solid var(--box-border-thin);
     padding: 0.75rem 1rem;
     color: ${ props => props.theme.text };
@@ -196,6 +197,7 @@ export const FormInput = styled.div`
     &::placeholder {
       color: ${ props => props.theme.sub_text };
     }
+
 
     &:focus,
     &:hover {
@@ -209,7 +211,6 @@ export const FormInput = styled.div`
     padding: 0.75rem 1rem;
     color: ${ props => props.theme.text };
     font-size: 1rem;
-    text-transform: capitalize;
     background-color: ${ props => props.theme.background };
 
     &:focus,
@@ -250,11 +251,12 @@ export const FormEditBreak = styled.div`
 `;
 
 export const FormBreak = styled.div`
+  ${ ({ area }) =>
+          area &&
+          css`
+            grid-area: ${ area };
+          ` }
   width: 100%;
-  @media ${ QUERIES.mobile } {
-    gap: 1rem;
+  flex: 1;
 
-    flex: 1 50% 100%;
-    width: 49%;
-  }
 `;
