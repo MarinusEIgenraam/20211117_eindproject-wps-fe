@@ -2,18 +2,16 @@
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
 import axios from "axios";
-import { AiOutlineClose } from "react-icons/all";
 ////////////////////
 //// Environmental
 import { AuthContext } from "../../../context/AuthProvider";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import ProjectCreate from "./ProjectCreate";
-import RectangleButton from "../../shared/elements/clickables/RectangleButton";
 import { Container, DetailRow } from "../../../styles/Layout";
-import { NavLink } from "react-router-dom";
 import { getProjectsFor } from "../../../services/controllers/Projects";
 import { CenteredSubHeader } from "../../../styles/Typography";
 import { ProjectListItem, UnsortedList } from "../../../styles/List";
+import { LinkHeader } from "../../../styles/Navigation";
 
 /** Created by ownwindows on 18-01-22 **/
 
@@ -59,9 +57,12 @@ export default function ProjectList() {
                     <UnsortedList>
                         { loadedProjects && loadedProjects.map((project, index) => (
                             <ProjectListItem key={ index }>
-                                <NavLink to={ `/projects/${ project.projectId }` }><h6> { project.projectName } </h6></NavLink>
+                                <LinkHeader className="listItem" to={ `/projects/${ project.projectId }` }>
 
-                                <DetailRow>
+                                    { project.projectName }
+                                </LinkHeader>
+
+                                <DetailRow className="listItem">
                                     <h6>{ project.startTime } <span
                                         className="light">| { project.category.name } | { project.projectOwner.username } </span>
                                     </h6>

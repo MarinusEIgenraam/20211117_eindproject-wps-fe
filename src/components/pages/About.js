@@ -65,9 +65,9 @@ export default function About() {
                             <UserListItem key={ index }>
                                 <ProjectMain>
                                     <DetailContainer>
-                                        {/*<ProjectCardLink to={ `/users/${ admin.username }` }>*/}
+                                        {/*<LinkHeader to={ `/users/${ admin.username }` }>*/}
                                         {/*    { admin.username }*/}
-                                        {/*</ProjectCardLink>*/}
+                                        {/*</LinkHeader>*/}
                                     </DetailContainer>
                                     <Image alt={ admin.username } src={ Logo }/>
                                 </ProjectMain>

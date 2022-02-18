@@ -7,20 +7,17 @@ import { useForm } from "react-hook-form";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import FieldArray from "./ProjectTaskList";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton";
-import {
-    Form,
-    FormBreak,
-    FormError,
-    FormInput,
-    FormInputWrap,
-    FormLabel,
-    FormSection,
-} from "../../../styles/FormStyles";
+import { FormError, FormInput, FormLabel, } from "../../../styles/FormStyles";
 import { ButtonBox } from "../../../styles/Form";
 import { postProject } from "../../../services/controllers/Projects";
 import { uploadImage } from "../../../services/controllers/Images";
 import SelectCategory from "../../shared/elements/FormElements/SelectCategory";
-import { FormSectionHeading, Heading } from "../../../styles/Typography";
+import { FormSectionHeading, Heading, SubHeading } from "../../../styles/Typography";
+import styled from "styled-components";
+import { QUERIES } from "../../../services/helpers/mediaQueries";
+import { BorderedWindow, VisualContainer } from "../../../styles/Windows";
+import { Hero, WindowVisual } from "../../../styles/Images";
+import projectBackground from "../../../assets/images/visual_projects.svg";
 
 const defaultValues = {
     projectTaskList: [
@@ -103,15 +100,20 @@ export default function ProjectCreate() {
     };
 
     return (
-        <Form id="projectCreation" onSubmit={ handleSubmit(onSubmit) }>
-            <Heading className="centered">Create a project</Heading>
-            <FormSection>
+        <ProjectWindow>
+            <VisualContainer>
 
-                <FormSectionHeading>Project details</FormSectionHeading>
+                <WindowVisual src={ projectBackground }/>
+            </VisualContainer>
+            <FormColumn>
 
-                <FormInputWrap>
-                    <FormBreak>
-                        <FormInput>
+                <Form id="projectCreation" onSubmit={ handleSubmit(onSubmit) }>
+                    <SubHeading>Create a project</SubHeading>
+
+                    <FormSectionHeading>Project details</FormSectionHeading>
+
+                    <FormField>
+                        <FormInput area="name">
                             <FormLabel>
                                 <label htmlFor="name">Project name</label>
                                 <FormError role="alert">
@@ -128,9 +130,7 @@ export default function ProjectCreate() {
                                 }) }
                             />
                         </FormInput>
-                    </FormBreak>
-                    <FormBreak>
-                        <FormInput>
+                        <FormInput area="website">
                             <FormLabel>
                                 <label htmlFor="website">Website reference</label>
                                 <FormError role="alert">
@@ -145,10 +145,7 @@ export default function ProjectCreate() {
                                 { ...register("url") }
                             />
                         </FormInput>
-
-                    </FormBreak>
-                    <FormBreak>
-                        <FormInput>
+                        <FormInput area="imageUrl">
                             <FormLabel>
                                 <label htmlFor="imageUrl">Project image</label>
                                 <FormError role="alert">
@@ -163,10 +160,8 @@ export default function ProjectCreate() {
                                 onChange={ handleImageChange }
                             />
                         </FormInput>
-
-                    </FormBreak>
-                    <FormBreak>
-                        <FormInput>
+                        <ImagePreview image={ `http://localhost:8080/files/download` }/>
+                        <FormInput area="deadline">
                             <FormLabel>
                                 <label htmlFor="deadline">Deadline</label>
                                 <FormError role="alert">
@@ -182,15 +177,13 @@ export default function ProjectCreate() {
                                 }) }
                             />
                         </FormInput>
-
-                    </FormBreak>
-                    <FormBreak>
                         <SelectCategory
+                            area="category"
                             defaultValue={ "Category" }
                             register={ register }
                             parent={ `categoryId` }
                         />
-                        <FormInput className="radio">
+                        <FormInput className="radio" area="visibility">
                             <FormLabel>
 
                                 <label htmlFor="publiclyVisible">Public visibility</label>
@@ -205,9 +198,7 @@ export default function ProjectCreate() {
                             />
 
                         </FormInput>
-                    </FormBreak>
-                    <FormBreak>
-                        <FormInput>
+                        <FormInput area="description">
                             <FormLabel>
                                 <label htmlFor="description">Description</label>
                                 <FormError role="alert">
@@ -221,33 +212,96 @@ export default function ProjectCreate() {
                                 { ...register("description") }
                             />
                         </FormInput>
-                    </FormBreak>
-                </FormInputWrap>
-                <FieldArray
-                    { ...{ control, register, defaultValues, getValues, setValue, errors } }
-                />
-                <ButtonBox>
+                    </FormField>
+                    <FieldArray
+                        { ...{ control, register, defaultValues, getValues, setValue, errors } }
+                    />
+                    <ButtonBox>
 
-                    <RectangleButton
-                        type="button"
-                        onClick={ () => reset(defaultValues) }
-                        buttonSize="btn--large"
-                        buttonStyle="btn--danger--solid"
-                    >
-                        Reset
-                    </RectangleButton>
-                    <RectangleButton
-                        type="submit"
-                        buttonSize="btn--large"
-                        buttonStyle="btn--succes--solid"
-                        // disabled={ errors }
-                    >
-                        Submit
-                    </RectangleButton>
-                </ButtonBox>
-            </FormSection>
-        </Form>
+                        <RectangleButton
+                            type="button"
+                            onClick={ () => reset(defaultValues) }
+                            buttonSize="btn--large"
+                            buttonStyle="btn--danger--solid"
+                        >
+                            Reset
+                        </RectangleButton>
+                        <RectangleButton
+                            type="submit"
+                            buttonSize="btn--large"
+                            buttonStyle="btn--succes--solid"
+                            // disabled={ errors }
+                        >
+                            Submit
+                        </RectangleButton>
+                    </ButtonBox>
+                </Form>
+            </FormColumn>
+
+
+        </ProjectWindow>
     );
 }
+
+const ImagePreview = styled(Hero)`
+  grid-area: imagePreview;
+  width: 100%;
+
+`
+
+
+const FormField = styled.section`
+  display: grid;
+  grid-column-gap: 0;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+      "name"
+      "website"
+      "imageUrl"
+      "imagePreview"
+      "deadline"
+  "category"
+  "description"
+  "visibility"
+;
+  @media ${ QUERIES.tablet } {
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-template-areas:
+      "name name"
+      "website website"
+      "imageUrl imagePreview"
+      "category imagePreview"
+      "deadline imagePreview"
+      "visibility imagePreview"
+      "description description"
+  ;
+  }
+`
+
+const ProjectWindow = styled(BorderedWindow)`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+      "visual"
+      "form";
+  @media ${ QUERIES.tablet } {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "form visual"
+      "form visual"
+  ;
+  }
+`
+
+const Form = styled.form`
+  grid-area: form;
+`
+
+const FormColumn = styled.div`
+  grid-area: form;
+  width: 100%;
+  padding: 0 1rem;
+`
 
 /** Created by ownwindows on 10-01-22 **/

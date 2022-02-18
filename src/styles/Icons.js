@@ -16,8 +16,8 @@ export const IconBox = styled.div`
           ` }
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
+  align-items: start;
+  justify-content: start;
 
   &.bottom div {
   }

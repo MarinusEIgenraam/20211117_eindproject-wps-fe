@@ -15,7 +15,7 @@ import { Heading } from "../../../styles/Typography";
 import { QUERIES } from "../../../services/helpers/mediaQueries";
 import { BorderedWindow, VisualContainer } from "../../../styles/Windows";
 import { BlogImage, Hero, WindowVisual } from "../../../styles/Images";
-import blogBackground from "../../../assets/images/visual_Blogs.svg";
+import blogBackground from "../../../assets/images/visual_blogs.svg";
 
 export default function BlogCreate({}) {
     const { setHasError, setIsLoading, creationCount, setCreationCount } = useContext(UtilityContext);

@@ -20,7 +20,7 @@ import Logo from "../../assets/images/home_background.png";
 import { Image } from "../../styles/Images";
 import { UnsortedList, UserListItem } from "../../styles/List";
 import { getUsers } from "../../services/controllers/Users";
-import { ProjectCardLink } from "../../styles/Navigation";
+import { LinkHeader } from "../../styles/Navigation";
 
 export default function UserOverview() {
     const { setIsLoading, setHasError } = useContext(UtilityContext);
@@ -67,9 +67,9 @@ export default function UserOverview() {
                             <UserListItem className="userDetails" key={ index }>
                                 <ProjectMain>
                                     <DetailContainer className="userListDetails" >
-                                        <ProjectCardLink to={ `/users/${ user.username }` }>
+                                        <LinkHeader to={ `/users/${ user.username }` }>
                                             { user.username }
-                                        </ProjectCardLink>
+                                        </LinkHeader>
                                     </DetailContainer>
                                 </ProjectMain>
                                 <DetailRow className="users">

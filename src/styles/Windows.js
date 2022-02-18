@@ -28,7 +28,7 @@ export const VisualContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: start;
-  padding: 1rem;
+  padding: 1rem 2rem;
 `
 
 

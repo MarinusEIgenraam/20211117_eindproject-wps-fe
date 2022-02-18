@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components'
 ////////////////////
 //// Environmental
 import { BlogImage, WindowVisual } from "../../styles/Images";
-import blogBackground from '../../assets/images/visual_Blogs.svg'
+import blogBackground from '../../assets/images/visual_blogs.svg'
 import { useFieldArray, useForm } from "react-hook-form";
 import { postBlog } from "../../services/controllers/Blogs";
 import { uploadImage } from "../../services/controllers/Images";

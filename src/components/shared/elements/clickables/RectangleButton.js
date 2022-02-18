@@ -11,11 +11,17 @@ import styled from 'styled-components'
 
 const STYLES = [
     "btn--primary--solid",
+    "btn--secondary--solid",
+    "btn--tertiary--solid",
+    "btn--quaternary--solid",
     "btn--warning--solid",
     "btn--danger--solid",
     "btn--succes--solid",
     "btn--special--solid",
     "btn--primary--outline",
+    "btn--secondary--outline",
+    "btn--tertiary--outline",
+    "btn--quaternary--outline",
     "btn--warning--outline",
     "btn--danger--outline",
     "btn--special--outline",
@@ -119,6 +125,23 @@ const Button = styled.button`
     border: none;
   }
 
+  &.btn--secondary--solid {
+    background-color: var(--secondary);
+    color: var(--white);
+    border: none;
+  }
+  &.btn--tertiary--solid {
+    background-color: var(--tertiary);
+    color: var(--white);
+    border: none;
+  }
+
+  &.btn--quaternary--solid {
+    background-color: var(--quaternary);
+    color: var(--white);
+    border: none;
+  }
+  
   &.btn--warning--solid {
     background-color: var(--warning);
     color: var(--white);
@@ -126,20 +149,20 @@ const Button = styled.button`
   }
 
   &.btn--danger--solid {
-    background-color: var(--succes);
+    background-color: var(--danger);
     color: var(--white);
     border: none;
 
   }
 
   &.btn--succes--solid {
-    background-color: var(--danger);
+    background-color: var(--succes);
     color: var(--white);
     border: none;
   }
 
   &.btn--special--solid {
-    background-color: var(--primary);
+    background-color: var(--tertiary);
     font-family: var(--tittle-font);
     color: var(--white);
     border: none;
@@ -152,6 +175,24 @@ const Button = styled.button`
     border: var(--box-border-medium) solid var(--primary);
   }
 
+  &.btn--secondary--outline {
+    background-color: transparent;
+    color: var(--secondary);
+    border: var(--box-border-medium) solid var(--secondary);
+  }
+
+  &.btn--tertiary--outline {
+    background-color: transparent;
+    color: var(--tertiary);
+    border: var(--box-border-medium) solid var(--tertiary);
+  }
+
+  &.btn--quaternary--outline {
+    background-color: transparent;
+    color: var(--quaternary);
+    border: var(--box-border-medium) solid var(--quaternary);
+  }
+  
   &.btn--warning--outline {
     background-color: transparent;
     color: var(--warning);
@@ -160,14 +201,14 @@ const Button = styled.button`
 
   &.btn--danger--outline {
     background-color: transparent;
-    color: var(--succes);
-    border: 2px solid var(--succes);
+    color: var(--danger);
+    border: 2px solid var(--danger);
   }
 
   &.btn--succes--outline {
     background-color: transparent;
-    color: var(--danger);
-    border: 2px solid var(--danger);
+    color: var(--succes);
+    border: 2px solid var(--succes);
   }
 
   &.btn--special--outline {

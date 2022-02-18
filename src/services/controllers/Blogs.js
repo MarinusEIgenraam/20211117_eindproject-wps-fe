@@ -37,7 +37,7 @@ export const getOneBlog = async (setHasError, setIsLoading, id) => {
     }
 }
 
-export const getBlogsFor = async (setIsLoading, setHasError, user) => {
+export const getBlogsFor = async (setHasError, setIsLoading, token, user) => {
     setHasError(false);
     setIsLoading(true)
     try {

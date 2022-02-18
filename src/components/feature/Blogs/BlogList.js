@@ -1,24 +1,20 @@
 ////////////////////
 //// Build
 import React, { useContext, useEffect, useState } from 'react'
-import { AiOutlineClose } from "react-icons/all";
 import axios from "axios";
 ////////////////////
 //// Environmental
 import { UtilityContext } from "../../../context/UtilityProvider";
 import { CenteredSubHeader } from "../../../styles/Typography";
-import { TaskListItem, UnsortedList } from "../../../styles/List";
-import RectangleButton from "../../shared/elements/clickables/RectangleButton";
+import { ProjectListItem, UnsortedList } from "../../../styles/List";
 import { AuthContext } from "../../../context/AuthProvider";
-import ProjectCreate from "../Projects/ProjectCreate";
 import { Container, DetailRow } from "../../../styles/Layout";
 import { getBlogsFor } from "../../../services/controllers/Blogs";
-import BlogCreate from "./BlogCreate";
+import { LinkHeader } from "../../../styles/Navigation";
 
 export default function BlogList() {
     const { setIsLoading, setHasError } = useContext(UtilityContext);
     const { isAuth, user } = useContext(AuthContext);
-    const [ writeProject, setWriteProject ] = useState(false);
     const [ categoryUri, setCategoryUri ] = useState('');
 
     const [ loadedBlogs, setLoadedBlogs ] = useState();
@@ -57,23 +53,25 @@ export default function BlogList() {
     return (
 
 <>
-    { loadedBlogs &&
+    { (loadedBlogs && loadedBlogs.length > 0) &&
         <Container>
             <CenteredSubHeader>
                 Your blogs
             </CenteredSubHeader>
             <UnsortedList>
                 { loadedBlogs && loadedBlogs.map((blog, index) => (
-                    <TaskListItem to={ `/project/${ blog.id }` } key={ index }>
-                        <h6> { blog.blogName } </h6>
-                        <DetailRow>
+                    <ProjectListItem key={ index }>
+                        <LinkHeader className="listItem" to={ `/blogs/${ blog.blogId }` }>
+                            { blog.blogName }
+                        </LinkHeader>
+                        <DetailRow className="listItem">
                             <h6>{ blog.startTime } <span
                                 className="light">| { blog.blogOwner.username } </span>
                             </h6>
                         </DetailRow>
 
 
-                    </TaskListItem>
+                    </ProjectListItem>
                 )) }
             </UnsortedList>
         </Container>

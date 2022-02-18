@@ -17,7 +17,7 @@ export const ProjectLink = styled(NavLink)`
   max-width: 20ch;
 `
 
-export const ProjectCardLink = styled(NavLink)`
+export const LinkHeader = styled(NavLink)`
   display: inline-block;
   text-decoration: none;
   white-space: nowrap;
@@ -31,6 +31,10 @@ export const ProjectCardLink = styled(NavLink)`
   &.blog {
     overflow: initial;
     white-space: initial;
+  }
+  
+  &.listItem {
+    font-size: 0.8rem;
   }
 `
 

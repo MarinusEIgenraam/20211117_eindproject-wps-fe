@@ -84,6 +84,27 @@ export const BlogOverviewList = styled.ol`
 
 // List items
 
+export const TaskListItem = styled.li`
+  margin-top: 1rem;
+  
+  width: 100%;
+
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-direction: column;
+  background: ${ props => props.theme.background };
+
+  > h6 {
+    color: ${ props => props.theme.sub_text };
+  }
+
+  @media ${ QUERIES.mobile } {
+    flex-direction: column;
+  }
+`
+
 export const ListItem = styled.li`
   width: 100%;
   height: min-content;
@@ -127,26 +148,6 @@ export const ListItem = styled.li`
     align-items: start;
   }
 `;
-
-export const TaskListItem = styled.li`
-  width: 70vw;
-  margin-top: 1rem;
-
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  flex-direction: column;
-  background: ${ props => props.theme.background };
-
-  > h6 {
-    color: ${ props => props.theme.sub_text };
-  }
-
-  @media ${ QUERIES.mobile } {
-    flex-direction: column;
-  }
-`
 
 export const CommentListItem = styled(ListItem)`
   width: 40vw;

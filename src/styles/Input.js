@@ -1,7 +1,7 @@
 ////////////////////
 //// Build
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 ////////////////////
 //// Environmental
@@ -11,7 +11,14 @@ import styled from 'styled-components';
 
 
 export const SelectContainer = styled.div`
+  ${ ({ area }) =>
+          area &&
+          css`
+            grid-area: ${ area };
+          ` }
   appearance: none;
+  align-self: end;
+  margin-bottom: 0.75rem;
   font-family: inherit;
   outline: none;
   width: 100%;

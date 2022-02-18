@@ -256,7 +256,5 @@ export const FormBreak = styled.div`
           css`
             grid-area: ${ area };
           ` }
-  width: 100%;
-  flex: 1;
 
 `;

@@ -17,6 +17,8 @@ import {
 import SelectUser from "../../shared/elements/FormElements/SelectUser";
 import { IconBox } from "../../../styles/Icons";
 import { FormSectionHeading, SubFormHeading } from "../../../styles/Typography";
+import styled from "styled-components";
+import { QUERIES } from "../../../services/helpers/mediaQueries";
 
 
 export default function Fields({ control, register, errors }) {
@@ -34,8 +36,28 @@ export default function Fields({ control, register, errors }) {
                 return (
                     <FormInputWrap key={ item.id }>
                         <SubFormHeading>Task { index + 1 }</SubFormHeading>
-                        <FormBreak>
-                            <FormInput>
+                        <FormField>
+                            <IconBox area="buttons" className="center">
+                                <Tooltip text="Add">
+                                    <IoIosAddCircle
+                                        size={ 25 }
+                                        type="button"
+                                        onClick={ () =>
+                                            append({
+                                                taskName: "",
+                                                description: ""
+                                            })
+                                        }/>
+                                </Tooltip>
+                                <Tooltip text="Delete">
+                                    <IoIosRemoveCircleOutline
+                                        size={ 25 }
+                                        type="button"
+                                        onClick={ () => remove(index) }
+                                    />
+                                </Tooltip>
+                            </IconBox>
+                            <FormInput area="name">
                                 <FormLabel>
                                     <label htmlFor="taskName">Task name</label>
                                     <FormError role="alert">
@@ -52,9 +74,7 @@ export default function Fields({ control, register, errors }) {
                                     }) }
                                 />
                             </FormInput>
-                        </FormBreak>
-                        <FormBreak>
-                            <FormInput>
+                            <FormInput area="deadline">
                                 <FormLabel>
                                     <label htmlFor="deadline">Deadline</label>
                                     <FormError role="alert">
@@ -70,10 +90,7 @@ export default function Fields({ control, register, errors }) {
                                     }) }
                                 />
                             </FormInput>
-
-                        </FormBreak>
-                        <FormBreak>
-                            <FormInput>
+                            <FormInput area="description">
                                 <FormLabel>
                                     <label htmlFor="description">Description</label>
                                     <FormError role="alert">
@@ -90,42 +107,24 @@ export default function Fields({ control, register, errors }) {
                                     }) }
                                 />
                             </FormInput>
-                        </FormBreak>
-                        <FormBreak>
-                            <FormLabel>
-                                <label htmlFor="taskOwner">Task owner</label>
-                                <FormError role="alert">
-                                    { errors.taskOwner && "Select a task owner!" }
-                                </FormError>
-                            </FormLabel>
-                            <SelectUser
-                                defaultValue={ "Task owner" }
-                                register={ register }
-                                parent={ `projectTaskList[${ index }].task` }
-                            />
+                            <FormBreak area="taskOwner">
 
-                        </FormBreak>
-
-                        <IconBox className="center">
-                            <Tooltip text="Add">
-                                <IoIosAddCircle
-                                    size={ 25 }
-                                    type="button"
-                                    onClick={ () =>
-                                        append({
-                                            taskName: "",
-                                            description: ""
-                                        })
-                                    }/>
-                            </Tooltip>
-                            <Tooltip text="Delete">
-                                <IoIosRemoveCircleOutline
-                                    size={ 25 }
-                                    type="button"
-                                    onClick={ () => remove(index) }
+                                <FormLabel>
+                                    <label htmlFor="taskOwner">Task owner</label>
+                                    <FormError role="alert">
+                                        { errors.taskOwner && "Select a task owner!" }
+                                    </FormError>
+                                </FormLabel>
+                                <SelectUser
+                                    defaultValue={ "Task owner" }
+                                    register={ register }
+                                    parent={ `projectTaskList[${ index }].task` }
                                 />
-                            </Tooltip>
-                        </IconBox>
+
+                            </FormBreak>
+                        </FormField>
+
+
 
 
                     </FormInputWrap>
@@ -135,4 +134,26 @@ export default function Fields({ control, register, errors }) {
     );
 }
 
+const FormField = styled.section`
+  display: grid;
+  grid-column-gap: 0;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+      "name"
+      "taskOwner"
+      "deadline"
+      "description"
+  "buttons"
+;
+  @media ${ QUERIES.tablet } {
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-template-areas:
+      "name name"
+      "deadline taskOwner"
+      "description description"
+      "buttons buttons"
+  ;
+  }
+`
 /** Created by ownwindows on 15-01-22 **/

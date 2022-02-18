@@ -8,7 +8,7 @@ import { UtilityContext } from "../../../../context/UtilityProvider";
 import { Select, SelectContainer } from "../../../../styles/Input";
 import { getCategories } from "../../../../services/controllers/Category";
 
-export default function SelectCategory({ register, parent, defaultValue }) {
+export default function SelectCategory({ area, register, parent, defaultValue }) {
     const { setIsLoading, setHasError } = useContext(UtilityContext);
     const [ loadedCategories, setLoadedCategories ] = useState(false);
 
@@ -27,7 +27,7 @@ export default function SelectCategory({ register, parent, defaultValue }) {
     }, []);
 
     return (
-        <SelectContainer id="SelectContainer">
+        <SelectContainer area={area} id="SelectContainer">
             <Select { ...register(`${ parent }`) }>
                 <option key={ defaultValue } value={ defaultValue }>{ defaultValue }</option>
                 { loadedCategories &&

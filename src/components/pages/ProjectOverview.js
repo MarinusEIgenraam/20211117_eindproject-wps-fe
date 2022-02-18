@@ -22,7 +22,7 @@ import RectangleButton from "../shared/elements/clickables/RectangleButton";
 import { AuthContext } from "../../context/AuthProvider";
 import ProjectCreate from "../feature/Projects/ProjectCreate";
 import { getProjectsFor } from "../../services/controllers/Projects";
-import { ProjectCardLink, ProjectLink } from "../../styles/Navigation";
+import { LinkHeader, ProjectLink } from "../../styles/Navigation";
 
 export default function ProjectOverview() {
     const { setIsLoading, setHasError } = useContext(UtilityContext);
@@ -66,7 +66,7 @@ export default function ProjectOverview() {
                     type="button"
                     onClick={ () => setWriteProject(true) }
                     buttonSize="btn--large"
-                    buttonStyle="btn--danger--solid"
+                    buttonStyle="btn--secondary--solid"
                 >
                     NEW
                 </RectangleButton>
@@ -107,9 +107,9 @@ export default function ProjectOverview() {
                         <ProjectMain>
 
                             <DetailContainer>
-                                <ProjectCardLink to={ `/projects/${ project.projectId }` }>
+                                <LinkHeader to={ `/projects/${ project.projectId }` }>
                                     { project.projectName }
-                                </ProjectCardLink>
+                                </LinkHeader>
                                 <ProjectDescription>
                                     {project.description}
                                 </ProjectDescription>

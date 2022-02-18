@@ -117,13 +117,16 @@ export const Divider = styled.hr`
 `
 
 export const Container = styled.div`
+  
   display: flex;
+  width: 100%;
   align-items: center;
   position: relative;
   flex-direction: column;
   flex-wrap: wrap;
-  width: 100%;
-
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   
 `
 

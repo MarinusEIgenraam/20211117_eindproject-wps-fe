@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import { Date, Header, Owner, PrimaryInfo, SecondaryInfo } from "../../../styles/Typography";
 import { BlogImage } from "../../../styles/Images";
 import { BlogContainer, DetailRow } from "../../../styles/Layout";
-import { LinkRow, ProjectCardLink } from "../../../styles/Navigation";
+import { LinkRow, LinkHeader } from "../../../styles/Navigation";
 import { AiFillCloseCircle, BsArrowRightCircleFill } from "react-icons/all";
 
 export default function Blog({ blog }) {
@@ -17,9 +17,9 @@ export default function Blog({ blog }) {
 
         <BlogContainer className="card" onClick={ () => setShowMore(!showMore) }>
             <Header>
-                <ProjectCardLink className="blog" to={ `/blogs/${ blog.blogId }` }>
+                <LinkHeader className="blog" to={ `/blogs/${ blog.blogId }` }>
                     { blog.blogName }
-                </ProjectCardLink>
+                </LinkHeader>
             </Header>
             <BlogImage src={ blog.imageUrl } alt={ blog.blogName }/>
             <p>

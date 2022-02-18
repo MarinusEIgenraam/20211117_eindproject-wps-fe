@@ -49,6 +49,13 @@ export const WindowVisual = styled.img`
   align-items: center;
   overflow: hidden;
 `
+export const BannerVisual = styled.img`
+  grid-area: visual;
+  width: 70vw;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+`
 
 export const ProjectHero = styled.div`
   flex: 1 1 auto;

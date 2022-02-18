@@ -15,7 +15,7 @@ import { UtilityContext } from "../../context/UtilityProvider";
 import { QUERIES } from "../../services/helpers/mediaQueries";
 import { ButtonBox, ButtonWindow } from "../../styles/Form";
 import RectangleButton from "../shared/elements/clickables/RectangleButton";
-import { AiFillCloseCircle, AiFillPlusCircle, AiOutlineClose, AiOutlinePlus } from "react-icons/all";
+import { AiOutlineClose, AiOutlinePlus } from "react-icons/all";
 import BlogCreate from "../feature/Blogs/BlogCreate";
 import ProjectCreate from "../feature/Projects/ProjectCreate";
 
@@ -45,7 +45,7 @@ export default function Portal() {
                         onClick={ () => setWriteBlog(true) }
                         buttonSize="btn--large"
                         buttonStyle="btn--special--solid"
-                        disabled={writeProject}
+                        disabled={ writeProject }
 
                     >
                         blog<AiOutlinePlus size={ 15 }/>
@@ -57,8 +57,8 @@ export default function Portal() {
                         type="button"
                         onClick={ () => setWriteProject(true) }
                         buttonSize="btn--large"
-                        buttonStyle="btn--danger--solid"
-                        disabled={writeBlog}
+                        buttonStyle="btn--secondary--solid"
+                        disabled={ writeBlog }
                     >
                         project<AiOutlinePlus size={ 15 }/>
                     </RectangleButton>
@@ -66,7 +66,7 @@ export default function Portal() {
 
                 }
             </ButtonBox>
-            { (writeBlog || writeProject) &&
+            { ( writeBlog || writeProject ) &&
                 <ButtonWindow>
                     { writeBlog &&
                         <AiOutlineClose onClick={ () => setWriteBlog(false) } size={ 30 }/>
@@ -86,11 +86,7 @@ export default function Portal() {
             }
 
             <ListWindow>
-                { ( user.authorities === "Project lord" ) &&
-                    <>
-                        <BlogList/>
-                    </>
-                }
+                <BlogList/>
                 <TaskList editCount={ editCount } setEditCount={ setEditCount }/>
                 <ProjectList/>
             </ListWindow>
@@ -99,12 +95,14 @@ export default function Portal() {
 }
 
 const ListWindow = styled.div`
-  margin-top: 40px;
-  display: flex;
   width: 70vw;
-  flex-direction: column;
+  grid-gap: 20px;
+  display: grid;
+
   @media ${ QUERIES.tablet } {
-    flex-direction: row;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    max-width: 100%;
   }
 
 

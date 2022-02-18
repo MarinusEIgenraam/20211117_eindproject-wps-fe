@@ -18,7 +18,7 @@ import { IoIosSend } from "react-icons/all";
 import styled from "styled-components";
 import { BorderedWindow, VisualContainer } from "../../../styles/Windows";
 import { QUERIES } from "../../../services/helpers/mediaQueries";
-import blogBackground from "../../../assets/images/visual_Blogs.svg";
+import securityVisual from "../../../assets/images/visual_security.svg";
 import { Heading, SubHeading } from "../../../styles/Typography";
 import { ButtonBox } from "../../../styles/Form";
 import { getBlogs } from "../../../services/controllers/Blogs";
@@ -98,7 +98,7 @@ export default function PortalUserDetails() {
         <UserDetailWindow>
             <VisualContainer>
 
-                <WindowVisual src={ blogBackground }/>
+                <WindowVisual src={ securityVisual }/>
             </VisualContainer>
             <FormColumn>
                 <SubHeading>Profile settings</SubHeading>
@@ -196,7 +196,10 @@ export default function PortalUserDetails() {
                         <ImagePreview image={ `http://localhost:8080/files/${ user.username }/download` }/>
                         <ButtonBox area="submit">
 
-                            <RectangleButton onClick={ imageSubmit(onSubmit) }>Upload</RectangleButton>
+                            <RectangleButton
+                                buttonSize="btn--large"
+                                buttonStyle="btn--succes--solid"
+                                onClick={ imageSubmit(onSubmit) }>Upload</RectangleButton>
                         </ButtonBox>
                     </ImageForm>
                 </Form>

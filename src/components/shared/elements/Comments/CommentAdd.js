@@ -7,7 +7,7 @@ import { CommentListItem, ListItem } from "../../../../styles/List";
 import { NavLink } from "react-router-dom";
 import { Details } from "../../../../styles/TextLayout";
 import { DetailContainer, Owner, User } from "../../../../styles/Typography";
-import { ProjectCardLink } from "../../../../styles/Navigation";
+import { LinkHeader } from "../../../../styles/Navigation";
 import { DetailRow } from "../../../../styles/Layout";
 import { Form, FormEdit, FormEditBreak, FormError, FormLabel, FormSection } from "../../../../styles/FormStyles";
 import SelectUser from "../FormElements/SelectUser";
