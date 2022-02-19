@@ -25,7 +25,7 @@ export const CenteredSubHeader = styled.h2`
 `;
 
 export const SubHeader = styled.h4`
-margin-bottom: .5rem;
+  margin-bottom: .5rem;
   color: ${ props => props.theme.sub_text };
 `
 export const Owner = styled.span`
@@ -36,6 +36,7 @@ export const Date = styled.span`
   font-size: 0.9rem;
   font-weight: 700;
   margin-right: 1rem;
+
   &.blog {
     margin: 0;
   }
@@ -78,7 +79,7 @@ export const User = styled.span`
 
 export const Users = styled.div`
   font-size: 0.9rem;
-  
+
 `
 
 export const Votes = styled.footer`
@@ -103,11 +104,11 @@ export const DetailContainer = styled.div`
   width: 100%;
   min-height: 200px;
 
-  &.userListDetails{
-   min-height: 0; 
+  &.userListDetails {
+    min-height: 0;
   }
-  
-  &.projectDetails{
+
+  &.projectDetails {
     justify-content: space-between;
   }
 
@@ -159,7 +160,7 @@ export const SubFormHeading = styled.h4`
 
 export const ProjectDescription = styled.p`
   margin-top: 0.5rem;
-font-size: 0.9rem;
+  font-size: 0.9rem;
 `
 
 export const ProjectMain = styled.div`
@@ -167,4 +168,33 @@ export const ProjectMain = styled.div`
   flex-direction: row;
   width: 100%;
 `
+
+export const HeaderBox = styled.div`
+  display: flex;
+  align-items: end;
+  
+  width: 100%;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
+export const HeaderBar = styled.div`
+  background: ${ props => props.theme.sub_text };
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 1rem 1rem 0.5rem 1rem;
+  font-size: 1rem;
+  color: var(--white);
+  border: solid var(--box-border-medium) ${ props => props.theme.createBorder };
+  box-shadow: ${ props => props.theme.createShadow };
+
+  h3 {
+    font-weight: 300;
+  }
+`
+
 /** Created by ownwindows on 15-01-22 **/

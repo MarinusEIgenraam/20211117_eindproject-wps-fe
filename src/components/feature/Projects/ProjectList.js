@@ -9,9 +9,10 @@ import { UtilityContext } from "../../../context/UtilityProvider";
 import ProjectCreate from "./ProjectCreate";
 import { Container, DetailRow } from "../../../styles/Layout";
 import { getProjectsFor } from "../../../services/controllers/Projects";
-import { CenteredSubHeader } from "../../../styles/Typography";
+import { CenteredSubHeader, HeaderBar, HeaderBox } from "../../../styles/Typography";
 import { ProjectListItem, UnsortedList } from "../../../styles/List";
 import { LinkHeader } from "../../../styles/Navigation";
+import { AiFillProject, AiOutlineFundProjectionScreen } from "react-icons/all";
 
 /** Created by ownwindows on 18-01-22 **/
 
@@ -50,17 +51,28 @@ export default function ProjectList() {
         <>
             { (loadedProjects && loadedProjects.length > 0) &&
                 <Container>
-                    <CenteredSubHeader>
-                        Your Projects
-                    </CenteredSubHeader>
+                    <HeaderBar>
+                        <h3>
+                            Your projects
+                        </h3>
+                        <div>
+
+                            {loadedProjects.length} <AiOutlineFundProjectionScreen size={ 20 }/>
+                        </div>
+
+
+                    </HeaderBar>
+
 
                     <UnsortedList>
                         { loadedProjects && loadedProjects.map((project, index) => (
                             <ProjectListItem key={ index }>
-                                <LinkHeader className="listItem" to={ `/projects/${ project.projectId }` }>
+                                <HeaderBox>
+                                    <LinkHeader className="listItem" to={ `/projects/${ project.projectId }` }>
 
-                                    { project.projectName }
-                                </LinkHeader>
+                                        { project.projectName }
+                                    </LinkHeader>
+                                </HeaderBox>
 
                                 <DetailRow className="listItem">
                                     <h6>{ project.startTime } <span

@@ -18,7 +18,6 @@ export const Form = styled.form`
 export const FormWindow = styled.div`
   width: 70vw;
   height: max-content;
-  max-width: 1200px;
   position: relative;
 
   display: flex;

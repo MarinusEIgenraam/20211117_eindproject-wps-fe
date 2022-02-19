@@ -18,6 +18,7 @@ import RectangleButton from "../shared/elements/clickables/RectangleButton";
 import { AiOutlineClose, AiOutlinePlus } from "react-icons/all";
 import BlogCreate from "../feature/Blogs/BlogCreate";
 import ProjectCreate from "../feature/Projects/ProjectCreate";
+import AlertList from "../feature/Alerts/AlertList";
 
 
 export default function Portal() {
@@ -85,6 +86,8 @@ export default function Portal() {
                 <ProjectCreate/>
             }
 
+
+            <AlertList/>
             <ListWindow>
                 <BlogList/>
                 <TaskList editCount={ editCount } setEditCount={ setEditCount }/>
@@ -94,15 +97,17 @@ export default function Portal() {
     )
 }
 
+
 const ListWindow = styled.div`
   width: 70vw;
+  margin-top: 1.5rem;
   grid-gap: 20px;
   display: grid;
+  grid-template-columns: 1fr;
 
   @media ${ QUERIES.tablet } {
     grid-auto-flow: column;
-    grid-auto-columns: 1fr;
-    max-width: 100%;
+    grid-auto-columns: minmax(0, 1fr);
   }
 
 

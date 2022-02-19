@@ -18,11 +18,11 @@ export const ProjectLink = styled(NavLink)`
 `
 
 export const LinkHeader = styled(NavLink)`
-  display: inline-block;
+  
   text-decoration: none;
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
+  overflow: hidden;
   vertical-align: top;
   padding-right: 1rem;
   font-weight: 700;

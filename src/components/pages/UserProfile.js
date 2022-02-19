@@ -9,7 +9,7 @@ import { NavLink, useParams } from "react-router-dom";
 //// Environmental
 import { FormWindow } from "../../styles/Form";
 import { getOneUser } from "../../services/controllers/Users";
-import { DetailRow, PageContainer } from "../../styles/Layout";
+import { Container, DefaultContainer, DetailRow, PageContainer } from "../../styles/Layout";
 import {
     DetailContainer,
     PrimaryInfo,
@@ -91,33 +91,35 @@ export default function UserProfile() {
                     </SecondaryInfo>
                 </DetailRow>
             </FormWindow>
-            { ( projects && projects.length > 0 ) &&
-                <>
-                    <SubHeader>
-                        User projects
-                    </SubHeader>
-                    <UnsortedList>
-                        { projects.map((project, index) => (
-                            <ProjectListItem key={ index }>
-                                <ListLink to={ `/projects/${ project.projectId }` }><h6> { project.projectName } </h6>
-                                </ListLink>
+            <DefaultContainer>
+                { ( projects && projects.length > 0 ) &&
+                    <>
+                        <SubHeader>
+                            User projects
+                        </SubHeader>
+                        <UnsortedList>
+                            { projects.map((project, index) => (
+                                <ProjectListItem key={ index }>
+                                    <ListLink to={ `/projects/${ project.projectId }` }><h6> { project.projectName } </h6>
+                                    </ListLink>
 
-                                <DetailRow className="listItem">
-                                    <h6>{ project.startTime } <span
-                                        className="light">| { project.category.name } | { project.projectOwner.username } </span>
-                                    </h6>
-                                    <h6>
-                                        open tasks: { project.projectTaskList.length }
-                                    </h6>
-                                </DetailRow>
+                                    <DetailRow className="listItem">
+                                        <h6>{ project.startTime } <span
+                                            className="light">| { project.category.name } | { project.projectOwner.username } </span>
+                                        </h6>
+                                        <h6>
+                                            open tasks: { project.projectTaskList.length }
+                                        </h6>
+                                    </DetailRow>
 
 
-                            </ProjectListItem>
-                        )) }
-                    </UnsortedList>
-                </>
-            }
-            {(blogs && blogs.length > 0) ?
+                                </ProjectListItem>
+                            )) }
+                        </UnsortedList>
+                    </>
+                }
+            </DefaultContainer>
+            {(blogs && blogs.length > 0) &&
             <>
                 <SubHeader>
                     User blogs
@@ -138,8 +140,6 @@ export default function UserProfile() {
                     )) }
                 </UnsortedList>
             </>
-                :
-                <>{userDetails.username} is not working on any projects</>
             }
 
         </PageContainer>

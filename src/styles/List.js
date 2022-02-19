@@ -28,6 +28,8 @@ export const UnsortedProjectList = styled.ul`
 export const UnsortedList = styled.ul`
   list-style: none;
   display: flex;
+  min-width: 0;
+  
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -114,7 +116,7 @@ export const ListItem = styled.li`
   position: relative;
   border: none;
   flex-direction: column;
-  border-top: solid var(--box-border-medium) ${ props => props.theme.border };
+  //border-top: solid var(--box-border-medium) ${ props => props.theme.border };
 
   &:first-child {
     border-top: none;
@@ -211,8 +213,8 @@ export const ProjectListItem = styled.li`
   flex-direction: column;
   transition: all 500ms;
   background: ${ props => props.theme.background };
-  overflow: hidden;
-  
+  overflow:hidden;
+  text-overflow: ellipsis;  
 `
 
 export const UserListItem = styled.li`

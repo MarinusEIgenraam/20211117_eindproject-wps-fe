@@ -10,6 +10,9 @@ import { Container, DetailRow } from "../../../styles/Layout";
 import { CenteredSubHeader } from "../../../styles/Typography";
 import { ListItem, UnsortedList } from "../../../styles/List";
 import { getAlertsFor } from "../../../services/controllers/Alerts";
+import { IoIosRemoveCircleOutline } from "react-icons/io";
+import { AiFillDelete } from "react-icons/all";
+import Tooltip from "../../shared/elements/messages/Tooltip";
 
 export default function AlertList() {
     const { setIsLoading, setHasError } = useContext(UtilityContext);
@@ -38,21 +41,23 @@ export default function AlertList() {
     }, [ sortingFilter ]);
 
     return (
-        <Container>
-            <CenteredSubHeader>
-                Alerts
-                <DetailRow>
-                </DetailRow>
-            </CenteredSubHeader>
-
+        <Container className="single">
             <UnsortedList>
                 { loadedAlerts && loadedAlerts.map((alert, index) => (
                     <ListItem className="alert-list" key={ index }>
 
                         <DetailRow key={ index }>
-                            <h6>{ alert.createdAt } <span
+                            <h4>{ alert.createdAt } <span
                                 className="light">{ alert.createdAt } | { alert.title } | { alert.text } </span>
-                            </h6>
+                            </h4>
+
+                            <Tooltip text="Delete">
+                                <IoIosRemoveCircleOutline
+                                    size={ 20 }
+                                    type="button"
+                                    // onClick={ () => setAddTask(false) }
+                                />
+                            </Tooltip>
                         </DetailRow>
 
 

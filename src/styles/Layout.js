@@ -9,6 +9,9 @@ import styled from 'styled-components';
 ////////////////////
 //// External
 
+export const DefaultContainer = styled.div`
+  width: 70vw;
+`
 export const Column = styled.div`
   display: flex;
   height: max-content;
@@ -20,7 +23,7 @@ export const Column = styled.div`
 export const CommentContainer = styled.li`
   border: solid var(--box-border-medium) ${ props => props.theme.border };
 
-    width: 50vw;
+  width: 50vw;
 `
 
 export const CommenterDetail = styled.div`
@@ -49,11 +52,11 @@ export const CommenterDetail = styled.div`
 export const CommentChildren = styled.div`
   padding-top: 1em;
   padding-left: 1em;
-  
+
 
 `
 export const CommentAddWindow = styled.div`
-    width: 100%;
+  width: 100%;
 `
 
 export const ButtonRow = styled.div`
@@ -79,19 +82,16 @@ export const DetailRow = styled.footer`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 0.25rem;
   padding: 0.25rem 0;
   border-top: solid var(--box-border-medium) ${ props => props.theme.border };
-  
 
-  &.listItem {
-  margin-top: .25rem;  
-  }
-  
-  &.double{
+
+  &.double {
     align-items: end;
-    
+
   }
+
   &.no-margin {
     margin-top: 0;
   }
@@ -117,17 +117,17 @@ export const Divider = styled.hr`
 `
 
 export const Container = styled.div`
-  
   display: flex;
   width: 100%;
   align-items: center;
   position: relative;
   flex-direction: column;
   flex-wrap: wrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  
+
+  &.single {
+    margin-top: 1rem;
+  }
+
 `
 
 export const PageHeader = styled.div`
@@ -175,14 +175,14 @@ export const BlogContainer = styled.div`
   position: relative;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
   border: solid var(--box-border-medium) ${ props => props.theme.border };
-  
+
   overflow: hidden;
 
   width: 100%;
   padding: .5em;
   display: inline-block;
   margin: 0 0 1em;
-  font-size:1em;
+  font-size: 1em;
   box-sizing: border-box;
 `
 export const TaskFirstRow = styled.div`

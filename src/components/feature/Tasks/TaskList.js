@@ -5,13 +5,20 @@ import axios from "axios";
 ////////////////////
 //// Environmental
 import { UtilityContext } from "../../../context/UtilityProvider";
-import { CenteredSubHeader } from "../../../styles/Typography";
+import { CenteredSubHeader, HeaderBar } from "../../../styles/Typography";
 import { TaskListItem, UnsortedList } from "../../../styles/List";
 import { AuthContext } from "../../../context/AuthProvider";
 import TaskItem from "./TaskItem";
 import TaskParentItem from "./TaskParentItem";
 import { getTasksFor } from "../../../services/controllers/Tasks";
 import { Container } from "../../../styles/Layout";
+import {
+    AiFillProject,
+    AiOutlineFundProjectionScreen,
+    AiOutlineProject,
+    FaProjectDiagram,
+    IoBanOutline
+} from "react-icons/all";
 
 export default function TaskList({ editCount, setEditCount }) {
     const { setIsLoading } = useContext(UtilityContext);
@@ -40,14 +47,30 @@ export default function TaskList({ editCount, setEditCount }) {
 
     }, [ editCount ]);
 
+    const calculateTasks = (tasks) => {
+        let taskNumber = tasks.length;
+
+        console.log(tasks)
+        tasks.forEach(task => {
+            taskNumber += calculateTasks(task.taskTaskList);
+        })
+        return taskNumber;
+    };
+
 
     return (
         <>
             { (loadedTasks && loadedTasks.length  > 0) &&
                 <Container>
-                    <CenteredSubHeader>
-                        Your tasks
-                    </CenteredSubHeader>
+                    <HeaderBar>
+                        <h3>
+                            Tasks
+                        </h3>
+                        <div>
+
+                            {loadedTasks.length} <AiFillProject size={ 20 }/> {calculateTasks(loadedTasks)-loadedTasks.length} <AiOutlineProject size={ 20 }/>
+                        </div>
+                    </HeaderBar>
 
 
                     <UnsortedList>
