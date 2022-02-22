@@ -3,7 +3,7 @@ import axios from 'axios'
 const { REACT_APP_API_URL } = process.env;
 const source = axios.CancelToken.source();
 
-export const uploadImage = async (setHasError, setIsLoading, image) => {
+export const uploadImage = async (setCreationCount, creationCount, setHasError, setIsLoading, image) => {
     setHasError(false);
     setIsLoading(true)
 
@@ -16,29 +16,33 @@ export const uploadImage = async (setHasError, setIsLoading, image) => {
             },
         })
         setIsLoading(false)
+        setCreationCount(creationCount+1)
         return response.data.data.link
-    } catch (err) {
-        setHasError(true);
-        console.error(err);
+    } catch (e) {
+        setIsLoading(false)
+        setHasError(e);
+        console.error(e);
     }
 }
 
-export const getProfileImage = async (setHasError, setIsLoading, username) => {
+export const getProfileImage = async (setCreationCount, creationCount, setHasError, setIsLoading, username) => {
     setHasError(false);
     setIsLoading(true)
 
     try {
-        const result = await axios.get(`${ REACT_APP_API_URL }files/1/download`, {
+        const result = await axios.get(`${ REACT_APP_API_URL }files/${username}/download`, {
             cancelToken: source.token,
         })
+        setIsLoading(false)
         return result
-    } catch (err) {
-        setHasError(true);
-        console.error(err);
+    } catch (e) {
+        setIsLoading(false)
+        setHasError(e);
+        console.error(e);
     }
 }
 
-export const uploadProfileImage = async (setEitCount, setHasError, setIsLoading, file) => {
+export const uploadProfileImage = async (setCreationCount, creationCount, setHasError, setIsLoading, file) => {
     const token = localStorage.getItem('token');
     setHasError(false);
     setIsLoading(true)
@@ -48,15 +52,15 @@ export const uploadProfileImage = async (setEitCount, setHasError, setIsLoading,
 
     try {
         const response = await axios.post(`${ REACT_APP_API_URL }files`, formData, {
-            headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${ token }`},
+            headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${ token }` },
 
         })
-        console.log(response)
         setIsLoading(false)
-        setEitCount(+1)
+        setCreationCount(creationCount+1)
         return response
-    } catch (err) {
-        setHasError(true);
-        console.error(err);
+    } catch (e) {
+        setIsLoading(false)
+        setHasError(e);
+        console.error(e);
     }
 }

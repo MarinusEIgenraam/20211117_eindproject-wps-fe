@@ -29,7 +29,8 @@ export default function Portal() {
     const { setHasError, setIsLoading, setCreationCount, creationCount } = useContext(UtilityContext);
 
     useEffect(() => {
-    }, [ creationCount ]);
+        console.log(creationCount)
+    },[creationCount]);
 
     return (
         <PageContainer>
@@ -41,6 +42,7 @@ export default function Portal() {
             <PortalUserDetails/>
             <ButtonBox>
                 { ( user?.authorities === "Project lord" | "Project manager" && !writeBlog ) &&
+
                     <RectangleButton
                         type="button"
                         onClick={ () => setWriteBlog(true) }

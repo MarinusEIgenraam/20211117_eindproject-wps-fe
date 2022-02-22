@@ -27,7 +27,7 @@ import { TaskDescription, TaskFirstRow } from "../../../styles/Layout";
 
 
 export default function TaskItem({ task, editCount, setEditCount }) {
-    const { setIsLoading, setHasEror } = useContext(UtilityContext);
+    const { setIsLoading,setHasError,setCreationCount, creationCount } = useContext(UtilityContext);
     const [ addTask, setAddTask ] = useState(false)
     const [ isEditing, setIsEditing ] = useState(false);
     const [ editedTask, setEditedTask ] = useState(task);
@@ -46,9 +46,9 @@ export default function TaskItem({ task, editCount, setEditCount }) {
             description: values.description,
             taskOwnerName: values.taskOwner
         }
-        await putTask(setIsLoading, setHasEror, newTask, task.taskId)
+        const response = await putTask(setIsLoading, setHasError, newTask, task.taskId)
         setEditedTask(newTask)
-        setEditCount(editCount + 1)
+        setCreationCount(creationCount + 1)
     }
 
     const toggleTaskFinished = async () => {
@@ -57,9 +57,9 @@ export default function TaskItem({ task, editCount, setEditCount }) {
             ...task,
             isRunning: !editedTask.isRunning,
         }
-        await putTask(setIsLoading, setHasEror, newTask, task.taskId)
+        const response = await putTask(setIsLoading, setHasError, newTask, task.taskId)
         setEditedTask(newTask)
-        setEditCount(editCount + 1)
+        setCreationCount(creationCount + 1)
     }
 
     useEffect(() => {

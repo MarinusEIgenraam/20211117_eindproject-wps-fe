@@ -9,10 +9,10 @@ import { UtilityContext } from "../../../context/UtilityProvider";
 import ProjectCreate from "./ProjectCreate";
 import { Container, DetailRow } from "../../../styles/Layout";
 import { getProjectsFor } from "../../../services/controllers/Projects";
-import { CenteredSubHeader, HeaderBar, HeaderBox } from "../../../styles/Typography";
+import { HeaderBar, HeaderBox } from "../../../styles/Typography";
 import { ProjectListItem, UnsortedList } from "../../../styles/List";
 import { LinkHeader } from "../../../styles/Navigation";
-import { AiFillProject, AiOutlineFundProjectionScreen } from "react-icons/all";
+import { AiOutlineFundProjectionScreen } from "react-icons/all";
 
 /** Created by ownwindows on 18-01-22 **/
 
@@ -22,18 +22,20 @@ export default function ProjectList() {
     const { isAuth, user } = useContext(AuthContext);
 
     const [ writeProject, setWriteProject ] = useState(false);
-    const [ categoryUri, setCategoryUri ] = useState('');
+    const [ pageableUri, setPageableUri ] = useState('');
     const [ loadedProjects, setLoadedProjects ] = useState();
-    const [ projectCategory, setProjectCategory ] = useState('');
+    const [ projectCategory, setProjectCategory ] = useState();
 
     useEffect(() => {
         const source = axios.CancelToken.source();
+        setPageableUri(`?collaborator=${ user.username }`)
+        console.log(pageableUri)
         if (projectCategory) {
-            setCategoryUri(`?categoryId=${ projectCategory }`)
+            setPageableUri(`${pageableUri}&categoryId=${ projectCategory }`)
         }
 
         const getData = async () => {
-            const response = await getProjectsFor(setHasError, setIsLoading, categoryUri)
+            const response = await getProjectsFor(setHasError, setIsLoading, pageableUri)
             {
                 response && setLoadedProjects(response.data.content)
             }
@@ -45,11 +47,11 @@ export default function ProjectList() {
             source.cancel();
         };
 
-    }, [ projectCategory ]);
+    }, [ ]);
 
     return (
         <>
-            { (loadedProjects && loadedProjects.length > 0) &&
+            { ( loadedProjects && loadedProjects.length > 0 ) &&
                 <Container>
                     <HeaderBar>
                         <h3>
@@ -57,10 +59,8 @@ export default function ProjectList() {
                         </h3>
                         <div>
 
-                            {loadedProjects.length} <AiOutlineFundProjectionScreen size={ 20 }/>
+                            { loadedProjects.length } <AiOutlineFundProjectionScreen size={ 20 }/>
                         </div>
-
-
                     </HeaderBar>
 
 
@@ -96,5 +96,5 @@ export default function ProjectList() {
         </>
 
 
-)
+    )
 }

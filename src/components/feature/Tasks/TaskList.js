@@ -21,9 +21,8 @@ import {
 } from "react-icons/all";
 
 export default function TaskList({ editCount, setEditCount }) {
-    const { setIsLoading } = useContext(UtilityContext);
+    const { setHasError, setIsLoading, setCreationCount, creationCount } = useContext(UtilityContext);
     const { isAuth, user } = useContext(AuthContext);
-    const [ hasError, setHasError ] = useState(false);
     const [ categoryUri, setCategoryUri ] = useState('');
 
     const [ loadedTasks, setLoadedTasks ] = useState();
@@ -45,12 +44,11 @@ export default function TaskList({ editCount, setEditCount }) {
             source.cancel();
         };
 
-    }, [ editCount ]);
+    }, [ creationCount ]);
 
     const calculateTasks = (tasks) => {
         let taskNumber = tasks.length;
 
-        console.log(tasks)
         tasks.forEach(task => {
             taskNumber += calculateTasks(task.taskTaskList);
         })

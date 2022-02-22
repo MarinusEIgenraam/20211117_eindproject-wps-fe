@@ -40,7 +40,7 @@ export default function PortalUserDetails() {
     useEffect(() => {
 
         const getData = async () => {
-            const response = await getProfileImage(setHasError, setIsLoading, user.username)
+            const response = await getProfileImage(setCreationCount, creationCount, setHasError, setIsLoading, user.username)
             {
                 response && setLoadedImage(response)
             }
@@ -65,12 +65,12 @@ export default function PortalUserDetails() {
     }
 
     const onSubmit = async (values) => {
-        const profileImage = await uploadProfileImage(setEditCount, setHasError, setIsLoading, values.file[0])
+        const profileImage = await uploadProfileImage(setCreationCount, creationCount, setHasError, setIsLoading, values.file[0])
     }
 
     const onPasswordChange = async (values) => {
         console.log(values)
-        const message = await changePassword(setEditCount, setRegisterSucces, setHasError, setIsLoading, values)
+        const message = await changePassword(setCreationCount, creationCount, setHasError, setIsLoading, values)
     }
 
     const {
@@ -92,7 +92,7 @@ export default function PortalUserDetails() {
     useEffect(() => {
         console.log(creationCount)
 
-    }, [editCount]);
+    }, [creationCount]);
 
     return (
         <UserDetailWindow>

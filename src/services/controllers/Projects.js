@@ -41,7 +41,9 @@ export const getOneProject = async (setHasError, setIsLoading, id) => {
 export const getProjectsFor = async (setHasError, setIsLoading, what) => {
     setHasError(false);
     setIsLoading(true)
+
     try {
+        console.log(what)
         const results = await axios.get(`${ REACT_APP_API_URL }projects${ what }`, {
             cancelToken: source.token
         });
