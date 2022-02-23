@@ -12,8 +12,9 @@ export const getOneUser = async (utilityContext, username) => {
     try {
         return await axios.get(`${ REACT_APP_API_URL }users/${ username }`, {
             cancelToken: source.token
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -22,7 +23,7 @@ export const getOneUser = async (utilityContext, username) => {
     }
 }
 
-export const getUsers = async (utilityContext) => {
+export const getUsers = async (utilityContext, pageable) => {
     const { setIsLoading, setHasError } = utilityContext;
 
     setHasError(false);
@@ -32,8 +33,9 @@ export const getUsers = async (utilityContext) => {
         return await axios.get(`${ REACT_APP_API_URL }users/`,
             {
                 cancelToken: source.token,
-            }).then(() => {
+            }).then((response) => {
             setIsLoading(false)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -42,7 +44,7 @@ export const getUsers = async (utilityContext) => {
     }
 }
 
-export const getAdmins = async (utilityContext) => {
+export const getAdmins = async (utilityContext, pageable) => {
     const { setIsLoading, setHasError } = utilityContext;
 
     setHasError(false);
@@ -51,8 +53,10 @@ export const getAdmins = async (utilityContext) => {
         return await axios.get(`${ REACT_APP_API_URL }users?authority=ROLE_ADMIN`,
             {
                 cancelToken: source.token,
-            }).then(() => {
+            }).then((response) => {
             setIsLoading(false)
+            console.log(response)
+            return response
         });
     } catch (err) {
         setIsLoading(false)

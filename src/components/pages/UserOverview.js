@@ -24,16 +24,14 @@ import { LinkHeader } from "../../styles/Navigation";
 
 export default function UserOverview() {
     const utilityContext = useContext(UtilityContext);
+
+    const [ pageable, setPageable ] = useState('');
     const [ loadedUsers, setLoadedUsers ] = useState();
 
     useEffect(() => {
         const source = axios.CancelToken.source();
 
-        const response = getUsers(utilityContext)
-        {
-            response && setLoadedUsers(response.data.content)
-        }
-        console.log(response)
+        getUsers(utilityContext, pageable).then((result) => setLoadedUsers(result.data.content))
 
         return function clearData() {
             source.cancel();

@@ -16,9 +16,10 @@ export const uploadImage = async (utilityContext, image) => {
             headers: {
                 Authorization: "Client-ID da0e55c817cb308"
             },
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
-            setCreationCount(creationCount +1)
+            setCreationCount(creationCount + 1)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -37,8 +38,9 @@ export const getProfileImage = async (utilityContext, username) => {
     try {
         return await axios.get(`${ REACT_APP_API_URL }files/${username}/download`, {
             cancelToken: source.token,
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -64,10 +66,10 @@ export const uploadProfileImage = async (utilityContext, file) => {
                 "Content-Type": "multipart/form-data",
                 Authorization: `Bearer ${ token }`
             },
-
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
-            setCreationCount(creationCount +1)
+            setCreationCount(creationCount + 1)
+            return response
         });
     } catch (err) {
         setIsLoading(false)

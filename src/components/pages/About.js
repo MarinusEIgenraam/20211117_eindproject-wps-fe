@@ -24,17 +24,12 @@ export default function About() {
     const utilityContext = useContext(UtilityContext);
     const [ loadedAdmins, setLoadedAdmins ] = useState();
 
+
     useEffect(() => {
         const source = axios.CancelToken.source();
 
-        async function getData() {
-            const result = await getAdmins(utilityContext,);
-            {
-                result && setLoadedAdmins(result.data.content)
-            }
-        }
-
-        getData()
+        getAdmins(utilityContext).then(response => setLoadedAdmins(response.data.content))
+        console.log(loadedAdmins)
 
         return function clearData() {
             source.cancel();

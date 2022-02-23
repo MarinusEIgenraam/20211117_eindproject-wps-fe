@@ -22,7 +22,6 @@ import AlertList from "../feature/Alerts/AlertList";
 
 
 export default function Portal() {
-    const [ editCount, setEditCount ] = useState(0);
     const { user } = useContext(AuthContext);
     const [ writeProject, setWriteProject ] = useState(false);
     const [ writeBlog, setWriteBlog ] = useState(false);
@@ -92,7 +91,7 @@ export default function Portal() {
             <AlertList/>
             <ListWindow>
                 <BlogList/>
-                <TaskList editCount={ editCount } setEditCount={ setEditCount }/>
+                <TaskList/>
                 <ProjectList/>
             </ListWindow>
         </PageContainer>

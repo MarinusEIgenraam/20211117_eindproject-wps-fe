@@ -15,9 +15,10 @@ export const projectVote = async (utilityContext, vote) => {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
-            setCreationCount(creationCount +1)
+            setCreationCount(creationCount + 1)
+            return response
         });
     } catch (err) {
         setIsLoading(false)

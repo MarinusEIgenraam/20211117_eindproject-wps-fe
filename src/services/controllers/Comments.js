@@ -4,17 +4,18 @@ const { REACT_APP_API_URL } = process.env;
 const source = axios.CancelToken.source();
 
 
-export const getProjectComments = async (utilityContext, loadCount, id) => {
+export const getProjectComments = async (utilityContext, pageable, id) => {
     const { setIsLoading, setHasError } = utilityContext;
 
     setHasError(false);
     setIsLoading(true);
 
     try {
-        return await axios.get(`${ REACT_APP_API_URL }comments?parentProjectId=${ id }&page=0&size=${loadCount}`, {
+        return await axios.get(`${ REACT_APP_API_URL }comments?parentProjectId=${ id }${pageable}`, {
             cancelToken: source.token
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -24,7 +25,7 @@ export const getProjectComments = async (utilityContext, loadCount, id) => {
 }
 
 
-export const getBlogComments = async (utilityContext, loadCount, id) => {
+export const getBlogComments = async (utilityContext,pageable, loadCount, id) => {
     const { setIsLoading, setHasError } = utilityContext;
 
     setHasError(false);
@@ -33,8 +34,9 @@ export const getBlogComments = async (utilityContext, loadCount, id) => {
     try {
         return await axios.get(`${ REACT_APP_API_URL }comments?parentBlogId=${ id }&page=0&size=${loadCount}`, {
             cancelToken: source.token
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -56,9 +58,10 @@ export const postComment = async (utilityContext, comment) => {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
-            setCreationCount(creationCount +1)
+            setCreationCount(creationCount + 1)
+            return response
         });
     } catch (err) {
         setIsLoading(false)

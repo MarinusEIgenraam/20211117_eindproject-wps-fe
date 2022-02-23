@@ -27,10 +27,11 @@ import { LinkHeader, ProjectLink } from "../../styles/Navigation";
 export default function ProjectOverview() {
     const utilityContext = useContext(UtilityContext);
     const { user } = useContext(AuthContext);
+
     const [ writeProject, setWriteProject ] = useState(false);
-    const [ requestUri, setRequestUri ] = useState('');
-    const [ loadedProjects, setLoadedProjects ] = useState();
+    const [ loadedProjects, setLoadedProjects ] = useState([]);
     const [ projectCategory, setProjectCategory ] = useState();
+    const [ pageable, setPageable ] = useState('');
     const [ loadCount, setLoadCount ] = useState(6);
 
     const source = axios.CancelToken.source();
@@ -38,20 +39,14 @@ export default function ProjectOverview() {
 
     useEffect(() => {
         if (projectCategory) {
-            setRequestUri(`?categoryId=${ projectCategory }&page=1&size=${ loadCount }`);
+            setPageable(`?categoryId=${ projectCategory }&page=1&size=${ loadCount }`);
         } else {
-            setRequestUri(`?page=0&size=${loadCount}`)
+            setPageable(`?page=0&size=${loadCount}`)
         }
 
 
-        const getData = async () => {
-            return await getProjectsFor(utilityContext, requestUri)
-            {
-                response && setLoadedProjects(response.data.content)
-            }
-        };
+        getProjectsFor(utilityContext,pageable).then(response => setLoadedProjects(response.data.content))
 
-        getData()
 
         return function clearData() {
             source.cancel();

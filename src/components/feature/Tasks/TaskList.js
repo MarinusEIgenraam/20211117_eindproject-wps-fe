@@ -5,46 +5,32 @@ import axios from "axios";
 ////////////////////
 //// Environmental
 import { UtilityContext } from "../../../context/UtilityProvider";
-import { CenteredSubHeader, HeaderBar } from "../../../styles/Typography";
+import { HeaderBar } from "../../../styles/Typography";
 import { TaskListItem, UnsortedList } from "../../../styles/List";
 import { AuthContext } from "../../../context/AuthProvider";
 import TaskItem from "./TaskItem";
 import TaskParentItem from "./TaskParentItem";
 import { getTasksFor } from "../../../services/controllers/Tasks";
 import { Container } from "../../../styles/Layout";
-import {
-    AiFillProject,
-    AiOutlineFundProjectionScreen,
-    AiOutlineProject,
-    FaProjectDiagram,
-    IoBanOutline
-} from "react-icons/all";
+import { AiFillProject, AiOutlineProject } from "react-icons/all";
 
 export default function TaskList({ editCount, setEditCount }) {
-    const { setHasError, setIsLoading, setCreationCount, creationCount } = useContext(UtilityContext);
-    const { isAuth, user } = useContext(AuthContext);
-    const [ categoryUri, setCategoryUri ] = useState('');
-
-    const [ loadedTasks, setLoadedTasks ] = useState();
-    const [ projectCategory, setProjectCategory ] = useState('');
+    const utilityContext = useContext(UtilityContext);
+    const { user } = useContext(AuthContext);
+    const [ pageable, setPageable ] = useState('');
+    const [ loadedTasks, setLoadedTasks ] = useState({});
 
 
     useEffect(() => {
         const source = axios.CancelToken.source();
-        const token = localStorage.getItem('token');
 
-        const getData = async () => {
-            const tasks = await getTasksFor(utilityContext, token, user)
-            setLoadedTasks(tasks)
-        }
-
-        getData()
+        getTasksFor(utilityContext, pageable, user).then(response => setLoadedTasks(response.data.content))
 
         return function clearData() {
             source.cancel();
         };
 
-    }, [ creationCount ]);
+    }, [ utilityContext.creationCount ]);
 
     const calculateTasks = (tasks) => {
         let taskNumber = tasks.length;

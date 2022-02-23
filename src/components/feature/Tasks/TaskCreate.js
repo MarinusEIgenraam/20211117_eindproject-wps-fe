@@ -6,15 +6,11 @@ import { useFieldArray } from "react-hook-form";
 //// Environmental
 import NestedArray from "./TaskListTask";
 
-let renderCount = 0;
-
 export default function Fields({ control, register, setValue, getValues }) {
     const { fields, append, remove, prepend } = useFieldArray({
         control,
         name: "test"
     });
-
-    renderCount++;
 
     return (
         <>
@@ -86,8 +82,6 @@ export default function Fields({ control, register, setValue, getValues }) {
                     prepend Nested
                 </button>
             </section>
-
-            <span className="counter">Render Count: { renderCount }</span>
         </>
     );
 }

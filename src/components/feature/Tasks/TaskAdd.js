@@ -13,9 +13,9 @@ import { AuthContext } from "../../../context/AuthProvider";
 import SelectUser from "../../shared/elements/FormElements/SelectUser";
 import { postTask } from "../../../services/controllers/Tasks";
 
-export default function TaskAdd({ parentTask, editCount, setEditCount }) {
-    const { setHasError, setIsLoading } = useContext(UtilityContext);
-    const { isAuth, user } = useContext(AuthContext);
+export default function TaskAdd({ parentTask }) {
+    const utilityContext = useContext(UtilityContext);
+    const { user } = useContext(AuthContext);
 
     const {
         register,
@@ -24,13 +24,11 @@ export default function TaskAdd({ parentTask, editCount, setEditCount }) {
     } = useForm();
 
     const onSubmit = async (values) => {
-        setIsLoading(true)
         const request = {
             ...values,
             parentTaskId: parentTask,
         }
-        return await postTask(utilityContext, request)
-        setEditCount(editCount + 1)
+        postTask(utilityContext, request).then(r => {})
     }
 
     return (

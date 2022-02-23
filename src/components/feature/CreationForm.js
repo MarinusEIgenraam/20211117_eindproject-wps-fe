@@ -15,7 +15,7 @@ import { QUERIES } from "../../services/helpers/mediaQueries";
 import { ButtonBox } from "../../styles/Form";
 import RectangleButton from "../shared/elements/clickables/RectangleButton";
 
-export default function CreationForm({}) {
+export default function CreationForm() {
     const utilityContext = useContext(UtilityContext);
     const [ picture, setPicture ] = useState('')
 
@@ -26,6 +26,7 @@ export default function CreationForm({}) {
         formState: { errors },
         reset,
     } = useForm();
+
     const { fields, append, remove, prepend } = useFieldArray({
         control,
         name: "projectTaskList"
@@ -42,16 +43,17 @@ export default function CreationForm({}) {
 
 
     const onSubmit = async (values) => {
-        const imgur = await uploadImage(utilityContext, values.imageUrl[0])
 
-
-        const request = {
-            ...values,
-            imageUrl: imgur
-        }
-        console.log(request);
-        return await postBlog(utilityContext, request)
-        const project = { ...response }
+        uploadImage(utilityContext, values.imageUrl[0]).then((response) => {
+            return {
+                ...values,
+                imageUrl: response
+            }
+        }).then(response => {
+            postBlog(utilityContext, response)
+        }).then(response => {
+            return response
+        });
     }
 
 
@@ -183,7 +185,7 @@ const VisualContainer = styled.div`
 `
 
 const Form = styled.form`
-grid-area: form;
+  grid-area: form;
 `
 
 const BorderedWindow = styled.div`
@@ -192,8 +194,7 @@ const BorderedWindow = styled.div`
   grid-template-areas:
       "visual"
       "form"
-  "blogPreview"
-;
+  "blogPreview";
   transition: all .5s ease;
 
   max-width: 70vw;
@@ -209,7 +210,7 @@ const BorderedWindow = styled.div`
       "visual form"
       "blogPreview form"
       "blogPreview form"
-      ;
+  ;
   }
 `
 const FormField = styled.section`
@@ -221,8 +222,7 @@ const FormField = styled.section`
       "url"
       "image"
       "description"
-      "buttons"
-;
+      "buttons";
   @media ${ QUERIES.tablet } {
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;
@@ -276,7 +276,7 @@ const BlogPreview = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;  
+  width: 100%;
   max-width: 400px;
 
 `

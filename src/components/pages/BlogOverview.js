@@ -16,42 +16,37 @@ import RectangleButton from "../shared/elements/clickables/RectangleButton";
 import { BlogOverviewList } from "../../styles/List";
 import { getBlogs } from "../../services/controllers/Blogs";
 import { ButtonBox } from "../../styles/Form";
+import { getProjectsFor } from "../../services/controllers/Projects";
 
 export default function BlogOverview() {
-    const { setIsLoading, isLoading } = useContext(UtilityContext);
-    const { isAuth, user } = useContext(AuthContext);
-    const [ loadedBlogs, setLoadedBlogs ] = useState();
-    const [ hasError, setHasError ] = useState(false);
+    const utilityContext = useContext(UtilityContext);
+    const { user } = useContext(AuthContext);
+    const [ loadedBlogs, setLoadedBlogs ] = useState({});
     const [ writeBlog, setWriteBlog ] = useState(false)
     const [pageable, setPageable] = useState('');
-    const [creationCount, setCreationCount] = useState(0);
 
     useEffect(() => {
         const source = axios.CancelToken.source();
 
-        console.log(creationCount)
-        async function getData() {
-            return await getBlogs(utilityContext, pageable)
-            setLoadedBlogs(response.data.content);
-            console.log(response)
-        }
+        getBlogs(utilityContext, pageable).then((response) => setLoadedBlogs(response.data.content))
 
-        getData()
+
+        console.log(loadedBlogs)
 
         return function clearData() {
             source.cancel();
         };
 
 
-    }, [creationCount]);
+    }, [utilityContext.creationCount]);
 
-    function closeWindow(is) {
-        if (isLoading) {
-            return;
-        } else {
-            setWriteBlog(false)
-        }
-    }
+    // function closeWindow(is) {
+    //     if (utilityContext.isLoading) {
+    //         return;
+    //     } else {
+    //         setWriteBlog(false)
+    //     }
+    // }
 
 
 
@@ -91,13 +86,13 @@ export default function BlogOverview() {
 
                         <AiOutlineClose onClick={ () => setWriteBlog(false) } size={ 30 }/>
                     </ButtonBox>
-                    <BlogCreate creationCount={creationCount} setCreationCount={setCreationCount}/>
+                    <BlogCreate/>
                 </>
             }
 
 
             <BlogOverviewList className="clearfix">
-                { loadedBlogs &&
+                { loadedBlogs.length > 0 &&
                     loadedBlogs.map((blog, index) => {
                         return (
                             <Blog blog={ blog } key={ index }/>

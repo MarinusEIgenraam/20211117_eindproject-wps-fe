@@ -17,9 +17,10 @@ export const postTask = async (utilityContext, task) => {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
-            setCreationCount(creationCount +1)
+            setCreationCount(creationCount + 1)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -41,9 +42,10 @@ export const putTask = async (utilityContext, task, taskId) => {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
-            setCreationCount(creationCount +1)
+            setCreationCount(creationCount + 1)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -52,8 +54,9 @@ export const putTask = async (utilityContext, task, taskId) => {
     }
 }
 
-export const getTasksFor = async (utilityContext, token, user) => {
+export const getTasksFor = async (utilityContext, pageable, user) => {
     const { setIsLoading, setHasError } = utilityContext;
+    const token = localStorage.getItem('token');
 
     setHasError(false);
     setIsLoading(true);
@@ -65,8 +68,9 @@ export const getTasksFor = async (utilityContext, token, user) => {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
+            return response
         });
     } catch (err) {
         setIsLoading(false)

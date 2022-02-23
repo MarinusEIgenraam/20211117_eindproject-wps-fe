@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 ////////////////////
 //// Environmental
-import { FormColumn, FormError, FormInput, FormInputWrap, FormLabel } from "../../../styles/FormStyles";
+import { FormColumn, FormError, FormInput, FormLabel } from "../../../styles/FormStyles";
 import { AuthContext } from "../../../context/AuthProvider";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton";
 import { UtilityContext } from "../../../context/UtilityProvider";
@@ -19,9 +19,8 @@ import styled from "styled-components";
 import { BorderedWindow, VisualContainer } from "../../../styles/Windows";
 import { QUERIES } from "../../../services/helpers/mediaQueries";
 import securityVisual from "../../../assets/images/visual_security.svg";
-import { Heading, SubHeading } from "../../../styles/Typography";
+import { SubHeading } from "../../../styles/Typography";
 import { ButtonBox } from "../../../styles/Form";
-import { getBlogs } from "../../../services/controllers/Blogs";
 
 export default function PortalUserDetails() {
     const [ changeUsername, setChangeUsername ] = useState();
@@ -35,15 +34,11 @@ export default function PortalUserDetails() {
     const [ registerSucces, setRegisterSucces ] = useState(false);
 
 
-
     useEffect(() => {
 
         const getData = async () => {
-            return await getProfileImage(utilityContext, user.username)
-            {
-                response && setLoadedImage(response)
-            }
-            console.log(response)
+            setLoadedImage(getProfileImage(utilityContext, user.username))
+            console.log(loadedImage)
         }
 
         getData()
@@ -89,9 +84,8 @@ export default function PortalUserDetails() {
     });
 
     useEffect(() => {
-        console.log(creationCount)
 
-    }, [creationCount]);
+    }, [ utilityContext.creationCount ]);
 
     return (
         <UserDetailWindow>
@@ -234,8 +228,7 @@ const ImageForm = styled.section`
   grid-template-areas:
       "imageUrl"
       "imagePreview"
-      "submit"
-;
+      "submit";
   @media ${ QUERIES.tablet } {
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;
@@ -254,8 +247,7 @@ const PasswordForm = styled.section`
       "newPassword"
       "newPasswordSecond"
       "oldPassword"
-      "submit"
-;
+      "submit";
   @media ${ QUERIES.tablet } {
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;

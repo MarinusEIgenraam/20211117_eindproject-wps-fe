@@ -24,7 +24,7 @@ import { TaskListItem } from "../../../styles/List";
 import { putTask } from "../../../services/controllers/Tasks";
 
 
-export default function TaskParentItem({ task, editCount, setEditCount }) {
+export default function TaskParentItem({ task }) {
     const utilityContext = useContext(UtilityContext);
     const [ isEditing, setIsEditing ] = useState(false);
     const [ editedTask, setEditedTask ] = useState(task);
@@ -43,9 +43,8 @@ export default function TaskParentItem({ task, editCount, setEditCount }) {
             taskOwnerName: values.taskOwner
 
         }
-        return await putTask(utilityContext, newTask, task.taskId)
-        setEditedTask(response)
-        setEditCount(editCount + 1)
+
+        putTask(utilityContext, newTask, task.taskId).then(response => setEditedTask(response.data))
     }
 
     const toggleTaskFinished = async () => {
@@ -54,9 +53,7 @@ export default function TaskParentItem({ task, editCount, setEditCount }) {
             ...task,
             isRunning: !editedTask.isRunning,
         }
-        return await putTask(utilityContext, newTask, task.taskId)
-        setEditedTask(newTask)
-        setEditCount(editCount + 1)
+        putTask(utilityContext, newTask, task.taskId).then(response => setEditedTask(response.data))
     }
 
 
@@ -129,9 +126,9 @@ export default function TaskParentItem({ task, editCount, setEditCount }) {
                                     </FormEdit>
                                     <FormEdit>
                                         <FormLabel>
-                                            <label htmlFor="description">Task owner</label>
+                                            <label htmlFor="taskOwner">Task owner</label>
                                             <FormError role="alert">
-                                                { errors.taskOwner && "Enter a project name!" }
+                                                { errors.taskOwner && "Assign a task owner!" }
                                             </FormError>
                                         </FormLabel>
                                         <SelectUser defaultValue={ editedTask.taskOwner.username }

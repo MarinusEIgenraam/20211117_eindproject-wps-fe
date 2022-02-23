@@ -9,67 +9,59 @@ import { ButtonRow, CommentAddWindow, DetailRow, PageContainer } from "../../sty
 import { UtilityContext } from "../../context/UtilityProvider";
 import { useParams } from "react-router-dom";
 import { FormWindow } from "../../styles/Form";
-import { Image, Hero } from "../../styles/Images";
-import { getBlogComments, getProjectComments } from "../../services/controllers/Comments";
-import { getOneProject } from "../../services/controllers/Projects";
+import { Hero } from "../../styles/Images";
+import { getBlogComments } from "../../services/controllers/Comments";
 import Comment from "../shared/elements/Comments/Comment";
 import {
-    Category,
     Date,
     DetailContainer,
     Owner,
     PrimaryInfo,
     ProjectDescription,
     ProjectMain,
-    SecondaryInfo,
-    SubHeader,
-    User,
-    Votes
+    SecondaryInfo
 } from "../../styles/Typography";
 import RectangleButton from "../shared/elements/clickables/RectangleButton";
-import { Table, TableRow } from "../../styles/Table";
 import { getOneBlog } from "../../services/controllers/Blogs";
 import { AiFillCloseCircle } from "react-icons/all";
 import CommentAdd from "../shared/elements/Comments/CommentAdd";
 import { AuthContext } from "../../context/AuthProvider";
 
 
-export default function BlogDetails({}) {
-    const source = axios.CancelToken.source();
-    const { utilityContext, creationCount, setCreationCount } = useContext(UtilityContext);
-    const [ loadedBlog, setLoadedBlog ] = useState();
-    const [ loadedComments, setLoadedComments ] = useState();
-    const [ loadCount, setLoadCount ] = useState(6);
+export default function BlogDetails() {
     const { isAuth } = useContext(AuthContext);
+    const source = axios.CancelToken.source();
+    const { id } = useParams();
+
+
+    const [ pageable, setPageable ] = useState('');
+    const { utilityContext, creationCount } = useContext(UtilityContext);
+    const [ loadedBlog, setLoadedBlog ] = useState({});
+    const [ loadedComments, setLoadedComments ] = useState({});
+    const [ loadCount, setLoadCount ] = useState(6);
     const [ addComment, setAddComment ] = useState(false);
 
-    const { id } = useParams();
 
     useEffect(() => {
 
-        const getData = async () => {
-            const blogResult = await getOneBlog(utilityContext, id);
-            setLoadedBlog(blogResult.data);
-            console.log(loadedBlog)
-            const commentResults = await getBlogComments(utilityContext, loadCount, id);
-            setLoadedComments(commentResults.data.content)
-        }
-
-        getData()
+        getOneBlog(utilityContext, id).then(response => setLoadedBlog(response.data.content))
+        getBlogComments(utilityContext, pageable, loadCount, id).then((response)=> setLoadedComments(response.data.content))
 
         return function clearData() {
             source.cancel();
         };
-
     }, [ loadCount, creationCount ]);
+
+
+    useEffect(() => {
+        setAddComment(false)
+    }, [creationCount]);
+
 
     function handlePageable() {
         setLoadCount(loadCount + 6)
     }
 
-    useEffect(() => {
-        setAddComment(false)
-    }, [creationCount]);
 
     return (
         <PageContainer>
@@ -162,8 +154,5 @@ const Title = styled.h3`
 
 `
 
-const Text = styled.div`
-  width: 50%;
-`
 
 /** Created by ownwindows on 04-01-22 **/

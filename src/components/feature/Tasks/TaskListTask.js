@@ -6,14 +6,7 @@ import { IoIosAddCircle, IoIosRemoveCircleOutline } from "react-icons/io";
 ////////////////////
 //// Environmental
 import Tooltip from "../../shared/elements/messages/Tooltip";
-import {
-    FormBreak,
-    FormError,
-    FormInput,
-    FormInputWrap,
-    FormLabel,
-    FormSection,
-} from "../../../styles/FormStyles";
+import { FormBreak, FormError, FormInput, FormInputWrap, FormLabel, FormSection, } from "../../../styles/FormStyles";
 import { IconBox } from "../../../styles/Icons";
 import { SubFormHeading } from "../../../styles/Typography";
 

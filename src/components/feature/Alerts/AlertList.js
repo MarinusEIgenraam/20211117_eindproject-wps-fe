@@ -7,11 +7,9 @@ import axios from "axios";
 import { AuthContext } from "../../../context/AuthProvider";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import { Container, DetailRow } from "../../../styles/Layout";
-import { CenteredSubHeader } from "../../../styles/Typography";
 import { ListItem, UnsortedList } from "../../../styles/List";
 import { getAlertsFor } from "../../../services/controllers/Alerts";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
-import { AiFillDelete } from "react-icons/all";
 import Tooltip from "../../shared/elements/messages/Tooltip";
 
 export default function AlertList() {
@@ -25,14 +23,7 @@ export default function AlertList() {
     useEffect(() => {
         const source = axios.CancelToken.source();
 
-        const getData = async () => {
-            return await getAlertsFor(utilityContext, user, sortingFilter)
-            {
-                response && setLoadedAlerts(response.content)
-            }
-        }
-
-        getData()
+        getAlertsFor(utilityContext, user, sortingFilter).then(response => setLoadedAlerts(response.data.content))
 
         return function clearData() {
             source.cancel();

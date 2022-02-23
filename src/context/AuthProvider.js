@@ -27,7 +27,7 @@ export default function AuthProvider({ children }) {
 
         if (token) {
             const decoded = jwt_decode(token);
-            fetchUserData(utilityContext, navigate, toggleIsAuth, isAuth, decoded.sub, token);
+            fetchUserData(utilityContext, navigate, toggleIsAuth, isAuth, decoded.sub, token, '/me');
         } else {
             toggleIsAuth({
                 isAuth: false,

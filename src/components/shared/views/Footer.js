@@ -27,7 +27,7 @@ export default function Footer() {
     };
 
     async function onSubmit(event) {
-        await loginUser(utilityContext, event)
+        loginUser(utilityContext, event)
     }
 
     useEffect(() => {

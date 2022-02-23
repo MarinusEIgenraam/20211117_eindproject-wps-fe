@@ -35,39 +35,17 @@ import { HeartIcon } from "../../styles/Icons";
 import { projectVote } from "../../services/controllers/Votes";
 
 
-export default function Project({}) {
+export default function Project() {
     const source = axios.CancelToken.source();
-    const { utilityContext, creationCount, setCreationCount } = useContext(UtilityContext);
-    const [ loadedProject, setLoadedProject ] = useState();
-    const [ loadedComments, setLoadedComments ] = useState();
-    const [ loadCount, setLoadCount ] = useState(6);
+    const utilityContext = useContext(UtilityContext);
     const { isAuth } = useContext(AuthContext);
-    const [ addComment, setAddComment ] = useState(false);
-
     const { id } = useParams();
 
-    useEffect(() => {
-
-        const getData = async () => {
-            const projectResult = await getOneProject(utilityContext, id);
-            setLoadedProject(projectResult.data);
-            const commentResults = await getProjectComments(utilityContext, loadCount, id);
-            {commentResults &&
-            setLoadedComments(commentResults.data.content)
-            }
-        }
-
-        getData()
-
-        return function clearData() {
-            source.cancel();
-        };
-
-    }, [ loadCount, creationCount ]);
-
-    useEffect(() => {
-        setAddComment(false)
-    }, [ creationCount ]);
+    const [ pageable, setPageable ] = useState('');
+    const [ loadedProject, setLoadedProject ] = useState({});
+    const [ loadedComments, setLoadedComments ] = useState({});
+    const [ loadCount, setLoadCount ] = useState(6);
+    const [ addComment, setAddComment ] = useState(false);
 
 
     function handlePageable() {
@@ -75,14 +53,31 @@ export default function Project({}) {
     }
 
     async function handleVote(voteType) {
+
         const newVote = {
             voteType: voteType,
             projectId: id
         }
-        console.log(newVote)
         await projectVote(utilityContext, newVote)
-        setCreationCount(creationCount+1)
     }
+
+
+    useEffect(() => {
+        getOneProject(utilityContext, id).then((response) => setLoadedProject(response.data))
+
+        setPageable(`&page=0&size=${loadCount}`)
+        getProjectComments(utilityContext,pageable, id).then((response) => setLoadedComments(response.data.content))
+
+
+        return function clearData() {
+            source.cancel();
+        };
+    },[ loadCount, utilityContext.creationCount ]);
+
+
+    useEffect(() => {
+        setAddComment(false)
+    }, [ utilityContext.creationCount ]);
 
     return (
         <PageContainer>
@@ -107,7 +102,7 @@ export default function Project({}) {
                             <PrimaryInfo>
                                 <Owner>Project owner: { loadedProject?.projectOwner.username }</Owner>
                                 { loadedProject?.collaborators.map((user, index) => (
-                                    <User className="on">{ user.username } </User>
+                                    <User className="on" key={index}>{ user.username } </User>
                                 )) }
                             </PrimaryInfo>
                             <SecondaryInfo>
@@ -247,9 +242,4 @@ const CommentList = styled.ol`
 const Title = styled.h3`
 
 `
-
-const Text = styled.div`
-  width: 50%;
-`
-
 /** Created by ownwindows on 04-01-22 **/

@@ -7,6 +7,7 @@ import axios from "axios";
 import { UtilityContext } from "../../../../context/UtilityProvider";
 import { Select, SelectContainer } from "../../../../styles/Input";
 import { getCategories } from "../../../../services/controllers/Category";
+import { getUsers } from "../../../../services/controllers/Users";
 
 export default function SelectCategory({ area, register, parent, defaultValue }) {
     const utilityContext = useContext(UtilityContext);
@@ -15,11 +16,10 @@ export default function SelectCategory({ area, register, parent, defaultValue })
     useEffect(() => {
         const source = axios.CancelToken.source();
 
-        const getData = async () => {
-            const result = await getCategories(utilityContext);
-            setLoadedCategories(result.data)
+        const response = getCategories(utilityContext)
+        {
+            response && setLoadedCategories(response.data)
         }
-        getData()
 
         return function clearData() {
             source.cancel();

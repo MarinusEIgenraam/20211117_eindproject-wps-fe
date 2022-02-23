@@ -44,7 +44,7 @@ export default function BlogCreate({}) {
 
 
     const onSubmit = async (values) => {
-        const imgur = await uploadImage(utilityContext, values.imageUrl[0])
+        const imgur = uploadImage(utilityContext, values.imageUrl[0])
 
 
         const request = {
@@ -52,7 +52,7 @@ export default function BlogCreate({}) {
             imageUrl: imgur
         }
         console.log(request);
-        return await postBlog(utilityContext, request)
+        const response = postBlog(utilityContext, request)
         const project = { ...response }
     }
 

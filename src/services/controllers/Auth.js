@@ -26,7 +26,7 @@ export const registerUser = async (utilityContext, navigate, setRegisterSucces, 
         }).then(() => {
             setIsLoading(false)
             setRegisterSucces(true)
-            setCreationCount(creationCount +1)
+            setCreationCount(creationCount + 1)
         });
     } catch (err) {
         setIsLoading(false)
@@ -36,21 +36,20 @@ export const registerUser = async (utilityContext, navigate, setRegisterSucces, 
 }
 
 
-export const loginUser = async ( utilityContext, login, event) => {
+export const loginUser = async (utilityContext, login, event) => {
     const { setIsLoading, setHasError } = utilityContext;
 
     setHasError(false);
     setIsLoading(true)
 
     try {
-        const response =  await axios.post(REACT_APP_AUTH, {
+        return await axios.post(REACT_APP_AUTH, {
             username: event.username,
             password: event.password,
-        }, {
-
-        }).then(() => {
-            login(response.data.jwt);
+        },{}).then((response) => {
             setIsLoading(false)
+            login(response.data.jwt)
+
         });
     } catch (err) {
         setIsLoading(false)
@@ -74,8 +73,10 @@ export const changePassword = async (utilityContext, event) => {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
+            setCreationCount(creationCount + 1)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -92,30 +93,32 @@ export async function fetchUserData(utilityContext, navigate, toggleIsAuth, isAu
     setIsLoading(true);
 
     try {
-        const result = await axios.get(`${ REACT_APP_API_URL }users/${ username }`, {
+        return await axios.get(`${ REACT_APP_API_URL }users/${ username }`, {
             cancelToken: source.token,
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${ token }`,
             },
-        });
+        }).then((response) => {
 
-        toggleIsAuth({
-            ...isAuth,
-            isAuth: true,
-            user: {
-                username: result.data.username,
-                email: result.data.email,
-                authorities: setRole(result.data.authorities),
-                enabled: result.data.enabled
-            },
-            status: 'done',
+            toggleIsAuth({
+                ...isAuth,
+                isAuth: true,
+                user: {
+                    username: response.data.username,
+                    email: response.data.email,
+                    authorities: setRole(response.data.authorities),
+                    enabled: response.data.enabled
+                },
+                status: 'done',
+            })
         }).then(() => {
             setIsLoading(false)
             if (redirectUrl) {
                 navigate(redirectUrl);
             }
         });
+
     } catch (err) {
         setIsLoading(false)
         setHasError(err);

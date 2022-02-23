@@ -2,7 +2,6 @@
 //// Build
 import React from 'react'
 import AuthRegister from "../feature/Auth/AuthRegister";
-import AuthLogin from "../feature/Auth/AuthLogin";
 import { PageContainer, PageHeader } from "../../styles/Layout";
 import { CenteredHeader, SubTitle } from "../../styles/Typography";
 

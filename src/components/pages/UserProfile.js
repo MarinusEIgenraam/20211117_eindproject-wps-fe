@@ -3,13 +3,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from "axios";
 import { UtilityContext } from "../../context/UtilityProvider";
-import { AuthContext } from "../../context/AuthProvider";
 import { NavLink, useParams } from "react-router-dom";
 ////////////////////
 //// Environmental
 import { FormWindow } from "../../styles/Form";
 import { getOneUser } from "../../services/controllers/Users";
-import { Container, DefaultContainer, DetailRow, PageContainer } from "../../styles/Layout";
+import { DefaultContainer, DetailRow, PageContainer } from "../../styles/Layout";
 import {
     DetailContainer,
     PrimaryInfo,
@@ -28,37 +27,26 @@ export default function UserProfile() {
     const source = axios.CancelToken.source();
     const utilityContext = useContext(UtilityContext);
     const [ userDetails, setUserDetails ] = useState('');
-    const [ projects, setProjects ] = useState();
-    const [ blogs, setBlogs ] = useState();
-    const [ profileImage, setProfileImage ] = useState();
+    const [ projects, setProjects ] = useState({});
+    const [ blogs, setBlogs ] = useState({});
+    const [ profileImage, setProfileImage ] = useState('');
     const { username } = useParams();
-    const [ userRole, setUserRole ] = useState();
+    const [ userRole, setUserRole ] = useState('');
 
 
     useEffect(() => {
 
-        const getData = async () => {
-            const userUri = `?username=${ username }`
-            const userContainer = {
-                username: username
-            }
-            const userData = await getOneUser(utilityContext, username)
-            // const userProfileImage = await getProfileImage(utilityContext, username)
-            const userProjects = await getProjectsFor(utilityContext, userUri)
-            {
-                userProjects && setProjects(userProjects.data.content)
-            }
-            const userBlogs = await getBlogsFor(utilityContext, userContainer)
-            {
-                userBlogs && setBlogs(userBlogs.data.content)
-            }
-            console.log(projects)
-            setUserDetails(userData.data)
-            setUserRole(setRole(userData.data.authorities));
-
+        const projectPageable = `?username=${ username }`
+        const blogPageable = {
+            username: username
         }
 
-        getData()
+        getOneUser(utilityContext, username).then((response) => setUserDetails(response.data))
+        getProjectsFor(utilityContext, projectPageable).then((response) => setProjects(response.data.content))
+        getBlogsFor(utilityContext, blogPageable).then((response) => setBlogs(response.data.content))
+        // const userProfileImage = await getProfileImage(utilityContext, username)
+
+        setUserRole(setRole(userDetails.authorities));
 
         return function clearData() {
             source.cancel();

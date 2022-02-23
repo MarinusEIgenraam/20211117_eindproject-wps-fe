@@ -15,9 +15,10 @@ export const postAlert = async (utilityContext, alert) => {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
-            setCreationCount(creationCount +1)
+            setCreationCount(creationCount + 1)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -38,9 +39,10 @@ export const deleteAlert = async (utilityContext, alertId) => {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
-            setCreationCount(creationCount +1)
+            setCreationCount(creationCount + 1)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -62,8 +64,9 @@ export const getAlertsFor = async (utilityContext, user, sortingFilter) => {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
+            return response
         });
     } catch (err) {
         setIsLoading(false)

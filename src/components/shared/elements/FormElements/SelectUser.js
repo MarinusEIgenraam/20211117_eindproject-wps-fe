@@ -15,12 +15,10 @@ export default function SelectUser({ register, parent, defaultValue }) {
     useEffect(() => {
         const source = axios.CancelToken.source();
 
-        const getData = async () => {
-            const userData = await getUsers(utilityContext);
-            setLoadedUsers(userData.data.content)
-            console.log(userData)
+        const response = getUsers(utilityContext)
+        {
+            response && setLoadedUsers(response.data.content)
         }
-        getData()
 
         return function clearData() {
             source.cancel();

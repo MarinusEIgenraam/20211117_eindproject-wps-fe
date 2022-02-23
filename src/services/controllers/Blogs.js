@@ -6,7 +6,7 @@ const source = axios.CancelToken.source();
 export const postBlog = async (utilityContext, blog) => {
     const { setCreationCount, creationCount, setIsLoading, setHasError } = utilityContext;
     const token = localStorage.getItem('token');
-    
+
     setHasError(false);
     setIsLoading(true);
 
@@ -15,9 +15,10 @@ export const postBlog = async (utilityContext, blog) => {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
-            setCreationCount(creationCount +1)
+            setCreationCount(creationCount + 1)
+            return response
         });
     } catch (err) {
         console.error(err);
@@ -34,9 +35,10 @@ export const getOneBlog = async (utilityContext, id) => {
     try {
         return await axios.get(`${ REACT_APP_API_URL }blogs/${ id }`,
             {
-            cancelToken: source.token
-        }).then(() => {
+                cancelToken: source.token
+            }).then((response) => {
             setIsLoading(false)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -45,7 +47,7 @@ export const getOneBlog = async (utilityContext, id) => {
     }
 }
 
-export const getBlogsFor = async (utilityContext, token, user) => {
+export const getBlogsFor = async (utilityContext, pageable, user) => {
     const { setIsLoading, setHasError } = utilityContext;
 
     setHasError(false);
@@ -54,8 +56,9 @@ export const getBlogsFor = async (utilityContext, token, user) => {
     try {
         return await axios.get(`${ REACT_APP_API_URL }blogs?blogOwner=${ user.username }`, {
             cancelToken: source.token
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -72,10 +75,11 @@ export const getBlogs = async (utilityContext, pageable) => {
     setIsLoading(true);
 
     try {
-        return await axios.get(`${ REACT_APP_API_URL }blogs${pageable}`, {
+        return await axios.get(`${ REACT_APP_API_URL }blogs${ pageable }`, {
             cancelToken: source.token
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
+            return response
         });
     } catch (err) {
         setIsLoading(false)

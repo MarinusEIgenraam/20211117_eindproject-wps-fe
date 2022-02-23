@@ -1,11 +1,10 @@
 ////////////////////
 //// Build
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 ////////////////////
 //// Environmental
-import { AuthContext } from "../../context/AuthProvider";
 import { HeaderImage, PageContainer } from "../../styles/Layout";
-import { BackgroundImage, BannerVisual, WindowVisual } from "../../styles/Images";
+import { BackgroundImage, BannerVisual } from "../../styles/Images";
 import homeBackground from '../../assets/images/hero_image-black.svg'
 import heroBackground from '../../assets/images/wps_half-fill_hero-black.svg'
 import CreationForm from "../feature/CreationForm";
@@ -14,7 +13,6 @@ import educationBanner from "../../assets/images/banner_education.svg";
 
 export default function Home() {
     const [isNarrowScreen, setIsNarrowScreen] = useState(false);
-    const { isAuth } = useContext(AuthContext);
 
 
 

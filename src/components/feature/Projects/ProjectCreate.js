@@ -67,8 +67,6 @@ export default function ProjectCreate() {
 
 
     const onSubmit = async (values) => {
-        setIsLoading(true)
-        console.log(values)
 
         if (values.imageUrl[0]) {
             if (values.imageUrl[0].type === 'image/jpeg' || values.imageUrl[0].type === 'image/png') {

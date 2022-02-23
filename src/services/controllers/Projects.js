@@ -15,9 +15,10 @@ export const postProject = async (utilityContext, project) => {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
-            setCreationCount(creationCount +1)
+            setCreationCount(creationCount + 1)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -37,8 +38,9 @@ export const getOneProject = async (utilityContext, id) => {
     try {
         return await axios.get(`${ REACT_APP_API_URL }projects/${ id }`, {
             cancelToken: source.token
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -48,17 +50,18 @@ export const getOneProject = async (utilityContext, id) => {
 }
 
 
-export const getProjectsFor = async (utilityContext, what) => {
+export const getProjectsFor = async (utilityContext, pageable) => {
     const { setIsLoading, setHasError } = utilityContext;
 
     setHasError(false);
     setIsLoading(true)
 
     try {
-        return await axios.get(`${ REACT_APP_API_URL }projects${ what }`, {
+        return await axios.get(`${ REACT_APP_API_URL }projects?page=1&size=6`, {
             cancelToken: source.token
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
+            return response
         });
     } catch (err) {
         setIsLoading(false)
@@ -68,7 +71,7 @@ export const getProjectsFor = async (utilityContext, what) => {
 }
 
 
-export const getProjectComments = async (utilityContext, id) => {
+export const getProjectComments = async (utilityContext, pageable, id) => {
     const { setIsLoading, setHasError } = utilityContext;
 
     setHasError(false);
@@ -77,8 +80,9 @@ export const getProjectComments = async (utilityContext, id) => {
     try {
         return await axios.get(`${ REACT_APP_API_URL }comments?projectId=${ id }`, {
             cancelToken: source.token
-        }).then(() => {
+        }).then((response) => {
             setIsLoading(false)
+            return response
         });
     } catch (err) {
         setIsLoading(false)

@@ -20,34 +20,27 @@ import { AiOutlineFundProjectionScreen } from "react-icons/all";
 export default function ProjectList() {
     const utilityContext = useContext(UtilityContext);
     const { isAuth, user } = useContext(AuthContext);
+    const [ pageable, setPageable ] = useState('');
 
     const [ writeProject, setWriteProject ] = useState(false);
-    const [ pageableUri, setPageableUri ] = useState('');
     const [ loadedProjects, setLoadedProjects ] = useState();
     const [ projectCategory, setProjectCategory ] = useState();
 
     useEffect(() => {
         const source = axios.CancelToken.source();
-        setPageableUri(`?collaborator=${ user.username }`)
-        console.log(pageableUri)
+        setPageable(`?collaborator=${ user.username }`)
+
         if (projectCategory) {
-            setPageableUri(`${pageableUri}&categoryId=${ projectCategory }`)
+            setPageable(`${ pageable }&categoryId=${ projectCategory }`)
         }
 
-        const getData = async () => {
-            return await getProjectsFor(utilityContext, pageableUri)
-            {
-                response && setLoadedProjects(response.data.content)
-            }
-        }
-
-        getData()
+        getProjectsFor(utilityContext, pageable).then((response) => setLoadedProjects(response.data.content))
 
         return function clearData() {
             source.cancel();
         };
 
-    }, [ ]);
+    }, []);
 
     return (
         <>
