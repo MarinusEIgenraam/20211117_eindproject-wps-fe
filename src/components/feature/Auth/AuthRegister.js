@@ -13,7 +13,7 @@ import { registerUser } from "../../../services/controllers/Auth";
 
 
 export default function AuthRegister() {
-    const { setHasError, setIsLoading } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const [ registerSucces, setRegisterSucces ] = useState(false);
     const navigate = useNavigate()
     const { register, handleSubmit, reset, control, formState: { errors } } = useForm({
@@ -22,7 +22,7 @@ export default function AuthRegister() {
 
     async function onSubmit(event) {
 
-        await registerUser(navigate, setRegisterSucces, setIsLoading, setHasError, event)
+        await registerUser(utilityContext, navigate, setRegisterSucces, event)
         setRegisterSucces(true)
     }
 

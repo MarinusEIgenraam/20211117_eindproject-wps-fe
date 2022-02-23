@@ -31,7 +31,7 @@ export default function BlogOverview() {
 
         console.log(creationCount)
         async function getData() {
-            const response = await getBlogs(setIsLoading, setHasError, pageable)
+            return await getBlogs(utilityContext, pageable)
             setLoadedBlogs(response.data.content);
             console.log(response)
         }

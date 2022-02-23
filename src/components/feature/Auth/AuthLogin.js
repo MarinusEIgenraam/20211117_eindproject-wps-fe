@@ -12,7 +12,7 @@ import { Form, FormBreak, FormError, FormInput, FormInputWrap, FormLabel } from 
 import { loginUser } from "../../../services/controllers/Auth";
 
 function AuthLogin() {
-    const { setHasError, setIsLoading } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const { login } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -20,7 +20,7 @@ function AuthLogin() {
     });
 
     async function onSubmit(event) {
-        await loginUser(login, setIsLoading, setHasError, event)
+        await loginUser(utilityContext, login, event)
     }
 
     const enterSubmit = (e) => {

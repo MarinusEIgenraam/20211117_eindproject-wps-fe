@@ -8,20 +8,17 @@ import { fetchUserData } from "../services/controllers/Auth";
 ///////////////////////
 //// Environmental
 export const AuthContext = createContext({});
-const { REACT_APP_API_URL } = process.env;
-///////////////////////
-//// External
 
 
 export default function AuthProvider({ children }) {
-    const { setHasError, setIsLoading } = useContext(UtilityContext);
-
+    const utilityContext = useContext(UtilityContext);
 
     const [ isAuth, toggleIsAuth ] = useState({
         isAuth: false,
         user: null,
         status: 'pending',
     });
+
     const navigate = useNavigate();
 
 
@@ -30,7 +27,7 @@ export default function AuthProvider({ children }) {
 
         if (token) {
             const decoded = jwt_decode(token);
-            fetchUserData(navigate, setHasError, setIsLoading, toggleIsAuth, isAuth, decoded.sub, token);
+            fetchUserData(utilityContext, navigate, toggleIsAuth, isAuth, decoded.sub, token);
         } else {
             toggleIsAuth({
                 isAuth: false,
@@ -44,7 +41,7 @@ export default function AuthProvider({ children }) {
     function login(JWT) {
         localStorage.setItem('token', JWT);
         const decoded = jwt_decode(JWT);
-        fetchUserData(navigate, setHasError, setIsLoading, toggleIsAuth, isAuth, decoded.sub, JWT, '/me');
+        fetchUserData(utilityContext, navigate, toggleIsAuth, isAuth, decoded.sub, JWT, '/me');
     }
 
 

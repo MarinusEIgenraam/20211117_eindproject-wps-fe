@@ -37,7 +37,7 @@ import { projectVote } from "../../services/controllers/Votes";
 
 export default function Project({}) {
     const source = axios.CancelToken.source();
-    const { setIsLoading, setHasError, creationCount, setCreationCount } = useContext(UtilityContext);
+    const { utilityContext, creationCount, setCreationCount } = useContext(UtilityContext);
     const [ loadedProject, setLoadedProject ] = useState();
     const [ loadedComments, setLoadedComments ] = useState();
     const [ loadCount, setLoadCount ] = useState(6);
@@ -49,9 +49,9 @@ export default function Project({}) {
     useEffect(() => {
 
         const getData = async () => {
-            const projectResult = await getOneProject(setIsLoading, setHasError, id);
+            const projectResult = await getOneProject(utilityContext, id);
             setLoadedProject(projectResult.data);
-            const commentResults = await getProjectComments(setIsLoading, setHasError, loadCount, id);
+            const commentResults = await getProjectComments(utilityContext, loadCount, id);
             {commentResults &&
             setLoadedComments(commentResults.data.content)
             }
@@ -80,7 +80,7 @@ export default function Project({}) {
             projectId: id
         }
         console.log(newVote)
-        await projectVote(setIsLoading, setHasError, newVote)
+        await projectVote(utilityContext, newVote)
         setCreationCount(creationCount+1)
     }
 

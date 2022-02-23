@@ -9,14 +9,14 @@ import { Select, SelectContainer } from "../../../../styles/Input";
 import { getUsers } from "../../../../services/controllers/Users";
 
 export default function SelectUser({ register, parent, defaultValue }) {
-    const { setIsLoading, setHasError } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const [ loadedUsers, setLoadedUsers ] = useState(false);
 
     useEffect(() => {
         const source = axios.CancelToken.source();
 
         const getData = async () => {
-            const userData = await getUsers(setHasError, setIsLoading);
+            const userData = await getUsers(utilityContext);
             setLoadedUsers(userData.data.content)
             console.log(userData)
         }

@@ -4,13 +4,15 @@ import { setRole } from "../helpers/filters";
 const { REACT_APP_AUTH_REGISTER, REACT_APP_AUTH, REACT_APP_API_URL } = process.env;
 const source = axios.CancelToken.source();
 
-export const registerUser = async (navigate, setRegisterSucces, setHasError, setIsLoading, event) => {
+export const registerUser = async (utilityContext, navigate, setRegisterSucces, event) => {
+    const { setCreationCount, creationCount, setIsLoading, setHasError } = utilityContext;
+
     setHasError(false);
     setIsLoading(true)
     setRegisterSucces(false)
 
     try {
-        const response = await axios.post(REACT_APP_AUTH_REGISTER, {
+        return await axios.post(REACT_APP_AUTH_REGISTER, {
             username: event.username,
             password: event.password,
             email: event.email,
@@ -21,64 +23,77 @@ export const registerUser = async (navigate, setRegisterSucces, setHasError, set
                 setRegisterSucces(false)
                 navigate('/', { replace: false })
             }, 4000);
-
+        }).then(() => {
+            setIsLoading(false)
+            setRegisterSucces(true)
+            setCreationCount(creationCount +1)
         });
-        return response.data.data.link
     } catch (err) {
-        setHasError(true);
+        setIsLoading(false)
+        setHasError(err);
         console.error(err);
     }
 }
 
-export const loginUser = async (login, setIsLoading, setHasError, event) => {
+
+export const loginUser = async ( utilityContext, login, event) => {
+    const { setIsLoading, setHasError } = utilityContext;
+
     setHasError(false);
     setIsLoading(true)
 
     try {
-        const response = await axios.post(REACT_APP_AUTH, {
+        const response =  await axios.post(REACT_APP_AUTH, {
             username: event.username,
             password: event.password,
-        }, {});
-        login(response.data.jwt);
-        setIsLoading(false)
+        }, {
+
+        }).then(() => {
+            login(response.data.jwt);
+            setIsLoading(false)
+        });
     } catch (err) {
-        setHasError(true);
+        setIsLoading(false)
+        setHasError(err);
         console.error(err);
     }
 }
 
-export const changePassword = async (setCreationCount, setRegisterSucces, setIsLoading, setHasError, event) => {
+export const changePassword = async (utilityContext, event) => {
+    const { setCreationCount, creationCount, setIsLoading, setHasError } = utilityContext;
     const token = localStorage.getItem('token');
+
     setHasError(false);
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
-        const response = await axios.put(`${ REACT_APP_API_URL }users/password`, {
+        return await axios.put(`${ REACT_APP_API_URL }users/password`, {
             oldPassword: event.oldPassword,
             newPassword: event.newPassword,
         }, {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
+        }).then(() => {
+            setIsLoading(false)
         });
-        setIsLoading(false)
-        setRegisterSucces(true)
-        setCreationCount(+1)
-
-        return response;
     } catch (err) {
-        setHasError(true);
+        setIsLoading(false)
+        setHasError(err);
         console.error(err);
     }
 }
 
 
-export async function fetchUserData(navigate, setHasError, setIsLoading, toggleIsAuth, isAuth, username, token, redirectUrl) {
+export async function fetchUserData(utilityContext, navigate, toggleIsAuth, isAuth, username, token, redirectUrl) {
+    const { setIsLoading, setHasError } = utilityContext;
+
     setHasError(false);
     setIsLoading(true);
 
     try {
         const result = await axios.get(`${ REACT_APP_API_URL }users/${ username }`, {
+            cancelToken: source.token,
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${ token }`,
@@ -95,16 +110,16 @@ export async function fetchUserData(navigate, setHasError, setIsLoading, toggleI
                 enabled: result.data.enabled
             },
             status: 'done',
+        }).then(() => {
+            setIsLoading(false)
+            if (redirectUrl) {
+                navigate(redirectUrl);
+            }
         });
-
-        if (redirectUrl) {
-            navigate(redirectUrl);
-        }
-        setIsLoading(false);
-
-    } catch (e) {
-        console.error(e);
-        setHasError(true);
+    } catch (err) {
+        setIsLoading(false)
+        setHasError(err);
+        console.error(err);
         toggleIsAuth({
             isAuth: false,
             user: null,

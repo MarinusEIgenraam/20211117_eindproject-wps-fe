@@ -18,7 +18,7 @@ import { AiOutlineFundProjectionScreen } from "react-icons/all";
 
 
 export default function ProjectList() {
-    const { setIsLoading, setHasError } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const { isAuth, user } = useContext(AuthContext);
 
     const [ writeProject, setWriteProject ] = useState(false);
@@ -35,7 +35,7 @@ export default function ProjectList() {
         }
 
         const getData = async () => {
-            const response = await getProjectsFor(setHasError, setIsLoading, pageableUri)
+            return await getProjectsFor(utilityContext, pageableUri)
             {
                 response && setLoadedProjects(response.data.content)
             }

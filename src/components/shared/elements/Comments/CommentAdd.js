@@ -1,23 +1,12 @@
 ////////////////////
 //// Build
-import React, { useContext, useState } from 'react'
-import styled from 'styled-components';
-import ListComment from "./ListComment";
-import { CommentListItem, ListItem } from "../../../../styles/List";
-import { NavLink } from "react-router-dom";
-import { Details } from "../../../../styles/TextLayout";
-import { DetailContainer, Owner, User } from "../../../../styles/Typography";
-import { LinkHeader } from "../../../../styles/Navigation";
-import { DetailRow } from "../../../../styles/Layout";
+import React, { useContext } from 'react'
 import { Form, FormEdit, FormEditBreak, FormError, FormLabel, FormSection } from "../../../../styles/FormStyles";
-import SelectUser from "../FormElements/SelectUser";
 import { IconBox } from "../../../../styles/Icons";
 import Tooltip from "../messages/Tooltip";
 import { IoIosSend } from "react-icons/all";
 import { useForm } from "react-hook-form";
-import { postTask } from "../../../../services/controllers/Tasks";
 import { UtilityContext } from "../../../../context/UtilityProvider";
-import { AuthContext } from "../../../../context/AuthProvider";
 import { postComment } from "../../../../services/controllers/Comments";
 
 ////////////////////
@@ -27,7 +16,7 @@ import { postComment } from "../../../../services/controllers/Comments";
 //// External
 
 export default function CommentAdd ({ parent, parentId }) {
-    const { setHasError, setIsLoading, creationCount, setCreationCount  } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
 
 
     const { register,
@@ -44,8 +33,7 @@ export default function CommentAdd ({ parent, parentId }) {
             ...((parent === "parentCommentId") &&  { parentCommentId: parentId })
         }
         console.log(request)
-        const response = await postComment(setIsLoading, setHasError, request)
-        setCreationCount(creationCount+1)
+        return await postComment(utilityContext, request)
     }
 
     return (

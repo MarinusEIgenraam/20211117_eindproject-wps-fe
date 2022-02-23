@@ -3,40 +3,60 @@ import axios from 'axios'
 const { REACT_APP_API_URL } = process.env;
 const source = axios.CancelToken.source();
 
-export const getOneUser = async (setHasError, setIsLoading, username) => {
+export const getOneUser = async (utilityContext, username) => {
+    const { setIsLoading, setHasError } = utilityContext;
+
     setHasError(false);
-    setIsLoading(true)
+    setIsLoading(true);
+
     try {
         return await axios.get(`${ REACT_APP_API_URL }users/${ username }`, {
             cancelToken: source.token
-        })
-    } catch (e) {
-        console.error(e);
-        setHasError(true);
+        }).then(() => {
+            setIsLoading(false)
+        });
+    } catch (err) {
+        setIsLoading(false)
+        setHasError(err);
+        console.error(err);
     }
-    setIsLoading(false)
 }
 
-export const getUsers = async (setHasError, setIsLoading) => {
-    setHasError(false);
-    setIsLoading(true)
-    try {
-        return await axios.get(`${ REACT_APP_API_URL }users/`, { cancelToken: source.token, })
-    } catch (e) {
-        console.error(e);
-        setHasError(true);
-    }
-    setIsLoading(false)
-};
+export const getUsers = async (utilityContext) => {
+    const { setIsLoading, setHasError } = utilityContext;
 
-export const getAdmins = async (setHasError, setIsLoading) => {
+    setHasError(false);
+    setIsLoading(true)
+
+    try {
+        return await axios.get(`${ REACT_APP_API_URL }users/`,
+            {
+                cancelToken: source.token,
+            }).then(() => {
+            setIsLoading(false)
+        });
+    } catch (err) {
+        setIsLoading(false)
+        setHasError(err);
+        console.error(err);
+    }
+}
+
+export const getAdmins = async (utilityContext) => {
+    const { setIsLoading, setHasError } = utilityContext;
+
     setHasError(false);
     setIsLoading(true)
     try {
-        return await axios.get(`${ REACT_APP_API_URL }users?authority=ROLE_ADMIN`, { cancelToken: source.token, })
-    } catch (e) {
-        console.error(e);
-        setHasError(true);
+        return await axios.get(`${ REACT_APP_API_URL }users?authority=ROLE_ADMIN`,
+            {
+                cancelToken: source.token,
+            }).then(() => {
+            setIsLoading(false)
+        });
+    } catch (err) {
+        setIsLoading(false)
+        setHasError(err);
+        console.error(err);
     }
-    setIsLoading(false)
-};
+}

@@ -9,14 +9,14 @@ import { Select, SelectContainer } from "../../../../styles/Input";
 import { getCategories } from "../../../../services/controllers/Category";
 
 export default function SelectCategory({ area, register, parent, defaultValue }) {
-    const { setIsLoading, setHasError } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const [ loadedCategories, setLoadedCategories ] = useState(false);
 
     useEffect(() => {
         const source = axios.CancelToken.source();
 
         const getData = async () => {
-            const result = await getCategories(setHasError, setIsLoading);
+            const result = await getCategories(utilityContext);
             setLoadedCategories(result.data)
         }
         getData()

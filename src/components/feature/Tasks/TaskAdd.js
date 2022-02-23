@@ -29,7 +29,7 @@ export default function TaskAdd({ parentTask, editCount, setEditCount }) {
             ...values,
             parentTaskId: parentTask,
         }
-        const response = await postTask(setIsLoading, setHasError, request)
+        return await postTask(utilityContext, request)
         setEditCount(editCount + 1)
     }
 

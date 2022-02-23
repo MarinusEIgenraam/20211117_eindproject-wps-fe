@@ -34,7 +34,7 @@ export default function TaskList({ editCount, setEditCount }) {
         const token = localStorage.getItem('token');
 
         const getData = async () => {
-            const tasks = await getTasksFor(setIsLoading, setHasError, token, user)
+            const tasks = await getTasksFor(utilityContext, token, user)
             setLoadedTasks(tasks)
         }
 

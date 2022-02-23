@@ -23,21 +23,17 @@ import { getUsers } from "../../services/controllers/Users";
 import { LinkHeader } from "../../styles/Navigation";
 
 export default function UserOverview() {
-    const { setIsLoading, setHasError } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const [ loadedUsers, setLoadedUsers ] = useState();
 
     useEffect(() => {
         const source = axios.CancelToken.source();
 
-        const getData = async () => {
-            const response = await getUsers(setHasError, setIsLoading)
-            {
-                response && setLoadedUsers(response.data.content)
-            }
-            console.log(response)
+        const response = getUsers(utilityContext)
+        {
+            response && setLoadedUsers(response.data.content)
         }
-
-        getData()
+        console.log(response)
 
         return function clearData() {
             source.cancel();

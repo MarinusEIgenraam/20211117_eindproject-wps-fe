@@ -11,7 +11,7 @@ import { loginUser } from "../../../services/controllers/Auth";
 
 export default function Footer() {
     const [ fixed, setFixed ] = useState(true);
-    const { setIsLoading, hasError, setHasError } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: 'onChange'
     });
@@ -27,7 +27,7 @@ export default function Footer() {
     };
 
     async function onSubmit(event) {
-        await loginUser(setHasError, setIsLoading, event)
+        await loginUser(utilityContext, event)
     }
 
     useEffect(() => {
@@ -40,7 +40,7 @@ export default function Footer() {
 
 
     return (
-        <FooterContainer hasError={ hasError } fixed={ fixed }>
+        <FooterContainer hasError={ utilityContext.hasError } fixed={ fixed }>
             <FooterContent>
 
                 <LoginContainer>

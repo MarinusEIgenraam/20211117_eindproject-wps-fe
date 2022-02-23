@@ -4,55 +4,73 @@ import axios from 'axios'
 const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
 const source = axios.CancelToken.source();
 
-export const postTask = async (setIsLoading, setHasError, task) => {
+export const postTask = async (utilityContext, task) => {
+    const { setCreationCount, creationCount, setIsLoading, setHasError } = utilityContext;
     const token = localStorage.getItem('token');
+    
+    setHasError(false);
+    setIsLoading(true);
+    
     try {
         setIsLoading(true)
-        const response = await axios.post(REACT_APP_API_URL + 'tasks', task, {
+        return await axios.post(REACT_APP_API_URL + 'tasks', task, {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
-        })
+        }).then(() => {
+            setIsLoading(false)
+            setCreationCount(creationCount +1)
+        });
+    } catch (err) {
         setIsLoading(false)
-        return response.data
-    } catch (e) {
-        setIsLoading(false)
-        setHasError(e)
-        console.error(e);    }
-}
-
-export const putTask = async (setIsLoading, setHasError, task, taskId) => {
-    const token = localStorage.getItem('token');
-    try {
-        setIsLoading(true)
-        const response = await axios.put(REACT_APP_API_URL + `tasks/${ taskId }`, task, {
-            headers: {
-                Authorization: `Bearer ${ token }`
-            }
-        })
-        setIsLoading(false)
-        return response.data
-    } catch (e) {
-        setIsLoading(false)
-        setHasError(e)
-        return e.response.data
+        setHasError(err);
+        console.error(err);
     }
 }
 
-export const getTasksFor = async (setIsLoading, setHasError, token, user) => {
+export const putTask = async (utilityContext, task, taskId) => {
+    const { setCreationCount, creationCount, setIsLoading, setHasError } = utilityContext;
+    const token = localStorage.getItem('token');
+    
+    setHasError(false);
+    setIsLoading(true);
+    
     try {
         setIsLoading(true)
-        const result = await axios.get(`${ REACT_APP_API_URL }tasks?taskOwner=${ user.username }`, {
+        return await axios.put(REACT_APP_API_URL + `tasks/${ taskId }`, task, {
+            headers: {
+                Authorization: `Bearer ${ token }`
+            }
+        }).then(() => {
+            setIsLoading(false)
+            setCreationCount(creationCount +1)
+        });
+    } catch (err) {
+        setIsLoading(false)
+        setHasError(err);
+        console.error(err);
+    }
+}
+
+export const getTasksFor = async (utilityContext, token, user) => {
+    const { setIsLoading, setHasError } = utilityContext;
+
+    setHasError(false);
+    setIsLoading(true);
+
+    try {
+        setIsLoading(true)
+        return await axios.get(`${ REACT_APP_API_URL }tasks?taskOwner=${ user.username }`, {
             cancelToken: source.token,
             headers: {
                 Authorization: `Bearer ${ token }`
             }
+        }).then(() => {
+            setIsLoading(false)
         });
+    } catch (err) {
         setIsLoading(false)
-        return result.data
-    } catch (e) {
-        setIsLoading(false)
-        setHasError(e)
-        console.error(e);
+        setHasError(err);
+        console.error(err);
     }
 }

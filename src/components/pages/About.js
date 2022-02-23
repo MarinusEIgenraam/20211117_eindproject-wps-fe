@@ -21,14 +21,14 @@ import { UnsortedList, UserListItem } from "../../styles/List";
 import { getAdmins } from "../../services/controllers/Users";
 
 export default function About() {
-    const { setIsLoading, setHasError } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const [ loadedAdmins, setLoadedAdmins ] = useState();
 
     useEffect(() => {
         const source = axios.CancelToken.source();
 
         async function getData() {
-            const result = await getAdmins(setHasError, setIsLoading);
+            const result = await getAdmins(utilityContext,);
             {
                 result && setLoadedAdmins(result.data.content)
             }

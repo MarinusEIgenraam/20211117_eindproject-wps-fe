@@ -28,19 +28,18 @@ export default function PortalUserDetails() {
     const source = axios.CancelToken.source();
     const token = localStorage.getItem('token');
     const { user } = useContext(AuthContext);
-    const { setHasError, setIsLoading, setCreationCount, creationCount } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const [ picture, setPicture ] = useState('')
     const [ passwordSucces, setPasswordSucces ] = useState()
     const [ loadedImage, setLoadedImage ] = useState('')
     const [ registerSucces, setRegisterSucces ] = useState(false);
-    const [editCount, setEditCount] = useState(creationCount)
 
 
 
     useEffect(() => {
 
         const getData = async () => {
-            const response = await getProfileImage(setCreationCount, creationCount, setHasError, setIsLoading, user.username)
+            return await getProfileImage(utilityContext, user.username)
             {
                 response && setLoadedImage(response)
             }
@@ -65,12 +64,12 @@ export default function PortalUserDetails() {
     }
 
     const onSubmit = async (values) => {
-        const profileImage = await uploadProfileImage(setCreationCount, creationCount, setHasError, setIsLoading, values.file[0])
+        const profileImage = await uploadProfileImage(utilityContext, values.file[0])
     }
 
     const onPasswordChange = async (values) => {
         console.log(values)
-        const message = await changePassword(setCreationCount, creationCount, setHasError, setIsLoading, values)
+        const message = await changePassword(utilityContext, values)
     }
 
     const {

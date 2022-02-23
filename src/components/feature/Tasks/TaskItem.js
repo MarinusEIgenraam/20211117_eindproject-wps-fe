@@ -46,7 +46,7 @@ export default function TaskItem({ task, editCount, setEditCount }) {
             description: values.description,
             taskOwnerName: values.taskOwner
         }
-        const response = await putTask(setIsLoading, setHasError, newTask, task.taskId)
+        return await putTask(utilityContext, newTask, task.taskId)
         setEditedTask(newTask)
         setCreationCount(creationCount + 1)
     }
@@ -57,7 +57,7 @@ export default function TaskItem({ task, editCount, setEditCount }) {
             ...task,
             isRunning: !editedTask.isRunning,
         }
-        const response = await putTask(setIsLoading, setHasError, newTask, task.taskId)
+        return await putTask(utilityContext, newTask, task.taskId)
         setEditedTask(newTask)
         setCreationCount(creationCount + 1)
     }

@@ -25,7 +25,7 @@ import { getProjectsFor } from "../../services/controllers/Projects";
 import { LinkHeader, ProjectLink } from "../../styles/Navigation";
 
 export default function ProjectOverview() {
-    const { setIsLoading, setHasError } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const { user } = useContext(AuthContext);
     const [ writeProject, setWriteProject ] = useState(false);
     const [ requestUri, setRequestUri ] = useState('');
@@ -45,7 +45,7 @@ export default function ProjectOverview() {
 
 
         const getData = async () => {
-            const response = await getProjectsFor(setHasError, setIsLoading, requestUri)
+            return await getProjectsFor(utilityContext, requestUri)
             {
                 response && setLoadedProjects(response.data.content)
             }

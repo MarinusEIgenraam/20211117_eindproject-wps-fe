@@ -3,47 +3,71 @@ import axios from 'axios'
 const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
 const source = axios.CancelToken.source();
 
-export const postAlert = async (setIsLoading, setHasError, alert) => {
+export const postAlert = async (utilityContext, alert) => {
+    const { setCreationCount, creationCount, setIsLoading, setHasError } = utilityContext;
     const token = localStorage.getItem('token');
+
+    setHasError(false);
+    setIsLoading(true);
+
     try {
-        const response = await axios.post(REACT_APP_API_URL + 'alerts', alert, {
+        return await axios.post(REACT_APP_API_URL + 'alerts', alert, {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
-        })
-        return response.data
+        }).then(() => {
+            setIsLoading(false)
+            setCreationCount(creationCount +1)
+        });
     } catch (err) {
-        return err.response.data
+        setIsLoading(false)
+        setHasError(err);
+        console.error(err);
     }
 }
 
-export const deleteAlert = async (setIsLoading, setHasError, alertId) => {
+export const deleteAlert = async (utilityContext, alertId) => {
+    const { setCreationCount, creationCount, setIsLoading, setHasError } = utilityContext;
     const token = localStorage.getItem('token');
+
+    setHasError(false);
+    setIsLoading(true);
+
     try {
-        const response = await axios.delete(REACT_APP_API_URL + `alerts/${ alertId }`, {
+        return await axios.delete(REACT_APP_API_URL + `alerts/${ alertId }`, {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
-        })
-        return response.data
+        }).then(() => {
+            setIsLoading(false)
+            setCreationCount(creationCount +1)
+        });
     } catch (err) {
-        return err.response.data
+        setIsLoading(false)
+        setHasError(err);
+        console.error(err);
     }
 }
 
-export const getAlertsFor = async (setIsLoading, setHasError, user, sortingFilter) => {
+export const getAlertsFor = async (utilityContext, user, sortingFilter) => {
     const token = localStorage.getItem('token');
+    const { setIsLoading, setHasError } = utilityContext;
+
+    setHasError(false);
+    setIsLoading(true)
 
     try {
-        const result = await axios.get(`${ REACT_APP_API_URL }alerts?username=${ user.username }${sortingFilter}`, {
+        return await axios.get(`${ REACT_APP_API_URL }alerts?username=${ user.username }${sortingFilter}`, {
             cancelToken: source.token,
             headers: {
                 Authorization: `Bearer ${ token }`
             }
+        }).then(() => {
+            setIsLoading(false)
         });
-
-        return result.data
     } catch (err) {
+        setIsLoading(false)
+        setHasError(err);
         console.error(err);
     }
 }

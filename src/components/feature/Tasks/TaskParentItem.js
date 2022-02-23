@@ -25,7 +25,7 @@ import { putTask } from "../../../services/controllers/Tasks";
 
 
 export default function TaskParentItem({ task, editCount, setEditCount }) {
-    const { setIsLoading, setHasError } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const [ isEditing, setIsEditing ] = useState(false);
     const [ editedTask, setEditedTask ] = useState(task);
     const {
@@ -43,7 +43,7 @@ export default function TaskParentItem({ task, editCount, setEditCount }) {
             taskOwnerName: values.taskOwner
 
         }
-        const response = await putTask(setIsLoading, setHasError, newTask, task.taskId)
+        return await putTask(utilityContext, newTask, task.taskId)
         setEditedTask(response)
         setEditCount(editCount + 1)
     }
@@ -54,7 +54,7 @@ export default function TaskParentItem({ task, editCount, setEditCount }) {
             ...task,
             isRunning: !editedTask.isRunning,
         }
-        const response = await putTask(setIsLoading, setHasError, newTask, task.taskId)
+        return await putTask(utilityContext, newTask, task.taskId)
         setEditedTask(newTask)
         setEditCount(editCount + 1)
     }

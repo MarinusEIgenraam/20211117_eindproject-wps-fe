@@ -26,7 +26,7 @@ export default function Portal() {
     const { user } = useContext(AuthContext);
     const [ writeProject, setWriteProject ] = useState(false);
     const [ writeBlog, setWriteBlog ] = useState(false);
-    const { setHasError, setIsLoading, setCreationCount, creationCount } = useContext(UtilityContext);
+    const { creationCount } = useContext(UtilityContext);
 
     useEffect(() => {
         console.log(creationCount)

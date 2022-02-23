@@ -3,64 +3,75 @@ import axios from 'axios'
 const { REACT_APP_API_URL } = process.env;
 const source = axios.CancelToken.source();
 
-export const uploadImage = async (setCreationCount, creationCount, setHasError, setIsLoading, image) => {
+export const uploadImage = async (utilityContext, image) => {
+    const { setCreationCount, creationCount, setIsLoading, setHasError } = utilityContext;
+
     setHasError(false);
-    setIsLoading(true)
+    setIsLoading(true);
 
     const data = new FormData()
     data.append("image", image)
     try {
-        const response = await axios.post('https://api.imgur.com/3/image', data, {
+        return await axios.post('https://api.imgur.com/3/image', data, {
             headers: {
                 Authorization: "Client-ID da0e55c817cb308"
             },
-        })
+        }).then(() => {
+            setIsLoading(false)
+            setCreationCount(creationCount +1)
+        });
+    } catch (err) {
         setIsLoading(false)
-        setCreationCount(creationCount+1)
-        return response.data.data.link
-    } catch (e) {
-        setIsLoading(false)
-        setHasError(e);
-        console.error(e);
+        setHasError(err);
+        console.error(err);
     }
 }
 
-export const getProfileImage = async (setCreationCount, creationCount, setHasError, setIsLoading, username) => {
+
+export const getProfileImage = async (utilityContext, username) => {
+    const { setIsLoading, setHasError } = utilityContext;
+
     setHasError(false);
     setIsLoading(true)
 
     try {
-        const result = await axios.get(`${ REACT_APP_API_URL }files/${username}/download`, {
+        return await axios.get(`${ REACT_APP_API_URL }files/${username}/download`, {
             cancelToken: source.token,
-        })
+        }).then(() => {
+            setIsLoading(false)
+        });
+    } catch (err) {
         setIsLoading(false)
-        return result
-    } catch (e) {
-        setIsLoading(false)
-        setHasError(e);
-        console.error(e);
+        setHasError(err);
+        console.error(err);
     }
 }
 
-export const uploadProfileImage = async (setCreationCount, creationCount, setHasError, setIsLoading, file) => {
+
+export const uploadProfileImage = async (utilityContext, file) => {
+    const { setCreationCount, creationCount, setIsLoading, setHasError } = utilityContext;
     const token = localStorage.getItem('token');
+
     setHasError(false);
-    setIsLoading(true)
+    setIsLoading(true);
 
     const formData = new FormData();
     formData.append('document', file)
 
     try {
-        const response = await axios.post(`${ REACT_APP_API_URL }files`, formData, {
-            headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${ token }` },
+        return await axios.post(`${ REACT_APP_API_URL }files`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${ token }`
+            },
 
-        })
+        }).then(() => {
+            setIsLoading(false)
+            setCreationCount(creationCount +1)
+        });
+    } catch (err) {
         setIsLoading(false)
-        setCreationCount(creationCount+1)
-        return response
-    } catch (e) {
-        setIsLoading(false)
-        setHasError(e);
-        console.error(e);
+        setHasError(err);
+        console.error(err);
     }
 }

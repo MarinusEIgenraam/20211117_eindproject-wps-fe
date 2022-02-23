@@ -26,7 +26,7 @@ import { ListLink } from "../../styles/Navigation";
 
 export default function UserProfile() {
     const source = axios.CancelToken.source();
-    const { setIsLoading, setHasError } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const [ userDetails, setUserDetails ] = useState('');
     const [ projects, setProjects ] = useState();
     const [ blogs, setBlogs ] = useState();
@@ -42,13 +42,13 @@ export default function UserProfile() {
             const userContainer = {
                 username: username
             }
-            const userData = await getOneUser(setHasError, setIsLoading, username)
-            // const userProfileImage = await getProfileImage(setHasError, setIsLoading, username)
-            const userProjects = await getProjectsFor(setHasError, setIsLoading, userUri)
+            const userData = await getOneUser(utilityContext, username)
+            // const userProfileImage = await getProfileImage(utilityContext, username)
+            const userProjects = await getProjectsFor(utilityContext, userUri)
             {
                 userProjects && setProjects(userProjects.data.content)
             }
-            const userBlogs = await getBlogsFor(setHasError, setIsLoading, userContainer)
+            const userBlogs = await getBlogsFor(utilityContext, userContainer)
             {
                 userBlogs && setBlogs(userBlogs.data.content)
             }

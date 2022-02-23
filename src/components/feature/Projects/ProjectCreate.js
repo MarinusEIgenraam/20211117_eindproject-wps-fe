@@ -40,7 +40,7 @@ const defaultValues = {
 };
 
 export default function ProjectCreate() {
-    const { setHasError, setIsLoading } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const [ publicVisibility, setPublicVisibility ] = useState(true);
     const [ picture, setPicture ] = useState('')
 
@@ -72,13 +72,13 @@ export default function ProjectCreate() {
 
         if (values.imageUrl[0]) {
             if (values.imageUrl[0].type === 'image/jpeg' || values.imageUrl[0].type === 'image/png') {
-                const imgur = await uploadImage(setHasError, setIsLoading, values.imageUrl[0])
+                const imgur = await uploadImage(utilityContext, values.imageUrl[0])
                 const request = {
-                    values,
+                    ...values,
                     imageUrl: imgur
                 }
                 console.log(request)
-                await postProject(setHasError, setIsLoading, request)
+                await postProject(utilityContext, request)
 
             } else (
                 console.log('incorrect input')
@@ -91,7 +91,7 @@ export default function ProjectCreate() {
             }
             console.log(values)
 
-            await postProject(setHasError, setIsLoading, request)
+            await postProject(utilityContext, request)
         }
     }
 

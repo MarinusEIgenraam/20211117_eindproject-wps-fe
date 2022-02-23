@@ -18,7 +18,7 @@ import { BlogImage, Hero, WindowVisual } from "../../../styles/Images";
 import blogBackground from "../../../assets/images/visual_blogs.svg";
 
 export default function BlogCreate({}) {
-    const { setHasError, setIsLoading, creationCount, setCreationCount } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const [ picture, setPicture ] = useState('')
 
     const {
@@ -44,7 +44,7 @@ export default function BlogCreate({}) {
 
 
     const onSubmit = async (values) => {
-        const imgur = await uploadImage(setHasError, setIsLoading, values.imageUrl[0])
+        const imgur = await uploadImage(utilityContext, values.imageUrl[0])
 
 
         const request = {
@@ -52,11 +52,8 @@ export default function BlogCreate({}) {
             imageUrl: imgur
         }
         console.log(request);
-        const response = await postBlog(setHasError, setIsLoading, request)
+        return await postBlog(utilityContext, request)
         const project = { ...response }
-        setCreationCount(creationCount + 1)
-
-        console.log(creationCount)
     }
 
 

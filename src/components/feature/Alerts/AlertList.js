@@ -15,7 +15,7 @@ import { AiFillDelete } from "react-icons/all";
 import Tooltip from "../../shared/elements/messages/Tooltip";
 
 export default function AlertList() {
-    const { setIsLoading, setHasError } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const { isAuth, user } = useContext(AuthContext);
 
     const [ listOpen, setListOpen ] = useState(false);
@@ -26,7 +26,7 @@ export default function AlertList() {
         const source = axios.CancelToken.source();
 
         const getData = async () => {
-            const response = await getAlertsFor(setHasError, setIsLoading, user, sortingFilter)
+            return await getAlertsFor(utilityContext, user, sortingFilter)
             {
                 response && setLoadedAlerts(response.content)
             }

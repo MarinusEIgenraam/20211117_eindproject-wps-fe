@@ -36,7 +36,7 @@ import { AuthContext } from "../../context/AuthProvider";
 
 export default function BlogDetails({}) {
     const source = axios.CancelToken.source();
-    const { setIsLoading, setHasError, creationCount, setCreationCount } = useContext(UtilityContext);
+    const { utilityContext, creationCount, setCreationCount } = useContext(UtilityContext);
     const [ loadedBlog, setLoadedBlog ] = useState();
     const [ loadedComments, setLoadedComments ] = useState();
     const [ loadCount, setLoadCount ] = useState(6);
@@ -48,10 +48,10 @@ export default function BlogDetails({}) {
     useEffect(() => {
 
         const getData = async () => {
-            const blogResult = await getOneBlog(setIsLoading, setHasError, id);
+            const blogResult = await getOneBlog(utilityContext, id);
             setLoadedBlog(blogResult.data);
             console.log(loadedBlog)
-            const commentResults = await getBlogComments(setIsLoading, setHasError, loadCount, id);
+            const commentResults = await getBlogComments(utilityContext, loadCount, id);
             setLoadedComments(commentResults.data.content)
         }
 

@@ -1,53 +1,68 @@
 import axios from 'axios'
 
-const { REACT_APP_API_URL, REACT_APP_AUTH } = process.env;
+const { REACT_APP_API_URL } = process.env;
 const source = axios.CancelToken.source();
 
 
-export const getProjectComments = async (setIsLoading, setHasError, loadCount, id) => {
+export const getProjectComments = async (utilityContext, loadCount, id) => {
+    const { setIsLoading, setHasError } = utilityContext;
+
     setHasError(false);
-    setIsLoading(true)
+    setIsLoading(true);
+
     try {
-        const results = await axios.get(`${ REACT_APP_API_URL }comments?parentProjectId=${ id }&page=0&size=${loadCount}`, {
+        return await axios.get(`${ REACT_APP_API_URL }comments?parentProjectId=${ id }&page=0&size=${loadCount}`, {
             cancelToken: source.token
+        }).then(() => {
+            setIsLoading(false)
         });
-        setIsLoading(false);
-        return results
     } catch (err) {
-        setHasError(true);
+        setIsLoading(false)
+        setHasError(err);
         console.error(err);
     }
 }
 
-export const getBlogComments = async (setIsLoading, setHasError, loadCount, id) => {
+
+export const getBlogComments = async (utilityContext, loadCount, id) => {
+    const { setIsLoading, setHasError } = utilityContext;
+
     setHasError(false);
-    setIsLoading(true)
+    setIsLoading(true);
+
     try {
-        const results = await axios.get(`${ REACT_APP_API_URL }comments?parentBlogId=${ id }&page=0&size=${loadCount}`, {
+        return await axios.get(`${ REACT_APP_API_URL }comments?parentBlogId=${ id }&page=0&size=${loadCount}`, {
             cancelToken: source.token
+        }).then(() => {
+            setIsLoading(false)
         });
-        setIsLoading(false);
-        return results
     } catch (err) {
-        setHasError(true);
+        setIsLoading(false)
+        setHasError(err);
         console.error(err);
     }
 }
 
-export const postComment = async (setIsLoading, setHasError, comment) => {
+
+export const postComment = async (utilityContext, comment) => {
+    const { setCreationCount, creationCount, setIsLoading, setHasError } = utilityContext;
     const token = localStorage.getItem('token');
+
     setHasError(false);
-    setIsLoading(true)
+    setIsLoading(true);
+
     try {
-        const response = await axios.post(REACT_APP_API_URL + 'comments', comment, {
+        return await axios.post(REACT_APP_API_URL + 'comments', comment, {
             headers: {
                 Authorization: `Bearer ${ token }`
             }
-        })
-        setIsLoading(false);
-        return response
+        }).then(() => {
+            setIsLoading(false)
+            setCreationCount(creationCount +1)
+        });
     } catch (err) {
-        setHasError(true);
+        setIsLoading(false)
+        setHasError(err);
         console.error(err);
     }
 }

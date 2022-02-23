@@ -14,7 +14,7 @@ import { LinkHeader } from "../../../styles/Navigation";
 import { AiFillProject, AiOutlineProject } from "react-icons/all";
 
 export default function BlogList() {
-    const { setIsLoading, setHasError } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const { isAuth, user } = useContext(AuthContext);
     const [ categoryUri, setCategoryUri ] = useState('');
 
@@ -32,7 +32,7 @@ export default function BlogList() {
             setHasError(false);
             setIsLoading(true)
 
-            const response = await getBlogsFor(setHasError, setIsLoading, token, user)
+            return await getBlogsFor(utilityContext, token, user)
             {
                 response && setLoadedBlogs(response.data.content)
             }
