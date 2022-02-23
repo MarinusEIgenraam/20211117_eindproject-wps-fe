@@ -25,15 +25,14 @@ export default function CommentAdd ({ parent, parentId }) {
     } = useForm();
 
 
-    const onSubmit = async (values) => {
+    const onSubmit = (values) => {
         const request = {
             ...values,
             ...((parent === "parentProjectId") &&  { parentProjectId: parentId }),
             ...((parent === "parentBlogId") &&  { parentBlogId: parentId }),
             ...((parent === "parentCommentId") &&  { parentCommentId: parentId })
         }
-        console.log(request)
-        return await postComment(utilityContext, request)
+        return postComment(utilityContext, request)
     }
 
     return (

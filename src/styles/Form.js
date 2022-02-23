@@ -24,7 +24,7 @@ export const FormWindow = styled.div`
   flex-wrap: wrap;
   align-items: center;
   padding: 1rem;
-  margin: 3rem 0 3rem 0;
+  margin: 3rem 0;
 
   background: ${ props => props.theme.createBackground };
   border: solid var(--box-border-medium) ${ props => props.theme.createBorder };

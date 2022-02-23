@@ -11,7 +11,7 @@ export const getProjectComments = async (utilityContext, pageable, id) => {
     setIsLoading(true);
 
     try {
-        return await axios.get(`${ REACT_APP_API_URL }comments?parentProjectId=${ id }${pageable}`, {
+        return await axios.get(`${ REACT_APP_API_URL }comments?parentProjectId=${ id }${ pageable }`, {
             cancelToken: source.token
         }).then((response) => {
             setIsLoading(false)
@@ -25,14 +25,14 @@ export const getProjectComments = async (utilityContext, pageable, id) => {
 }
 
 
-export const getBlogComments = async (utilityContext,pageable, loadCount, id) => {
+export const getBlogComments = async (utilityContext, pageable, id) => {
     const { setIsLoading, setHasError } = utilityContext;
 
     setHasError(false);
     setIsLoading(true);
 
     try {
-        return await axios.get(`${ REACT_APP_API_URL }comments?parentBlogId=${ id }&page=0&size=${loadCount}`, {
+        return await axios.get(`${ REACT_APP_API_URL }comments?parentBlogId=${ id }${ pageable }`, {
             cancelToken: source.token
         }).then((response) => {
             setIsLoading(false)

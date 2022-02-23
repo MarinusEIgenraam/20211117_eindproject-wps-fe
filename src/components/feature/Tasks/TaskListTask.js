@@ -19,7 +19,7 @@ export default ({ nestIndex, control, register, errors }) => {
         <FormSection>
             { fields.map((item, subIndex) => {
                 return (
-                    <FormInputWrap key={ item.id } style={ { marginLeft: 20 } }>
+                    <FormInputWrap key={ subIndex } style={ { marginLeft: 20 } }>
                         <SubFormHeading>Sub task { subIndex + 1 }</SubFormHeading>
                         <FormBreak>
                             <FormInput>

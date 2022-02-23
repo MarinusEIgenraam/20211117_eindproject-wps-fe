@@ -3,14 +3,14 @@ import axios from 'axios'
 const { REACT_APP_API_URL } = process.env;
 const source = axios.CancelToken.source();
 
-export const getOneUser = async (utilityContext, username) => {
+export const getOneUser = async (utilityContext, pageable) => {
     const { setIsLoading, setHasError } = utilityContext;
 
     setHasError(false);
     setIsLoading(true);
 
     try {
-        return await axios.get(`${ REACT_APP_API_URL }users/${ username }`, {
+        return await axios.get(`${ REACT_APP_API_URL }users/${ pageable }`, {
             cancelToken: source.token
         }).then((response) => {
             setIsLoading(false)

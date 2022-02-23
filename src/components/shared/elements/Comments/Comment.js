@@ -26,13 +26,13 @@ import { UtilityContext } from "../../../../context/UtilityProvider";
 
 export default function Comment({ comment, index }) {
     const { isAuth } = useContext(AuthContext);
-    const { creationCount } = useContext(UtilityContext);
+    const utilityContext = useContext(UtilityContext);
     const [ addComment, setAddComment ] = useState(false);
-    const [ children, showChildren ] = useState(false);
 
     useEffect(() => {
         setAddComment(false)
-    }, [creationCount]);
+    }, [comment, utilityContext.creationCount]);
+
 
     return (
         <CommentListItem key={index} className="comment">

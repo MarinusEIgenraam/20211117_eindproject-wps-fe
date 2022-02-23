@@ -25,6 +25,7 @@ export const BorderedWindow = styled.div`
 `
 
 export const VisualContainer = styled.div`
+  
   display: flex;
   justify-content: center;
   align-items: start;

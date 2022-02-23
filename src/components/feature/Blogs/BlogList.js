@@ -28,7 +28,7 @@ export default function BlogList() {
             setPageable(`?categoryId=${ blogCategory }`)
         }
 
-        getBlogsFor(utilityContext, pageable, user).then((response) => setLoadedBlogs(response))
+        getBlogsFor(utilityContext, user.username).then((response) => setLoadedBlogs(response.data.content))
 
         return function clearData() {
             source.cancel();
@@ -39,7 +39,7 @@ export default function BlogList() {
     return (
 
         <>
-            { loadedBlogs.length > 0 &&
+            { loadedBlogs?.length > 0 &&
                 <Container>
                     <HeaderBar>
                         <h3>

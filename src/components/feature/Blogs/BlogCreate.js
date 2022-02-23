@@ -44,16 +44,15 @@ export default function BlogCreate({}) {
 
 
     const onSubmit = async (values) => {
-        const imgur = uploadImage(utilityContext, values.imageUrl[0])
+        const post = await uploadImage(utilityContext, values.imageUrl[0]).then((image) => {
+            const request = {
+                ...values,
+                imageUrl: image.url
+            }
 
+            return postBlog(utilityContext, request)
+        });
 
-        const request = {
-            ...values,
-            imageUrl: imgur
-        }
-        console.log(request);
-        const response = postBlog(utilityContext, request)
-        const project = { ...response }
     }
 
 

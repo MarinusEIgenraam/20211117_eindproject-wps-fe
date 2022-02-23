@@ -31,9 +31,9 @@ export default function SelectCategory({ area, register, parent, defaultValue })
             <Select { ...register(`${ parent }`) }>
                 <option key={ defaultValue } value={ defaultValue }>{ defaultValue }</option>
                 { loadedCategories &&
-                    loadedCategories.map((category, key) => {
+                    loadedCategories.map((category, index) => {
                             return (
-                                <option key={ key } value={ category.id }>{ category.name }</option>
+                                <option key={ index } value={ category.id }>{ category.name }</option>
                             )
                         }
                     )

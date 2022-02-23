@@ -27,7 +27,7 @@ export default function Fields({ control, register, errors }) {
 
             { fields.map((item, index) => {
                 return (
-                    <FormInputWrap key={ item.id }>
+                    <FormInputWrap key={ index }>
                         <SubFormHeading>Task { index + 1 }</SubFormHeading>
                         <FormField>
                             <IconBox area="buttons" className="center">

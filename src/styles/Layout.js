@@ -10,6 +10,7 @@ import styled from 'styled-components';
 //// External
 
 export const DefaultContainer = styled.div`
+  margin-bottom: 1.5rem;
   width: 70vw;
 `
 export const Column = styled.div`

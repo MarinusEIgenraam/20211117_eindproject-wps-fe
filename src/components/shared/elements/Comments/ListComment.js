@@ -1,9 +1,10 @@
 ////////////////////
 //// Build
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components';
 import Comment from "./Comment";
 import { OrderedList } from "../../../../styles/List";
+import { UtilityContext } from "../../../../context/UtilityProvider";
 
 ////////////////////
 //// Environmental
@@ -12,12 +13,19 @@ import { OrderedList } from "../../../../styles/List";
 //// External
 
 export default function ListComment({ comment }) {
+    const utilityContext = useContext(UtilityContext);
+
+
+    useEffect(() => {
+    }, [comment, utilityContext.creationCount]);
+
+
     return (
         <CommentList>
             { comment.commentList &&
-                comment.commentList.map((subComment) =>
+                comment.commentList.map((subComment, index) =>
                     (
-                        <Comment comment={ subComment }/>
+                        <Comment key={index} comment={ subComment }/>
                     ))
             }
         </CommentList>

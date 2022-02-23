@@ -17,7 +17,7 @@ export default function Fields({ control, register, setValue, getValues }) {
             <ul>
                 { fields.map((item, index) => {
                     return (
-                        <li key={ item.id }>
+                        <li key={ index }>
                             <input
                                 name={ `test[${ index }].name` }
                                 ref={ register() }

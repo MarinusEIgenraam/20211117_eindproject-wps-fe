@@ -42,8 +42,8 @@ export default function Project() {
     const { id } = useParams();
 
     const [ pageable, setPageable ] = useState('');
-    const [ loadedProject, setLoadedProject ] = useState({});
-    const [ loadedComments, setLoadedComments ] = useState({});
+    const [ loadedProject, setLoadedProject ] = useState();
+    const [ loadedComments, setLoadedComments ] = useState([]);
     const [ loadCount, setLoadCount ] = useState(6);
     const [ addComment, setAddComment ] = useState(false);
 
@@ -64,8 +64,8 @@ export default function Project() {
 
     useEffect(() => {
         getOneProject(utilityContext, id).then((response) => setLoadedProject(response.data))
-
         setPageable(`&page=0&size=${loadCount}`)
+
         getProjectComments(utilityContext,pageable, id).then((response) => setLoadedComments(response.data.content))
 
 
@@ -217,7 +217,7 @@ export default function Project() {
                         { loadedComments &&
                             loadedComments.map((comment, index) =>
                                 (
-                                    <Comment index={index} comment={ comment }/>
+                                    <Comment key={index} comment={ comment }/>
                                 ))
                         }
                         { ( loadedComments && loadedComments.length > 6 ) &&

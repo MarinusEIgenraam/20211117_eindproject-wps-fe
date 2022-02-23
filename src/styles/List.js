@@ -133,7 +133,6 @@ export const ListItem = styled.li`
 
   &.alert-list {
     align-items: start;
-    width: 70vw;
 
     h5 {
       margin: 0;

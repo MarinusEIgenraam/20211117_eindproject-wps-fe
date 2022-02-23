@@ -36,17 +36,15 @@ export default function UserProfile() {
 
     useEffect(() => {
 
-        const projectPageable = `?username=${ username }`
-        const blogPageable = {
-            username: username
-        }
+        const pageable = `?username=${ username }`
 
         getOneUser(utilityContext, username).then((response) => setUserDetails(response.data))
-        getProjectsFor(utilityContext, projectPageable).then((response) => setProjects(response.data.content))
-        getBlogsFor(utilityContext, blogPageable).then((response) => setBlogs(response.data.content))
+        getProjectsFor(utilityContext, pageable).then((response) => setProjects(response.data.content))
+        getBlogsFor(utilityContext, username).then((response) => setBlogs(response.data.content))
         // const userProfileImage = await getProfileImage(utilityContext, username)
 
-        setUserRole(setRole(userDetails.authorities));
+        console.log(blogs)
+        // setUserRole(setRole(userDetails.authorities));
 
         return function clearData() {
             source.cancel();
@@ -71,7 +69,7 @@ export default function UserProfile() {
                     <PrimaryInfo>
                         {/*<Owner>Project owner: { loadedProject?.projectOwner.username }</Owner>*/ }
                         {/*{ loadedProject?.collaborators.map((user, index) => (*/ }
-                        {/*    <User className="on">{ user.username } </User>*/ }
+                        {/*    <User key={index} className="on">{ user.username } </User>*/ }
                         {/*)) }*/ }
                         <span>{ userDetails.email }</span>
                     </PrimaryInfo>
@@ -80,7 +78,7 @@ export default function UserProfile() {
                 </DetailRow>
             </FormWindow>
             <DefaultContainer>
-                { ( projects && projects.length > 0 ) &&
+                { ( projects.length > 0 ) &&
                     <>
                         <SubHeader>
                             User projects
@@ -107,28 +105,30 @@ export default function UserProfile() {
                     </>
                 }
             </DefaultContainer>
-            {(blogs && blogs.length > 0) &&
-            <>
-                <SubHeader>
-                    User blogs
-                </SubHeader>
-                <UnsortedList>
-                    {blogs.map((blog, index) => (
-                        <TaskListItem key={ index }>
-                            <NavLink to={ `/blogs/${ blog.blogId }` }><h6> { blog.blogName }  </h6>
-                            </NavLink>
-                            <DetailRow className="listItem">
-                                <h6>{ blog.startTime } <span
-                                    className="light">| { blog.blogOwner.username } </span>
-                                </h6>
-                            </DetailRow>
+            <DefaultContainer>
+                {(blogs && blogs.length > 0) &&
+                    <>
+                        <SubHeader>
+                            User blogs
+                        </SubHeader>
+                        <UnsortedList>
+                            {blogs.map((blog, index) => (
+                                <TaskListItem key={ index }>
+                                    <NavLink to={ `/blogs/${ blog.blogId }` }><h6> { blog.blogName }  </h6>
+                                    </NavLink>
+                                    <DetailRow className="listItem">
+                                        <h6>{ blog.startTime } <span
+                                            className="light">| { blog.blogOwner.username } </span>
+                                        </h6>
+                                    </DetailRow>
 
 
-                        </TaskListItem>
-                    )) }
-                </UnsortedList>
-            </>
-            }
+                                </TaskListItem>
+                            )) }
+                        </UnsortedList>
+                    </>
+                }
+            </DefaultContainer>
 
         </PageContainer>
     );

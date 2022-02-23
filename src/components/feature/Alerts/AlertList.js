@@ -8,9 +8,15 @@ import { AuthContext } from "../../../context/AuthProvider";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import { Container, DetailRow } from "../../../styles/Layout";
 import { ListItem, UnsortedList } from "../../../styles/List";
-import { getAlertsFor } from "../../../services/controllers/Alerts";
+import { deleteAlert, getAlertsFor } from "../../../services/controllers/Alerts";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
 import Tooltip from "../../shared/elements/messages/Tooltip";
+import { VisualContainer } from "../../../styles/Windows";
+import { WindowVisual } from "../../../styles/Images";
+import alertBackground from "../../../assets/images/visual_alerts.svg";
+
+import styled from 'styled-components';
+
 
 export default function AlertList() {
     const utilityContext = useContext(UtilityContext);
@@ -29,35 +35,58 @@ export default function AlertList() {
             source.cancel();
         };
 
-    }, [ sortingFilter ]);
+    }, [ utilityContext.creationCount, sortingFilter ]);
+
+    const submitDelete = async (id) => {
+        console.log(id)
+        return deleteAlert(utilityContext, id)
+    };
 
     return (
-        <Container className="single">
-            <UnsortedList>
-                { loadedAlerts && loadedAlerts.map((alert, index) => (
-                    <ListItem className="alert-list" key={ index }>
+        <>
+            { loadedAlerts?.length > 0 &&
+                <AlertContainer>
+                    <UnsortedList>
+                        { loadedAlerts.map((alert, index) => (
+                            <ListItem key={ index }>
 
-                        <DetailRow key={ index }>
-                            <h4>{ alert.createdAt } <span
-                                className="light">{ alert.createdAt } | { alert.title } | { alert.text } </span>
-                            </h4>
+                                <DetailRow key={ index }>
+                                    <h4>{ alert.createdAt } <span
+                                        className="light">| { alert.title } | { alert.text } </span>
+                                    </h4>
 
-                            <Tooltip text="Delete">
-                                <IoIosRemoveCircleOutline
-                                    size={ 20 }
-                                    type="button"
-                                    // onClick={ () => setAddTask(false) }
-                                />
-                            </Tooltip>
-                        </DetailRow>
+                                    <Tooltip text="Delete">
+                                        <IoIosRemoveCircleOutline
+                                            size={ 20 }
+                                            type="button"
+                                            onClick={ () => submitDelete(alert.id) }
+                                        />
+                                    </Tooltip>
+                                </DetailRow>
 
 
-                    </ListItem>
-                )) }
-            </UnsortedList>
-        </Container>
-    )
+                            </ListItem>
+                        )) }
+                    </UnsortedList>
+                    <VisualContainer>
+
+                        <WindowVisual src={ alertBackground }/>
+                    </VisualContainer>
+                </AlertContainer>
+            }
+
+        </>
+)
 }
 
+
+const AlertContainer = styled(Container)`
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  width: 70vw;
+
+`
 
 /** Created by ownwindows on 18-01-22 **/

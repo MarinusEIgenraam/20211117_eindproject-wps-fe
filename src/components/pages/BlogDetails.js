@@ -32,30 +32,33 @@ export default function BlogDetails() {
     const { isAuth } = useContext(AuthContext);
     const source = axios.CancelToken.source();
     const { id } = useParams();
+    const utilityContext = useContext(UtilityContext);
 
 
     const [ pageable, setPageable ] = useState('');
-    const { utilityContext, creationCount } = useContext(UtilityContext);
     const [ loadedBlog, setLoadedBlog ] = useState({});
-    const [ loadedComments, setLoadedComments ] = useState({});
+    const [ loadedComments, setLoadedComments ] = useState([]);
     const [ loadCount, setLoadCount ] = useState(6);
     const [ addComment, setAddComment ] = useState(false);
 
 
     useEffect(() => {
 
-        getOneBlog(utilityContext, id).then(response => setLoadedBlog(response.data.content))
-        getBlogComments(utilityContext, pageable, loadCount, id).then((response)=> setLoadedComments(response.data.content))
+        setPageable('&page=1&size=5')
+
+        getOneBlog(utilityContext, id).then(response => setLoadedBlog(response.data))
+        getBlogComments(utilityContext, pageable, id).then((response)=> setLoadedComments(response.data.content))
+        console.log(loadedComments)
 
         return function clearData() {
             source.cancel();
         };
-    }, [ loadCount, creationCount ]);
+    }, [ loadCount, utilityContext.creationCount ]);
 
 
     useEffect(() => {
         setAddComment(false)
-    }, [creationCount]);
+    }, [loadedComments, utilityContext.creationCount]);
 
 
     function handlePageable() {
@@ -87,7 +90,7 @@ export default function BlogDetails() {
                         </DetailRow>
                         <DetailRow className="users no-margin">
                             <PrimaryInfo>
-                                <Owner>Project owner: { loadedBlog?.blogOwner.username }</Owner>
+                                {/*<Owner>Project owner: { loadedBlog?.blogOwner.username }</Owner>*/}
                             </PrimaryInfo>
                             <SecondaryInfo>
                                 <Date>{ loadedBlog?.startTime }</Date>
@@ -125,13 +128,13 @@ export default function BlogDetails() {
                             }
 
                         </CommentAddWindow>
-                        { loadedComments &&
+                        { loadedComments.length > 0 &&
                             loadedComments.map((comment, index) =>
                                 (
                                     <Comment comment={ comment } key={index}/>
                                 ))
                         }
-                        { (loadedComments && loadedComments.length > 6) &&
+                        { (loadedComments.length > 6) &&
                             <RectangleButton onClick={ handlePageable } buttonSize="btn btn--medium"
                                              buttonStyle="btn--special--outline">
                                 Load more

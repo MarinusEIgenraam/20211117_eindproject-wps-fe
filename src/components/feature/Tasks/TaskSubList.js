@@ -14,9 +14,9 @@ export default function TaskSubList({ subTaskList, editCount, setEditCount }) {
 
     return (
         <TaskListItem>
-            { subTaskList.map(subTask => {
+            { subTaskList.map((subTask, index) => {
                 return (
-                    <TaskItem editCount={ editCount } setEditCount={ setEditCount } task={ subTask }/>
+                    <TaskItem key={index} editCount={ editCount } setEditCount={ setEditCount } task={ subTask }/>
 
                 )
             })
