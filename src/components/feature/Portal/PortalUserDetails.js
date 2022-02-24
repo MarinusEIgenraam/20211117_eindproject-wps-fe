@@ -11,7 +11,7 @@ import { UtilityContext } from "../../../context/UtilityProvider";
 import { getProfileImage, uploadProfileImage } from "../../../services/controllers/Images";
 import axios from "axios";
 import { changePassword } from "../../../services/controllers/Auth";
-import { Hero, WindowVisual } from "../../../styles/Images";
+import { WindowVisual } from "../../../styles/Images";
 import { IconBox } from "../../../styles/Icons";
 import Tooltip from "../../shared/elements/messages/Tooltip";
 import { IoIosSend } from "react-icons/all";
@@ -23,13 +23,12 @@ import { SubHeading } from "../../../styles/Typography";
 import { ButtonBox } from "../../../styles/Form";
 
 export default function PortalUserDetails() {
-    const [ changeUsername, setChangeUsername ] = useState();
     const source = axios.CancelToken.source();
-    const token = localStorage.getItem('token');
     const { user } = useContext(AuthContext);
     const utilityContext = useContext(UtilityContext);
+    const [profileImageUrl, setProfileImageUrl] = useState(``)
+
     const [ picture, setPicture ] = useState('')
-    const [ passwordSucces, setPasswordSucces ] = useState()
     const [ loadedImage, setLoadedImage ] = useState('')
     const [ registerSucces, setRegisterSucces ] = useState(false);
 
@@ -38,16 +37,16 @@ export default function PortalUserDetails() {
 
         const getData = async () => {
             setLoadedImage(getProfileImage(utilityContext, user.username))
-            console.log(loadedImage)
         }
 
         getData()
+        console.log(utilityContext.creationCount)
 
         return function clearData() {
             source.cancel();
         };
 
-    }, []);
+    }, [utilityContext.creationCount]);
 
     const handleImageChange = (event) => {
         if (!event || !event.target.files) {
@@ -59,6 +58,7 @@ export default function PortalUserDetails() {
     }
 
     const onSubmit = async (values) => {
+        utilityContext.setCreationCount(utilityContext.creationCount++)
         const profileImage = await uploadProfileImage(utilityContext, values.file[0])
     }
 
@@ -186,7 +186,7 @@ export default function PortalUserDetails() {
                                 onChange={ handleImageChange }
                             />
                         </FormInput>
-                        <ImagePreview image={ `http://localhost:8080/files/${ user.username }/download` }/>
+                        <ImagePreview id="preview" key={Date.now()} src={ `http://localhost:8080/files/${ user.username }/download` }/>
                         <ButtonBox area="submit">
 
                             <RectangleButton
@@ -201,11 +201,19 @@ export default function PortalUserDetails() {
         </UserDetailWindow>
     )
 }
+export const Hero = styled.img`
+  background-size: cover;
+  border: solid var(--box-border-medium) ${ props => props.theme.border };
+  height: 200px;
+  width: 200px;
+  aspect-ratio: 1 / 1;
+`
+
 const ImagePreview = styled(Hero)`
   grid-area: imagePreview;
-  width: 100%;
 
 `
+
 const UserDetailWindow = styled(BorderedWindow)`
   display: grid;
   grid-template-columns: 1fr;

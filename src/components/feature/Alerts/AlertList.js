@@ -16,6 +16,7 @@ import { WindowVisual } from "../../../styles/Images";
 import alertBackground from "../../../assets/images/visual_alerts.svg";
 
 import styled from 'styled-components';
+import { QUERIES } from "../../../services/helpers/mediaQueries";
 
 
 export default function AlertList() {
@@ -83,9 +84,13 @@ export default function AlertList() {
 const AlertContainer = styled(Container)`
   margin-top: 1.5rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   align-items: start;
   width: 70vw;
+
+  @media ${ QUERIES.tablet } {
+    grid-template-columns: 1fr 1fr;
+  }
 
 `
 

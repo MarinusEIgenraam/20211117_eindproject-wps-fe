@@ -3,6 +3,9 @@ import axios from 'axios'
 const { REACT_APP_API_URL } = process.env;
 const source = axios.CancelToken.source();
 
+///////////////////////
+//// Create
+
 export const uploadImage = async (utilityContext, image) => {
     const { setCreationCount, creationCount, setIsLoading, setHasError } = utilityContext;
 
@@ -28,28 +31,6 @@ export const uploadImage = async (utilityContext, image) => {
     }
 }
 
-
-export const getProfileImage = async (utilityContext, username) => {
-    const { setIsLoading, setHasError } = utilityContext;
-
-    setHasError(false);
-    setIsLoading(true)
-
-    try {
-        return await axios.get(`${ REACT_APP_API_URL }files/${username}/download`, {
-            cancelToken: source.token,
-        }).then((response) => {
-            setIsLoading(false)
-            return response
-        });
-    } catch (err) {
-        setIsLoading(false)
-        setHasError(err);
-        console.error(err);
-    }
-}
-
-
 export const uploadProfileImage = async (utilityContext, file) => {
     const { setCreationCount, creationCount, setIsLoading, setHasError } = utilityContext;
     const token = localStorage.getItem('token');
@@ -69,6 +50,27 @@ export const uploadProfileImage = async (utilityContext, file) => {
         }).then((response) => {
             setIsLoading(false)
             setCreationCount(creationCount + 1)
+            return response
+        });
+    } catch (err) {
+        setIsLoading(false)
+        setHasError(err);
+        console.error(err);
+    }
+}
+
+
+export const getProfileImage = async (utilityContext, username) => {
+    const { setIsLoading, setHasError } = utilityContext;
+
+    setHasError(false);
+    setIsLoading(true)
+
+    try {
+        return await axios.get(`${ REACT_APP_API_URL }files/${username}/download`, {
+            cancelToken: source.token,
+        }).then((response) => {
+            setIsLoading(false)
             return response
         });
     } catch (err) {

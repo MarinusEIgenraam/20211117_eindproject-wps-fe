@@ -16,22 +16,18 @@ import { QUERIES } from "../../../services/helpers/mediaQueries";
 import { BorderedWindow, VisualContainer } from "../../../styles/Windows";
 import { BlogImage, Hero, WindowVisual } from "../../../styles/Images";
 import blogBackground from "../../../assets/images/visual_blogs.svg";
+import { postProject } from "../../../services/controllers/Projects";
 
-export default function BlogCreate({}) {
+export default function BlogCreate({defaultValues}) {
     const utilityContext = useContext(UtilityContext);
     const [ picture, setPicture ] = useState('')
 
     const {
-        control,
         register,
         handleSubmit,
         formState: { errors },
         reset,
-    } = useForm();
-    const { fields, append, remove, prepend } = useFieldArray({
-        control,
-        name: "projectTaskList"
-    });
+    } = useForm({defaultValues});
 
     const handleImageChange = (event) => {
         if (!event || !event.target.files) {
@@ -44,14 +40,20 @@ export default function BlogCreate({}) {
 
 
     const onSubmit = async (values) => {
-        const post = await uploadImage(utilityContext, values.imageUrl[0]).then((image) => {
-            const request = {
-                ...values,
-                imageUrl: image.url
-            }
+        if (values.imageUrl[0].type === 'image/jpeg' || values.imageUrl[0].type === 'image/png') {
+            uploadImage(utilityContext, values.imageUrl[0]).then(response => {
+                return {
+                    ...values,
+                    imageUrl: response.data.data.link
+                };
+            }).then(response => {
+                postBlog(utilityContext, response)
+            });
 
-            return postBlog(utilityContext, request)
-        });
+        } else (
+            console.log('incorrect input')
+        )
+
 
     }
 
@@ -131,7 +133,7 @@ export default function BlogCreate({}) {
                             />
                         </FormInput>
 
-                        <ImagePreview/>
+                        <ImagePreview image={ picture }/>
                     </FormField>
                     <ButtonBox area="buttons">
                         <RectangleButton

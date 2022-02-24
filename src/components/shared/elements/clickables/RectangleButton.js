@@ -14,6 +14,8 @@ const STYLES = [
     "btn--secondary--solid",
     "btn--tertiary--solid",
     "btn--quaternary--solid",
+    "btn--quinary--solid",
+    "btn--senary--solid",
     "btn--warning--solid",
     "btn--danger--solid",
     "btn--succes--solid",
@@ -136,6 +138,16 @@ const Button = styled.button`
     border: none;
   }
 
+  &.btn--quinary--solid {
+    background-color: var(--quinary);
+    color: var(--white);
+    border: none;
+  }
+  &.btn--senary--solid {
+    background-color: var(--senary);
+    color: var(--white);
+    border: none;
+  }
   &.btn--quaternary--solid {
     background-color: var(--quaternary);
     color: var(--white);

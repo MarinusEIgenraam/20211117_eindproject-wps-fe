@@ -31,10 +31,10 @@ export default function Footer() {
     }
 
     useEffect(() => {
-        const mediaWatcher = window.addEventListener('scroll', changeBackground);
+        window.addEventListener('scroll', changeBackground);
 
         return function cleanup() {
-            mediaWatcher.removeEventListener('scroll', changeBackground)
+            window.removeEventListener('scroll', changeBackground)
         }
     },[])
 

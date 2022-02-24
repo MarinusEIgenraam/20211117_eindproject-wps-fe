@@ -19,7 +19,7 @@ import { BorderedWindow, VisualContainer } from "../../../styles/Windows";
 import { Hero, WindowVisual } from "../../../styles/Images";
 import projectBackground from "../../../assets/images/visual_projects.svg";
 
-const defaultValues = {
+const mockValues = {
     projectTaskList: [
         {
             taskName: "First task",
@@ -39,10 +39,12 @@ const defaultValues = {
     ]
 };
 
-export default function ProjectCreate() {
+export default function ProjectCreate({defaultProject}) {
     const utilityContext = useContext(UtilityContext);
     const [ publicVisibility, setPublicVisibility ] = useState(true);
     const [ picture, setPicture ] = useState('')
+
+    const defaultValues = defaultProject ? defaultProject : mockValues;
 
     const {
         control,
@@ -70,13 +72,14 @@ export default function ProjectCreate() {
 
         if (values.imageUrl[0]) {
             if (values.imageUrl[0].type === 'image/jpeg' || values.imageUrl[0].type === 'image/png') {
-                const imgur = await uploadImage(utilityContext, values.imageUrl[0])
-                const request = {
-                    ...values,
-                    imageUrl: imgur
-                }
-                console.log(request)
-                await postProject(utilityContext, request)
+                uploadImage(utilityContext, values.imageUrl[0]).then(response => {
+                    return {
+                        ...values,
+                        imageUrl: response.data.data.link
+                    };
+                }).then(response => {
+                    postProject(utilityContext, response)
+                });
 
             } else (
                 console.log('incorrect input')
@@ -158,7 +161,7 @@ export default function ProjectCreate() {
                                 onChange={ handleImageChange }
                             />
                         </FormInput>
-                        <ImagePreview image={ `http://localhost:8080/files/download` }/>
+                        <ImagePreview image={ picture }/>
                         <FormInput area="deadline">
                             <FormLabel>
                                 <label htmlFor="deadline">Deadline</label>
@@ -192,6 +195,7 @@ export default function ProjectCreate() {
                                 id="publiclyVisible"
                                 value="publiclyVisible"
                                 onClick={ handleVisibility }
+                                defaultChecked={true}
                                 checked={ publicVisibility === true }
                             />
 

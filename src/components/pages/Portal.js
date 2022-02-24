@@ -39,6 +39,9 @@ export default function Portal() {
             </CenteredHeader>
 
             <PortalUserDetails/>
+
+
+            <AlertList/>
             <ButtonBox>
                 { ( user?.authorities === "Project lord" | "Project manager" && !writeBlog ) &&
 
@@ -86,9 +89,6 @@ export default function Portal() {
             { writeProject &&
                 <ProjectCreate/>
             }
-
-
-            <AlertList/>
             <ListWindow>
                 <BlogList/>
                 <TaskList/>

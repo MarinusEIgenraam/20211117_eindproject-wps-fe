@@ -33,12 +33,13 @@ import CommentAdd from "../shared/elements/Comments/CommentAdd";
 import { AuthContext } from "../../context/AuthProvider";
 import { HeartIcon } from "../../styles/Icons";
 import { projectVote } from "../../services/controllers/Votes";
+import ProjectCreate from "../feature/Projects/ProjectCreate";
 
 
 export default function Project() {
     const source = axios.CancelToken.source();
     const utilityContext = useContext(UtilityContext);
-    const { isAuth } = useContext(AuthContext);
+    const { user, isAuth } = useContext(AuthContext);
     const { id } = useParams();
 
     const [ pageable, setPageable ] = useState('');
@@ -46,6 +47,7 @@ export default function Project() {
     const [ loadedComments, setLoadedComments ] = useState([]);
     const [ loadCount, setLoadCount ] = useState(6);
     const [ addComment, setAddComment ] = useState(false);
+    const [ editProject, setEditProject ] = useState(false);
 
 
     function handlePageable() {
@@ -64,15 +66,15 @@ export default function Project() {
 
     useEffect(() => {
         getOneProject(utilityContext, id).then((response) => setLoadedProject(response.data))
-        setPageable(`&page=0&size=${loadCount}`)
+        setPageable(`&page=0&size=${ loadCount }`)
 
-        getProjectComments(utilityContext,pageable, id).then((response) => setLoadedComments(response.data.content))
+        getProjectComments(utilityContext, pageable, id).then((response) => setLoadedComments(response.data.content))
 
 
         return function clearData() {
             source.cancel();
         };
-    },[ loadCount, utilityContext.creationCount ]);
+    }, [ loadCount, utilityContext.creationCount ]);
 
 
     useEffect(() => {
@@ -81,7 +83,26 @@ export default function Project() {
 
     return (
         <PageContainer>
-            { loadedProject &&
+            { ( loadedProject && ( ( loadedProject.projectOwner.username === user.username )) ) &&
+                <>
+                    <ButtonRow className="header-button">
+
+                        <RectangleButton
+                            type="submit"
+                            buttonSize="btn--large"
+                            buttonStyle="btn--quinary--solid"
+                            onClick={()=> setEditProject(true)}
+                        >
+                            Edit project
+                        </RectangleButton>
+                    </ButtonRow>
+
+                    { editProject &&
+                        <ProjectCreate defaultProject={ loadedProject }/>
+                    }
+                </>
+            }
+            { ( loadedProject && !editProject ) &&
                 <>
 
                     <FormWindow>
@@ -102,7 +123,7 @@ export default function Project() {
                             <PrimaryInfo>
                                 <Owner>Project owner: { loadedProject?.projectOwner.username }</Owner>
                                 { loadedProject?.collaborators.map((user, index) => (
-                                    <User className="on" key={index}>{ user.username } </User>
+                                    <User className="on" key={ index }>{ user.username } </User>
                                 )) }
                             </PrimaryInfo>
                             <SecondaryInfo>
@@ -217,7 +238,7 @@ export default function Project() {
                         { loadedComments &&
                             loadedComments.map((comment, index) =>
                                 (
-                                    <Comment key={index} comment={ comment }/>
+                                    <Comment key={ index } comment={ comment }/>
                                 ))
                         }
                         { ( loadedComments && loadedComments.length > 6 ) &&

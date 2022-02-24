@@ -16,6 +16,7 @@ export default function SelectCategory({ area, register, parent, defaultValue })
     useEffect(() => {
         const source = axios.CancelToken.source();
 
+        getCategories(utilityContext).then(response => setLoadedCategories(response.data))
         const response = getCategories(utilityContext)
         {
             response && setLoadedCategories(response.data)

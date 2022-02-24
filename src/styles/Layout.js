@@ -64,6 +64,10 @@ export const ButtonRow = styled.div`
   display: flex;
   flex-direction: row;
   //width: 100%;
+  
+  &.header-button {
+    margin-bottom: 1.5rem;
+  }
 `
 export const UserCommenterDetails = styled.div`
   display: grid;

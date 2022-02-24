@@ -25,10 +25,10 @@ export const BorderedWindow = styled.div`
 `
 
 export const VisualContainer = styled.div`
-  
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: start;
+  align-items: center;
   padding: 1rem 2rem;
 `
 
