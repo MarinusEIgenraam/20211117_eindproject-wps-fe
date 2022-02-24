@@ -99,6 +99,7 @@ export default function ProjectCreate({defaultProject}) {
     const handleVisibility = () => {
         setPublicVisibility(!publicVisibility);
     };
+    console.log(errors)
 
     return (
         <ProjectWindow>
@@ -190,13 +191,12 @@ export default function ProjectCreate({defaultProject}) {
                                 <label htmlFor="publiclyVisible">Public visibility</label>
                             </FormLabel>
                             <input
-                                type="radio"
+                                type="checkbox"
                                 name="publiclyVisible"
                                 id="publiclyVisible"
                                 value="publiclyVisible"
                                 onClick={ handleVisibility }
                                 defaultChecked={true}
-                                checked={ publicVisibility === true }
                             />
 
                         </FormInput>

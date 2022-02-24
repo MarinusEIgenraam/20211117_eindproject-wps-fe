@@ -14,8 +14,7 @@ import { getBlogComments } from "../../services/controllers/Comments";
 import Comment from "../shared/elements/Comments/Comment";
 import {
     Date,
-    DetailContainer,
-    Owner,
+    DetailContainer, Owner,
     PrimaryInfo,
     ProjectDescription,
     ProjectMain,
@@ -26,13 +25,16 @@ import { getOneBlog } from "../../services/controllers/Blogs";
 import { AiFillCloseCircle } from "react-icons/all";
 import CommentAdd from "../shared/elements/Comments/CommentAdd";
 import { AuthContext } from "../../context/AuthProvider";
+import ProjectCreate from "../feature/Projects/ProjectCreate";
+import BlogCreate from "../feature/Blogs/BlogCreate";
 
 
 export default function BlogDetails() {
-    const { isAuth } = useContext(AuthContext);
+    const { user, isAuth } = useContext(AuthContext);
     const source = axios.CancelToken.source();
     const { id } = useParams();
     const utilityContext = useContext(UtilityContext);
+    const { creationCount } = utilityContext;
 
 
     const [ pageable, setPageable ] = useState('');
@@ -40,25 +42,25 @@ export default function BlogDetails() {
     const [ loadedComments, setLoadedComments ] = useState([]);
     const [ loadCount, setLoadCount ] = useState(6);
     const [ addComment, setAddComment ] = useState(false);
+    const [ editBlog, setEditBlog ] = useState(false);
 
 
     useEffect(() => {
-
         setPageable('&page=1&size=5')
 
         getOneBlog(utilityContext, id).then(response => setLoadedBlog(response.data))
-        getBlogComments(utilityContext, pageable, id).then((response)=> setLoadedComments(response.data.content))
-        console.log(loadedComments)
+
+        getBlogComments(utilityContext, pageable, id).then((response) => setLoadedComments(response.data.content))
 
         return function clearData() {
             source.cancel();
         };
-    }, [ loadCount, utilityContext.creationCount ]);
+    }, [ loadCount, creationCount ]);
 
 
     useEffect(() => {
         setAddComment(false)
-    }, [loadedComments, utilityContext.creationCount]);
+    }, [ loadedComments, creationCount ]);
 
 
     function handlePageable() {
@@ -68,7 +70,26 @@ export default function BlogDetails() {
 
     return (
         <PageContainer>
-            { loadedBlog &&
+            { ( loadedBlog && ( ( loadedBlog.blogOwner?.username === user.username )) ) &&
+                <>
+                    <ButtonRow className="header-button">
+
+                        <RectangleButton
+                            type="submit"
+                            buttonSize="btn--large"
+                            buttonStyle="btn--quinary--solid"
+                            onClick={()=> setEditBlog(true)}
+                        >
+                            Edit blog
+                        </RectangleButton>
+                    </ButtonRow>
+
+                    { editBlog &&
+                        <BlogCreate setEdit={setEditBlog} defaultBlog={ loadedBlog }/>
+                    }
+                </>
+            }
+            { ( loadedBlog && !editBlog ) &&
                 <>
 
                     <FormWindow className="blog-window">
@@ -84,13 +105,13 @@ export default function BlogDetails() {
                             { loadedBlog.description }
                         </ProjectDescription>
                         <DetailRow>
-                            <a href={ `${loadedBlog.ur}`}>
-                                {loadedBlog.url}
+                            <a href={ `${ loadedBlog.ur }` }>
+                                { loadedBlog.url }
                             </a>
                         </DetailRow>
                         <DetailRow className="users no-margin">
                             <PrimaryInfo>
-                                {/*<Owner>Project owner: { loadedBlog?.blogOwner.username }</Owner>*/}
+                                <Owner>Project owner: { loadedBlog?.blogOwner?.username }</Owner>
                             </PrimaryInfo>
                             <SecondaryInfo>
                                 <Date>{ loadedBlog?.startTime }</Date>
@@ -99,7 +120,6 @@ export default function BlogDetails() {
 
 
                     </FormWindow>
-
 
 
                     <CommentList>
@@ -116,7 +136,7 @@ export default function BlogDetails() {
                                 </RectangleButton>
                                 { addComment &&
                                     <AiFillCloseCircle
-                                        onClick={ () => setAddComment(false)}
+                                        onClick={ () => setAddComment(false) }
                                         size={ 15 }
                                     />
                                 }
@@ -131,10 +151,10 @@ export default function BlogDetails() {
                         { loadedComments.length > 0 &&
                             loadedComments.map((comment, index) =>
                                 (
-                                    <Comment comment={ comment } key={index}/>
+                                    <Comment comment={ comment } key={ index }/>
                                 ))
                         }
-                        { (loadedComments.length > 6) &&
+                        { ( loadedComments.length > 6 ) &&
                             <RectangleButton onClick={ handlePageable } buttonSize="btn btn--medium"
                                              buttonStyle="btn--special--outline">
                                 Load more

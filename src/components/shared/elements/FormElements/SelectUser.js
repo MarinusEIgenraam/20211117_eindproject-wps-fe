@@ -24,8 +24,7 @@ export default function SelectUser({ register, parent, defaultValue }) {
 
     return (
         <SelectContainer id="SelectContainer">
-            <Select { ...register(`${ parent }Owner`) }>
-                <option key={ defaultValue } value={ defaultValue }>{ defaultValue }</option>
+            <Select { ...register(`${ parent }Owner`, { required: true }) }>
                 { loadedUsers &&
                     loadedUsers.map((user, key) => {
                             return (

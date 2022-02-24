@@ -16,11 +16,7 @@ export default function SelectCategory({ area, register, parent, defaultValue })
     useEffect(() => {
         const source = axios.CancelToken.source();
 
-        getCategories(utilityContext).then(response => setLoadedCategories(response.data))
-        const response = getCategories(utilityContext)
-        {
-            response && setLoadedCategories(response.data)
-        }
+        getCategories(utilityContext).then((data) => setLoadedCategories(data.data));
 
         return function clearData() {
             source.cancel();
@@ -29,9 +25,8 @@ export default function SelectCategory({ area, register, parent, defaultValue })
 
     return (
         <SelectContainer area={area} id="SelectContainer">
-            <Select { ...register(`${ parent }`) }>
-                <option key={ defaultValue } value={ defaultValue }>{ defaultValue }</option>
-                { loadedCategories &&
+            <Select { ...register(`${ parent }`, { required: true }) }>
+                { loadedCategories  &&
                     loadedCategories.map((category, index) => {
                             return (
                                 <option key={ index } value={ category.id }>{ category.name }</option>

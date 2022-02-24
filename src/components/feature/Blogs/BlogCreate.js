@@ -4,30 +4,38 @@ import React, { useContext, useState } from 'react'
 import styled from "styled-components";
 ////////////////////
 //// Environmental
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { UtilityContext } from "../../../context/UtilityProvider";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton";
 import { ButtonBox } from "../../../styles/Form";
 import { FormError, FormInput, FormLabel } from "../../../styles/FormStyles";
-import { postBlog } from "../../../services/controllers/Blogs";
+import { putBlog, postBlog } from "../../../services/controllers/Blogs";
 import { uploadImage } from "../../../services/controllers/Images";
 import { Heading } from "../../../styles/Typography";
 import { QUERIES } from "../../../services/helpers/mediaQueries";
 import { BorderedWindow, VisualContainer } from "../../../styles/Windows";
-import { BlogImage, Hero, WindowVisual } from "../../../styles/Images";
+import { Hero, WindowVisual } from "../../../styles/Images";
 import blogBackground from "../../../assets/images/visual_blogs.svg";
-import { postProject } from "../../../services/controllers/Projects";
 
-export default function BlogCreate({defaultValues}) {
+const mockValues = {blogName: "newname"}
+
+export default function BlogCreate({setEdit, defaultBlog}) {
     const utilityContext = useContext(UtilityContext);
     const [ picture, setPicture ] = useState('')
 
+    const defaultValues = defaultBlog ? defaultBlog : mockValues
+
     const {
+        control,
         register,
         handleSubmit,
+        getValues,
         formState: { errors },
         reset,
-    } = useForm({defaultValues});
+        setValue
+    } = useForm({
+        defaultValues
+    });
 
     const handleImageChange = (event) => {
         if (!event || !event.target.files) {
@@ -40,22 +48,19 @@ export default function BlogCreate({defaultValues}) {
 
 
     const onSubmit = async (values) => {
-        if (values.imageUrl[0].type === 'image/jpeg' || values.imageUrl[0].type === 'image/png') {
-            uploadImage(utilityContext, values.imageUrl[0]).then(response => {
-                return {
-                    ...values,
-                    imageUrl: response.data.data.link
-                };
-            }).then(response => {
-                postBlog(utilityContext, response)
-            });
-
-        } else (
-            console.log('incorrect input')
-        )
-
-
-    }
+        console.log(values)
+        uploadImage(utilityContext, values.imageUrl[0]).then(response => {
+            const blog = {
+                ...values,
+                imageUrl: response.data.data.link
+            }
+            if (defaultBlog) {
+                putBlog(utilityContext, blog);
+            } else {
+                postBlog(utilityContext, blog);
+            }
+            setEdit(false)
+    })}
 
 
     return (
@@ -66,7 +71,14 @@ export default function BlogCreate({defaultValues}) {
             </VisualContainer>
             <FormColumn>
 
-                <Heading className="centered">Create a blog</Heading>
+
+                <Heading className="centered">
+                    {defaultBlog ?
+                        "Your blog"
+                        :
+                        "Create a blog"
+                    }
+                </Heading>
                 <Form id="blogCreation" onSubmit={ handleSubmit(onSubmit) }>
                     <FormField>
                         <FormInput area="name">
@@ -128,7 +140,9 @@ export default function BlogCreate({defaultValues}) {
                                 type="file"
                                 name="imageUrl"
                                 id="imageUrl"
-                                { ...register("imageUrl") }
+                                { ...register("imageUrl", {
+                                    required: true
+                                }) }
                                 onChange={ handleImageChange }
                             />
                         </FormInput>

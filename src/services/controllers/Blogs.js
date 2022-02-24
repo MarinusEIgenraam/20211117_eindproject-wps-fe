@@ -26,6 +26,29 @@ export const postBlog = async (utilityContext, blog) => {
     }
 }
 
+export const putBlog = async (utilityContext, blog) => {
+    const { setCreationCount, creationCount, setIsLoading, setHasError } = utilityContext;
+    const token = localStorage.getItem('token');
+
+    setHasError(false);
+    setIsLoading(true);
+
+    try {
+        return await axios.put(`${REACT_APP_API_URL}blogs/${blog.blogId}`, blog, {
+            headers: {
+                Authorization: `Bearer ${ token }`
+            },
+        }).then((response) => {
+            setIsLoading(false)
+            setCreationCount(creationCount + 1)
+            return response
+        });
+    } catch (err) {
+        console.error(err);
+        setHasError(true);
+    }
+}
+
 export const getOneBlog = async (utilityContext, id) => {
     const { setIsLoading, setHasError } = utilityContext;
 
