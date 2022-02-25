@@ -25,11 +25,15 @@
   "scripts": {
     "go": "open http://localhost:3000; npm run server",
     "start": "HOST=127.0.0.2 react-scripts start",
+    "start-localhost": "react-scripts start",
+    "start-windows": "HOST=127.0.0.2 ./node_modules/.bin/react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "live-server public --host=0.0.0.0 --port=3000 --middleware=./disable-browser-cache.js"
   },
+  "proxy": "http://127.0.0.2",
+  "host": "http://127.0.0.2:3000",
   "eslintConfig": {
     "extends": [
       "react-app",
