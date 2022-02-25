@@ -15,11 +15,12 @@ import { postComment } from "../../../../services/controllers/Comments";
 ////////////////////
 //// External
 
-export default function CommentAdd ({ parent, parentId }) {
+export default function CommentAdd({ parent, parentId }) {
     const utilityContext = useContext(UtilityContext);
 
 
-    const { register,
+    const {
+        register,
         handleSubmit,
         formState: { errors },
     } = useForm();
@@ -28,9 +29,9 @@ export default function CommentAdd ({ parent, parentId }) {
     const onSubmit = (values) => {
         const request = {
             ...values,
-            ...((parent === "parentProjectId") &&  { parentProjectId: parentId }),
-            ...((parent === "parentBlogId") &&  { parentBlogId: parentId }),
-            ...((parent === "parentCommentId") &&  { parentCommentId: parentId })
+            ...( ( parent === "parentProjectId" ) && { parentProjectId: parentId } ),
+            ...( ( parent === "parentBlogId" ) && { parentBlogId: parentId } ),
+            ...( ( parent === "parentCommentId" ) && { parentCommentId: parentId } )
         }
         return postComment(utilityContext, request)
     }
@@ -71,7 +72,6 @@ export default function CommentAdd ({ parent, parentId }) {
         </Form>
     )
 }
-
 
 
 /** Created by ownwindows on 25-01-22 **/

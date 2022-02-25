@@ -3,7 +3,7 @@
 import React from 'react'
 import AuthRegister from "../feature/Auth/AuthRegister";
 import { PageContainer, PageHeader } from "../../styles/Layout";
-import { CenteredHeader, SubTitle } from "../../styles/Typography";
+import { CenteredHeader, Header, SubTitle } from "../../styles/Typography";
 
 ////////////////////
 //// Environmental
@@ -16,9 +16,9 @@ export default function Register() {
 
     return (
         <PageContainer>
-            <CenteredHeader>
-                Are you willpowered?
-            </CenteredHeader>
+            <Header className="centered">
+            Are you willpowered?
+            </Header>
             <SubTitle>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             </SubTitle>

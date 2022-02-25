@@ -5,7 +5,7 @@ import styled from 'styled-components';
 ////////////////////
 //// Environmental
 import { AuthContext } from "../../context/AuthProvider";
-import { CenteredHeader } from "../../styles/Typography";
+import { CenteredHeader, Header } from "../../styles/Typography";
 import { Divider, PageContainer } from "../../styles/Layout";
 import ProjectList from "../feature/Projects/ProjectList";
 import TaskList from "../feature/Tasks/TaskList";
@@ -28,15 +28,14 @@ export default function Portal() {
     const { creationCount } = useContext(UtilityContext);
 
     useEffect(() => {
-        console.log(creationCount)
-    },[creationCount]);
+    }, [ creationCount ]);
 
     return (
         <PageContainer>
-            <CenteredHeader>
+            <Header className="centered">
                 Welcome back { user.username }
                 <Divider className="small"/>
-            </CenteredHeader>
+            </Header>
 
             <PortalUserDetails/>
 

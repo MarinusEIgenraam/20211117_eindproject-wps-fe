@@ -29,14 +29,15 @@ export const FormWindow = styled.div`
   background: ${ props => props.theme.createBackground };
   border: solid var(--box-border-medium) ${ props => props.theme.createBorder };
   box-shadow: ${ props => props.theme.createShadow };
-  
+
   &.project-details-tasks {
     margin-top: -1rem;
   }
+
   &.blog-window {
     width: 40vw;
   }
-  
+
   &.portalWindow {
     flex-direction: column;
   }
@@ -55,7 +56,7 @@ export const ButtonBox = styled.section`
   justify-content: center;
   align-items: center;
   position: relative;
-  
+
   &.liked {
     padding: 0;
     margin: 0;
@@ -65,10 +66,9 @@ export const ButtonBox = styled.section`
 `
 
 export const ButtonWindow = styled(ButtonBox)`
-margin: 1rem 0;
+  margin: 1rem 0;
   min-height: 50px;
 `
-
 
 
 export const InputRow = styled.div`

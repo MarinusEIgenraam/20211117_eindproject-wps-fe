@@ -15,7 +15,7 @@ export default function Footer() {
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: 'onChange'
     });
-    const { isAuth, user } = useContext(AuthContext);
+    const { login, isAuth, user } = useContext(AuthContext);
 
 
     const changeBackground = () => {
@@ -26,8 +26,8 @@ export default function Footer() {
         }
     };
 
-    async function onSubmit(event) {
-        loginUser(utilityContext, event)
+    function onSubmit(event) {
+        return loginUser(utilityContext, login, event)
     }
 
     useEffect(() => {
@@ -36,7 +36,7 @@ export default function Footer() {
         return function cleanup() {
             window.removeEventListener('scroll', changeBackground)
         }
-    },[])
+    }, [])
 
 
     return (
@@ -61,9 +61,7 @@ export default function Footer() {
                                             name="username"
                                             id="username"
                                             placeholder="Username"
-                                            { ...register("username", {
-                                                required: true
-                                            }) }
+                                            { ...register("username") }
                                         />
                                     </FormInput>
                                 </FormBreak>
@@ -107,7 +105,7 @@ export default function Footer() {
 const FooterContent = styled.div`
   display: flex;
   flex-direction: column;
-  
+
 `
 const ContactContainer = styled.div`
   padding: 0 0.5rem;
@@ -117,6 +115,7 @@ const ContactContainer = styled.div`
 const LoginContainer = styled.div`
   display: flex;
   justify-content: center;
+
   form {
 
     display: flex;

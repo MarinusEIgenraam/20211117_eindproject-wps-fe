@@ -7,10 +7,10 @@ const source = axios.CancelToken.source();
 export const postTask = async (utilityContext, task) => {
     const { setCreationCount, creationCount, setIsLoading, setHasError } = utilityContext;
     const token = localStorage.getItem('token');
-    
+
     setHasError(false);
     setIsLoading(true);
-    
+
     try {
         setIsLoading(true)
         return await axios.post(REACT_APP_API_URL + 'tasks', task, {
@@ -32,10 +32,10 @@ export const postTask = async (utilityContext, task) => {
 export const putTask = async (utilityContext, task, taskId) => {
     const { setCreationCount, creationCount, setIsLoading, setHasError } = utilityContext;
     const token = localStorage.getItem('token');
-    
+
     setHasError(false);
     setIsLoading(true);
-    
+
     try {
         setIsLoading(true)
         return await axios.put(REACT_APP_API_URL + `tasks/${ taskId }`, task, {

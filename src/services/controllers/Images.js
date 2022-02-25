@@ -67,7 +67,7 @@ export const getProfileImage = async (utilityContext, username) => {
     setIsLoading(true)
 
     try {
-        return await axios.get(`${ REACT_APP_API_URL }files/${username}/download`, {
+        return await axios.get(`${ REACT_APP_API_URL }files/${ username }/download`, {
             cancelToken: source.token,
         }).then((response) => {
             setIsLoading(false)

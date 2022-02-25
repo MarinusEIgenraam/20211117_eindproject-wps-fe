@@ -46,7 +46,7 @@ export const loginUser = async (utilityContext, login, event) => {
         return await axios.post(REACT_APP_AUTH, {
             username: event.username,
             password: event.password,
-        },{}).then((response) => {
+        }, {}).then((response) => {
             setIsLoading(false)
             login(response.data.jwt)
 
@@ -66,7 +66,7 @@ export const changePassword = async (utilityContext, event) => {
     setIsLoading(true);
 
     try {
-        return await axios.put(`${ REACT_APP_API_URL }users/password`, {
+        return await axios.patch(`${ REACT_APP_API_URL }users/password`, {
             oldPassword: event.oldPassword,
             newPassword: event.newPassword,
         }, {

@@ -14,7 +14,8 @@ import { getBlogComments } from "../../services/controllers/Comments";
 import Comment from "../shared/elements/Comments/Comment";
 import {
     Date,
-    DetailContainer, Owner,
+    DetailContainer,
+    Owner,
     PrimaryInfo,
     ProjectDescription,
     ProjectMain,
@@ -25,7 +26,6 @@ import { getOneBlog } from "../../services/controllers/Blogs";
 import { AiFillCloseCircle } from "react-icons/all";
 import CommentAdd from "../shared/elements/Comments/CommentAdd";
 import { AuthContext } from "../../context/AuthProvider";
-import ProjectCreate from "../feature/Projects/ProjectCreate";
 import BlogCreate from "../feature/Blogs/BlogCreate";
 
 
@@ -70,7 +70,7 @@ export default function BlogDetails() {
 
     return (
         <PageContainer>
-            { ( loadedBlog && ( ( loadedBlog.blogOwner?.username === user.username )) ) &&
+            { ( loadedBlog && ( ( loadedBlog?.blogOwner?.username === user?.username ) ) ) &&
                 <>
                     <ButtonRow className="header-button">
 
@@ -78,14 +78,14 @@ export default function BlogDetails() {
                             type="submit"
                             buttonSize="btn--large"
                             buttonStyle="btn--quinary--solid"
-                            onClick={()=> setEditBlog(true)}
+                            onClick={ () => setEditBlog(true) }
                         >
                             Edit blog
                         </RectangleButton>
                     </ButtonRow>
 
                     { editBlog &&
-                        <BlogCreate setEdit={setEditBlog} defaultBlog={ loadedBlog }/>
+                        <BlogCreate setEdit={ setEditBlog } defaultBlog={ loadedBlog }/>
                     }
                 </>
             }

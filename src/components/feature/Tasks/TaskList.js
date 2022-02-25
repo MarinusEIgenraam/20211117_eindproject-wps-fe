@@ -44,7 +44,7 @@ export default function TaskList({ editCount, setEditCount }) {
 
     return (
         <>
-            { (loadedTasks && loadedTasks.length  > 0) &&
+            { ( loadedTasks && loadedTasks.length > 0 ) &&
                 <Container>
                     <HeaderBar>
                         <h3>
@@ -52,7 +52,9 @@ export default function TaskList({ editCount, setEditCount }) {
                         </h3>
                         <div>
 
-                            {loadedTasks.length} <AiFillProject size={ 20 }/> {calculateTasks(loadedTasks)-loadedTasks.length} <AiOutlineProject size={ 20 }/>
+                            { loadedTasks.length } <AiFillProject
+                            size={ 20 }/> { calculateTasks(loadedTasks) - loadedTasks.length } <AiOutlineProject
+                            size={ 20 }/>
                         </div>
                     </HeaderBar>
 

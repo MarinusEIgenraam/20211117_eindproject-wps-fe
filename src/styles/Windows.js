@@ -1,8 +1,7 @@
 ////////////////////
 //// Build
 import React from 'react'
-import styled, { css } from 'styled-components';
-import { QUERIES } from "../services/helpers/mediaQueries";
+import styled from 'styled-components';
 
 ////////////////////
 //// Environmental
@@ -11,7 +10,6 @@ import { QUERIES } from "../services/helpers/mediaQueries";
 //// External
 
 export const BorderedWindow = styled.div`
-
   transition: all .5s ease;
   max-width: 70vw;
   margin-bottom: 40px;

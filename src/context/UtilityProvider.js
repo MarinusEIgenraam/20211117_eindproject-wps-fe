@@ -9,7 +9,7 @@ import React, { createContext, useState } from "react";
 ///////////////////////
 //// External
 
-export const UtilityContext = createContext(null);
+export const UtilityContext = createContext();
 
 
 export default function UtilityProvider({ children }) {

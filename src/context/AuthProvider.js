@@ -27,7 +27,7 @@ export default function AuthProvider({ children }) {
 
         if (token) {
             const decoded = jwt_decode(token);
-            fetchUserData(utilityContext, navigate, toggleIsAuth, isAuth, decoded.sub, token, '/me');
+            return fetchUserData(utilityContext, navigate, toggleIsAuth, isAuth, decoded.sub, token, '/me');
         } else {
             toggleIsAuth({
                 isAuth: false,
@@ -41,7 +41,7 @@ export default function AuthProvider({ children }) {
     function login(JWT) {
         localStorage.setItem('token', JWT);
         const decoded = jwt_decode(JWT);
-        fetchUserData(utilityContext, navigate, toggleIsAuth, isAuth, decoded.sub, JWT, '/me');
+        return fetchUserData(utilityContext, navigate, toggleIsAuth, isAuth, decoded.sub, JWT, '/me');
     }
 
 

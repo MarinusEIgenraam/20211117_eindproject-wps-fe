@@ -59,7 +59,7 @@ export const getAlertsFor = async (utilityContext, user, sortingFilter) => {
     setIsLoading(true)
 
     try {
-        return await axios.get(`${ REACT_APP_API_URL }alerts?username=${ user.username }${sortingFilter}`, {
+        return await axios.get(`${ REACT_APP_API_URL }alerts?username=${ user.username }${ sortingFilter }`, {
             cancelToken: source.token,
             headers: {
                 Authorization: `Bearer ${ token }`

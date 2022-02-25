@@ -3,7 +3,7 @@
 import React from 'react'
 ////////////////////
 //// Environmental
-import { CenteredHeader } from "../../styles/Typography";
+import { CenteredHeader, Header } from "../../styles/Typography";
 import { PageContainer } from "../../styles/Layout";
 
 export default function NoComponentFound() {
@@ -11,7 +11,8 @@ export default function NoComponentFound() {
     return (
         <PageContainer>
 
-            <CenteredHeader>This is not the page you are looking for....</CenteredHeader>
+            <Header className="centered">
+            This is not the page you are looking for....</Header>
 
         </PageContainer>
     )

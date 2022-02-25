@@ -10,8 +10,7 @@ import { QUERIES } from "../services/helpers/mediaQueries";
 ////////////////////
 //// External
 
-export const CenteredHeader = styled.h1`
-  text-align: center;
+export const Header = styled.h1`
   font-size: 2em;
   margin-bottom: 0.25em;
   ${ props => props.theme.text };
@@ -82,7 +81,13 @@ export const Users = styled.div`
 
 `
 
+export const VoteContainer = styled.div`
+  position: relative;
+  display: flex;
+`
+
 export const Votes = styled.footer`
+  z-index: 10;
   font-size: 0.9rem;
 `
 
@@ -116,10 +121,6 @@ export const DetailContainer = styled.div`
 
 export const SeeMore = styled.p`
   color: ${ props => props.theme.text };
-`
-
-export const Header = styled.div`
-  margin-bottom: 20px;
 `
 
 export const FormSectionHeading = styled.h3`
@@ -172,7 +173,7 @@ export const ProjectMain = styled.div`
 export const HeaderBox = styled.div`
   display: flex;
   align-items: end;
-  
+
   width: 100%;
 
   white-space: nowrap;

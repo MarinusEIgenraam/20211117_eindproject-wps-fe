@@ -28,7 +28,8 @@ export default function TaskAdd({ parentTask }) {
             ...values,
             parentTaskId: parentTask,
         }
-        postTask(utilityContext, request).then(r => {})
+        postTask(utilityContext, request).then(r => {
+        })
     }
 
     return (

@@ -9,7 +9,7 @@ import { DetailRow, PageContainer, PageHeader } from "../../styles/Layout";
 import Logo from '../../assets/images/home_background.png'
 import {
     CenteredHeader,
-    DetailContainer,
+    DetailContainer, Header,
     PrimaryInfo,
     ProjectMain,
     SecondaryInfo,
@@ -19,6 +19,7 @@ import {
 import { Image } from "../../styles/Images";
 import { UnsortedList, UserListItem } from "../../styles/List";
 import { getAdmins } from "../../services/controllers/Users";
+import { LinkHeader } from "../../styles/Navigation";
 
 export default function About() {
     const utilityContext = useContext(UtilityContext);
@@ -39,9 +40,9 @@ export default function About() {
 
     return (
         <PageContainer>
-            <CenteredHeader>
+            <Header className="centered">
                 About
-            </CenteredHeader>
+            </Header>
             <SubTitle>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             </SubTitle>
@@ -60,19 +61,19 @@ export default function About() {
                             <UserListItem key={ index }>
                                 <ProjectMain>
                                     <DetailContainer>
-                                        {/*<LinkHeader to={ `/users/${ admin.username }` }>*/}
-                                        {/*    { admin.username }*/}
-                                        {/*</LinkHeader>*/}
+                                        <LinkHeader to={ `/users/${ admin.username }` }>
+                                        { admin.username }
+                                        </LinkHeader>
                                     </DetailContainer>
                                     <Image alt={ admin.username } src={ Logo }/>
                                 </ProjectMain>
-                                    <DetailRow className="users">
-                                        <PrimaryInfo>
-                                                <User className="on">{ admin.email } </User>
-                                        </PrimaryInfo>
-                                        <SecondaryInfo>
-                                        </SecondaryInfo>
-                                    </DetailRow>
+                                <DetailRow className="users">
+                                    <PrimaryInfo>
+                                        <User className="on">{ admin.email } </User>
+                                    </PrimaryInfo>
+                                    <SecondaryInfo>
+                                    </SecondaryInfo>
+                                </DetailRow>
                             </UserListItem>
                         );
                     })

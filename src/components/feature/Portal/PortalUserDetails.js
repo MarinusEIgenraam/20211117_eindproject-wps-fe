@@ -26,7 +26,7 @@ export default function PortalUserDetails() {
     const source = axios.CancelToken.source();
     const { user } = useContext(AuthContext);
     const utilityContext = useContext(UtilityContext);
-    const [profileImageUrl, setProfileImageUrl] = useState(``)
+    const [ profileImageUrl, setProfileImageUrl ] = useState(``)
 
     const [ picture, setPicture ] = useState('')
     const [ loadedImage, setLoadedImage ] = useState('')
@@ -46,7 +46,7 @@ export default function PortalUserDetails() {
             source.cancel();
         };
 
-    }, [utilityContext.creationCount]);
+    }, [ utilityContext.creationCount ]);
 
     const handleImageChange = (event) => {
         if (!event || !event.target.files) {
@@ -57,14 +57,14 @@ export default function PortalUserDetails() {
         setPicture(image)
     }
 
-    const onSubmit = async (values) => {
+    const onSubmit = (values) => {
         utilityContext.setCreationCount(utilityContext.creationCount++)
-        const profileImage = await uploadProfileImage(utilityContext, values.file[0])
+        return uploadProfileImage(utilityContext, values.file[0])
     }
 
-    const onPasswordChange = async (values) => {
+    const onPasswordChange = (values) => {
         console.log(values)
-        const message = await changePassword(utilityContext, values)
+        return changePassword(utilityContext, values)
     }
 
     const {
@@ -186,7 +186,8 @@ export default function PortalUserDetails() {
                                 onChange={ handleImageChange }
                             />
                         </FormInput>
-                        <ImagePreview id="preview" key={Date.now()} src={ `http://localhost:8080/files/${ user.username }/download` }/>
+                        <ImagePreview id="preview" key={ Date.now() }
+                                      src={ `http://localhost:8080/files/${ user.username }/download` }/>
                         <ButtonBox area="submit">
 
                             <RectangleButton

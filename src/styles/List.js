@@ -29,7 +29,7 @@ export const UnsortedList = styled.ul`
   list-style: none;
   display: flex;
   min-width: 0;
-  
+
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -88,7 +88,7 @@ export const BlogOverviewList = styled.ol`
 
 export const TaskListItem = styled.li`
   margin-top: 1rem;
-  
+
   width: 100%;
 
   height: 100%;
@@ -116,7 +116,7 @@ export const ListItem = styled.li`
   position: relative;
   border: none;
   flex-direction: column;
-  //border-top: solid var(--box-border-medium) ${ props => props.theme.border };
+    //border-top: solid var(--box-border-medium) ${ props => props.theme.border };
 
   &:first-child {
     border-top: none;
@@ -212,8 +212,8 @@ export const ProjectListItem = styled.li`
   flex-direction: column;
   transition: all 500ms;
   background: ${ props => props.theme.background };
-  overflow:hidden;
-  text-overflow: ellipsis;  
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 export const UserListItem = styled.li`

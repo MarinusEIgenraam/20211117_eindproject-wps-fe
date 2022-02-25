@@ -18,7 +18,7 @@ export const ProjectLink = styled(NavLink)`
 `
 
 export const LinkHeader = styled(NavLink)`
-  
+
   text-decoration: none;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -32,7 +32,7 @@ export const LinkHeader = styled(NavLink)`
     overflow: initial;
     white-space: initial;
   }
-  
+
   &.listItem {
     font-size: 0.8rem;
   }
@@ -64,6 +64,7 @@ export const LinkRow = styled(NavLink)`
     color: ${ props => props.theme.sub_text };
 
   }
+
   &.active {
     color: ${ props => props.theme.sub_text };
 

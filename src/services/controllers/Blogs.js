@@ -34,7 +34,7 @@ export const putBlog = async (utilityContext, blog) => {
     setIsLoading(true);
 
     try {
-        return await axios.put(`${REACT_APP_API_URL}blogs/${blog.blogId}`, blog, {
+        return await axios.put(`${ REACT_APP_API_URL }blogs/${ blog.blogId }`, blog, {
             headers: {
                 Authorization: `Bearer ${ token }`
             },
@@ -77,7 +77,7 @@ export const getBlogsFor = async (utilityContext, username) => {
     setIsLoading(true);
 
     try {
-        return await axios.get(`${ REACT_APP_API_URL }blogs?blogOwner=${username}`, {
+        return await axios.get(`${ REACT_APP_API_URL }blogs?blogOwner=${ username }`, {
             cancelToken: source.token
         }).then((response) => {
             setIsLoading(false)

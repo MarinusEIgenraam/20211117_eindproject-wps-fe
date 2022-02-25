@@ -158,8 +158,8 @@ export const FormEdit = styled.div`
 
 export const FormInput = styled.div`
   ${ ({ area }) =>
-          area &&
-          css`
+    area &&
+    css`
             grid-area: ${ area };
           ` }
   display: flex;
@@ -252,8 +252,8 @@ export const FormEditBreak = styled.div`
 
 export const FormBreak = styled.div`
   ${ ({ area }) =>
-          area &&
-          css`
+    area &&
+    css`
             grid-area: ${ area };
           ` }
 

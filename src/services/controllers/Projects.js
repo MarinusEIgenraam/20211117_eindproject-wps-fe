@@ -28,7 +28,6 @@ export const postProject = async (utilityContext, project) => {
 }
 
 
-
 export const getOneProject = async (utilityContext, id) => {
     const { setIsLoading, setHasError } = utilityContext;
 
@@ -57,7 +56,7 @@ export const getProjectsFor = async (utilityContext, pageable) => {
     setIsLoading(true)
 
     try {
-        return await axios.get(`${ REACT_APP_API_URL }projects?page=1&size=6`, {
+        return await axios.get(`${ REACT_APP_API_URL }projects${ pageable }`, {
             cancelToken: source.token
         }).then((response) => {
             setIsLoading(false)

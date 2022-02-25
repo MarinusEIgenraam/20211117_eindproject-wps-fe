@@ -7,7 +7,6 @@ import axios from "axios";
 import { UtilityContext } from "../../../../context/UtilityProvider";
 import { Select, SelectContainer } from "../../../../styles/Input";
 import { getCategories } from "../../../../services/controllers/Category";
-import { getUsers } from "../../../../services/controllers/Users";
 
 export default function SelectCategory({ area, register, parent, defaultValue }) {
     const utilityContext = useContext(UtilityContext);
@@ -24,9 +23,9 @@ export default function SelectCategory({ area, register, parent, defaultValue })
     }, []);
 
     return (
-        <SelectContainer area={area} id="SelectContainer">
+        <SelectContainer area={ area } id="SelectContainer">
             <Select { ...register(`${ parent }`, { required: true }) }>
-                { loadedCategories  &&
+                { loadedCategories &&
                     loadedCategories.map((category, index) => {
                             return (
                                 <option key={ index } value={ category.id }>{ category.name }</option>

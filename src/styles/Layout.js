@@ -64,7 +64,7 @@ export const ButtonRow = styled.div`
   display: flex;
   flex-direction: row;
   //width: 100%;
-  
+
   &.header-button {
     margin-bottom: 1.5rem;
   }
@@ -119,6 +119,10 @@ export const Divider = styled.hr`
     width: 80vw;
 
   }
+
+  &.no-margin {
+    margin: 1rem 0 0 0;
+  }
 `
 
 export const Container = styled.div`
@@ -146,6 +150,21 @@ export const HeaderImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`
+
+export const USPContainer = styled.div`
+  margin: 3rem 0;
+  display: grid;
+  width: 70vw;
+  
+  &.left {
+    grid-template-columns: 1fr 2fr;
+  }
+  
+  &.right {
+    grid-template-columns: 2fr 1fr;
+  }
+  
 `
 
 export const PageContainer = styled.div`

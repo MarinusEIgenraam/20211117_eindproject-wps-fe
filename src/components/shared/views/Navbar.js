@@ -5,7 +5,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 ////////////////////
 //// Environmental
-import { QUERIES } from "../../../services/helpers/mediaQueries";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 import { AuthContext } from "../../../context/AuthProvider";
 import { RiLoginCircleFill } from "react-icons/ri";
@@ -90,7 +89,7 @@ export default function Navbar() {
 
                 }
 
-                <ThemeSwitch onClick={() => setMenuOpen(false) }/>
+                <ThemeSwitch onClick={ () => setMenuOpen(false) }/>
 
 
             </Menu>
@@ -133,7 +132,7 @@ const Menu = styled.div`
   color: ${ props => props.theme.text };
   position: relative;
 
-  
+
   @media (max-width: 1154px) {
     justify-content: center;
     overflow: hidden;

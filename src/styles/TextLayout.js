@@ -26,6 +26,10 @@ export const Collaborators = styled.span`
 
 `
 
+export const TextColumn = styled.div`
+
+`
+
 export const ProjectHeader = styled.div`
   display: flex;
   flex-direction: row;

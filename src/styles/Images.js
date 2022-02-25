@@ -61,6 +61,12 @@ export const BannerVisual = styled.img`
   overflow: hidden;
 `
 
+export const BannerContainer = styled.div`
+  width: 70vw;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5rem;
+`
 export const ProjectHero = styled.div`
   flex: 1 1 auto;
   background-image: url('${ image => image.image }');

@@ -9,7 +9,7 @@ import { UtilityContext } from "../../../context/UtilityProvider";
 import RectangleButton from "../../shared/elements/clickables/RectangleButton";
 import { ButtonBox } from "../../../styles/Form";
 import { FormError, FormInput, FormLabel } from "../../../styles/FormStyles";
-import { putBlog, postBlog } from "../../../services/controllers/Blogs";
+import { postBlog, putBlog } from "../../../services/controllers/Blogs";
 import { uploadImage } from "../../../services/controllers/Images";
 import { Heading } from "../../../styles/Typography";
 import { QUERIES } from "../../../services/helpers/mediaQueries";
@@ -17,22 +17,19 @@ import { BorderedWindow, VisualContainer } from "../../../styles/Windows";
 import { Hero, WindowVisual } from "../../../styles/Images";
 import blogBackground from "../../../assets/images/visual_blogs.svg";
 
-const mockValues = {blogName: "newname"}
+const mockValues = { blogName: "newname" }
 
-export default function BlogCreate({setEdit, defaultBlog}) {
+export default function BlogCreate({ setEdit, defaultBlog }) {
     const utilityContext = useContext(UtilityContext);
     const [ picture, setPicture ] = useState('')
 
     const defaultValues = defaultBlog ? defaultBlog : mockValues
 
     const {
-        control,
         register,
         handleSubmit,
-        getValues,
         formState: { errors },
         reset,
-        setValue
     } = useForm({
         defaultValues
     });
@@ -60,7 +57,8 @@ export default function BlogCreate({setEdit, defaultBlog}) {
                 postBlog(utilityContext, blog);
             }
             setEdit(false)
-    })}
+        })
+    }
 
 
     return (
@@ -73,7 +71,7 @@ export default function BlogCreate({setEdit, defaultBlog}) {
 
 
                 <Heading className="centered">
-                    {defaultBlog ?
+                    { defaultBlog ?
                         "Your blog"
                         :
                         "Create a blog"
@@ -198,8 +196,7 @@ const FormField = styled.section`
       "url"
       "image"
       "description"
-      "buttons"
-;
+      "buttons";
   @media ${ QUERIES.tablet } {
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;

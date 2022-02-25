@@ -19,16 +19,11 @@ function AuthLogin() {
         mode: 'onChange'
     });
 
-    async function onSubmit(event) {
-        await loginUser(utilityContext, login, event)
+    function onSubmit(event) {
+        console.log(event)
+        return loginUser(utilityContext, login, event)
     }
 
-    const enterSubmit = (e) => {
-        if (e.key === "Enter" && e.shiftKey == false) {
-            const data = { content: e.target.value };
-            return handleSubmit(onSubmit(data));
-        }
-    };
 
     return (
         <Form id="loginForm" onSubmit={ handleSubmit(onSubmit) }>
@@ -62,7 +57,6 @@ function AuthLogin() {
                         </FormLabel>
                         <input
                             type="password"
-                            onKeyPress={ enterSubmit }
                             name="password"
                             id="password"
                             placeholder="......."

@@ -31,11 +31,11 @@ export default function Comment({ comment, index }) {
 
     useEffect(() => {
         setAddComment(false)
-    }, [comment, utilityContext.creationCount]);
+    }, [ comment, utilityContext.creationCount ]);
 
 
     return (
-        <CommentListItem key={index} className="comment">
+        <CommentListItem key={ index } className="comment">
             <UserCommenterDetails>
                 <CommenterDetail className="date">{ comment.startTime }</CommenterDetail>
                 <CommenterDetail className="username"><NavLink className="UserLink"
@@ -59,7 +59,7 @@ export default function Comment({ comment, index }) {
                     </RectangleButton>
                     { addComment &&
                         <AiFillCloseCircle
-                            onClick={ () => setAddComment(false)}
+                            onClick={ () => setAddComment(false) }
                             size={ 15 }
                         />
                     }

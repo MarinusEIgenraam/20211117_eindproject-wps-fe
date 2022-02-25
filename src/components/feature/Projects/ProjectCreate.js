@@ -12,7 +12,7 @@ import { ButtonBox } from "../../../styles/Form";
 import { postProject } from "../../../services/controllers/Projects";
 import { uploadImage } from "../../../services/controllers/Images";
 import SelectCategory from "../../shared/elements/FormElements/SelectCategory";
-import { FormSectionHeading, Heading, SubHeading } from "../../../styles/Typography";
+import { FormSectionHeading, SubHeading } from "../../../styles/Typography";
 import styled from "styled-components";
 import { QUERIES } from "../../../services/helpers/mediaQueries";
 import { BorderedWindow, VisualContainer } from "../../../styles/Windows";
@@ -39,7 +39,7 @@ const mockValues = {
     ]
 };
 
-export default function ProjectCreate({defaultProject}) {
+export default function ProjectCreate({ setEdit, defaultProject }) {
     const utilityContext = useContext(UtilityContext);
     const [ publicVisibility, setPublicVisibility ] = useState(true);
     const [ picture, setPicture ] = useState('')
@@ -68,7 +68,7 @@ export default function ProjectCreate({defaultProject}) {
     }
 
 
-    const onSubmit = async (values) => {
+    const onSubmit = (values) => {
 
         if (values.imageUrl[0]) {
             if (values.imageUrl[0].type === 'image/jpeg' || values.imageUrl[0].type === 'image/png') {
@@ -92,7 +92,7 @@ export default function ProjectCreate({defaultProject}) {
             }
             console.log(values)
 
-            await postProject(utilityContext, request)
+            return postProject(utilityContext, request)
         }
     }
 
@@ -196,7 +196,7 @@ export default function ProjectCreate({defaultProject}) {
                                 id="publiclyVisible"
                                 value="publiclyVisible"
                                 onClick={ handleVisibility }
-                                defaultChecked={true}
+                                defaultChecked={ true }
                             />
 
                         </FormInput>
@@ -264,8 +264,7 @@ const FormField = styled.section`
       "deadline"
   "category"
   "description"
-  "visibility"
-;
+  "visibility";
   @media ${ QUERIES.tablet } {
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;

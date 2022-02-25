@@ -7,7 +7,7 @@ import { AiOutlineClose } from "react-icons/all";
 ////////////////////
 //// Environmental
 import { UtilityContext } from "../../context/UtilityProvider";
-import { CenteredHeader, SubTitle } from "../../styles/Typography";
+import { CenteredHeader, Header, SubTitle } from "../../styles/Typography";
 import { PageContainer, PageHeader } from "../../styles/Layout";
 import Blog from "../feature/Blogs/Blog";
 import BlogCreate from "../feature/Blogs/BlogCreate";
@@ -16,14 +16,13 @@ import RectangleButton from "../shared/elements/clickables/RectangleButton";
 import { BlogOverviewList } from "../../styles/List";
 import { getBlogs } from "../../services/controllers/Blogs";
 import { ButtonBox } from "../../styles/Form";
-import { getProjectsFor } from "../../services/controllers/Projects";
 
 export default function BlogOverview() {
     const utilityContext = useContext(UtilityContext);
     const { user } = useContext(AuthContext);
     const [ loadedBlogs, setLoadedBlogs ] = useState({});
     const [ writeBlog, setWriteBlog ] = useState(false)
-    const [pageable, setPageable] = useState('');
+    const [ pageable, setPageable ] = useState('');
 
     useEffect(() => {
         const source = axios.CancelToken.source();
@@ -38,7 +37,7 @@ export default function BlogOverview() {
         };
 
 
-    }, [utilityContext.creationCount]);
+    }, [ utilityContext.creationCount ]);
 
     // function closeWindow(is) {
     //     if (utilityContext.isLoading) {
@@ -49,12 +48,11 @@ export default function BlogOverview() {
     // }
 
 
-
     return (
         <PageContainer>
-            <CenteredHeader>
-                Blogs
-            </CenteredHeader>
+            <Header className="centered">
+            Blogs
+            </Header>
             <SubTitle>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             </SubTitle>
@@ -86,7 +84,7 @@ export default function BlogOverview() {
 
                         <AiOutlineClose onClick={ () => setWriteBlog(false) } size={ 30 }/>
                     </ButtonBox>
-                    <BlogCreate/>
+                    <BlogCreate setEdit={ setWriteBlog }/>
                 </>
             }
 

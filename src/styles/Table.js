@@ -39,9 +39,11 @@ export const TableRow = styled.tr`
     &.name {
       width: 15%;
     }
+
     &.description {
       width: 30%;
     }
+
     &.date {
       text-align: right;
 
@@ -56,12 +58,13 @@ export const TableRow = styled.tr`
     text-align: left;
     max-width: 10px;
     font-size: 0.9rem;
+
     &.date {
       text-align: right;
     }
 
   }
-  
+
 `;
 
 /** Created by ownwindows on 15-01-22 **/

@@ -20,9 +20,9 @@ export default function AuthRegister() {
         mode: 'onChange'
     });
 
-    async function onSubmit(event) {
+    function onSubmit(event) {
 
-        await registerUser(utilityContext, navigate, setRegisterSucces, event)
+        return registerUser(utilityContext, navigate, setRegisterSucces, event)
         setRegisterSucces(true)
     }
 

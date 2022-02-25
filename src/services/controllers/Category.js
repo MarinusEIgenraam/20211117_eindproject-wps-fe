@@ -11,7 +11,8 @@ export const getCategories = async (utilityContext, pageable) => {
     setIsLoading(true)
 
     try {
-        return await axios.get(`${ REACT_APP_API_URL }categories/all`, { cancelToken: source.token,
+        return await axios.get(`${ REACT_APP_API_URL }categories/all`, {
+            cancelToken: source.token,
         }).then((response) => {
             setIsLoading(false)
             return response

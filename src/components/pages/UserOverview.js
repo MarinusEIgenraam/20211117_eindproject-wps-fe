@@ -7,17 +7,14 @@ import axios from "axios";
 import { UtilityContext } from "../../context/UtilityProvider";
 import { DetailRow, PageContainer, PageHeader } from "../../styles/Layout";
 import {
-    Category,
-    CenteredHeader, Date,
-    DetailContainer,
+    CenteredHeader,
+    DetailContainer, Header,
     Owner,
     PrimaryInfo,
-    ProjectMain, SecondaryInfo,
-    SubTitle,
-    User
+    ProjectMain,
+    SecondaryInfo,
+    SubTitle
 } from "../../styles/Typography";
-import Logo from "../../assets/images/home_background.png";
-import { Image } from "../../styles/Images";
 import { UnsortedList, UserListItem } from "../../styles/List";
 import { getUsers } from "../../services/controllers/Users";
 import { LinkHeader } from "../../styles/Navigation";
@@ -41,9 +38,9 @@ export default function UserOverview() {
 
     return (
         <PageContainer>
-            <CenteredHeader>
-                Users
-            </CenteredHeader>
+            <Header className="centered">
+            Users
+            </Header>
             <SubTitle>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             </SubTitle>
@@ -60,7 +57,7 @@ export default function UserOverview() {
                         return (
                             <UserListItem className="userDetails" key={ index }>
                                 <ProjectMain>
-                                    <DetailContainer className="userListDetails" >
+                                    <DetailContainer className="userListDetails">
                                         <LinkHeader to={ `/users/${ user.username }` }>
                                             { user.username }
                                         </LinkHeader>

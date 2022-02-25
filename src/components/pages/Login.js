@@ -3,7 +3,7 @@
 import React from 'react'
 import AuthLogin from "../feature/Auth/AuthLogin";
 import { PageContainer } from "../../styles/Layout";
-import { CenteredHeader } from "../../styles/Typography";
+import { CenteredHeader, Header } from "../../styles/Typography";
 
 ////////////////////
 //// Environmental
@@ -16,9 +16,10 @@ export default function Login() {
 
     return (
         <PageContainer>
-            <CenteredHeader>
-                Login and get to work
-            </CenteredHeader>
+            <Header className="centered">
+
+            Login and get to work
+            </Header>
             <AuthLogin/>
         </PageContainer>
     )

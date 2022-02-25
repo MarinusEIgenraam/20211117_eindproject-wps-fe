@@ -17,7 +17,7 @@ export default function ListComment({ comment }) {
 
 
     useEffect(() => {
-    }, [comment, utilityContext.creationCount]);
+    }, [ comment, utilityContext.creationCount ]);
 
 
     return (
@@ -25,7 +25,7 @@ export default function ListComment({ comment }) {
             { comment.commentList &&
                 comment.commentList.map((subComment, index) =>
                     (
-                        <Comment key={index} comment={ subComment }/>
+                        <Comment key={ index } comment={ subComment }/>
                     ))
             }
         </CommentList>
@@ -33,14 +33,14 @@ export default function ListComment({ comment }) {
 }
 
 const CommentList = styled(OrderedList)`
-    
-    &:not(:hover){
-      & > *{
-        //
-        //text-shadow: 0 0 12px black;
-        //color: transparent;
-      }
+
+  &:not(:hover) {
+    & > * {
+      //
+      //text-shadow: 0 0 12px black;
+      //color: transparent;
     }
+  }
 
 `
 

@@ -7,22 +7,26 @@ import { AiOutlineClose } from "react-icons/all";
 //// Environmental
 import { UtilityContext } from "../../context/UtilityProvider";
 import {
-    DetailContainer,
+    Category,
     CenteredHeader,
-    SubTitle,
+    Date,
+    DetailContainer, Header,
     Owner,
-    Users,
-    User,
-    ProjectDescription, ProjectMain, Category, Date, SecondaryInfo, PrimaryInfo
+    PrimaryInfo,
+    ProjectDescription,
+    ProjectMain,
+    SecondaryInfo,
+    SubTitle,
+    User
 } from "../../styles/Typography";
-import { DetailRow, Divider, PageContainer, PageHeader } from "../../styles/Layout";
+import { DetailRow, PageContainer, PageHeader } from "../../styles/Layout";
 import { ProjectPageListItem, UnsortedList } from "../../styles/List";
 import { Image } from "../../styles/Images";
 import RectangleButton from "../shared/elements/clickables/RectangleButton";
 import { AuthContext } from "../../context/AuthProvider";
 import ProjectCreate from "../feature/Projects/ProjectCreate";
 import { getProjectsFor } from "../../services/controllers/Projects";
-import { LinkHeader, ProjectLink } from "../../styles/Navigation";
+import { LinkHeader } from "../../styles/Navigation";
 
 export default function ProjectOverview() {
     const utilityContext = useContext(UtilityContext);
@@ -41,12 +45,14 @@ export default function ProjectOverview() {
         if (projectCategory) {
             setPageable(`?categoryId=${ projectCategory }&page=1&size=${ loadCount }`);
         } else {
-            setPageable(`?page=0&size=${loadCount}`)
+            setPageable(`?page=0&size=${ loadCount }`)
         }
 
+        console.log(pageable)
 
-        getProjectsFor(utilityContext,pageable).then(response => setLoadedProjects(response.data.content))
+        getProjectsFor(utilityContext, pageable).then(response => setLoadedProjects(response.data.content))
 
+        console.log(loadedProjects)
 
         return function clearData() {
             source.cancel();
@@ -79,9 +85,9 @@ export default function ProjectOverview() {
 
     return (
         <PageContainer>
-            <CenteredHeader>
+            <Header className="centered">
                 Projects
-            </CenteredHeader>
+            </Header>
             <SubTitle>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             </SubTitle>
@@ -94,7 +100,7 @@ export default function ProjectOverview() {
             </PageHeader>
             { renderButton() }
             { writeProject &&
-                <ProjectCreate/>
+                <ProjectCreate setEdit={ setWriteProject }/>
             }
             <UnsortedList>
                 { loadedProjects && loadedProjects.map((project, index) => (
@@ -106,9 +112,8 @@ export default function ProjectOverview() {
                                     { project.projectName }
                                 </LinkHeader>
                                 <ProjectDescription>
-                                    {project.description}
+                                    { project.description }
                                 </ProjectDescription>
-
 
 
                             </DetailContainer>
@@ -116,12 +121,11 @@ export default function ProjectOverview() {
                         </ProjectMain>
 
 
-
                         <DetailRow className="users">
                             <PrimaryInfo>
                                 <Owner>{ project.projectOwner.username } | </Owner>
                                 { project?.collaborators.map((user, index) => (
-                                    <User key={index} className="on">{ user.username } </User>
+                                    <User key={ index } className="on">{ user.username } </User>
                                 )) }
                             </PrimaryInfo>
                             <SecondaryInfo>

@@ -20,7 +20,6 @@ import {
 import { getProjectsFor } from "../../services/controllers/Projects";
 import { ProjectListItem, TaskListItem, UnsortedList } from "../../styles/List";
 import { getBlogsFor } from "../../services/controllers/Blogs";
-import { setRole } from "../../services/helpers/filters";
 import { ListLink } from "../../styles/Navigation";
 
 export default function UserProfile() {
@@ -58,7 +57,7 @@ export default function UserProfile() {
                 <ProjectMain>
                     <DetailContainer>
                         <h2 className="centered">{ userDetails.username }</h2>
-                        {userRole}
+                        { userRole }
                         <ProjectDescription>
                             {/*{ loadedProject.description }*/ }
                         </ProjectDescription>
@@ -86,7 +85,8 @@ export default function UserProfile() {
                         <UnsortedList>
                             { projects.map((project, index) => (
                                 <ProjectListItem key={ index }>
-                                    <ListLink to={ `/projects/${ project.projectId }` }><h6> { project.projectName } </h6>
+                                    <ListLink to={ `/projects/${ project.projectId }` }>
+                                        <h6> { project.projectName } </h6>
                                     </ListLink>
 
                                     <DetailRow className="listItem">
@@ -106,13 +106,13 @@ export default function UserProfile() {
                 }
             </DefaultContainer>
             <DefaultContainer>
-                {(blogs && blogs.length > 0) &&
+                { ( blogs && blogs.length > 0 ) &&
                     <>
                         <SubHeader>
                             User blogs
                         </SubHeader>
                         <UnsortedList>
-                            {blogs.map((blog, index) => (
+                            { blogs.map((blog, index) => (
                                 <TaskListItem key={ index }>
                                     <NavLink to={ `/blogs/${ blog.blogId }` }><h6> { blog.blogName }  </h6>
                                     </NavLink>

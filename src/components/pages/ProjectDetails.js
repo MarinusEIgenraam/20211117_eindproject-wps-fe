@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import axios from "axios";
 ////////////////////
 //// Environmental
-import { ButtonRow, CommentAddWindow, DetailRow, PageContainer } from "../../styles/Layout";
+import { ButtonRow, CommentAddWindow, DetailRow, Divider, PageContainer } from "../../styles/Layout";
 import { UtilityContext } from "../../context/UtilityProvider";
 import { useParams } from "react-router-dom";
 import { ButtonBox, FormWindow } from "../../styles/Form";
@@ -23,8 +23,7 @@ import {
     ProjectMain,
     SecondaryInfo,
     SubHeader,
-    User,
-    Votes
+    User
 } from "../../styles/Typography";
 import RectangleButton from "../shared/elements/clickables/RectangleButton";
 import { Table, TableRow } from "../../styles/Table";
@@ -34,7 +33,13 @@ import { AuthContext } from "../../context/AuthProvider";
 import { HeartIcon } from "../../styles/Icons";
 import { projectVote } from "../../services/controllers/Votes";
 import ProjectCreate from "../feature/Projects/ProjectCreate";
+import { pluralize } from "../../services/helpers/text";
 
+const PLURALS = {
+    person: 'people',
+    has: 'have'
+};
+const autoPluralize = pluralize(PLURALS);
 
 export default function Project() {
     const source = axios.CancelToken.source();
@@ -54,13 +59,13 @@ export default function Project() {
         setLoadCount(loadCount + 6)
     }
 
-    async function handleVote(voteType) {
+    function handleVote(voteType) {
 
         const newVote = {
             voteType: voteType,
             projectId: id
         }
-        await projectVote(utilityContext, newVote)
+        return projectVote(utilityContext, newVote)
     }
 
 
@@ -83,7 +88,7 @@ export default function Project() {
 
     return (
         <PageContainer>
-            { ( loadedProject && ( ( loadedProject.projectOwner.username === user.username )) ) &&
+            { ( loadedProject && ( ( loadedProject?.projectOwner.username === user?.username ) ) ) &&
                 <>
                     <ButtonRow className="header-button">
 
@@ -91,7 +96,7 @@ export default function Project() {
                             type="submit"
                             buttonSize="btn--large"
                             buttonStyle="btn--quinary--solid"
-                            onClick={()=> setEditProject(true)}
+                            onClick={ () => setEditProject(true) }
                         >
                             Edit project
                         </RectangleButton>
@@ -112,16 +117,23 @@ export default function Project() {
                                 <Title>
                                     { loadedProject.projectName }
                                 </Title>
-                                <ProjectDescription>
-                                    { loadedProject.description }
-                                </ProjectDescription>
+                                <div>
+
+
+                                    <ProjectDescription>
+                                        { loadedProject.description }
+                                    </ProjectDescription>
+                                    <Divider className="no-margin"/>
+                                    { loadedProject.voteCount } { autoPluralize(loadedProject.voteCount, "person") } { autoPluralize(loadedProject.voteCount, "has") } liked
+                                    this project
+                                </div>
 
                             </DetailContainer>
                             <Image className="with-margin" src={ loadedProject.imageUrl }/>
                         </ProjectMain>
                         <DetailRow className="users">
                             <PrimaryInfo>
-                                <Owner>Project owner: { loadedProject?.projectOwner.username }</Owner>
+                                <Owner>{ loadedProject?.projectOwner.username }</Owner>
                                 { loadedProject?.collaborators.map((user, index) => (
                                     <User className="on" key={ index }>{ user.username } </User>
                                 )) }
@@ -132,23 +144,28 @@ export default function Project() {
                             </SecondaryInfo>
                         </DetailRow>
                         <ButtonBox className="liked">
-                            <HeartIcon>
-                                <div>
-                                    <IoIosHeart
-                                        onClick={ () => handleVote("UPVOTE") }
-                                        size={ 30 }
-                                    />
-                                </div>
-                            </HeartIcon>
-                            <Votes>{ loadedProject.voteCount }</Votes>
-                            <HeartIcon>
-                                <div>
-                                    <IoIosHeartDislike
-                                        onClick={ () => handleVote("DOWNVOTE") }
-                                        size={ 30 }
-                                    />
-                                </div>
-                            </HeartIcon>
+                            { user &&
+                                <HeartIcon>
+                                    <div>
+                                        <IoIosHeart
+                                            onClick={ () => handleVote("UPVOTE") }
+                                            size={ 30 }
+                                        />
+                                    </div>
+                                </HeartIcon>
+                            }
+
+                            { user &&
+                                <HeartIcon>
+                                    <div>
+                                        <IoIosHeartDislike
+                                            onClick={ () => handleVote("DOWNVOTE") }
+                                            size={ 30 }
+                                        />
+                                    </div>
+                                </HeartIcon>
+                            }
+
                         </ButtonBox>
                     </FormWindow>
 

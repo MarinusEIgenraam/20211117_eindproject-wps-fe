@@ -118,8 +118,6 @@ export default function Fields({ control, register, errors }) {
                         </FormField>
 
 
-
-
                     </FormInputWrap>
                 );
             }) }
@@ -136,8 +134,7 @@ const FormField = styled.section`
       "taskOwner"
       "deadline"
       "description"
-  "buttons"
-;
+  "buttons";
   @media ${ QUERIES.tablet } {
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;

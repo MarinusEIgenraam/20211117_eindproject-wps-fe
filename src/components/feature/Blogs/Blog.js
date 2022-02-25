@@ -6,8 +6,8 @@ import React, { useState } from 'react'
 import { Date, Header, Owner, PrimaryInfo, SecondaryInfo } from "../../../styles/Typography";
 import { BlogImage } from "../../../styles/Images";
 import { BlogContainer, DetailRow } from "../../../styles/Layout";
-import { LinkRow, LinkHeader } from "../../../styles/Navigation";
-import { AiFillCloseCircle, BsArrowRightCircleFill } from "react-icons/all";
+import { LinkHeader, LinkRow } from "../../../styles/Navigation";
+import { BsArrowRightCircleFill } from "react-icons/all";
 
 export default function Blog({ blog }) {
     const [ showMore, setShowMore ] = useState(false)

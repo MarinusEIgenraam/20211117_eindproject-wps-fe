@@ -132,6 +132,7 @@ const Button = styled.button`
     color: var(--white);
     border: none;
   }
+
   &.btn--tertiary--solid {
     background-color: var(--tertiary);
     color: var(--white);
@@ -143,17 +144,19 @@ const Button = styled.button`
     color: var(--white);
     border: none;
   }
+
   &.btn--senary--solid {
     background-color: var(--senary);
     color: var(--white);
     border: none;
   }
+
   &.btn--quaternary--solid {
     background-color: var(--quaternary);
     color: var(--white);
     border: none;
   }
-  
+
   &.btn--warning--solid {
     background-color: var(--warning);
     color: var(--white);
@@ -204,7 +207,7 @@ const Button = styled.button`
     color: var(--quaternary);
     border: var(--box-border-medium) solid var(--quaternary);
   }
-  
+
   &.btn--warning--outline {
     background-color: transparent;
     color: var(--warning);
